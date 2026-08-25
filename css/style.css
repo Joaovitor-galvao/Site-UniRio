@@ -1078,3 +1078,43 @@ ol {
         height: 80px !important;
     }
 }
+/* ============================================
+   CARDS CLICÁVEIS DA EQUIPE
+   ============================================ */
+
+.card--clickable {
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    border: 2px solid transparent !important;
+}
+
+.card--clickable:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+    border-color: var(--cor-destaque) !important;
+    background: var(--fundo-secundario) !important;
+}
+
+.card--clickable .team-photo {
+    transition: transform 0.3s ease;
+}
+
+.card--clickable:hover .team-photo {
+    transform: scale(1.05);
+}
+
+.card--clickable span:last-child {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.card--clickable:hover span:last-child {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Efeito de clique (feedback visual) */
+.card--clickable:active {
+    transform: scale(0.97) !important;
+}
