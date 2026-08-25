@@ -1017,3 +1017,64 @@ ol {
         padding: 0.6rem 1.2rem;
     }
 }
+/* ============================================
+   EQUIPE - FOTOS E MELHORIAS
+   ============================================ */
+
+/* Efeito hover nas fotos */
+.team-photo {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-photo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Efeito nos cards da equipe */
+.card--team {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card--team:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
+
+/* Badge de especialidade */
+.team-badge {
+    display: inline-block;
+    background: var(--cor-destaque);
+    color: var(--texto-claro);
+    padding: 0.2rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Responsividade das fotos */
+@media (max-width: 768px) {
+    .team-photo {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    .team-photo img {
+        width: 100px !important;
+        height: 100px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-photo {
+        width: 80px !important;
+        height: 80px !important;
+    }
+    
+    .team-photo img {
+        width: 80px !important;
+        height: 80px !important;
+    }
+}

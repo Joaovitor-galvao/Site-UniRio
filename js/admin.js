@@ -56,7 +56,6 @@ function checkSession() {
 // BOTÃO DE ADMIN
 // ============================================
 function addAdminButton() {
-    // Verificar se já existe
     if (document.getElementById('admin-toggle')) return;
     
     const adminBtn = document.createElement('div');
@@ -68,7 +67,7 @@ function addAdminButton() {
     
     adminBtn.addEventListener('click', function() {
         if (isAuthenticated) {
-            openAdminPanel();
+            openAdminPanel(); // Agora redireciona para admin-panel.html
         } else {
             openLoginModal();
         }
@@ -76,7 +75,6 @@ function addAdminButton() {
     
     document.body.appendChild(adminBtn);
 }
-
 // ============================================
 // MODAL DE LOGIN
 // ============================================
@@ -170,77 +168,8 @@ function logout() {
 // PAINEL ADMINISTRATIVO
 // ============================================
 function openAdminPanel() {
-    // Verificar se já existe
-    if (document.getElementById('admin-panel')) {
-        document.getElementById('admin-panel').style.display = 'block';
-        return;
-    }
-    
-    const panel = document.createElement('div');
-    panel.className = 'modal-overlay';
-    panel.id = 'admin-panel';
-    
-    panel.innerHTML = `
-        <div class="modal-content admin-panel" role="dialog" aria-labelledby="admin-title">
-            <button class="modal-close" onclick="closeModal('admin-panel')" aria-label="Fechar">✕</button>
-            <h2 id="admin-title">👑 Painel Administrativo</h2>
-            <p>Bem-vindo, <strong>${currentUser.name}</strong>!</p>
-            <hr>
-            
-            <div class="admin-grid">
-                <div class="admin-card" onclick="editSection('hero')">
-                    <span>🎨</span>
-                    <h3>Editar Hero</h3>
-                    <p>Alterar título, subtítulo e botão</p>
-                </div>
-                <div class="admin-card" onclick="editSection('apresentacao')">
-                    <span>📝</span>
-                    <h3>Editar Apresentação</h3>
-                    <p>Texto de apresentação do projeto</p>
-                </div>
-                <div class="admin-card" onclick="editSection('objetivos')">
-                    <span>🎯</span>
-                    <h3>Editar Objetivos</h3>
-                    <p>Lista de objetivos do projeto</p>
-                </div>
-                <div class="admin-card" onclick="editSection('equipe')">
-                    <span>👥</span>
-                    <h3>Editar Equipe</h3>
-                    <p>Adicionar/remover membros da equipe</p>
-                </div>
-                <div class="admin-card" onclick="editSection('eventos')">
-                    <span>📅</span>
-                    <h3>Editar Eventos</h3>
-                    <p>Gerenciar eventos e atividades</p>
-                </div>
-                <div class="admin-card" onclick="editSection('noticias')">
-                    <span>📰</span>
-                    <h3>Editar Notícias</h3>
-                    <p>Gerenciar notícias do portal</p>
-                </div>
-                <div class="admin-card" onclick="editSection('cards')">
-                    <span>🃏</span>
-                    <h3>Editar Cards</h3>
-                    <p>Gerenciar cards de destaque</p>
-                </div>
-                <div class="admin-card" onclick="editSection('footer')">
-                    <span>📌</span>
-                    <h3>Editar Rodapé</h3>
-                    <p>Informações de contato e links</p>
-                </div>
-                <div class="admin-card admin-card-danger" onclick="confirmReset()">
-                    <span>⚠️</span>
-                    <h3>Resetar Conteúdo</h3>
-                    <p>Restaurar conteúdo padrão</p>
-                </div>
-            </div>
-            
-            <hr>
-            <button class="btn btn--primary" onclick="logout()" style="background: #c0392b;">🚪 Sair</button>
-        </div>
-    `;
-    
-    document.body.appendChild(panel);
+    // Redirecionar para a página administrativa dedicada
+    window.location.href = 'admin-panel.html';
 }
 
 // ============================================
