@@ -1,80 +1,528 @@
-<main id="main-content" class="main" role="main">
-    <section class="section" aria-labelledby="flashcards-title">
-        <div class="container">
-            <h1 id="flashcards-title" class="section-title">Flashcards Educativos</h1>
-            <p style="font-size:1.1rem; margin-bottom:2rem;">O que pode e o que <strong>NÃO</strong> pode ser prometido por cada cargo político.</p>
-            
-            <div class="grid-3" style="margin-top:2rem;">
-                <div class="card" style="background:var(--cor-secundaria); color:var(--texto-claro);">
-                    <h3 style="color:var(--texto-claro);">👤 Presidente</h3>
-                    <div style="margin-top:1rem;">
-                        <p><strong>✅ PODE prometer:</strong></p>
-                        <ul style="list-style:disc; padding-left:1.2rem;">
-                            <li>Políticas públicas nacionais</li>
-                            <li>Projetos de lei</li>
-                            <li>Programas sociais</li>
-                            <li>Infraestrutura nacional</li>
-                        </ul>
-                    </div>
-                    <div style="margin-top:1rem;">
-                        <p><strong>❌ NÃO PODE prometer:</strong></p>
-                        <ul style="list-style:disc; padding-left:1.2rem;">
-                            <li>Fechar o Congresso</li>
-                            <li>Governar por decreto</li>
-                            <li>Obras em estados específicos</li>
-                            <li>Benefícios individuais</li>
-                        </ul>
-                    </div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flashcards — Voto Consciente UNIRIO</title>
+    <meta name="description" content="Aprenda o que pode e o que não pode ser prometido por cada cargo político." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>" />
+    <style>
+        .flash-hero {
+            background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
+            padding: 3rem 0;
+            color: var(--texto-claro);
+        }
+        .flash-hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
+        .flash-hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        .flash-container { max-width: 1000px; margin: 0 auto; }
+
+        /* ===== FILTROS ===== */
+        .filtros {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .filtros .btn-filtro {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--cor-destaque);
+            background: transparent;
+            color: var(--cor-destaque);
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .filtros .btn-filtro:hover {
+            background: var(--cor-destaque);
+            color: var(--texto-claro);
+        }
+        .filtros .btn-filtro.active {
+            background: var(--cor-destaque);
+            color: var(--texto-claro);
+        }
+
+        /* ===== FLASHCARDS ===== */
+        .flash-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .flash-card {
+            perspective: 1000px;
+            height: 320px;
+            cursor: pointer;
+        }
+        .flash-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flash-card.flipped .flash-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flash-front, .flash-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        .flash-front {
+            background: var(--fundo-secundario);
+            border: 2px solid var(--cor-suporte);
+        }
+        .flash-front .cargo-icon { font-size: 3rem; }
+        .flash-front .cargo-nome { font-size: 1.3rem; font-weight: 700; color: var(--cor-secundaria); margin: 0.3rem 0; }
+        .flash-front .cargo-tag {
+            display: inline-block;
+            background: var(--cor-destaque);
+            color: var(--texto-claro);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .flash-front .virar-dica {
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .flash-back {
+            transform: rotateY(180deg);
+            background: var(--cor-secundaria);
+            color: var(--texto-claro);
+            overflow-y: auto;
+        }
+        .flash-back .back-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--cor-suporte);
+        }
+        .flash-back .back-content {
+            text-align: left;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        .flash-back .back-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.3rem 0;
+        }
+        .flash-back .back-content ul li {
+            padding: 0.2rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .flash-back .back-content .pode { color: #8bc34a; }
+        .flash-back .back-content .nao-pode { color: #ef5350; }
+        .flash-back .virar-dica-back {
+            margin-top: 0.5rem;
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        /* ===== CORES POR CARGO ===== */
+        .flash-card.presidente .flash-back { background: #1a237e; }
+        .flash-card.senador .flash-back { background: #1b5e20; }
+        .flash-card.deputado .flash-back { background: #4a148c; }
+
+        /* ===== CONTADOR ===== */
+        .flash-counter {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .flash-counter strong { color: var(--cor-destaque); }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 992px) {
+            .flash-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .flash-hero h1 { font-size: 2rem; }
+            .flash-grid { grid-template-columns: 1fr; }
+            .flash-card { height: 280px; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" role="banner">
+        <div class="top-bar">
+            <div class="container top-bar__inner">
+                <div class="top-bar__access">
+                    <button class="access-btn" id="high-contrast">Alto contraste</button>
+                    <button class="access-btn" id="font-inc">A+</button>
+                    <button class="access-btn" id="font-dec">A-</button>
                 </div>
-                
-                <div class="card" style="background:var(--cor-destaque); color:var(--texto-claro);">
-                    <h3 style="color:var(--texto-claro);">🏛️ Senador</h3>
-                    <div style="margin-top:1rem;">
-                        <p><strong>✅ PODE prometer:</strong></p>
-                        <ul style="list-style:disc; padding-left:1.2rem;">
-                            <li>Projetos de lei nacionais</li>
-                            <li>Fiscalização do Executivo</li>
-                            <li>Defesa do estado que representa</li>
-                            <li>Políticas regionais</li>
-                        </ul>
-                    </div>
-                    <div style="margin-top:1rem;">
-                        <p><strong>❌ NÃO PODE prometer:</strong></p>
-                        <ul style="list-style:disc; padding-left:1.2rem;">
-                            <li>Governar estados</li>
-                            <li>Dar ordens ao Presidente</li>
-                            <li>Obras municipais</li>
-                            <li>Benefícios pessoais</li>
-                        </ul>
-                    </div>
+                <div class="top-bar__links">
+                    <a href="#">Ouvidoria</a>
+                    <a href="contato.html">Fale conosco</a>
                 </div>
-                
-                <div class="card" style="background:var(--cor-marrom); color:var(--texto-claro);">
-                    <h3 style="color:var(--texto-claro);">📜 Deputado Federal</h3>
-                    <div style="margin-top:1rem;">
-                        <p><strong>✅ PODE prometer:</strong></p>
-                        <ul style="list-style:disc; padding-left:1.2rem;">
-                            <li>Projetos de lei</li>
-                            <li>Fiscalização do Executivo</li>
-                            <li>Emendas ao orçamento</li>
-                            <li>Políticas para sua base</li>
-                        </ul>
-                    </div>
-                    <div style="margin-top:1rem;">
-                        <p><strong>❌ NÃO PODE prometer:</strong></p>
-                        <ul style="list-style:disc; padding-left:1.2rem;">
-                            <li>Administrar cidades</li>
-                            <li>Decretar estado de sítio</li>
-                            <li>Leis inconstitucionais</li>
-                            <li>Benefícios exclusivos</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="margin-top:3rem; padding:1.5rem; background:var(--fundo); border-radius:1rem; text-align:center;">
-                <p style="font-size:1.1rem;">💡 <strong>Lembre-se:</strong> Um bom candidato promete o que está dentro de suas atribuições!</p>
             </div>
         </div>
-    </section>
-</main>
+        <div class="main-header">
+            <div class="container main-header__inner">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo__icon">🗳️</span>
+                        <span class="logo__text"><strong>VOTO CONSCIENTE</strong><small>— UNIRIO</small></span>
+                    </a>
+                </div>
+                <div class="header-search">
+                    <form action="#">
+                        <label for="search-input" class="visually-hidden">Pesquisar</label>
+                        <input type="search" id="search-input" placeholder="O que você busca?" />
+                        <button type="submit">🔍</button>
+                    </form>
+                </div>
+                <div class="header-social">
+                    <a href="#">📷</a><a href="#">▶️</a><a href="#">🐦</a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <div class="container">
+                <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
+                <ul id="primary-menu" class="nav-list">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li class="has-dropdown">
+                        <a href="eleicoes-2026.html">Eleições 2026 ▾</a>
+                        <ul class="dropdown">
+                            <li><a href="presidente.html">Presidente</a></li>
+                            <li><a href="senador.html">Senador</a></li>
+                            <li><a href="deputado-federal.html">Deputado Federal</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="informacoes.html">Informações</a></li>
+                    <li class="has-dropdown">
+                        <a href="conteudo-interativo.html">Conteúdo Interativo ▾</a>
+                        <ul class="dropdown">
+                            <li><a href="quiz.html">Quiz</a></li>
+                            <li><a href="simulador.html">Simulador</a></li>
+                            <li><a href="voce-e-o-senador.html">Você é o Senador</a></li>
+                            <li><a href="flashcards.html" class="active">Flashcards</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="referencias.html">Referências</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main id="main-content" class="main">
+
+        <!-- ===== HERO ===== -->
+        <section class="flash-hero">
+            <div class="container">
+                <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+                    <div style="flex:1;">
+                        <h1>🃏 Flashcards Educativos</h1>
+                        <p>O que pode e o que NÃO pode ser prometido por cada cargo</p>
+                        <p style="font-size:1rem; opacity:0.8;">Clique em cada card para virar e aprender!</p>
+                    </div>
+                    <div style="font-size:5rem; text-align:center; flex:0 0 auto;">📚</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FLASHCARDS ===== -->
+        <section class="section">
+            <div class="container flash-container">
+
+                <!-- Filtros -->
+                <div class="filtros">
+                    <button class="btn-filtro active" data-filtro="todos" onclick="filtrarFlashcards('todos', this)">📋 Todos</button>
+                    <button class="btn-filtro" data-filtro="presidente" onclick="filtrarFlashcards('presidente', this)">👤 Presidente</button>
+                    <button class="btn-filtro" data-filtro="senador" onclick="filtrarFlashcards('senador', this)">🏛️ Senador</button>
+                    <button class="btn-filtro" data-filtro="deputado" onclick="filtrarFlashcards('deputado', this)">📜 Deputado Federal</button>
+                </div>
+
+                <!-- Contador -->
+                <div class="flash-counter">
+                    Mostrando <strong id="flash-count">9</strong> flashcards
+                </div>
+
+                <!-- Grid de Flashcards -->
+                <div class="flash-grid" id="flash-grid">
+                    <!-- Os flashcards serão gerados pelo JavaScript -->
+                </div>
+
+                <!-- Botão Voltar -->
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="conteudo-interativo.html" class="btn btn--primary">← Voltar para Conteúdo Interativo</a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div class="footer__col">
+                <h3>VOTO CONSCIENTE</h3>
+                <p>Projeto de Pesquisa e Extensão</p>
+                <p>Escola de Ciência Política</p>
+                <p>UNIRIO</p>
+            </div>
+            <div class="footer__col">
+                <h4>Links úteis</h4>
+                <ul>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>Contato</h4>
+                <p>votoconsciente@unirio.br</p>
+                <p>(21) 99999-9999</p>
+            </div>
+            <div class="footer__col">
+                <h4>Mapa do site</h4>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="conteudo-interativo.html">Interativo</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="container"><p>&copy; 2026 Voto Consciente — UNIRIO</p></div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        // ============================================
+        // FLASHCARDS - DADOS E LÓGICA
+        // ============================================
+
+        const flashcardsData = [
+            // ===== PRESIDENTE =====
+            {
+                id: 'presidente-1',
+                cargo: 'presidente',
+                icone: '👤',
+                nome: 'Presidente da República',
+                pode: [
+                    'Políticas públicas nacionais',
+                    'Programas sociais',
+                    'Infraestrutura nacional',
+                    'Projetos de lei',
+                    'Representar o país no exterior'
+                ],
+                naoPode: [
+                    'Fechar o Congresso',
+                    'Governar por decreto',
+                    'Obras em estados específicos',
+                    'Benefícios individuais',
+                    'Interferir no Judiciário'
+                ]
+            },
+            {
+                id: 'presidente-2',
+                cargo: 'presidente',
+                icone: '👤',
+                nome: 'Presidente da República',
+                pode: [
+                    'Nomear ministros de Estado',
+                    'Vetar ou sancionar leis',
+                    'Declarar estado de defesa (com autorização)',
+                    'Propor o orçamento federal'
+                ],
+                naoPode: [
+                    'Conceder benefícios pessoais',
+                    'Decretar estado de sítio sem aprovação',
+                    'Governar sem o Legislativo',
+                    'Ignorar a Constituição'
+                ]
+            },
+            // ===== SENADOR =====
+            {
+                id: 'senador-1',
+                cargo: 'senador',
+                icone: '🏛️',
+                nome: 'Senador da República',
+                pode: [
+                    'Propor leis nacionais',
+                    'Fiscalizar o Executivo',
+                    'Aprovar ministros do STF',
+                    'Representar o estado no Senado'
+                ],
+                naoPode: [
+                    'Governar estados',
+                    'Dar ordens ao Presidente',
+                    'Obras municipais',
+                    'Benefícios pessoais'
+                ]
+            },
+            {
+                id: 'senador-2',
+                cargo: 'senador',
+                icone: '🏛️',
+                nome: 'Senador da República',
+                pode: [
+                    'Convocar ministros para esclarecimentos',
+                    'Criar CPIs',
+                    'Analisar contas do governo',
+                    'Aprovar o orçamento'
+                ],
+                naoPode: [
+                    'Administrar cidades',
+                    'Interferir no Judiciário',
+                    'Decretar leis sem votação',
+                    'Usar o cargo para benefício próprio'
+                ]
+            },
+            // ===== DEPUTADO FEDERAL =====
+            {
+                id: 'deputado-1',
+                cargo: 'deputado',
+                icone: '📜',
+                nome: 'Deputado Federal',
+                pode: [
+                    'Criar leis nacionais',
+                    'Fiscalizar o Executivo',
+                    'Votar o orçamento da União',
+                    'Representar o povo no Congresso'
+                ],
+                naoPode: [
+                    'Administrar cidades',
+                    'Decretar estado de sítio',
+                    'Fazer leis inconstitucionais',
+                    'Benefícios exclusivos'
+                ]
+            },
+            {
+                id: 'deputado-2',
+                cargo: 'deputado',
+                icone: '📜',
+                nome: 'Deputado Federal',
+                pode: [
+                    'Propor emendas ao orçamento',
+                    'Criar comissões parlamentares',
+                    'Fiscalizar programas do governo',
+                    'Sugerir políticas públicas'
+                ],
+                naoPode: [
+                    'Governar estados ou cidades',
+                    'Nomear ministros',
+                    'Ignorar a Constituição',
+                    'Benefícios individuais'
+                ]
+            },
+            {
+                id: 'deputado-3',
+                cargo: 'deputado',
+                icone: '📜',
+                nome: 'Deputado Federal',
+                pode: [
+                    'Propor PECs (Emendas Constitucionais)',
+                    'Fiscalizar o uso do dinheiro público',
+                    'Defender a população em suas demandas',
+                    'Votar leis de interesse nacional'
+                ],
+                naoPode: [
+                    'Decretar leis sem aprovação',
+                    'Interferir no Judiciário',
+                    'Garantir benefícios pessoais',
+                    'Governar por decreto'
+                ]
+            }
+        ];
+
+        let flashFiltro = 'todos';
+
+        function renderizarFlashcards(filtro = 'todos') {
+            const grid = document.getElementById('flash-grid');
+            const filtered = filtro === 'todos' ? flashcardsData : flashcardsData.filter(f => f.cargo === filtro);
+
+            grid.innerHTML = '';
+            filtered.forEach((data, index) => {
+                const card = document.createElement('div');
+                card.className = `flash-card ${data.cargo}`;
+                card.dataset.cargo = data.cargo;
+                card.id = `flash-${data.id}`;
+                card.innerHTML = `
+                    <div class="flash-card-inner" onclick="virarFlashcard('flash-${data.id}')">
+                        <div class="flash-front">
+                            <span class="cargo-icon">${data.icone}</span>
+                            <span class="cargo-nome">${data.nome}</span>
+                            <span class="cargo-tag">Clique para virar</span>
+                            <span class="virar-dica">🔄 Clique para ver o que pode e não pode</span>
+                        </div>
+                        <div class="flash-back">
+                            <div class="back-title">${data.icone} ${data.nome}</div>
+                            <div class="back-content">
+                                <p style="color:#8bc34a; font-weight:700;">✅ PODE prometer:</p>
+                                <ul>
+                                    ${data.pode.map(item => `<li><span class="pode">✅</span> ${item}</li>`).join('')}
+                                </ul>
+                                <p style="color:#ef5350; font-weight:700; margin-top:0.5rem;">❌ NÃO PODE prometer:</p>
+                                <ul>
+                                    ${data.naoPode.map(item => `<li><span class="nao-pode">❌</span> ${item}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <span class="virar-dica-back">🔄 Clique para voltar</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Atualizar contador
+            document.getElementById('flash-count').textContent = filtered.length;
+        }
+
+        function virarFlashcard(id) {
+            const card = document.getElementById(id);
+            if (card) {
+                card.classList.toggle('flipped');
+            }
+        }
+
+        function filtrarFlashcards(filtro, btn) {
+            flashFiltro = filtro;
+            renderizarFlashcards(filtro);
+
+            // Atualizar botões ativos
+            document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            renderizarFlashcards('todos');
+        });
+    </script>
+</body>
+</html>
