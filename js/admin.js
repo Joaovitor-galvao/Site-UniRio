@@ -1,5 +1,5 @@
 // ============================================
-// ADMIN - SISTEMA DE ADMINISTRAÇÃO
+// ADMIN - SISTEMA DE ADMINISTRAÇÃO COMPLETO
 // CON(S)CIÊNCIA POLÍTICA - UNIRIO
 // ============================================
 
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initInteractiveButtons();
     if (isAuthenticated) {
         enableEditing();
+        addEditButtons();
     }
 });
 
@@ -121,9 +122,10 @@ function handleLogin(event) {
         }
         
         closeModal('login-modal');
-        mostrarNotificacaoAcessibilidade('✅ Bem-vindo, ' + MASTER_USER.name + '! Modo de edição ativado.');
+        showNotification('✅ Bem-vindo, ' + MASTER_USER.name + '! Modo de edição ativado.');
         
         enableEditing();
+        addEditButtons();
         setTimeout(() => openAdminPanel(), 500);
     } else {
         document.getElementById('login-error').style.display = 'block';
@@ -145,7 +147,8 @@ function logout() {
     }
     
     disableEditing();
-    mostrarNotificacaoAcessibilidade('🔓 Logout realizado com sucesso.');
+    removeEditButtons();
+    showNotification('🔓 Logout realizado com sucesso.');
 }
 
 // ============================================
@@ -178,10 +181,153 @@ function disableEditing() {
 }
 
 // ============================================
+// BOTÕES DE EDIÇÃO RÁPIDA
+// ============================================
+function addEditButtons() {
+    if (!isAuthenticated) return;
+    
+    document.querySelectorAll('.section, .hero, .card').forEach(el => {
+        // Verificar se já tem botão
+        if (el.querySelector('.edit-float-btn')) return;
+        
+        const btn = document.createElement('button');
+        btn.className = 'edit-float-btn';
+        btn.innerHTML = '✏️';
+        btn.title = 'Editar esta seção';
+        btn.style.cssText = `
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--cor-destaque);
+            color: var(--texto-claro);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        `;
+        
+        if (!el.style.position || el.style.position === 'static') {
+            el.style.position = 'relative';
+        }
+        el.appendChild(btn);
+        
+        el.addEventListener('mouseenter', () => btn.style.opacity = '1');
+        el.addEventListener('mouseleave', () => btn.style.opacity = '0');
+        
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = el.id || 'conteudo';
+            editSection(id);
+        });
+    });
+}
+
+function removeEditButtons() {
+    document.querySelectorAll('.edit-float-btn').forEach(el => el.remove());
+}
+
+// ============================================
+// EDITAR SEÇÃO - FUNÇÃO COMPLETA
+// ============================================
+function editSection(sectionId) {
+    const existing = document.getElementById('edit-modal');
+    if (existing) existing.remove();
+
+    const savedContent = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+    let currentContent = savedContent[sectionId] || getContentFromDOM(sectionId) || '';
+
+    const configs = {
+        'hero': { title: '🎨 Editar Hero', label: 'Texto do Hero (use <br> para quebras)', placeholder: 'Digite o título e subtítulo...' },
+        'apresentacao': { title: '📝 Editar Apresentação', label: 'Texto de apresentação', placeholder: 'Digite o texto de apresentação...' },
+        'objetivos': { title: '🎯 Editar Objetivos', label: 'Lista de objetivos (um por linha)', placeholder: 'Objetivo 1\nObjetivo 2' },
+        'equipe': { title: '👥 Editar Equipe', label: 'Membros (Nome - Cargo)', placeholder: 'Ana Silva - Coordenadora' },
+        'eventos': { title: '📅 Editar Eventos', label: 'Eventos (Nome - Data - Local)', placeholder: 'Oficina - 15/04/2026 - UNIRIO' },
+        'noticias': { title: '📰 Editar Notícias', label: 'Notícias (Título - Data - Descrição)', placeholder: 'Lançamento - 01/03/2026 - Descrição' },
+        'cards': { title: '🃏 Editar Cards', label: 'Cards (Título - Descrição - Link)', placeholder: 'Eleições - Entenda - eleicoes-2026.html' },
+        'footer': { title: '📌 Editar Rodapé', label: 'Texto do rodapé', placeholder: 'Digite o texto do rodapé...' },
+        'candidatos': { title: '🗳️ Editar Candidatos', label: 'Candidatos (Nome - Partido - Número)', placeholder: 'Candidato A - PT - 13' }
+    };
+
+    const config = configs[sectionId] || { title: '✏️ Editar', label: 'Conteúdo', placeholder: 'Digite...' };
+
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.id = 'edit-modal';
+    modal.innerHTML = `
+        <div class="modal-content edit-modal" role="dialog">
+            <button class="modal-close" onclick="closeEditModal()">✕</button>
+            <h2>${config.title}</h2>
+            <div class="form-group">
+                <label for="edit-content">${config.label}</label>
+                <textarea id="edit-content" placeholder="${config.placeholder}">${currentContent}</textarea>
+            </div>
+            <div class="form-actions" style="display:flex; gap:1rem; margin-top:1rem;">
+                <button class="btn btn--primary" onclick="saveEdit('${sectionId}')">💾 Salvar</button>
+                <button class="btn btn-cancel" onclick="closeEditModal()" style="background:#e0d6c8; color:var(--texto); border:none; padding:0.7rem 1.5rem; border-radius:2rem; cursor:pointer;">Cancelar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('edit-content').focus();
+}
+
+function getContentFromDOM(sectionId) {
+    const content = {
+        'hero': () => {
+            const h1 = document.querySelector('.hero__title');
+            const p = document.querySelector('.hero__subtitle');
+            return h1 ? h1.textContent + '\n' + (p ? p.textContent : '') : '';
+        },
+        'apresentacao': () => {
+            const p = document.querySelector('.section:first-of-type .grid-2 p');
+            return p ? p.textContent : '';
+        }
+    };
+    return content[sectionId] ? content[sectionId]() : '';
+}
+
+function saveEdit(sectionId) {
+    const content = document.getElementById('edit-content').value;
+    const savedContent = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+    savedContent[sectionId] = content;
+    localStorage.setItem('votoConscienteContent', JSON.stringify(savedContent));
+    updateStats();
+    showNotification('✅ Conteúdo salvo com sucesso!', 'success');
+    closeEditModal();
+}
+
+function closeEditModal() {
+    const modal = document.getElementById('edit-modal');
+    if (modal) modal.remove();
+}
+
+function updateStats() {
+    const content = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+    const stat = document.getElementById('stat-edits');
+    if (stat) stat.textContent = Object.keys(content).length;
+}
+
+function confirmReset() {
+    if (confirm('⚠️ Tem certeza que deseja restaurar o conteúdo padrão?')) {
+        if (confirm('🔄 Confirme novamente: resetar tudo?')) {
+            localStorage.removeItem('votoConscienteContent');
+            updateStats();
+            showNotification('🔄 Conteúdo restaurado para o padrão.', 'warning');
+            setTimeout(() => location.reload(), 2000);
+        }
+    }
+}
+
+// ============================================
 // BOTÕES INTERATIVOS
 // ============================================
 function initInteractiveButtons() {
-    // Botão "Saiba Mais"
     const saibaMaisBtn = document.querySelector('.hero .btn--primary');
     if (saibaMaisBtn) {
         saibaMaisBtn.addEventListener('click', function(e) {
@@ -190,7 +336,6 @@ function initInteractiveButtons() {
         });
     }
     
-    // Cards de destaque
     document.querySelectorAll('.card--link').forEach(card => {
         card.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -199,18 +344,8 @@ function initInteractiveButtons() {
             }
             e.preventDefault();
             const title = this.querySelector('h3')?.textContent || 'Página';
-            mostrarNotificacaoAcessibilidade(`🔜 Página "${title}" em desenvolvimento`);
+            showNotification(`🔜 Página "${title}" em desenvolvimento`);
         });
-    });
-    
-    // Links do menu
-    document.querySelectorAll('.nav-list a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && !href.startsWith('http') && !href.endsWith('.html')) {
-            if (!href.includes('.')) {
-                link.setAttribute('href', href + '.html');
-            }
-        }
     });
 }
 
@@ -224,17 +359,16 @@ function closeModal(id) {
     }
 }
 
-function mostrarNotificacaoAcessibilidade(message) {
+function showNotification(message, type = 'info') {
     document.querySelectorAll('.admin-notification').forEach(el => el.remove());
-    
+    const colors = { success: '#27ae60', warning: '#f39c12', error: '#e74c3c', info: 'var(--cor-destaque)' };
     const notification = document.createElement('div');
     notification.className = 'admin-notification';
     notification.textContent = message;
+    notification.style.background = colors[type] || 'var(--cor-principal)';
     document.body.appendChild(notification);
-    
     setTimeout(() => notification.classList.add('show'), 100);
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, 4000);
-}
+    setTimeout(() => { notification.classList.remove('show'); setTimeout(() => notification.remove(), 300); }, 4000);
+}git add js/admin.js
+git commit -m "Atualiza admin.js com edição de todas as seções e botões flutuantes"
+git push
