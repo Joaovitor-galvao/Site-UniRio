@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre — CON(S)CIÊNCIA POLÍTICA</title>
+    <meta name="description" content="Conheça o projeto CON(S)CIÊNCIA POLÍTICA da UNIRIO: apresentação, objetivos, metodologia e impactos." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
+    <style>
+        .sobre-hero {
+            background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
+            padding: 3.5rem 0;
+            color: var(--texto-claro);
+            position: relative;
+            overflow: hidden;
+        }
+        .sobre-hero::after {
+            content: '📖';
+            position: absolute;
+            right: -30px;
+            top: -30px;
+            font-size: 18rem;
+            opacity: 0.05;
+        }
+        .sobre-hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
+        .sobre-hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .sobre-card {
+            background: var(--fundo-secundario);
+            padding: 2rem;
+            border-radius: 1rem;
+            border-left: 4px solid var(--cor-destaque);
+            box-shadow: 0 4px 16px rgba(44, 30, 31, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .sobre-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(44, 30, 31, 0.1);
+        }
+        .sobre-card .icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+        .sobre-card h3 { color: var(--cor-secundaria); font-family: var(--font-titulo); margin-bottom: 0.5rem; }
+        .sobre-card p, .sobre-card li { color: #444; line-height: 1.7; }
+        .sobre-card ul { list-style: none; padding: 0; }
+        .sobre-card ul li { padding: 0.3rem 0; display: flex; align-items: flex-start; gap: 0.5rem; }
+        .sobre-card ul li::before { content: '▸'; color: var(--cor-destaque); font-weight: 700; }
+
+        .missao-visao {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .missao-visao .item {
+            background: var(--fundo);
+            padding: 2rem 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 2px solid var(--cor-suporte);
+            transition: all 0.3s;
+        }
+        .missao-visao .item:hover {
+            border-color: var(--cor-destaque);
+            transform: translateY(-4px);
+        }
+        .missao-visao .item .icon { font-size: 2.8rem; display: block; }
+        .missao-visao .item h4 { color: var(--cor-secundaria); font-family: var(--font-titulo); margin: 0.5rem 0; }
+        .missao-visao .item p { color: #666; font-size: 0.95rem; }
+
+        .citacao-box {
+            background: var(--cor-suporte);
+            padding: 2rem 2.5rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: var(--font-subtitulo);
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--cor-principal);
+        }
+        .citacao-box .autor {
+            display: block;
+            margin-top: 0.5rem;
+            font-style: normal;
+            font-weight: 600;
+            font-family: var(--font-corpo);
+        }
+
+        .impactos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .impacto-card {
+            background: var(--fundo);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .impacto-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .impacto-card .icon { font-size: 2.5rem; display: block; }
+        .impacto-card h4 { color: var(--cor-secundaria); font-family: var(--font-titulo); margin: 0.3rem 0; }
+        .impacto-card p { color: #666; font-size: 0.95rem; }
+
+        @media (max-width: 992px) {
+            .sobre-grid { grid-template-columns: 1fr; }
+            .missao-visao { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .sobre-hero h1 { font-size: 2rem; }
+            .missao-visao { grid-template-columns: 1fr; }
+            .impactos-grid { grid-template-columns: 1fr; }
+            .citacao-box { padding: 1.5rem; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" role="banner">
+        <div class="top-bar">
+            <div class="container top-bar__inner">
+                <div class="top-bar__access">
+                    <button class="access-btn" id="high-contrast">Alto contraste</button>
+                    <button class="access-btn" id="font-inc">A+</button>
+                    <button class="access-btn" id="font-dec">A-</button>
+                </div>
+                <div class="top-bar__links">
+                    <a href="#">Ouvidoria</a>
+                    <a href="contato.html">Fale conosco</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container main-header__inner">
+                <div class="logo">
+                    <a href="index.html" aria-label="Página inicial CON(S)CIÊNCIA POLÍTICA" style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
+                        <div class="logo__monograma">CP</div>
+                        <div class="logo__text">
+                            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
+                            <small>VOTO CONSCIENTE — UNIRIO</small>
+                        </div>
+                    </a>
+                </div>
+                <div class="header-search" role="search">
+                    <form action="#" method="get">
+                        <label for="search-input" class="visually-hidden">Pesquisar</label>
+                        <input type="search" id="search-input" placeholder="O que você busca?" />
+                        <button type="submit" aria-label="Pesquisar">🔍</button>
+                    </form>
+                </div>
+                <div class="header-social">
+                    <a href="#" aria-label="Instagram"><span class="social-icon">📷</span></a>
+                    <a href="#" aria-label="YouTube"><span class="social-icon">▶️</span></a>
+                    <a href="#" aria-label="Twitter"><span class="social-icon">🐦</span></a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Menu principal" role="navigation">
+            <div class="container">
+                <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="primary-menu">
+                    ☰ Menu
+                </button>
+                <ul id="primary-menu" class="nav-list">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html" class="active">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li class="has-dropdown">
+                        <a href="eleicoes-2026.html">Eleições 2026 ▾</a>
+                        <ul class="dropdown">
+                            <li><a href="presidente.html">Presidente</a></li>
+                            <li><a href="senador.html">Senador</a></li>
+                            <li><a href="deputado-federal.html">Deputado Federal</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="informacoes.html">Informações</a></li>
+                    <li class="has-dropdown">
+                        <a href="conteudo-interativo.html">Conteúdo Interativo ▾</a>
+                        <ul class="dropdown">
+                            <li><a href="quiz.html">Quiz</a></li>
+                            <li><a href="simulador.html">Simulador</a></li>
+                            <li><a href="voce-e-o-senador.html">Você é o Senador</a></li>
+                            <li><a href="flashcards.html">Flashcards</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="referencias.html">Referências</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main id="main-content" class="main">
+
+        <!-- ===== HERO ===== -->
+        <section class="sobre-hero">
+            <div class="container">
+                <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+                    <div style="flex:1;">
+                        <h1>📖 Sobre o Projeto</h1>
+                        <p>CON(S)CIÊNCIA POLÍTICA — Voto Consciente</p>
+                        <p style="font-size:1rem; opacity:0.8;">Conheça nossa missão, objetivos e impacto na sociedade.</p>
+                    </div>
+                    <div style="font-size:5rem; text-align:center; flex:0 0 auto;">🏛️</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== APRESENTAÇÃO ===== -->
+        <section class="section">
+            <div class="container">
+                <div class="sobre-grid">
+                    <div class="sobre-card">
+                        <span class="icon">🎯</span>
+                        <h3>Apresentação</h3>
+                        <p>O <strong>CON(S)CIÊNCIA POLÍTICA</strong> é um projeto de pesquisa e extensão da <strong>Universidade Federal do Estado do Rio de Janeiro (UNIRIO)</strong>, vinculado à Escola de Ciência Política.</p>
+                        <p style="margin-top:0.5rem;">Nossa missão é promover a <strong>educação política apartidária</strong>, fortalecendo a democracia por meio da informação clara, acessível e qualificada.</p>
+                        <p style="margin-top:0.5rem;">Acreditamos que o voto é uma ferramenta de transformação social, e que eleitoras e eleitores bem informados constroem uma sociedade mais justa e participativa.</p>
+                    </div>
+                    <div class="sobre-card">
+                        <span class="icon">📋</span>
+                        <h3>Justificativa</h3>
+                        <p>A desinformação política é um dos maiores desafios da democracia brasileira. Muitos eleitores não compreendem plenamente as funções de cada cargo político, o que pode levar a escolhas pouco conscientes.</p>
+                        <p style="margin-top:0.5rem;">O projeto surge para preencher essa lacuna, oferecendo <strong>conteúdo educativo, interativo e acessível</strong> sobre o sistema eleitoral e o papel dos representantes.</p>
+                        <ul style="margin-top:0.5rem;">
+                            <li>Combate à desinformação política</li>
+                            <li>Fortalecimento da cidadania</li>
+                            <li>Promoção da participação democrática</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MISSÃO, VISÃO, VALORES ===== -->
+        <section class="section" style="background: var(--fundo-secundario);">
+            <div class="container">
+                <h2 class="section-title">🎯 Missão, Visão e Valores</h2>
+                <div class="missao-visao">
+                    <div class="item">
+                        <span class="icon">🚀</span>
+                        <h4>Missão</h4>
+                        <p>Promover a educação política apartidária, capacitando cidadãos para o exercício consciente do voto.</p>
+                    </div>
+                    <div class="item">
+                        <span class="icon">🔭</span>
+                        <h4>Visão</h4>
+                        <p>Ser referência nacional em educação política, contribuindo para uma democracia mais participativa e informada.</p>
+                    </div>
+                    <div class="item">
+                        <span class="icon">💎</span>
+                        <h4>Valores</h4>
+                        <p>Transparência, apartidarismo, educação de qualidade, inclusão e compromisso com a democracia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== OBJETIVOS ===== -->
+        <section class="section">
+            <div class="container">
+                <div class="sobre-grid">
+                    <div class="sobre-card">
+                        <span class="icon">📌</span>
+                        <h3>Objetivos Gerais</h3>
+                        <ul>
+                            <li>Promover educação política apartidária</li>
+                            <li>Explicar o funcionamento do sistema eleitoral brasileiro</li>
+                            <li>Auxiliar eleitores na compreensão dos cargos políticos</li>
+                            <li>Incentivar o voto consciente e crítico</li>
+                            <li>Divulgar ações de pesquisa e extensão da UNIRIO</li>
+                            <li>Disponibilizar conteúdos educativos interativos</li>
+                        </ul>
+                    </div>
+                    <div class="sobre-card">
+                        <span class="icon">🎯</span>
+                        <h3>Objetivos Específicos</h3>
+                        <ul>
+                            <li>Criar materiais didáticos sobre o sistema eleitoral</li>
+                            <li>Desenvolver ferramentas interativas (quiz, simulador, jogos)</li>
+                            <li>Realizar eventos e oficinas educativas</li>
+                            <li>Produzir conteúdo digital acessível</li>
+                            <li>Fomentar pesquisas na área de ciência política</li>
+                            <li>Estabelecer parcerias com instituições democráticas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== METODOLOGIA ===== -->
+        <section class="section" style="background: var(--fundo-secundario);">
+            <div class="container">
+                <div class="sobre-grid">
+                    <div class="sobre-card">
+                        <span class="icon">🔬</span>
+                        <h3>Metodologia</h3>
+                        <p>O projeto utiliza uma abordagem <strong>multidisciplinar</strong> que combina:</p>
+                        <ul>
+                            <li>Pesquisa bibliográfica e documental</li>
+                            <li>Análise de dados eleitorais</li>
+                            <li>Produção de materiais didáticos</li>
+                            <li>Desenvolvimento de ferramentas interativas</li>
+                            <li>Realização de eventos e oficinas</li>
+                        </ul>
+                    </div>
+                    <div class="sobre-card">
+                        <span class="icon">👥</span>
+                        <h3>Público-alvo</h3>
+                        <p>O projeto atende:</p>
+                        <ul>
+                            <li><strong>Eleitores</strong> em geral, especialmente jovens e novos eleitores</li>
+                            <li><strong>Estudantes</strong> de ensino médio e superior</li>
+                            <li><strong>Professores</strong> e educadores</li>
+                            <li><strong>Pesquisadores</strong> e acadêmicos</li>
+                            <li><strong>Comunidade</strong> em geral interessada em educação política</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CITAÇÃO ===== -->
+        <section class="section">
+            <div class="container">
+                <div class="citacao-box">
+                    "A democracia não é apenas o direito de votar, mas o dever de se informar para escolher com consciência."
+                    <span class="autor">— Projeto CON(S)CIÊNCIA POLÍTICA — UNIRIO</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== IMPACTOS ===== -->
+        <section class="section" style="background: var(--cor-principal); color: var(--texto-claro);">
+            <div class="container">
+                <h2 class="section-title" style="color: var(--texto-claro); border-left-color: var(--cor-destaque);">🌟 Impactos Esperados</h2>
+                <div class="impactos-grid">
+                    <div class="impacto-card" style="background: rgba(255,255,255,0.05); color: var(--texto-claro);">
+                        <span class="icon">🌱</span>
+                        <h4 style="color: var(--texto-claro);">Impacto Social</h4>
+                        <p>Formação de cidadãos mais críticos e participativos, reduzindo a desinformação e fortalecendo a confiança nas instituições democráticas.</p>
+                    </div>
+                    <div class="impacto-card" style="background: rgba(255,255,255,0.05); color: var(--texto-claro);">
+                        <span class="icon">🎓</span>
+                        <h4 style="color: var(--texto-claro);">Impacto Acadêmico</h4>
+                        <p>Produção de conhecimento científico sobre comportamento eleitoral, materiais didáticos e formação de pesquisadores na área de ciência política.</p>
+                    </div>
+                    <div class="impacto-card" style="background: rgba(255,255,255,0.05); color: var(--texto-claro);">
+                        <span class="icon">🏛️</span>
+                        <h4 style="color: var(--texto-claro);">Impacto Democrático</h4>
+                        <p>Fortalecimento da participação cidadã e da democracia brasileira, com eleitores mais informados e engajados.</p>
+                    </div>
+                    <div class="impacto-card" style="background: rgba(255,255,255,0.05); color: var(--texto-claro);">
+                        <span class="icon">📚</span>
+                        <h4 style="color: var(--texto-claro);">Impacto Educacional</h4>
+                        <p>Disponibilização de materiais educativos para escolas e universidades, contribuindo para a formação política de novas gerações.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== RESULTADOS ESPERADOS ===== -->
+        <section class="section">
+            <div class="container">
+                <div class="sobre-grid">
+                    <div class="sobre-card">
+                        <span class="icon">📊</span>
+                        <h3>Resultados Esperados</h3>
+                        <ul>
+                            <li>Portal educativo com conteúdos sobre sistema eleitoral</li>
+                            <li>Ferramentas interativas (quiz, simulador, jogos)</li>
+                            <li>Materiais didáticos para escolas</li>
+                            <li>Eventos e oficinas realizados</li>
+                            <li>Artigos científicos publicados</li>
+                            <li>Maior engajamento eleitoral da comunidade</li>
+                        </ul>
+                    </div>
+                    <div class="sobre-card">
+                        <span class="icon">🤝</span>
+                        <h3>Parcerias</h3>
+                        <p>O projeto conta com o apoio de:</p>
+                        <ul>
+                            <li><strong>⚖️ TSE</strong> — Tribunal Superior Eleitoral</li>
+                            <li><strong>🏛️ Justiça Eleitoral</strong></li>
+                            <li><strong>📊 DivulgaCand</strong> — Divulgação de Candidaturas</li>
+                            <li><strong>🎓 UNIRIO</strong> — Escola de Ciência Política</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== VOLTAR ===== -->
+        <section class="section" style="padding-top: 0; text-align: center;">
+            <div class="container">
+                <a href="index.html" class="btn btn--primary">← Voltar para o Início</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" role="contentinfo" aria-label="Rodapé">
+        <div class="container footer__inner">
+            <div class="footer__col">
+                <h3>CON(S)CIÊNCIA POLÍTICA</h3>
+                <p>Projeto de Pesquisa e Extensão</p>
+                <p>Escola de Ciência Política</p>
+                <p>UNIRIO — Universidade Federal do Estado do Rio de Janeiro</p>
+            </div>
+            <div class="footer__col">
+                <h4>Links úteis</h4>
+                <ul>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
+                    <li><a href="referencias.html">Referências</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>Contato</h4>
+                <p>Email: votoconsciente@unirio.br</p>
+                <p>Telefone: (21) 99999-9999</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="YouTube">▶️</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                </div>
+            </div>
+            <div class="footer__col">
+                <h4>Mapa do site</h4>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="container">
+                <p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
