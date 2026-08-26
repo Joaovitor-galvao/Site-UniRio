@@ -138,7 +138,150 @@ function carregarPreferenciasAcessibilidade() {
             btn.title = 'Desativar modo leitura';
         }
     }
+}// ============================================
+// BARRA DE PESQUISA - FUNCIONAL
+// ============================================
+
+// ===== 1. DADOS PARA BUSCA =====
+const searchData = [
+    { title: 'Início', url: 'index.html', category: 'Página inicial' },
+    { title: 'Sobre o Projeto', url: 'sobre.html', category: 'Informações' },
+    { title: 'Eventos e Atividades', url: 'eventos.html', category: 'Eventos' },
+    { title: 'Eleições 2026', url: 'eleicoes-2026.html', category: 'Eleições' },
+    { title: 'Presidente da República', url: 'presidente.html', category: 'Cargos' },
+    { title: 'Senador da República', url: 'senador.html', category: 'Cargos' },
+    { title: 'Deputado Federal', url: 'deputado-federal.html', category: 'Cargos' },
+    { title: 'Informações e Dados', url: 'informacoes.html', category: 'Dados' },
+    { title: 'Quiz Interativo', url: 'quiz.html', category: 'Interativo' },
+    { title: 'Simulador de Prioridades', url: 'simulador.html', category: 'Interativo' },
+    { title: 'Você é o Senador', url: 'voce-e-o-senador.html', category: 'Jogo' },
+    { title: 'Flashcards Educativos', url: 'flashcards.html', category: 'Interativo' },
+    { title: 'Referências', url: 'referencias.html', category: 'Biblioteca' },
+    { title: 'Contato', url: 'contato.html', category: 'Contato' },
+    { title: 'Candidatos a Presidente', url: 'candidatos-presidente.html', category: 'Candidatos' },
+    { title: 'Ana Carla Silva', url: 'ana-carla-silva.html', category: 'Equipe' },
+    { title: 'João Mendes', url: 'joao-mendes.html', category: 'Equipe' },
+    { title: 'Maria Oliveira', url: 'maria-oliveira.html', category: 'Equipe' },
+    { title: 'Carlos Santos', url: 'carlos-santos.html', category: 'Equipe' },
+    { title: 'Fernanda Lima', url: 'fernanda-lima.html', category: 'Equipe' },
+    { title: 'Rafael Costa', url: 'rafael-costa.html', category: 'Equipe' },
+];
+
+// ===== 2. FUNÇÃO DE BUSCA =====
+function buscar(query) {
+    query = query.toLowerCase().trim();
+    if (query.length === 0) return [];
+    
+    return searchData.filter(item => 
+        item.title.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
+    );
 }
+
+// ===== 3. MOSTRAR RESULTADOS =====
+function mostrarResultados(query) {
+    const container = document.getElementById('search-results');
+    const results = buscar(query);
+    
+    // Remover resultados antigos
+    container.innerHTML = '';
+    
+    if (results.length === 0) {
+        container.innerHTML = `
+            <div class="search-result-empty">
+                <span>🔍</span>
+                <p>Nenhum resultado encontrado para "<strong>${query}</strong>"</p>
+                <small>Tente usar outras palavras-chave</small>
+            </div>
+        `;
+        container.style.display = 'block';
+        return;
+    }
+    
+    results.forEach(item => {
+        const resultItem = document.createElement('a');
+        resultItem.href = item.url;
+        resultItem.className = 'search-result-item';
+        resultItem.innerHTML = `
+            <strong>${item.title}</strong>
+            <span class="category">${item.category}</span>
+        `;
+        container.appendChild(resultItem);
+    });
+    
+    container.style.display = 'block';
+}
+
+// ===== 4. OCULTAR RESULTADOS =====
+function ocultarResultados() {
+    const container = document.getElementById('search-results');
+    setTimeout(() => {
+        container.style.display = 'none';
+    }, 200);
+}
+
+// ===== 5. INICIALIZAR PESQUISA =====
+function initSearch() {
+    const searchInput = document.getElementById('search-input');
+    const searchForm = document.querySelector('.header-search form');
+    
+    if (!searchInput) return;
+    
+    // Criar container de resultados
+    const container = document.createElement('div');
+    container.id = 'search-results';
+    container.className = 'search-results';
+    container.style.display = 'none';
+    searchInput.parentElement.appendChild(container);
+    
+    // Evento de input
+    searchInput.addEventListener('input', function(e) {
+        const query = this.value;
+        if (query.length >= 2) {
+            mostrarResultados(query);
+        } else {
+            container.style.display = 'none';
+        }
+    });
+    
+    // Evento de submit
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const query = searchInput.value;
+            if (query.length >= 2) {
+                mostrarResultados(query);
+            }
+        });
+    }
+    
+    // Fechar ao clicar fora
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !container.contains(e.target)) {
+            container.style.display = 'none';
+        }
+    });
+    
+    // Tecla ESC para fechar
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            container.style.display = 'none';
+            this.blur();
+        }
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const query = this.value;
+            if (query.length >= 2) {
+                mostrarResultados(query);
+            }
+        }
+    });
+}
+
+// ===== 6. INICIALIZAR =====
+document.addEventListener('DOMContentLoaded', function() {
+    initSearch();
+});
 
 // ===== 6. NOTIFICAÇÃO =====
 function mostrarNotificacaoAcessibilidade(mensagem) {

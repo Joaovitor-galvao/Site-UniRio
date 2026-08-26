@@ -961,3 +961,108 @@ a:focus {
     .team-photo { width: 80px !important; height: 80px !important; }
     .team-photo img { width: 80px !important; height: 80px !important; }
 }
+/* ============================================
+   BARRA DE PESQUISA - RESULTADOS
+   ============================================ */
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--fundo-secundario);
+    border-radius: 0.8rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 0.5rem;
+    border: 1px solid var(--cor-suporte);
+    display: none;
+}
+
+.search-result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    border-bottom: 1px solid #f0ece4;
+    text-decoration: none;
+    color: var(--texto);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+    background: var(--fundo);
+    text-decoration: none;
+    color: var(--texto);
+}
+
+.search-result-item strong {
+    font-weight: 600;
+    color: var(--cor-principal);
+}
+
+.search-result-item .category {
+    font-size: 0.7rem;
+    background: var(--cor-suporte);
+    color: var(--cor-principal);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.search-result-empty {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+}
+
+.search-result-empty span {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.search-result-empty p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.search-result-empty strong {
+    color: var(--cor-principal);
+}
+
+.search-result-empty small {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+    color: #999;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .search-results {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        max-height: 60vh;
+        border-radius: 0;
+        margin-top: 0;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    
+    .search-result-item {
+        padding: 0.6rem 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Posicionamento da busca */
+.header-search {
+    position: relative;
+}
