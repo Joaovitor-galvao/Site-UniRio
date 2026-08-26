@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>" />
     <style>
-        /* ===== ESTILOS ESPECÍFICOS DO ADMIN ===== */
+        /* ===== ADMIN HERO ===== */
         .admin-hero {
             background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
-            padding: 4rem 0;
+            padding: 3rem 0;
             color: var(--texto-claro);
             position: relative;
             overflow: hidden;
@@ -19,115 +19,75 @@
         .admin-hero::before {
             content: '👑';
             position: absolute;
-            right: -50px;
-            top: -50px;
-            font-size: 25rem;
+            right: -30px;
+            top: -30px;
+            font-size: 18rem;
             opacity: 0.05;
-            transform: rotate(15deg);
         }
-        .admin-hero__content {
-            position: relative;
-            z-index: 1;
+        .admin-hero h1 { font-size: 2.5rem; margin-bottom: 0.3rem; }
+        .admin-hero p { font-size: 1.1rem; opacity: 0.9; }
+
+        .admin-user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.8rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            border: 1px solid rgba(255,255,255,0.15);
         }
-        .admin-hero h1 {
-            font-size: 2.8rem;
+        .admin-user-info .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--cor-destaque);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--texto-claro);
             font-weight: 700;
-            margin-bottom: 0.5rem;
         }
-        .admin-hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+        .admin-user-info .name { font-weight: 600; font-size: 1.05rem; }
+        .admin-user-info .role { font-size: 0.85rem; opacity: 0.8; }
+        .admin-user-info .logout-btn {
+            margin-left: auto;
+            background: #c0392b;
+            color: var(--texto-claro);
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
         }
+        .admin-user-info .logout-btn:hover { background: #e74c3c; }
+
         .admin-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
         .admin-stat {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
             backdrop-filter: blur(10px);
-            padding: 1.5rem;
-            border-radius: 1rem;
+            padding: 1rem;
+            border-radius: 0.8rem;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .admin-stat .number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            display: block;
-        }
-        .admin-stat .label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
+        .admin-stat .number { font-size: 2rem; font-weight: 700; display: block; }
+        .admin-stat .label { font-size: 0.8rem; opacity: 0.8; }
 
-        .admin-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .admin-card {
-            background: var(--fundo-secundario);
-            padding: 2rem 1.5rem;
-            border-radius: 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            text-decoration: none;
-            color: var(--texto);
-            display: block;
-        }
-        .admin-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-            border-color: var(--cor-destaque);
-            text-decoration: none;
-            color: var(--texto);
-        }
-        .admin-card .icon {
-            font-size: 3rem;
-            display: block;
-            margin-bottom: 0.8rem;
-        }
-        .admin-card h3 {
-            color: var(--cor-secundaria);
-            margin-bottom: 0.3rem;
-        }
-        .admin-card p {
-            font-size: 0.9rem;
-            color: #666;
-            margin: 0;
-        }
-        .admin-card .badge {
-            display: inline-block;
-            background: var(--cor-destaque);
-            color: var(--texto-claro);
-            padding: 0.2rem 0.8rem;
-            border-radius: 2rem;
-            font-size: 0.7rem;
-            margin-top: 0.5rem;
-            font-weight: 600;
-        }
-        .admin-card-danger {
-            border-color: #e74c3c;
-            background: #fdf2f2;
-        }
-        .admin-card-danger:hover {
-            border-color: #c0392b;
-            background: #fde8e8;
-        }
-        .admin-card-danger h3 {
-            color: #c0392b;
-        }
-
+        /* ===== SEÇÕES ===== */
         .admin-section-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--cor-secundaria);
-            margin-top: 3rem;
+            margin-top: 2.5rem;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
@@ -140,54 +100,55 @@
             background: var(--cor-suporte);
         }
 
-        .admin-user-info {
-            display: flex;
-            align-items: center;
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
-            background: var(--fundo);
-            padding: 1rem 1.5rem;
-            border-radius: 0.8rem;
-            margin-top: 1rem;
         }
-        .admin-user-info .avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--cor-destaque);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--texto-claro);
-            font-weight: 700;
-        }
-        .admin-user-info .name {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        .admin-user-info .role {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        .admin-user-info .logout-btn {
-            margin-left: auto;
-            background: #e74c3c;
-            color: var(--texto-claro);
-            border: none;
-            padding: 0.5rem 1.2rem;
-            border-radius: 2rem;
+        .admin-card {
+            background: var(--fundo-secundario);
+            padding: 1.5rem 1.2rem;
+            border-radius: 1rem;
+            text-align: center;
             cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            text-decoration: none;
+            color: var(--texto);
+            display: block;
         }
-        .admin-user-info .logout-btn:hover {
-            background: #c0392b;
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+            border-color: var(--cor-destaque);
+            text-decoration: none;
+            color: var(--texto);
         }
+        .admin-card .icon { font-size: 2.5rem; display: block; margin-bottom: 0.4rem; }
+        .admin-card h3 { color: var(--cor-secundaria); font-size: 1rem; margin-bottom: 0.2rem; }
+        .admin-card p { font-size: 0.8rem; color: #888; margin: 0; }
+        .admin-card .badge {
+            display: inline-block;
+            background: var(--cor-destaque);
+            color: var(--texto-claro);
+            padding: 0.15rem 0.6rem;
+            border-radius: 2rem;
+            font-size: 0.6rem;
+            font-weight: 700;
+            margin-top: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .admin-card-danger {
+            border-color: #e74c3c;
+            background: #fdf2f2;
+        }
+        .admin-card-danger:hover { border-color: #c0392b; background: #fde8e8; }
+        .admin-card-danger h3 { color: #c0392b; }
 
-        /* ===== EDIÇÃO DE SEÇÃO ===== */
-        .edit-modal-content {
-            max-width: 700px;
-        }
+        /* ===== MODAL DE EDIÇÃO ===== */
+        .edit-modal-content { max-width: 700px; }
         .edit-modal-content textarea {
             width: 100%;
             min-height: 200px;
@@ -197,7 +158,7 @@
             font-family: inherit;
             font-size: 1rem;
             resize: vertical;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s;
         }
         .edit-modal-content textarea:focus {
             border-color: var(--cor-destaque);
@@ -208,43 +169,49 @@
             gap: 1rem;
             margin-top: 1rem;
         }
-        .edit-modal-content .form-actions .btn {
-            flex: 1;
-        }
+        .edit-modal-content .form-actions .btn { flex: 1; }
         .edit-modal-content .btn-cancel {
             background: #e0d6c8;
             color: var(--texto);
         }
-        .edit-modal-content .btn-cancel:hover {
-            background: #ccc;
+        .edit-modal-content .btn-cancel:hover { background: #ccc; }
+
+        /* ===== NOTIFICAÇÃO ===== */
+        .admin-notification {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--cor-principal);
+            color: var(--texto-claro);
+            padding: 0.8rem 2rem;
+            border-radius: 2rem;
+            z-index: 99999;
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            font-weight: 500;
+            pointer-events: none;
+            max-width: 90%;
         }
+        .admin-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .admin-notification.success { background: #27ae60; }
+        .admin-notification.error { background: #e74c3c; }
+        .admin-notification.warning { background: #f39c12; }
 
         /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 992px) {
-            .admin-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .admin-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .admin-grid { grid-template-columns: 1fr 1fr; }
+            .admin-stats { grid-template-columns: 1fr 1fr; }
         }
-        @media (max-width: 576px) {
-            .admin-grid {
-                grid-template-columns: 1fr;
-            }
-            .admin-stats {
-                grid-template-columns: 1fr;
-            }
-            .admin-hero h1 {
-                font-size: 2rem;
-            }
-            .admin-user-info {
-                flex-wrap: wrap;
-            }
-            .admin-user-info .logout-btn {
-                margin-left: 0;
-                width: 100%;
-            }
+        @media (max-width: 768px) {
+            .admin-hero h1 { font-size: 1.8rem; }
+            .admin-grid { grid-template-columns: 1fr; }
+            .admin-stats { grid-template-columns: 1fr; }
+            .admin-user-info .logout-btn { margin-left: 0; width: 100%; }
         }
     </style>
 </head>
@@ -271,10 +238,7 @@
                 <div class="logo">
                     <a href="index.html">
                         <span class="logo__icon">🗳️</span>
-                        <span class="logo__text">
-                            <strong>VOTO CONSCIENTE</strong>
-                            <small>— UNIRIO</small>
-                        </span>
+                        <span class="logo__text"><strong>VOTO CONSCIENTE</strong><small>— UNIRIO</small></span>
                     </a>
                 </div>
                 <div class="header-search">
@@ -285,9 +249,7 @@
                     </form>
                 </div>
                 <div class="header-social">
-                    <a href="#">📷</a>
-                    <a href="#">▶️</a>
-                    <a href="#">🐦</a>
+                    <a href="#">📷</a><a href="#">▶️</a><a href="#">🐦</a>
                 </div>
             </div>
         </div>
@@ -326,12 +288,17 @@
     <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
 
-        <!-- ===== ADMIN HERO ===== -->
+        <!-- ===== HERO ADMIN ===== -->
         <section class="admin-hero">
-            <div class="container admin-hero__content">
-                <h1>👑 Painel Administrativo</h1>
-                <p>Gerencie o conteúdo do site Voto Consciente — UNIRIO</p>
-                
+            <div class="container">
+                <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+                    <div style="flex:1;">
+                        <h1>👑 Painel Administrativo</h1>
+                        <p>Gerencie todo o conteúdo do site Voto Consciente — UNIRIO</p>
+                    </div>
+                    <div style="font-size:4rem; text-align:center; flex:0 0 auto;">⚙️</div>
+                </div>
+
                 <!-- Informações do usuário -->
                 <div class="admin-user-info" id="user-info">
                     <div class="avatar">👤</div>
@@ -364,67 +331,85 @@
             </div>
         </section>
 
-        <!-- ===== PAINEL DE CONTROLE ===== -->
+        <!-- ===== PAINEL ===== -->
         <section class="section">
             <div class="container">
 
                 <!-- Gerenciar Conteúdo -->
                 <h2 class="admin-section-title">📝 Gerenciar Conteúdo</h2>
                 <div class="admin-grid">
-                    <a href="#" class="admin-card" onclick="editSection('hero')">
+                    <div class="admin-card" onclick="editSection('hero')">
                         <span class="icon">🎨</span>
-                        <h3>Editar Hero</h3>
-                        <p>Alterar título, subtítulo e botão</p>
+                        <h3>Hero</h3>
+                        <p>Título, subtítulo e botão</p>
                         <span class="badge">Editor de Texto</span>
-                    </a>
-                    <a href="#" class="admin-card" onclick="editSection('apresentacao')">
+                    </div>
+                    <div class="admin-card" onclick="editSection('apresentacao')">
                         <span class="icon">📝</span>
-                        <h3>Editar Apresentação</h3>
+                        <h3>Apresentação</h3>
                         <p>Texto de apresentação do projeto</p>
                         <span class="badge">Editor de Texto</span>
-                    </a>
-                    <a href="#" class="admin-card" onclick="editSection('objetivos')">
+                    </div>
+                    <div class="admin-card" onclick="editSection('objetivos')">
                         <span class="icon">🎯</span>
-                        <h3>Editar Objetivos</h3>
+                        <h3>Objetivos</h3>
                         <p>Lista de objetivos do projeto</p>
                         <span class="badge">Editor de Lista</span>
-                    </a>
-                    <a href="#" class="admin-card" onclick="editSection('equipe')">
+                    </div>
+                    <div class="admin-card" onclick="editSection('importancia')">
+                        <span class="icon">🌟</span>
+                        <h3>Importância</h3>
+                        <p>Impactos sociais e acadêmicos</p>
+                        <span class="badge">Editor de Texto</span>
+                    </div>
+                    <div class="admin-card" onclick="editSection('equipe')">
                         <span class="icon">👥</span>
-                        <h3>Editar Equipe</h3>
-                        <p>Adicionar/remover membros da equipe</p>
+                        <h3>Equipe</h3>
+                        <p>Membros da equipe do projeto</p>
                         <span class="badge">Gerenciador</span>
-                    </a>
-                    <a href="#" class="admin-card" onclick="editSection('eventos')">
+                    </div>
+                    <div class="admin-card" onclick="editSection('eventos')">
                         <span class="icon">📅</span>
-                        <h3>Editar Eventos</h3>
-                        <p>Gerenciar eventos e atividades</p>
+                        <h3>Eventos</h3>
+                        <p>Eventos e atividades</p>
                         <span class="badge">Gerenciador</span>
-                    </a>
-                    <a href="#" class="admin-card" onclick="editSection('noticias')">
+                    </div>
+                    <div class="admin-card" onclick="editSection('noticias')">
                         <span class="icon">📰</span>
-                        <h3>Editar Notícias</h3>
-                        <p>Gerenciar notícias do portal</p>
+                        <h3>Notícias</h3>
+                        <p>Notícias do portal</p>
                         <span class="badge">Gerenciador</span>
-                    </a>
-                    <a href="#" class="admin-card" onclick="editSection('cards')">
+                    </div>
+                    <div class="admin-card" onclick="editSection('cards')">
                         <span class="icon">🃏</span>
-                        <h3>Editar Cards</h3>
-                        <p>Gerenciar cards de destaque</p>
+                        <h3>Cards Destaque</h3>
+                        <p>Cards da página inicial</p>
                         <span class="badge">Gerenciador</span>
-                    </a>
-                    <a href="#" class="admin-card" onclick="editSection('footer')">
+                    </div>
+                    <div class="admin-card" onclick="editSection('footer')">
                         <span class="icon">📌</span>
-                        <h3>Editar Rodapé</h3>
+                        <h3>Rodapé</h3>
                         <p>Informações de contato e links</p>
                         <span class="badge">Editor de Texto</span>
-                    </a>
-                    <a href="#" class="admin-card admin-card-danger" onclick="confirmReset()">
+                    </div>
+                    <div class="admin-card" onclick="editSection('candidatos')">
+                        <span class="icon">🗳️</span>
+                        <h3>Candidatos</h3>
+                        <p>Lista de candidatos a Presidente</p>
+                        <span class="badge">Editor de Lista</span>
+                    </div>
+                    <div class="admin-card" onclick="editSection('referencias')">
+                        <span class="icon">📚</span>
+                        <h3>Referências</h3>
+                        <p>Biblioteca de referências</p>
+                        <span class="badge">Editor de Texto</span>
+                    </div>
+                    <div class="admin-card admin-card-danger" onclick="confirmReset()">
                         <span class="icon">⚠️</span>
                         <h3>Resetar Conteúdo</h3>
                         <p>Restaurar conteúdo padrão</p>
                         <span class="badge">⚠️ Perigoso</span>
-                    </a>
+                    </div>
                 </div>
 
                 <!-- Atalhos Rápidos -->
@@ -433,17 +418,17 @@
                     <a href="index.html" class="admin-card" style="background: var(--fundo);">
                         <span class="icon">🏠</span>
                         <h3>Ver Site</h3>
-                        <p>Visualizar página inicial</p>
+                        <p>Página inicial</p>
                     </a>
                     <a href="eventos.html" class="admin-card" style="background: var(--fundo);">
                         <span class="icon">📅</span>
                         <h3>Ver Eventos</h3>
-                        <p>Visualizar eventos</p>
+                        <p>Eventos do projeto</p>
                     </a>
                     <a href="contato.html" class="admin-card" style="background: var(--fundo);">
                         <span class="icon">📬</span>
                         <h3>Ver Contato</h3>
-                        <p>Visualizar página de contato</p>
+                        <p>Página de contato</p>
                     </a>
                     <a href="#" class="admin-card" style="background: var(--fundo);" onclick="location.reload();">
                         <span class="icon">🔄</span>
@@ -453,7 +438,7 @@
                 </div>
 
                 <!-- Voltar -->
-                <div style="margin-top: 3rem; text-align: center;">
+                <div style="margin-top: 2.5rem; text-align: center;">
                     <a href="index.html" class="btn btn--primary">← Voltar para o site</a>
                 </div>
 
@@ -498,34 +483,25 @@
         </div>
     </footer>
 
-    <!-- ===== SCRIPTS ===== -->
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
     <script>
         // ============================================
-        // ADMIN PANEL - FUNÇÕES ADICIONAIS
+        // ADMIN PANEL - FUNÇÕES COMPLETAS
         // ============================================
 
-        // Verificar se está logado
+        // Verificar login
         function checkAdminLogin() {
             const session = localStorage.getItem('votoConscienteSession');
-            if (!session) {
-                window.location.href = 'index.html';
-                return;
-            }
+            if (!session) { window.location.href = 'index.html'; return; }
             try {
                 const data = JSON.parse(session);
-                if (data.username !== 'admin') {
-                    window.location.href = 'index.html';
-                }
-            } catch(e) {
-                window.location.href = 'index.html';
-            }
+                if (data.username !== 'admin') { window.location.href = 'index.html'; }
+            } catch(e) { window.location.href = 'index.html'; }
         }
 
         // Atualizar estatísticas
         function updateStats() {
-            // Contar edições salvas
             const content = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
             const editCount = Object.keys(content).length;
             document.getElementById('stat-edits').textContent = editCount;
@@ -539,58 +515,96 @@
             }
         }
 
-        // Editar seção
+        // ===== EDIÇÃO DE CONTEÚDO =====
         function editSection(sectionId) {
-            // Fechar modal se existir
             const existing = document.getElementById('edit-modal');
             if (existing) existing.remove();
 
-            // Buscar conteúdo atual
-            let currentContent = '';
-            let label = 'Conteúdo';
-            let placeholder = 'Digite o novo conteúdo...';
-
-            // Buscar do localStorage
+            // Buscar conteúdo salvo
             const savedContent = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-            currentContent = savedContent[sectionId] || '';
+            let currentContent = savedContent[sectionId] || '';
 
-            // Títulos personalizados
-            const titles = {
-                'hero': '🎨 Editar Hero',
-                'apresentacao': '📝 Editar Apresentação',
-                'objetivos': '🎯 Editar Objetivos',
-                'equipe': '👥 Editar Equipe',
-                'eventos': '📅 Editar Eventos',
-                'noticias': '📰 Editar Notícias',
-                'cards': '🃏 Editar Cards',
-                'footer': '📌 Editar Rodapé'
+            // Títulos e labels
+            const configs = {
+                'hero': {
+                    title: '🎨 Editar Hero',
+                    label: 'Texto do Hero (use <br> para quebras de linha)',
+                    placeholder: 'Digite o título e subtítulo do hero...',
+                    field: 'textarea'
+                },
+                'apresentacao': {
+                    title: '📝 Editar Apresentação',
+                    label: 'Texto de apresentação do projeto',
+                    placeholder: 'Digite o texto de apresentação...',
+                    field: 'textarea'
+                },
+                'objetivos': {
+                    title: '🎯 Editar Objetivos',
+                    label: 'Lista de objetivos (um por linha)',
+                    placeholder: 'Objetivo 1\nObjetivo 2\nObjetivo 3',
+                    field: 'textarea'
+                },
+                'importancia': {
+                    title: '🌟 Editar Importância',
+                    label: 'Texto sobre importância social e acadêmica',
+                    placeholder: 'Digite o texto sobre importância...',
+                    field: 'textarea'
+                },
+                'equipe': {
+                    title: '👥 Editar Equipe',
+                    label: 'Lista de membros (Nome - Cargo - Especialidade)',
+                    placeholder: 'Ana Carla Silva - Coordenação - Ciência Política',
+                    field: 'textarea'
+                },
+                'eventos': {
+                    title: '📅 Editar Eventos',
+                    label: 'Lista de eventos (Nome - Data - Local - Descrição)',
+                    placeholder: 'Oficina de Política - 15/04/2026 - UNIRIO - Descrição',
+                    field: 'textarea'
+                },
+                'noticias': {
+                    title: '📰 Editar Notícias',
+                    label: 'Lista de notícias (Título - Data - Descrição)',
+                    placeholder: 'Lançamento do portal - 01/03/2026 - Descrição',
+                    field: 'textarea'
+                },
+                'cards': {
+                    title: '🃏 Editar Cards Destaque',
+                    label: 'Lista de cards (Título - Descrição - Link)',
+                    placeholder: 'Eleições 2026 - Entenda o processo - eleicoes-2026.html',
+                    field: 'textarea'
+                },
+                'footer': {
+                    title: '📌 Editar Rodapé',
+                    label: 'Texto do rodapé e informações de contato',
+                    placeholder: 'Digite o texto do rodapé...',
+                    field: 'textarea'
+                },
+                'candidatos': {
+                    title: '🗳️ Editar Candidatos',
+                    label: 'Lista de candidatos (Nome - Número - Partido - Coligação)',
+                    placeholder: 'Candidato A - 13 - PT - Brasil da Esperança',
+                    field: 'textarea'
+                },
+                'referencias': {
+                    title: '📚 Editar Referências',
+                    label: 'Lista de referências (Título - Autor - Ano - Descrição)',
+                    placeholder: 'Constituição Federal - Brasil - 1988 - Lei fundamental',
+                    field: 'textarea'
+                }
             };
 
-            const labels = {
-                'hero': 'Texto do Hero (use <br> para quebras de linha)',
-                'apresentacao': 'Texto de apresentação do projeto',
-                'objetivos': 'Lista de objetivos (um por linha)',
-                'equipe': 'Lista de membros da equipe (um por linha)',
-                'eventos': 'Lista de eventos (um por linha)',
-                'noticias': 'Lista de notícias (um por linha)',
-                'cards': 'Lista de cards (um por linha)',
-                'footer': 'Texto do rodapé'
+            const config = configs[sectionId] || {
+                title: '✏️ Editar Seção',
+                label: 'Conteúdo',
+                placeholder: 'Digite o conteúdo...',
+                field: 'textarea'
             };
 
-            const placeholders = {
-                'hero': 'Digite o título e subtítulo do hero...',
-                'apresentacao': 'Digite o texto de apresentação...',
-                'objetivos': 'Objetivo 1\nObjetivo 2\nObjetivo 3',
-                'equipe': 'Nome 1 - Cargo\nNome 2 - Cargo',
-                'eventos': 'Evento 1 - Data\nEvento 2 - Data',
-                'noticias': 'Notícia 1\nNotícia 2',
-                'cards': 'Card 1\nCard 2',
-                'footer': 'Digite o texto do rodapé...'
-            };
-
-            const title = titles[sectionId] || '✏️ Editar Seção';
-            const labelText = labels[sectionId] || label;
-            const placeholderText = placeholders[sectionId] || placeholder;
+            // Buscar conteúdo do DOM se não tiver no localStorage
+            if (!currentContent) {
+                currentContent = getContentFromDOM(sectionId);
+            }
 
             // Criar modal
             const modal = document.createElement('div');
@@ -599,10 +613,10 @@
             modal.innerHTML = `
                 <div class="modal-content edit-modal-content" role="dialog">
                     <button class="modal-close" onclick="closeEditModal()">✕</button>
-                    <h2>${title}</h2>
+                    <h2>${config.title}</h2>
                     <div class="form-group">
-                        <label for="edit-content">${labelText}</label>
-                        <textarea id="edit-content" placeholder="${placeholderText}">${currentContent}</textarea>
+                        <label for="edit-content">${config.label}</label>
+                        <textarea id="edit-content" placeholder="${config.placeholder}">${currentContent || ''}</textarea>
                     </div>
                     <div class="form-actions">
                         <button class="btn btn--primary" onclick="saveEdit('${sectionId}')">💾 Salvar</button>
@@ -614,22 +628,46 @@
             document.getElementById('edit-content').focus();
         }
 
+        // Buscar conteúdo do DOM
+        function getContentFromDOM(sectionId) {
+            const content = {
+                'hero': () => {
+                    const title = document.querySelector('.hero__title');
+                    const sub = document.querySelector('.hero__subtitle');
+                    return title ? title.textContent + '\n' + (sub ? sub.textContent : '') : '';
+                },
+                'apresentacao': () => {
+                    const p = document.querySelector('.section:first-of-type .grid-2 p');
+                    return p ? p.textContent : '';
+                },
+                'objetivos': () => {
+                    const ul = document.querySelector('.section:first-of-type .grid-2 ul');
+                    if (ul) {
+                        return Array.from(ul.querySelectorAll('li'))
+                            .map(li => li.textContent.trim())
+                            .join('\n');
+                    }
+                    return '';
+                },
+                'importancia': () => {
+                    const cards = document.querySelectorAll('.section--alt .card p');
+                    return Array.from(cards).map(c => c.textContent).join('\n');
+                }
+            };
+            return content[sectionId] ? content[sectionId]() : '';
+        }
+
         // Salvar edição
         function saveEdit(sectionId) {
             const content = document.getElementById('edit-content').value;
             const savedContent = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
             savedContent[sectionId] = content;
             localStorage.setItem('votoConscienteContent', JSON.stringify(savedContent));
-            
-            // Atualizar estatísticas
             updateStats();
-            
-            // Notificação
             showNotification('✅ Conteúdo salvo com sucesso!', 'success');
             closeEditModal();
         }
 
-        // Fechar modal de edição
         function closeEditModal() {
             const modal = document.getElementById('edit-modal');
             if (modal) modal.remove();
@@ -642,13 +680,13 @@
                     localStorage.removeItem('votoConscienteContent');
                     updateStats();
                     showNotification('🔄 Conteúdo restaurado para o padrão.', 'warning');
+                    setTimeout(() => location.reload(), 2000);
                 }
             }
         }
 
         // Notificação
         function showNotification(message, type = 'info') {
-            // Remover notificações antigas
             document.querySelectorAll('.admin-notification').forEach(el => el.remove());
             
             const colors = {
@@ -659,7 +697,7 @@
             };
 
             const notification = document.createElement('div');
-            notification.className = 'admin-notification';
+            notification.className = `admin-notification ${type}`;
             notification.textContent = message;
             notification.style.background = colors[type] || 'var(--cor-principal)';
             document.body.appendChild(notification);
@@ -671,9 +709,7 @@
             }, 4000);
         }
 
-        // ============================================
-        // INICIALIZAÇÃO
-        // ============================================
+        // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
             checkAdminLogin();
             updateStats();
