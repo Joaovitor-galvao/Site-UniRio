@@ -3,94 +3,70 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Voto Consciente — UNIRIO</title>
-
-    <!-- Meta Tags SEO -->
+    <title>CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO</title>
     <meta name="description" content="Projeto de pesquisa e extensão da UNIRIO para promover educação política apartidária e voto consciente." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://votoconsciente.unirio.br" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Voto Consciente — UNIRIO" />
+    <meta property="og:title" content="CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO" />
     <meta property="og:description" content="Três votos. Cada um com um papel diferente. Aprenda a escolher bem." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://votoconsciente.unirio.br" />
-    <meta property="og:image" content="https://votoconsciente.unirio.br/og-image.jpg" />
-
-    <!-- Schema.org (institution) -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "EducationalOrganization",
-            "name": "Voto Consciente — UNIRIO",
-            "description": "Projeto de pesquisa e extensão para educação política apartidária.",
-            "url": "https://votoconsciente.unirio.br"
-        }
-    </script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
 
-    <!-- Favicon (placeholder) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>" />
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
 </head>
-
 <body>
     <!-- Skip Navigation -->
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
-    <!-- ==================== HEADER ==================== -->
-    <header class="header" role="banner" aria-label="Cabeçalho do site">
-        <!-- Faixa superior de acessibilidade e contato -->
-        <div class="top-bar" aria-label="Barra de acessibilidade">
+    <!-- ===== HEADER ===== -->
+    <header class="header" role="banner">
+        <div class="top-bar">
             <div class="container top-bar__inner">
                 <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" aria-label="Ativar alto contraste">Alto contraste</button>
-                    <button class="access-btn" id="font-inc" aria-label="Aumentar tamanho da fonte">A+</button>
-                    <button class="access-btn" id="font-dec" aria-label="Diminuir tamanho da fonte">A-</button>
+                    <button class="access-btn" id="high-contrast">Alto contraste</button>
+                    <button class="access-btn" id="font-inc">A+</button>
+                    <button class="access-btn" id="font-dec">A-</button>
                 </div>
                 <div class="top-bar__links">
-                    <a href="#" aria-label="Ouvidoria">Ouvidoria</a>
-                    <a href="contato.html" aria-label="Fale conosco">Fale conosco</a>
+                    <a href="#">Ouvidoria</a>
+                    <a href="contato.html">Fale conosco</a>
                 </div>
             </div>
         </div>
-
-        <!-- Cabeçalho principal -->
         <div class="main-header">
             <div class="container main-header__inner">
                 <div class="logo">
-                    <a href="index.html" aria-label="Página inicial Voto Consciente UNIRIO">
-                        <span class="logo__icon">🗳️</span>
-                        <span class="logo__text">
-                            <strong>VOTO CONSCIENTE</strong>
-                            <small>— UNIRIO</small>
-                        </span>
+                    <a href="index.html" style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
+                        <div class="logo__monograma">CP</div>
+                        <div class="logo__text">
+                            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
+                            <small>VOTO CONSCIENTE — UNIRIO</small>
+                        </div>
                     </a>
                 </div>
-
                 <div class="header-search" role="search">
                     <form action="#" method="get">
-                        <label for="search-input" class="visually-hidden">Pesquisar no site</label>
+                        <label for="search-input" class="visually-hidden">Pesquisar</label>
                         <input type="search" id="search-input" placeholder="O que você busca?" />
                         <button type="submit" aria-label="Pesquisar">🔍</button>
                     </form>
                 </div>
-
                 <div class="header-social">
-                    <a href="#" aria-label="Instagram"><span class="social-icon">📷</span></a>
-                    <a href="#" aria-label="YouTube"><span class="social-icon">▶️</span></a>
-                    <a href="#" aria-label="Twitter"><span class="social-icon">🐦</span></a>
+                    <a href="#" aria-label="Instagram"><span>📷</span></a>
+                    <a href="#" aria-label="YouTube"><span>▶️</span></a>
+                    <a href="#" aria-label="Twitter"><span>🐦</span></a>
                 </div>
             </div>
         </div>
-
-        <!-- Menu principal -->
         <nav class="main-nav" aria-label="Menu principal" role="navigation">
             <div class="container">
-                <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="primary-menu">
-                    ☰ Menu
-                </button>
+                <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
                 <ul id="primary-menu" class="nav-list">
                     <li><a href="index.html" class="active">Início</a></li>
                     <li><a href="sobre.html">Sobre</a></li>
@@ -120,11 +96,11 @@
         </nav>
     </header>
 
-    <!-- ==================== MAIN ==================== -->
-    <main id="main-content" class="main" role="main">
+    <!-- ===== MAIN ===== -->
+    <main id="main-content" class="main">
 
         <!-- ===== HERO ===== -->
-        <section class="hero" aria-label="Destaque principal">
+        <section class="hero">
             <div class="container hero__inner">
                 <div class="hero__content">
                     <h1 class="hero__title">VOTO CONSCIENTE:<br />SAIBA COMO ESCOLHER</h1>
@@ -136,19 +112,18 @@
                     <a href="sobre.html" class="btn btn--primary">Saiba Mais</a>
                 </div>
                 <div class="hero__image" aria-hidden="true">
-                    <!-- ícone ou ilustração decorativa -->
                     <span style="font-size:8rem;">🏛️</span>
                 </div>
             </div>
         </section>
 
         <!-- ===== APRESENTAÇÃO ===== -->
-        <section class="section" aria-labelledby="apresentacao-title">
+        <section class="section" id="apresentacao">
             <div class="container">
-                <h2 id="apresentacao-title" class="section-title">Apresentação</h2>
+                <h2 class="section-title">Apresentação</h2>
                 <div class="grid-2">
                     <div>
-                        <p>O <strong>Voto Consciente</strong> é um projeto de pesquisa e extensão da <strong>UNIRIO</strong>, vinculado à Escola de Ciência Política. Nossa missão é promover a educação política apartidária, fortalecendo a democracia por meio da informação clara, acessível e qualificada.</p>
+                        <p>O <strong>CON(S)CIÊNCIA POLÍTICA</strong> é um projeto de pesquisa e extensão da <strong>UNIRIO</strong>, vinculado à Escola de Ciência Política. Nossa missão é promover a educação política apartidária, fortalecendo a democracia por meio da informação clara, acessível e qualificada.</p>
                         <p>Entendemos que o voto é uma ferramenta de transformação social, e que eleitoras e eleitores bem informados constroem uma sociedade mais justa e participativa.</p>
                     </div>
                     <div>
@@ -165,10 +140,10 @@
             </div>
         </section>
 
-        <!-- ===== IMPORTÂNCIA SOCIAL E ACADÊMICA ===== -->
-        <section class="section section--alt" aria-labelledby="importancia-title">
+        <!-- ===== IMPORTÂNCIA ===== -->
+        <section class="section section--alt">
             <div class="container">
-                <h2 id="importancia-title" class="section-title">Importância Social e Acadêmica</h2>
+                <h2 class="section-title">Importância Social e Acadêmica</h2>
                 <div class="grid-2">
                     <div class="card">
                         <h3>🌱 Impacto Social</h3>
@@ -182,168 +157,49 @@
             </div>
         </section>
 
-        <!-- ===== SEÇÃO OBJETIVOS (separada para edição) ===== -->
-<section class="section" id="objetivos" aria-labelledby="objetivos-title">
-    <div class="container">
-        <h2 id="objetivos-title" class="section-title">Nossos Objetivos</h2>
-        <div class="grid-2">
-            <div>
-                <h3>📋 Objetivos Gerais</h3>
-                <ul>
-                    <li>Promover educação política apartidária</li>
-                    <li>Explicar o funcionamento do sistema eleitoral brasileiro</li>
-                    <li>Auxiliar eleitores na compreensão dos cargos políticos</li>
-                    <li>Incentivar o voto consciente</li>
-                    <li>Divulgar ações de pesquisa e extensão da UNIRIO</li>
-                    <li>Disponibilizar conteúdos educativos interativos</li>
-                </ul>
-            </div>
-            <div>
-                <h3>🎯 Impactos Esperados</h3>
-                <ul>
-                    <li><strong>Social:</strong> Formação de cidadãos mais críticos e participativos</li>
-                    <li><strong>Acadêmico:</strong> Produção de conhecimento e materiais didáticos</li>
-                    <li><strong>Democrático:</strong> Fortalecimento da confiança nas instituições</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== EQUIPE ===== -->
-<section class="section" aria-labelledby="equipe-title">
-    <div class="container">
-        <h2 id="equipe-title" class="section-title">👥 Nossa Equipe</h2>
-        <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--texto);">
-            Conheça os pesquisadores e colaboradores do projeto Voto Consciente.
-        </p>
-
-        <!-- Grid de membros da equipe -->
-        <div class="grid-3" style="margin-bottom: 3rem;">
-            
-            <!-- Coordenação 1 -->
-            <div class="card card--team" style="text-align: center; padding: 2rem 1.5rem;">
-                <div class="team-photo" style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1rem; background: var(--cor-suporte); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 4px solid var(--cor-destaque);">
-                    <img src="https://ui-avatars.com/api/?name=Ana+Carla+Silva&size=120&background=cf6357&color=fff&font-size=0.5" 
-                         alt="Foto da Profª. Dra. Ana Carla Silva" 
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <h3 style="color: var(--cor-secundaria); margin-bottom: 0.3rem;">Profª. Dra. Ana Carla Silva</h3>
-                <p style="color: var(--cor-destaque); font-weight: 600; margin-bottom: 0.5rem;">👩‍🏫 Coordenação</p>
-                <p style="font-size: 0.9rem; color: #666;">Especialista em Ciência Política e Comportamento Eleitoral</p>
-            </div>
-
-            <!-- Coordenação 2 -->
-            <div class="card card--team" style="text-align: center; padding: 2rem 1.5rem;">
-                <div class="team-photo" style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1rem; background: var(--cor-suporte); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 4px solid var(--cor-destaque);">
-                    <img src="https://ui-avatars.com/api/?name=João+Mendes&size=120&background=612a2a&color=fff&font-size=0.5" 
-                         alt="Foto do Prof. Dr. João Mendes" 
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <h3 style="color: var(--cor-secundaria); margin-bottom: 0.3rem;">Prof. Dr. João Mendes</h3>
-                <p style="color: var(--cor-destaque); font-weight: 600; margin-bottom: 0.5rem;">👨‍🏫 Coordenação</p>
-                <p style="font-size: 0.9rem; color: #666;">Pesquisador em Democracia e Participação Política</p>
-            </div>
-
-            <!-- Professores Responsáveis -->
-            <div class="card card--team" style="text-align: center; padding: 2rem 1.5rem;">
-                <div class="team-photo" style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1rem; background: var(--cor-suporte); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 4px solid var(--cor-destaque);">
-                    <img src="https://ui-avatars.com/api/?name=Maria+Oliveira&size=120&background=74402d&color=fff&font-size=0.5" 
-                         alt="Foto da Profª. Dra. Maria Oliveira" 
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <h3 style="color: var(--cor-secundaria); margin-bottom: 0.3rem;">Profª. Dra. Maria Oliveira</h3>
-                <p style="color: var(--cor-destaque); font-weight: 600; margin-bottom: 0.5rem;">👩‍🏫 Professora Responsável</p>
-                <p style="font-size: 0.9rem; color: #666;">Especialista em Políticas Públicas</p>
-            </div>
-
-            <!-- Professores Responsáveis 2 -->
-            <div class="card card--team" style="text-align: center; padding: 2rem 1.5rem;">
-                <div class="team-photo" style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1rem; background: var(--cor-suporte); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 4px solid var(--cor-destaque);">
-                    <img src="https://ui-avatars.com/api/?name=Carlos+Santos&size=120&background=2c1e1f&color=fff&font-size=0.5" 
-                         alt="Foto do Prof. Dr. Carlos Santos" 
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <h3 style="color: var(--cor-secundaria); margin-bottom: 0.3rem;">Prof. Dr. Carlos Santos</h3>
-                <p style="color: var(--cor-destaque); font-weight: 600; margin-bottom: 0.5rem;">👨‍🏫 Professor Responsável</p>
-                <p style="font-size: 0.9rem; color: #666;">Pesquisador em Sistemas Eleitorais</p>
-            </div>
-
-            <!-- Pesquisadores -->
-            <div class="card card--team" style="text-align: center; padding: 2rem 1.5rem;">
-                <div class="team-photo" style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1rem; background: var(--cor-suporte); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 4px solid var(--cor-destaque);">
-                    <img src="https://ui-avatars.com/api/?name=Fernanda+Lima&size=120&background=cf6357&color=fff&font-size=0.5" 
-                         alt="Foto da Dra. Fernanda Lima" 
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <h3 style="color: var(--cor-secundaria); margin-bottom: 0.3rem;">Dra. Fernanda Lima</h3>
-                <p style="color: var(--cor-destaque); font-weight: 600; margin-bottom: 0.5rem;">🔬 Pesquisadora</p>
-                <p style="font-size: 0.9rem; color: #666;">Especialista em Metodologia de Pesquisa</p>
-            </div>
-
-            <!-- Pesquisadores 2 -->
-            <div class="card card--team" style="text-align: center; padding: 2rem 1.5rem;">
-                <div class="team-photo" style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1rem; background: var(--cor-suporte); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 4px solid var(--cor-destaque);">
-                    <img src="https://ui-avatars.com/api/?name=Rafael+Costa&size=120&background=612a2a&color=fff&font-size=0.5" 
-                         alt="Foto do Me. Rafael Costa" 
-                         style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <h3 style="color: var(--cor-secundaria); margin-bottom: 0.3rem;">Me. Rafael Costa</h3>
-                <p style="color: var(--cor-destaque); font-weight: 600; margin-bottom: 0.5rem;">🔬 Pesquisador</p>
-                <p style="font-size: 0.9rem; color: #666;">Especialista em Análise de Dados Eleitorais</p>
-            </div>
-
-        </div>
-
-        <!-- ===== BOLSISTAS, PARCEIROS E ESCOLA ===== -->
-        <div class="grid-3" style="margin-top: 2rem;">
-            
-            <!-- Bolsistas -->
-            <div class="card" style="text-align: center; background: var(--fundo); border: 2px solid var(--cor-suporte);">
-                <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">🎓</span>
-                <h3 style="color: var(--cor-secundaria);">Bolsistas</h3>
-                <p style="font-size: 1.5rem; font-weight: 700; color: var(--cor-destaque);">10</p>
-                <p>estudantes de graduação e pós-graduação</p>
-                <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
-                    Bolsas de Iniciação Científica e Extensão
-                </p>
-            </div>
-
-            <!-- Parceiros -->
-            <div class="card" style="text-align: center; background: var(--fundo); border: 2px solid var(--cor-suporte);">
-                <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">🤝</span>
-                <h3 style="color: var(--cor-secundaria);">Parceiros</h3>
-                <div style="display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.5rem;">
-                    <span style="font-weight: 600; color: var(--cor-principal);">⚖️ TSE</span>
-                    <span style="font-weight: 600; color: var(--cor-principal);">🏛️ Justiça Eleitoral</span>
-                    <span style="font-weight: 600; color: var(--cor-principal);">📊 DivulgaCand</span>
-                </div>
-                <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
-                    Instituições parceiras do projeto
-                </p>
-            </div>
-
-            <!-- Escola de Ciência Política -->
-            <div class="card" style="text-align: center; background: var(--cor-secundaria); color: var(--texto-claro); border: 2px solid var(--cor-destaque);">
-                <span style="font-size: 2.5rem; display: block; margin-bottom: 0.5rem;">⚖️</span>
-                <h3 style="color: var(--texto-claro);">Escola de Ciência Política</h3>
-                <p style="font-weight: 600; font-size: 1.1rem;">UNIRIO</p>
-                <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.3rem;">
-                    Centro de Ciências Jurídicas e Políticas
-                </p>
-                <div style="margin-top: 0.8rem; padding: 0.5rem; background: rgba(255,255,255,0.1); border-radius: 0.5rem;">
-                    <span style="font-size: 0.8rem; opacity: 0.8;">📚 Pesquisa • Ensino • Extensão</span>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-        <!-- ===== CARDS DE DESTAQUE ===== -->
-        <section class="section section--alt" aria-labelledby="destaques-title">
+        <!-- ===== EQUIPE ===== -->
+        <section class="section" id="equipe">
             <div class="container">
-                <h2 id="destaques-title" class="section-title">Destaques</h2>
+                <h2 class="section-title">Equipe</h2>
+                <div class="grid-3">
+                    <div class="card card--team">
+                        <span class="card__icon">👩‍🏫</span>
+                        <h3>Coordenação</h3>
+                        <p>Profª. Dra. Ana Carla Silva<br />Prof. Dr. João Mendes</p>
+                    </div>
+                    <div class="card card--team">
+                        <span class="card__icon">👨‍🏫</span>
+                        <h3>Professores Responsáveis</h3>
+                        <p>Profª. Dra. Maria Oliveira<br />Prof. Dr. Carlos Santos</p>
+                    </div>
+                    <div class="card card--team">
+                        <span class="card__icon">🔬</span>
+                        <h3>Pesquisadores</h3>
+                        <p>Dra. Fernanda Lima<br />Me. Rafael Costa</p>
+                    </div>
+                    <div class="card card--team">
+                        <span class="card__icon">🎓</span>
+                        <h3>Bolsistas</h3>
+                        <p>10 estudantes de graduação e pós-graduação</p>
+                    </div>
+                    <div class="card card--team">
+                        <span class="card__icon">🤝</span>
+                        <h3>Parceiros</h3>
+                        <p>TSE, Justiça Eleitoral,<br />DivulgaCand</p>
+                    </div>
+                    <div class="card card--team">
+                        <span class="card__icon">🏛️</span>
+                        <h3>Escola de Ciência Política</h3>
+                        <p>UNIRIO — Centro de Ciências Jurídicas e Políticas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CARDS DESTAQUE ===== -->
+        <section class="section section--alt">
+            <div class="container">
+                <h2 class="section-title">Destaques</h2>
                 <div class="grid-3">
                     <a href="eleicoes-2026.html" class="card card--link">
                         <span class="card__icon">🗳️</span>
@@ -379,10 +235,10 @@
             </div>
         </section>
 
-        <!-- ===== NOTÍCIAS E EVENTOS ===== -->
-        <section class="section" aria-labelledby="noticias-title">
+        <!-- ===== NOTÍCIAS ===== -->
+        <section class="section">
             <div class="container">
-                <h2 id="noticias-title" class="section-title">Notícias</h2>
+                <h2 class="section-title">Notícias</h2>
                 <div class="grid-2">
                     <article class="card news-card">
                         <h3>📢 Lançamento do portal Voto Consciente</h3>
@@ -398,9 +254,10 @@
             </div>
         </section>
 
-        <section class="section section--alt" aria-labelledby="eventos-proximos-title">
+        <!-- ===== PRÓXIMOS EVENTOS ===== -->
+        <section class="section section--alt">
             <div class="container">
-                <h2 id="eventos-proximos-title" class="section-title">Próximos Eventos</h2>
+                <h2 class="section-title">Próximos Eventos</h2>
                 <div class="grid-2">
                     <div class="card">
                         <h3>📅 Seminário: Democracia e Participação</h3>
@@ -415,13 +272,14 @@
                 </div>
             </div>
         </section>
+
     </main>
 
-    <!-- ==================== FOOTER ==================== -->
-    <footer class="footer" role="contentinfo" aria-label="Rodapé">
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
-                <h3>VOTO CONSCIENTE</h3>
+                <h3>CON(S)CIÊNCIA POLÍTICA</h3>
                 <p>Projeto de Pesquisa e Extensão</p>
                 <p>Escola de Ciência Política</p>
                 <p>UNIRIO — Universidade Federal do Estado do Rio de Janeiro</p>
@@ -456,14 +314,13 @@
         </div>
         <div class="footer__bottom">
             <div class="container">
-                <p>&copy; 2026 Voto Consciente — UNIRIO. Todos os direitos reservados.</p>
+                <p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- ==================== JAVASCRIPT ==================== -->
-<script src="js/script.js"></script>
-<!-- ==================== ADMIN ==================== -->
-<script src="js/admin.js"></script>
+    <!-- ===== SCRIPTS ===== -->
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html>
