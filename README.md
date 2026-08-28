@@ -17,7 +17,7 @@ O **Voto Consciente** é um projeto de pesquisa e extensão da Universidade Fede
 ## Acessibilidade
 
 O projeto segue as diretrizes **WCAG 2.2**, com:
-- Navegação por teclado
+- Navegação por teclados
 - Alto contraste
 - Ajuste de fonte
 - Skip navigation
