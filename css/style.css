@@ -583,3 +583,173 @@ a:hover { color: var(--cor-marrom); text-decoration: underline; }
 
     .admin-float-btn { width: 50px; height: 50px; font-size: 22px; bottom: 20px; right: 20px; }
 }
+/* ===== SEARCH RESULTS ===== */
+.search-results {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--fundo-secundario);
+    border-radius: 0.8rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 280px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 999;
+    padding: 0.5rem 0;
+}
+
+.search-result-item {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: var(--texto);
+    text-decoration: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+}
+
+.search-result-item:hover {
+    background: var(--fundo);
+    color: var(--cor-destaque);
+    text-decoration: none;
+}
+
+.search-result-item .category {
+    display: block;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.search-result-empty {
+    padding: 1rem;
+    text-align: center;
+    color: #666;
+}
+
+/* ===== FORM GROUP ===== */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    color: var(--cor-secundaria);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 2px solid #e0d6c8;
+    border-radius: 0.8rem;
+    font-family: var(--font-corpo);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    background: var(--fundo-secundario);
+    color: var(--texto);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--cor-destaque);
+    outline: none;
+}
+
+/* ===== ADMIN NOTIFICATION ===== */
+.admin-notification {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cor-principal);
+    color: var(--texto-claro);
+    padding: 0.8rem 2rem;
+    border-radius: 2rem;
+    z-index: 99999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    font-family: var(--font-corpo);
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    max-width: 90%;
+    text-align: center;
+    pointer-events: none;
+}
+
+.admin-notification.show {
+    opacity: 1;
+}
+
+/* ===== NOTIFICAÇÃO ACESSIBILIDADE ===== */
+.notificacao-acessibilidade {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cor-principal);
+    color: var(--texto-claro);
+    padding: 0.8rem 2rem;
+    border-radius: 2rem;
+    z-index: 99999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    font-family: var(--font-corpo);
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    max-width: 90%;
+    text-align: center;
+}
+
+/* ===== EDIT BUTTONS ===== */
+.editable {
+    position: relative;
+}
+
+.edit-float-btn {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: var(--cor-destaque) !important;
+    color: var(--texto-claro) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 35px !important;
+    height: 35px !important;
+    cursor: pointer !important;
+    font-size: 0.9rem !important;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 50 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.editable:hover .edit-float-btn {
+    opacity: 1;
+}
+
+/* ===== ACCESS BUTTONS ACTIVE ===== */
+.access-btn.active {
+    background: var(--texto-claro);
+    color: var(--cor-principal);
+    font-weight: 700;
+}
+
+/* ===== ERROR MESSAGE ===== */
+.error-message {
+    color: #e74c3c;
+    background: #fdedec;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* ===== CONTACT FORM SUBMIT ===== */
+#contact-form .btn,
+#sugestao + .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+}

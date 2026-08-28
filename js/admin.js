@@ -369,3 +369,34 @@ function mostrarNotificacaoAcessibilidade(message, type = 'info') {
     setTimeout(() => notification.classList.add('show'), 100);
     setTimeout(() => { notification.classList.remove('show'); setTimeout(() => notification.remove(), 300); }, 4000);
 }
+// ============================================
+// NOTIFICAÇÕES ESTILIZADAS
+// ============================================
+function mostrarNotificacaoAcessibilidade(message, type = 'info') {
+    document.querySelectorAll('.admin-notification').forEach(el => el.remove());
+    const colors = { success: '#27ae60', warning: '#f39c12', error: '#e74c3c', info: 'var(--cor-destaque)' };
+    const notification = document.createElement('div');
+    notification.className = 'admin-notification';
+    notification.textContent = message;
+    notification.style.background = colors[type] || 'var(--cor-principal)';
+    notification.style.position = 'fixed';
+    notification.style.bottom = '100px';
+    notification.style.left = '50%';
+    notification.style.transform = 'translateX(-50%)';
+    notification.style.color = '#fff';
+    notification.style.padding = '0.8rem 2rem';
+    notification.style.borderRadius = '2rem';
+    notification.style.zIndex = '99999';
+    notification.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+    notification.style.fontWeight = '500';
+    notification.style.maxWidth = '90%';
+    notification.style.textAlign = 'center';
+    notification.style.transition = 'opacity 0.4s ease';
+    notification.style.pointerEvents = 'none';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.style.opacity = '1', 100);
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => notification.remove(), 400);
+    }, 4000);
+}
