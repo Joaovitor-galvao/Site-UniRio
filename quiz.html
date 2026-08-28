@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz — Voto Consciente UNIRIO</title>
+    <meta name="description" content="Teste seus conhecimentos sobre política e sistema eleitoral com nosso quiz interativo." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>" />
+    <style>
+        .quiz-hero {
+            background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
+            padding: 3rem 0;
+            color: var(--texto-claro);
+        }
+        .quiz-hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
+        .quiz-hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: var(--fundo-secundario);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .question-card.active { display: block; }
+        .question-card .number {
+            display: inline-block;
+            background: var(--cor-destaque);
+            color: var(--texto-claro);
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .question-card h3 {
+            color: var(--cor-secundaria);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+        .question-card .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .question-card .options label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--fundo);
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .question-card .options label:hover {
+            border-color: var(--cor-suporte);
+            background: var(--fundo-secundario);
+        }
+        .question-card .options input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--cor-destaque);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .question-card .options label.selected {
+            border-color: var(--cor-destaque);
+            background: #fef0ec;
+        }
+        .question-card .options label.correct {
+            border-color: #27ae60;
+            background: #eafaf1;
+        }
+        .question-card .options label.wrong {
+            border-color: #e74c3c;
+            background: #fdedec;
+        }
+
+        .question-card .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            display: none;
+        }
+        .question-card .feedback.correct {
+            display: block;
+            background: #eafaf1;
+            border-left: 4px solid #27ae60;
+            color: #1a6e3a;
+        }
+        .question-card .feedback.wrong {
+            display: block;
+            background: #fdedec;
+            border-left: 4px solid #e74c3c;
+            color: #922b21;
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        .quiz-progress .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: background 0.3s;
+        }
+        .quiz-progress .dot.active { background: var(--cor-destaque); }
+        .quiz-progress .dot.answered { background: var(--cor-secundaria); }
+        .quiz-progress .dot.correct { background: #27ae60; }
+        .quiz-progress .dot.wrong { background: #e74c3c; }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .quiz-nav .btn {
+            padding: 0.7rem 2rem;
+            border: none;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .quiz-nav .btn-primary {
+            background: var(--cor-destaque);
+            color: var(--texto-claro);
+        }
+        .quiz-nav .btn-primary:hover { background: var(--cor-marrom); }
+        .quiz-nav .btn-secondary {
+            background: #e0d6c8;
+            color: var(--texto);
+        }
+        .quiz-nav .btn-secondary:hover { background: #ccc; }
+        .quiz-nav .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result-container {
+            text-align: center;
+            padding: 2rem;
+            background: var(--fundo-secundario);
+            border-radius: 1rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .result-container .score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--cor-destaque);
+        }
+        .result-container .message {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+        .result-container .details {
+            text-align: left;
+            margin: 1.5rem 0;
+        }
+        .result-container .details .result-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .result-container .details .result-item.correct { color: #27ae60; }
+        .result-container .details .result-item.wrong { color: #e74c3c; }
+
+        .start-screen {
+            text-align: center;
+            padding: 2rem;
+            background: var(--fundo-secundario);
+            border-radius: 1rem;
+        }
+        .start-screen .icon { font-size: 4rem; }
+        .start-screen h2 { color: var(--cor-secundaria); margin: 1rem 0; }
+        .start-screen p { color: #666; max-width: 500px; margin: 0 auto 1.5rem; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .quiz-hero h1 { font-size: 2rem; }
+            .question-card { padding: 1.2rem; }
+            .quiz-nav { flex-wrap: wrap; }
+            .quiz-nav .btn { flex: 1; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" role="banner">
+        <div class="top-bar">
+            <div class="container top-bar__inner">
+                <div class="top-bar__access">
+                    <button class="access-btn" id="high-contrast">Alto contraste</button>
+                    <button class="access-btn" id="font-inc">A+</button>
+                    <button class="access-btn" id="font-dec">A-</button>
+                </div>
+                <div class="top-bar__links">
+                    <a href="#">Ouvidoria</a>
+                    <a href="contato.html">Fale conosco</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container main-header__inner">
+                <div class="logo">
+                    <a href="index.html">
+                        <span class="logo__icon">🗳️</span>
+                        <span class="logo__text"><strong>VOTO CONSCIENTE</strong><small>— UNIRIO</small></span>
+                    </a>
+                </div>
+                <div class="header-search">
+                    <form action="#">
+                        <label for="search-input" class="visually-hidden">Pesquisar</label>
+                        <input type="search" id="search-input" placeholder="O que você busca?" />
+                        <button type="submit">🔍</button>
+                    </form>
+                </div>
+                <div class="header-social">
+                    <a href="#">📷</a><a href="#">▶️</a><a href="#">🐦</a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <div class="container">
+                <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
+                <ul id="primary-menu" class="nav-list">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li class="has-dropdown">
+                        <a href="eleicoes-2026.html">Eleições 2026 ▾</a>
+                        <ul class="dropdown">
+                            <li><a href="presidente.html">Presidente</a></li>
+                            <li><a href="senador.html">Senador</a></li>
+                            <li><a href="deputado-federal.html">Deputado Federal</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="informacoes.html">Informações</a></li>
+                    <li class="has-dropdown">
+                        <a href="conteudo-interativo.html">Conteúdo Interativo ▾</a>
+                        <ul class="dropdown">
+                            <li><a href="quiz.html" class="active">Quiz</a></li>
+                            <li><a href="simulador.html">Simulador</a></li>
+                            <li><a href="voce-e-o-senador.html">Você é o Senador</a></li>
+                            <li><a href="flashcards.html">Flashcards</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="referencias.html">Referências</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main id="main-content" class="main">
+
+        <!-- ===== HERO ===== -->
+        <section class="quiz-hero">
+            <div class="container">
+                <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+                    <div style="flex:1;">
+                        <h1>🧠 Quiz: Qual cargo você entende melhor?</h1>
+                        <p>Teste seus conhecimentos sobre política e sistema eleitoral!</p>
+                        <p style="font-size:1rem; opacity:0.8;">10 perguntas • Correção automática • Resultado final</p>
+                    </div>
+                    <div style="font-size:5rem; text-align:center; flex:0 0 auto;">📝</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== QUIZ ===== -->
+        <section class="section">
+            <div class="container quiz-container">
+
+                <!-- TELA INICIAL -->
+                <div id="start-screen" class="start-screen">
+                    <div class="icon">🗳️</div>
+                    <h2>Pronto para começar?</h2>
+                    <p>Responda as 10 perguntas sobre política e sistema eleitoral. Cada pergunta tem 4 alternativas, apenas uma está correta.</p>
+                    <button class="btn btn--primary" onclick="startQuiz()">▶️ Começar Quiz</button>
+                </div>
+
+                <!-- PERGUNTAS -->
+                <div id="quiz-content" style="display:none;">
+                    <div class="quiz-progress" id="progress-dots"></div>
+                    <div id="questions-container"></div>
+                    <div class="quiz-nav">
+                        <button class="btn btn-secondary" id="prev-btn" onclick="prevQuestion()">← Anterior</button>
+                        <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()">Próxima →</button>
+                    </div>
+                </div>
+
+                <!-- RESULTADO -->
+                <div id="result-container" class="result-container">
+                    <div class="score" id="final-score">0/10</div>
+                    <div class="message" id="result-message"></div>
+                    <div class="details" id="result-details"></div>
+                    <button class="btn btn--primary" onclick="restartQuiz()">🔄 Refazer Quiz</button>
+                    <a href="conteudo-interativo.html" class="btn" style="display:inline-block; margin-top:0.5rem; background:var(--cor-secundaria); color:var(--texto-claro); padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none;">← Voltar para Conteúdo Interativo</a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div class="footer__col">
+                <h3>VOTO CONSCIENTE</h3>
+                <p>Projeto de Pesquisa e Extensão</p>
+                <p>Escola de Ciência Política</p>
+                <p>UNIRIO</p>
+            </div>
+            <div class="footer__col">
+                <h4>Links úteis</h4>
+                <ul>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>Contato</h4>
+                <p>votoconsciente@unirio.br</p>
+                <p>(21) 99999-9999</p>
+            </div>
+            <div class="footer__col">
+                <h4>Mapa do site</h4>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="conteudo-interativo.html">Interativo</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="container"><p>&copy; 2026 Voto Consciente — UNIRIO</p></div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        // ============================================
+        // QUIZ - DADOS E LÓGICA
+        // ============================================
+
+        const questions = [
+            {
+                question: "Qual é o sistema de votação utilizado para eleger o Presidente da República?",
+                options: [
+                    "Sistema Proporcional",
+                    "Sistema Majoritário",
+                    "Sistema Distrital",
+                    "Sistema de Lista"
+                ],
+                correct: 1,
+                explanation: "O Presidente é eleito pelo sistema majoritário, onde o candidato com mais votos vence."
+            },
+            {
+                question: "Quantos anos dura o mandato de um Senador?",
+                options: ["4 anos", "6 anos", "8 anos", "10 anos"],
+                correct: 2,
+                explanation: "O mandato do Senador é de 8 anos, com renovação de 1/3 e 2/3 a cada eleição."
+            },
+            {
+                question: "Qual cargo NÃO é eleito pelo sistema proporcional?",
+                options: ["Deputado Federal", "Deputado Estadual", "Senador", "Vereador"],
+                correct: 2,
+                explanation: "O Senador é eleito pelo sistema majoritário, não proporcional."
+            },
+            {
+                question: "Quantos Deputados Federais compõem a Câmara dos Deputados?",
+                options: ["513", "594", "431", "702"],
+                correct: 0,
+                explanation: "A Câmara dos Deputados é composta por 513 deputados federais."
+            },
+            {
+                question: "O que faz um Deputado Federal?",
+                options: [
+                    "Administrar o país",
+                    "Criar leis e fiscalizar o Executivo",
+                    "Julgar processos criminais",
+                    "Governar estados"
+                ],
+                correct: 1,
+                explanation: "O Deputado Federal cria leis, fiscaliza o Executivo e aprova o orçamento da União."
+            },
+            {
+                question: "Qual é o tempo de mandato do Presidente da República?",
+                options: ["3 anos", "4 anos", "5 anos", "6 anos"],
+                correct: 1,
+                explanation: "O mandato do Presidente é de 4 anos, com possibilidade de uma reeleição."
+            },
+            {
+                question: "O que o Senador NÃO pode fazer?",
+                options: [
+                    "Fiscalizar o Executivo",
+                    "Aprovar ministros do STF",
+                    "Governar estados",
+                    "Propor leis"
+                ],
+                correct: 2,
+                explanation: "O Senador não pode governar estados. Essa é uma função dos Governadores."
+            },
+            {
+                question: "O sistema eleitoral brasileiro permite voto:",
+                options: [
+                    "Apenas para maiores de 21 anos",
+                    "Apenas para quem tem título",
+                    "Facultativo para 16-17 anos e +70",
+                    "Obrigatório para todos"
+                ],
+                correct: 2,
+                explanation: "O voto é obrigatório de 18 a 70 anos e facultativo para 16-17 e maiores de 70."
+            },
+            {
+                question: "Qual cargo tem mandato de 4 anos?",
+                options: ["Senador", "Presidente", "Deputado Federal", "Presidente e Deputado Federal"],
+                correct: 3,
+                explanation: "Tanto o Presidente quanto o Deputado Federal têm mandato de 4 anos."
+            },
+            {
+                question: "O que o Deputado Federal pode fazer?",
+                options: [
+                    "Decretar estado de sítio",
+                    "Governar cidades",
+                    "Propor e votar leis",
+                    "Nomear ministros"
+                ],
+                correct: 2,
+                explanation: "O Deputado Federal pode propor e votar leis, fiscalizar o Executivo e votar o orçamento."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let quizStarted = false;
+
+        function startQuiz() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('quiz-content').style.display = 'block';
+            quizStarted = true;
+            userAnswers = new Array(questions.length).fill(null);
+            renderQuestions();
+            updateProgress();
+            updateButtons();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            questions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.className = `question-card ${index === 0 ? 'active' : ''}`;
+                div.id = `question-${index}`;
+                div.innerHTML = `
+                    <span class="number">Pergunta ${index + 1} de ${questions.length}</span>
+                    <h3>${q.question}</h3>
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((opt, optIndex) => `
+                            <label onclick="selectOption(${index}, ${optIndex})" id="label-${index}-${optIndex}">
+                                <input type="radio" name="question-${index}" value="${optIndex}" ${userAnswers[index] === optIndex ? 'checked' : ''}>
+                                ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}"></div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (userAnswers[questionIndex] !== null) return; // Já respondeu
+
+            userAnswers[questionIndex] = optionIndex;
+            const labels = document.querySelectorAll(`#options-${questionIndex} label`);
+            labels.forEach((label, idx) => {
+                label.classList.toggle('selected', idx === optionIndex);
+            });
+
+            // Mostrar feedback
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            const isCorrect = optionIndex === questions[questionIndex].correct;
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+            feedback.textContent = isCorrect ? '✅ Correto! ' + questions[questionIndex].explanation : '❌ Incorreto. ' + questions[questionIndex].explanation;
+            feedback.style.display = 'block';
+
+            // Marcar como respondida no progresso
+            updateProgress();
+            updateButtons();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+                currentQuestion++;
+                document.getElementById(`question-${currentQuestion}`).classList.add('active');
+                updateButtons();
+                updateProgress();
+                document.getElementById('questions-container').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+                currentQuestion--;
+                document.getElementById(`question-${currentQuestion}`).classList.add('active');
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            prevBtn.disabled = currentQuestion === 0;
+            
+            const isLast = currentQuestion === questions.length - 1;
+            const isAnswered = userAnswers[currentQuestion] !== null;
+            nextBtn.textContent = isLast ? '📊 Ver Resultado' : 'Próxima →';
+            nextBtn.disabled = !isAnswered;
+        }
+
+        function updateProgress() {
+            const dots = document.getElementById('progress-dots');
+            dots.innerHTML = '';
+            questions.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                if (index === currentQuestion) dot.classList.add('active');
+                if (userAnswers[index] !== null) {
+                    const isCorrect = userAnswers[index] === questions[index].correct;
+                    dot.classList.add(isCorrect ? 'correct' : 'wrong');
+                    dot.classList.add('answered');
+                }
+                dots.appendChild(dot);
+            });
+        }
+
+        function showResults() {
+            document.getElementById('quiz-content').style.display = 'none';
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.style.display = 'block';
+
+            let correct = 0;
+            const details = [];
+            questions.forEach((q, index) => {
+                const isCorrect = userAnswers[index] === q.correct;
+                if (isCorrect) correct++;
+                details.push({
+                    question: q.question,
+                    userAnswer: userAnswers[index] !== null ? q.options[userAnswers[index]] : 'Não respondida',
+                    correctAnswer: q.options[q.correct],
+                    isCorrect: isCorrect
+                });
+            });
+
+            document.getElementById('final-score').textContent = `${correct}/${questions.length}`;
+
+            const percentage = Math.round((correct / questions.length) * 100);
+            let message = '';
+            let emoji = '';
+            if (percentage === 100) { message = 'Perfeito! Você é um especialista em política! 🏆'; emoji = '👑'; }
+            else if (percentage >= 80) { message = 'Excelente! Você tem um ótimo conhecimento político! 🌟'; emoji = '🌟'; }
+            else if (percentage >= 60) { message = 'Bom trabalho! Continue estudando para melhorar! 📚'; emoji = '📚'; }
+            else if (percentage >= 40) { message = 'Você está no caminho certo! Revise os conteúdos. 💪'; emoji = '💪'; }
+            else { message = 'Que tal revisar os cargos políticos? Você pode melhorar! 🎯'; emoji = '🎯'; }
+
+            document.getElementById('result-message').innerHTML = `${emoji} ${message}`;
+
+            const detailsHtml = details.map((d, i) => `
+                <div class="result-item ${d.isCorrect ? 'correct' : 'wrong'}">
+                    <strong>${i + 1}.</strong> ${d.question}<br>
+                    <span style="font-size:0.9rem;">
+                        Sua resposta: ${d.userAnswer} ${d.isCorrect ? '✅' : '❌'}<br>
+                        ${!d.isCorrect ? `Resposta correta: ${d.correctAnswer}` : ''}
+                    </span>
+                </div>
+            `).join('');
+
+            document.getElementById('result-details').innerHTML = detailsHtml;
+
+            // Scroll para o resultado
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function restartQuiz() {
+            document.getElementById('result-container').style.display = 'none';
+            document.getElementById('quiz-content').style.display = 'block';
+            currentQuestion = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            renderQuestions();
+            updateProgress();
+            updateButtons();
+            document.getElementById('questions-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Esconder o quiz até começar
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('result-container').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
