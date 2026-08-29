@@ -1,3 +1,4 @@
+cat > js/script.js << 'EOF'
 // ============================================
 // SCRIPT PRINCIPAL - CON(S)CIÊNCIA POLÍTICA
 // ============================================
@@ -171,7 +172,9 @@ function criarSkipLink() {
     document.body.insertBefore(skipLink, document.body.firstChild);
 }
 
-// ===== BARRA DE PESQUISA =====
+// ============================================
+// BARRA DE PESQUISA - ÍNDICE COMPLETO
+// ============================================
 const searchData = [
     { title: 'Início', url: 'index.html', category: 'Página inicial' },
     { title: 'Sobre o Projeto', url: 'sobre.html', category: 'Informações' },
@@ -187,6 +190,14 @@ const searchData = [
     { title: 'Flashcards', url: 'flashcards.html', category: 'Interativo' },
     { title: 'Referências', url: 'referencias.html', category: 'Biblioteca' },
     { title: 'Contato', url: 'contato.html', category: 'Contato' },
+    { title: 'Candidatos a Presidente', url: 'candidatos-presidente.html', category: 'Candidatos' },
+    { title: 'Profª. Dra. Ana Carla Silva', url: 'ana-carla-silva.html', category: 'Equipe' },
+    { title: 'Prof. Dr. João Mendes', url: 'joao-mendes.html', category: 'Equipe' },
+    { title: 'Profª. Dra. Maria Oliveira', url: 'maria-oliveira.html', category: 'Equipe' },
+    { title: 'Prof. Dr. Carlos Santos', url: 'carlos-santos.html', category: 'Equipe' },
+    { title: 'Fernanda Lima', url: 'fernanda-lima.html', category: 'Equipe' },
+    { title: 'Rafael Costa', url: 'rafael-costa.html', category: 'Equipe' },
+    { title: 'Painel Administrativo', url: 'admin-panel.html', category: 'Admin' },
 ];
 
 function buscar(query) {
@@ -200,13 +211,17 @@ function buscar(query) {
 
 function mostrarResultados(query) {
     const container = document.getElementById('search-results');
+    if (!container) return;
+    
     const results = buscar(query);
     container.innerHTML = '';
+    
     if (results.length === 0) {
-        container.innerHTML = `<div class="search-result-empty"><span>🔍</span><p>Nenhum resultado encontrado</p></div>`;
+        container.innerHTML = `<div class="search-result-empty"><span>🔍</span><p>Nenhum resultado encontrado para "${query}"</p></div>`;
         container.style.display = 'block';
         return;
     }
+    
     results.forEach(item => {
         const resultItem = document.createElement('a');
         resultItem.href = item.url;
@@ -214,29 +229,49 @@ function mostrarResultados(query) {
         resultItem.innerHTML = `<strong>${item.title}</strong><span class="category">${item.category}</span>`;
         container.appendChild(resultItem);
     });
+    
     container.style.display = 'block';
 }
 
 function initSearch() {
     const searchInput = document.getElementById('search-input');
     if (!searchInput) return;
+    
     const container = document.getElementById('search-results');
+    if (!container) return;
+    
     searchInput.addEventListener('input', function(e) {
         const query = this.value;
-        if (query.length >= 2) { mostrarResultados(query); } 
-        else { container.style.display = 'none'; }
+        if (query.length >= 2) {
+            mostrarResultados(query);
+        } else {
+            container.style.display = 'none';
+        }
     });
+    
+    // Fechar ao clicar fora
     document.addEventListener('click', function(e) {
         if (!searchInput.contains(e.target) && !container.contains(e.target)) {
             container.style.display = 'none';
         }
     });
+    
+    // Fechar ao pressionar ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            container.style.display = 'none';
+            searchInput.blur();
+        }
+    });
 }
 
-// ===== INICIALIZAÇÃO =====
+// ============================================
+// INICIALIZAÇÃO
+// ============================================
 document.addEventListener('DOMContentLoaded', function() {
     carregarPreferenciasAcessibilidade();
     criarSkipLink();
     initMenuMobile();
     initSearch();
 });
+EOF
