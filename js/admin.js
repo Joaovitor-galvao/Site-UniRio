@@ -42,33 +42,30 @@ function addAdminButton() {
     const oldBtn = document.getElementById('admin-toggle');
     if (oldBtn) oldBtn.remove();
 
-    const footer = document.querySelector('.footer__bottom');
-    if (!footer) return;
-
+    // Cria botão fixo na tela (não depende do rodapé)
     const adminBtn = document.createElement('div');
     adminBtn.id = 'admin-toggle';
     adminBtn.className = 'admin-footer-btn';
     adminBtn.innerHTML = isAuthenticated ? '👑' : '•';
-    adminBtn.setAttribute('aria-label', 'Acesso administrativo');
     adminBtn.title = '';
     adminBtn.style.cssText = `
-        position: absolute;
-        bottom: 5px;
+        position: fixed;
+        bottom: 10px;
         right: 10px;
-        width: 15px;
-        height: 15px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         background: transparent;
         color: transparent;
         cursor: pointer;
-        opacity: 0.3;
+        opacity: 0.1;
         transition: all 0.3s;
-        font-size: 8px;
+        font-size: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         user-select: none;
-        z-index: 9999;
+        z-index: 99999;
     `;
 
     let clicks = 0;
@@ -84,11 +81,10 @@ function addAdminButton() {
                 openLoginModal();
             }
         }
-        setTimeout(() => { adminBtn.style.opacity = '0.3'; }, 200);
+        setTimeout(() => { adminBtn.style.opacity = '0.1'; }, 200);
     });
 
-    footer.style.position = 'relative';
-    footer.appendChild(adminBtn);
+    document.body.appendChild(adminBtn);
 }
 
 function openLoginModal() {
@@ -157,7 +153,7 @@ function logout() {
     const btn = document.getElementById('admin-toggle');
     if (btn) {
         btn.innerHTML = '•';
-        btn.style.opacity = '0.3';
+        btn.style.opacity = '0.1';
     }
     
     disableEditing();
