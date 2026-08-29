@@ -34,46 +34,11 @@ function toggleAltoContraste() {
     document.body.classList.toggle('high-contrast');
     const isActive = document.body.classList.contains('high-contrast');
     localStorage.setItem('votoConscienteHighContrast', isActive ? 'true' : 'false');
-    const btn = document.getElementById('btn-contraste');
-    if (btn) {
-        btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-pressed', isActive);
-        btn.innerHTML = isActive ? '🌙<span class="indicador"></span>' : '☀️<span class="indicador"></span>';
-    }
-}
-
-function toggleModoLeitura() {
-    document.body.classList.toggle('modo-leitura');
-    const isActive = document.body.classList.contains('modo-leitura');
-    localStorage.setItem('votoConscienteModoLeitura', isActive ? 'true' : 'false');
-    const btn = document.getElementById('btn-leitura');
+    const btn = document.getElementById('high-contrast');
     if (btn) {
         btn.classList.toggle('active', isActive);
         btn.setAttribute('aria-pressed', isActive);
     }
-}
-
-function resetarAcessibilidade() {
-    escalaFonteAtual = 1;
-    document.documentElement.style.setProperty('--font-scale', 1);
-    localStorage.setItem('votoConscienteFontSize', '1');
-    atualizarIndicadoresFonte();
-    document.body.classList.remove('high-contrast');
-    localStorage.setItem('votoConscienteHighContrast', 'false');
-    const btnContraste = document.getElementById('btn-contraste');
-    if (btnContraste) {
-        btnContraste.classList.remove('active');
-        btnContraste.setAttribute('aria-pressed', 'false');
-        btnContraste.innerHTML = '☀️<span class="indicador"></span>';
-    }
-    document.body.classList.remove('modo-leitura');
-    localStorage.setItem('votoConscienteModoLeitura', 'false');
-    const btnLeitura = document.getElementById('btn-leitura');
-    if (btnLeitura) {
-        btnLeitura.classList.remove('active');
-        btnLeitura.setAttribute('aria-pressed', 'false');
-    }
-    mostrarNotificacaoAcessibilidade('♿ Configurações de acessibilidade redefinidas');
 }
 
 function carregarPreferenciasAcessibilidade() {
@@ -89,21 +54,8 @@ function carregarPreferenciasAcessibilidade() {
     const highContrast = localStorage.getItem('votoConscienteHighContrast');
     if (highContrast === 'true') {
         document.body.classList.add('high-contrast');
-        const btn = document.getElementById('btn-contraste');
-        if (btn) {
-            btn.classList.add('active');
-            btn.setAttribute('aria-pressed', 'true');
-            btn.innerHTML = '🌙<span class="indicador"></span>';
-        }
-    }
-    const modoLeitura = localStorage.getItem('votoConscienteModoLeitura');
-    if (modoLeitura === 'true') {
-        document.body.classList.add('modo-leitura');
-        const btn = document.getElementById('btn-leitura');
-        if (btn) {
-            btn.classList.add('active');
-            btn.setAttribute('aria-pressed', 'true');
-        }
+        const btn = document.getElementById('high-contrast');
+        if (btn) btn.classList.add('active');
     }
 }
 

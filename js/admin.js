@@ -42,7 +42,6 @@ function addAdminButton() {
     const oldBtn = document.getElementById('admin-toggle');
     if (oldBtn) oldBtn.remove();
 
-    // Cria botão fixo na tela (não depende do rodapé)
     const adminBtn = document.createElement('div');
     adminBtn.id = 'admin-toggle';
     adminBtn.className = 'admin-footer-btn';
