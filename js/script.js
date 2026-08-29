@@ -1,4 +1,3 @@
-cat > js/script.js << 'EOF'
 // ============================================
 // SCRIPT PRINCIPAL - CON(S)CIÊNCIA POLÍTICA
 // ============================================
@@ -249,14 +248,12 @@ function initSearch() {
         }
     });
     
-    // Fechar ao clicar fora
     document.addEventListener('click', function(e) {
         if (!searchInput.contains(e.target) && !container.contains(e.target)) {
             container.style.display = 'none';
         }
     });
     
-    // Fechar ao pressionar ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             container.style.display = 'none';
@@ -265,13 +262,9 @@ function initSearch() {
     });
 }
 
-// ============================================
-// INICIALIZAÇÃO
-// ============================================
 document.addEventListener('DOMContentLoaded', function() {
     carregarPreferenciasAcessibilidade();
     criarSkipLink();
     initMenuMobile();
     initSearch();
 });
-EOF
