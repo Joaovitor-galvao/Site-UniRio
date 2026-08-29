@@ -1,4 +1,3 @@
-cat > deputado-federal.html << 'EOF'
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -47,12 +46,23 @@ cat > deputado-federal.html << 'EOF'
         </div>
         <div class="main-header">
             <div class="container main-header__inner">
-                <div class="logo">
-                    <a href="index.html">
-                        <span class="logo__icon">🗳️</span>
-                        <span class="logo__text"><strong>VOTO CONSCIENTE</strong><small>— UNIRIO</small></span>
-                    </a>
-                </div>
+<div class="logo">
+    <a href="index.html"
+       style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
+
+        <img
+            src="img/logo.png"
+            alt="Logo do projeto Consciência Política"
+            class="logo__imagem"
+        >
+
+        <div class="logo__text">
+            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
+            <small>VOTO CONSCIENTE — UNIRIO</small>
+        </div>
+
+    </a>
+</div>
                 <div class="header-search">
                     <form action="#">
                         <label for="search-input" class="visually-hidden">Pesquisar</label>
@@ -198,11 +208,32 @@ cat > deputado-federal.html << 'EOF'
                         </div>
 
                         <!-- Voltar -->
-                        <div style="background:var(--fundo-secundario); padding:1.5rem; border-radius:1rem; text-align:center; border:2px solid var(--cor-suporte); margin-top:1.5rem;">
-                            <h3 style="color:var(--cor-secundaria);">🔍 Dica do Voto Consciente</h3>
-                            <p>Conheça as propostas dos candidatos a Deputado Federal. Pesquise a atuação parlamentar!</p>
-                            <a href="eleicoes-2026.html" class="btn-voltar" style="margin-top:0.5rem;">← Voltar para Eleições 2026</a>
-                        </div>
+<div style="background:var(--fundo-secundario); padding:1.5rem; border-radius:1rem; text-align:center; border:2px solid var(--cor-suporte); margin-top:1.5rem;">
+
+    <h3 style="color:var(--cor-secundaria);">
+        🔍 Dica do Voto Consciente
+    </h3>
+
+    <p>
+        Conheça as propostas dos candidatos a Deputado Federal.
+        Pesquise a atuação parlamentar!
+    </p>
+
+    <a href="candidatos-deputado-federal.html"
+       class="btn-voltar"
+       style="margin-top:0.5rem;">
+        👤 Ver candidatos a Deputado Federal
+    </a>
+
+    <br><br>
+
+    <a href="eleicoes-2026.html"
+       class="btn-voltar"
+       style="background:var(--cor-secundaria);">
+        ← Voltar para Eleições 2026
+    </a>
+
+</div>
                     </div>
                 </div>
 
@@ -251,4 +282,3 @@ cat > deputado-federal.html << 'EOF'
     <script src="js/admin.js"></script>
 </body>
 </html>
-EOF

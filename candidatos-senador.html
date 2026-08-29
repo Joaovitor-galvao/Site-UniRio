@@ -14,16 +14,8 @@
             padding: 3rem 0;
             color: var(--texto-claro);
         }
-
-        .candidatos-hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .candidatos-hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
+        .candidatos-hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
+        .candidatos-hero p { font-size: 1.2rem; opacity: 0.9; }
 
         .candidato-card {
             background: var(--fundo);
@@ -32,14 +24,14 @@
             border-left: 4px solid var(--cor-destaque);
             margin-bottom: 1.5rem;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
-
         .candidato-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
-        .candidato-card .partido-badge {
+        .partido-badge {
             display: inline-block;
             background: var(--cor-secundaria);
             color: var(--texto-claro);
@@ -56,39 +48,101 @@
             margin-bottom: 0.3rem;
         }
 
-        .candidato-card .nome-completo {
+        .nome-completo {
             color: var(--cor-destaque);
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
 
-        .candidato-card .info-secundaria {
+        .info-secundaria {
             font-size: 0.9rem;
             color: #666;
             margin-bottom: 0.2rem;
         }
 
-        .candidato-card .detalhes {
+        .detalhes,
+        .suplentes {
             margin-top: 0.8rem;
             padding-top: 0.8rem;
             border-top: 1px solid #eee;
         }
 
-        .candidato-card .detalhes ul {
+        .detalhes ul {
             list-style: disc;
             padding-left: 1.5rem;
             font-size: 0.95rem;
         }
 
-        .candidato-card .detalhes ul li {
-            margin-bottom: 0.25rem;
+        .detalhes ul li { margin-bottom: 0.25rem; }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
         }
 
-        .suplentes {
-            margin-top: 0.9rem;
-            padding-top: 0.8rem;
+        .aviso {
+            background: var(--cor-suporte);
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .aviso p { margin: 0; font-weight: 500; }
+
+        .admin-candidatos-bar {
+            display: none;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-candidatos-bar.ativo { display: flex; }
+
+        .btn-admin-candidato {
+            border: none;
+            cursor: pointer;
+            background: var(--cor-destaque);
+            color: var(--texto-claro);
+            padding: 0.75rem 1.4rem;
+            border-radius: 2rem;
+            font-weight: 700;
+        }
+
+        .candidato-admin-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
             border-top: 1px solid #eee;
-            font-size: 0.95rem;
+        }
+
+        .candidato-admin-actions button {
+            border: none;
+            border-radius: 2rem;
+            padding: 0.55rem 0.9rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-editar-candidato {
+            background: var(--cor-destaque);
+            color: var(--texto-claro);
+        }
+
+        .btn-excluir-candidato {
+            background: #ece5dc;
+            color: #7f2f2f;
+        }
+
+        .candidato-vazio {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            background: var(--fundo);
+            border-radius: 1rem;
         }
 
         .btn-voltar {
@@ -108,41 +162,15 @@
             text-decoration: none;
         }
 
-        .aviso {
-            background: var(--cor-suporte);
-            padding: 1rem 1.5rem;
-            border-radius: 1rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .aviso p {
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
         @media (max-width: 768px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-
-            .candidatos-hero h1 {
-                font-size: 2rem;
-            }
+            .grid-2 { grid-template-columns: 1fr; }
+            .candidatos-hero h1 { font-size: 2rem; }
         }
     </style>
 </head>
-
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
-    <!-- ===== HEADER ===== -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
@@ -151,7 +179,6 @@
                     <button class="access-btn" id="font-inc">A+</button>
                     <button class="access-btn" id="font-dec">A-</button>
                 </div>
-
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
                     <a href="contato.html">Fale conosco</a>
@@ -161,15 +188,23 @@
 
         <div class="main-header">
             <div class="container main-header__inner">
-                <div class="logo">
-                    <a href="index.html">
-                        <span class="logo__icon">🗳️</span>
-                        <span class="logo__text">
-                            <strong>VOTO CONSCIENTE</strong>
-                            <small>— UNIRIO</small>
-                        </span>
-                    </a>
-                </div>
+<div class="logo">
+    <a href="index.html"
+       style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
+
+        <img
+            src="img/logo.png"
+            alt="Logo do projeto Consciência Política"
+            class="logo__imagem"
+        >
+
+        <div class="logo__text">
+            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
+            <small>VOTO CONSCIENTE — UNIRIO</small>
+        </div>
+
+    </a>
+</div>
 
                 <div class="header-search">
                     <form action="#">
@@ -177,12 +212,11 @@
                         <input type="search" id="search-input" placeholder="O que você busca?" />
                         <button type="submit">🔍</button>
                     </form>
+                    <div id="search-results"></div>
                 </div>
 
                 <div class="header-social">
-                    <a href="#">📷</a>
-                    <a href="#">▶️</a>
-                    <a href="#">🐦</a>
+                    <a href="#">📷</a><a href="#">▶️</a><a href="#">🐦</a>
                 </div>
             </div>
         </div>
@@ -190,12 +224,10 @@
         <nav class="main-nav">
             <div class="container">
                 <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
-
                 <ul id="primary-menu" class="nav-list">
                     <li><a href="index.html">Início</a></li>
                     <li><a href="sobre.html">Sobre</a></li>
                     <li><a href="eventos.html">Eventos</a></li>
-
                     <li class="has-dropdown">
                         <a href="eleicoes-2026.html">Eleições 2026 ▾</a>
                         <ul class="dropdown">
@@ -204,9 +236,7 @@
                             <li><a href="deputado-federal.html">Deputado Federal</a></li>
                         </ul>
                     </li>
-
                     <li><a href="informacoes.html">Informações</a></li>
-
                     <li class="has-dropdown">
                         <a href="conteudo-interativo.html">Conteúdo Interativo ▾</a>
                         <ul class="dropdown">
@@ -216,7 +246,6 @@
                             <li><a href="flashcards.html">Flashcards</a></li>
                         </ul>
                     </li>
-
                     <li><a href="referencias.html">Referências</a></li>
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
@@ -224,433 +253,46 @@
         </nav>
     </header>
 
-    <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
-
-        <!-- ===== HERO ===== -->
         <section class="candidatos-hero">
             <div class="container">
                 <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
                     <div style="flex:1;">
                         <h1>🏛️ Candidatos ao Senado — Rio de Janeiro 2026</h1>
                         <p>Conheça as candidaturas ao Senado pelo estado do Rio de Janeiro nas Eleições 2026.</p>
-                        <p style="font-size:1rem; opacity:0.8;">
-                            Informações educativas e apartidárias com base em dados divulgados pelo Senado.
-                        </p>
+                        <p style="font-size:1rem; opacity:0.8;">Informações educativas e apartidárias.</p>
                     </div>
-
                     <div style="font-size:5rem; text-align:center; flex:0 0 auto;">🗳️</div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== AVISO ===== -->
-        <section class="section" style="padding-top: 2rem;">
+        <section class="section" style="padding-top:2rem;">
             <div class="container">
                 <div class="aviso">
-                    <p>
-                        📢 <strong>Informação educativa:</strong>
-                        Esta página apresenta dados públicos sobre as candidaturas. O projeto Voto Consciente
-                        não apoia, endossa ou favorece qualquer candidato ou partido político.
-                    </p>
+                    <p>📢 <strong>Informação educativa:</strong> O projeto Voto Consciente não apoia, endossa ou favorece qualquer candidato ou partido político.</p>
+                </div>
+
+                <div id="admin-candidatos-bar" class="admin-candidatos-bar">
+                    <button class="btn-admin-candidato" onclick="abrirModalCandidato()">➕ Adicionar candidato</button>
+                    <button class="btn-admin-candidato" onclick="restaurarSenadoresPadrao()">↻ Restaurar lista inicial</button>
                 </div>
             </div>
         </section>
 
-        <!-- ===== LISTA DE CANDIDATOS ===== -->
-        <section class="section" style="padding-top: 0;">
+        <section class="section" style="padding-top:0;">
             <div class="container">
-                <div class="grid-2">
+                <div id="lista-candidatos" class="grid-2"></div>
 
-                    <!-- ===== 1. ANDRÉ MONTEIRO ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">DEMOCRATA</span>
-                        <h3>André Monteiro</h3>
-                        <p class="nome-completo">Luiz André de Moura Monteiro</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Militar</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Não há cargos anteriores informados na fonte consultada.</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Cmt. Ribeiro Afonso — Democrata<br>
-                            2º Alexandre Cardoso — Democrata
-                        </div>
-                    </div>
-
-                    <!-- ===== 2. BENEDITA DA SILVA ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">PT</span>
-                        <h3>Benedita da Silva</h3>
-                        <p class="nome-completo">Benedita Souza da Silva Sampaio</p>
-                        <p class="info-secundaria"><strong>Profissões:</strong> Assistente social, professora, entre outras</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Vereadora do Rio de Janeiro</li>
-                                <li>Deputada federal</li>
-                                <li>Senadora</li>
-                                <li>Vice-governadora e governadora do RJ</li>
-                                <li>Ministra da Assistência e Promoção Social</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Manoel Severino — PT<br>
-                            2º Kleber Lucas — PT
-                        </div>
-                    </div>
-
-                    <!-- ===== 3. CARLOS JORDY ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">PL</span>
-                        <h3>Carlos Jordy</h3>
-                        <p class="nome-completo">Carlos Roberto Coelho de Mattos Júnior</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Servidor público</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Niterói (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Vereador de Niterói</li>
-                                <li>Deputado federal</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Lucimar Ferreira — PL<br>
-                            2º Zé Augusto Nalin — PL
-                        </div>
-                    </div>
-
-                    <!-- ===== 4. CARLOS PORTINHO ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">PL</span>
-                        <h3>Carlos Portinho</h3>
-                        <p class="nome-completo">Carlos Francisco Portinho</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Advogado</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Secretário municipal de Habitação do Rio de Janeiro</li>
-                                <li>Secretário estadual de Meio Ambiente</li>
-                                <li>Senador</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Samuel Malafaia — PL<br>
-                            2º Marcelinho — PL
-                        </div>
-                    </div>
-
-                    <!-- ===== 5. HELIO SECCO ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">MISSÃO</span>
-                        <h3>Helio Secco</h3>
-                        <p class="nome-completo">Helio Kinast Cruz Secco</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Empresário</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Petrópolis (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Não há cargos anteriores informados na fonte consultada.</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Moisés Queiroz — Missão<br>
-                            2º Ramon Batista — Missão
-                        </div>
-                    </div>
-
-                    <!-- ===== 6. LUCIANO MATTOS ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">PRTB</span>
-                        <h3>Luciano Mattos</h3>
-                        <p class="nome-completo">Luciano Oliveira Mattos de Souza</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Advogado e promotor aposentado</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Niterói (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência pública:</strong>
-                            <ul>
-                                <li>Procurador-geral do Estado</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Murilo Romero — PRTB<br>
-                            2º Ricardo Fernandes — PRTB
-                        </div>
-                    </div>
-
-                    <!-- ===== 7. LUIZ EUGÊNIO ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">PCO</span>
-                        <h3>Luiz Eugênio</h3>
-                        <p class="nome-completo">Luiz Eugênio Honorato</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Metalúrgico</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Vassouras (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Não há cargos anteriores informados na fonte consultada.</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Antonio de Paula — PCO<br>
-                            2º Guilherme dos Santos — PCO
-                        </div>
-                    </div>
-
-                    <!-- ===== 8. MARCELO CRIVELLA ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">REPUBLICANOS</span>
-                        <h3>Marcelo Crivella</h3>
-                        <p class="nome-completo">Marcelo Bezerra Crivella</p>
-                        <p class="info-secundaria"><strong>Profissões:</strong> Professor, pastor, músico, entre outras</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Senador</li>
-                                <li>Ministro da Pesca e Aquicultura</li>
-                                <li>Prefeito do Rio de Janeiro</li>
-                                <li>Deputado federal</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Vagner Arruda dos Santos — Republicanos<br>
-                            2º Francisco Eugênio — Republicanos
-                        </div>
-                    </div>
-
-                    <!-- ===== 9. MARCOS DIAS ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">PODEMOS</span>
-                        <h3>Marcos Dias</h3>
-                        <p class="nome-completo">Marcos Dias Pereira</p>
-                        <p class="info-secundaria"><strong>Profissões:</strong> Empresário e pastor</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Vereador do Rio de Janeiro</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Everaldo Pereira — Podemos<br>
-                            2º Elaine Diniz — Podemos
-                        </div>
-                    </div>
-
-                    <!-- ===== 10. MICHELLY XAVIER ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">UP</span>
-                        <h3>Michelly Xavier</h3>
-                        <p class="nome-completo">Michelly Xavier de Souza</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Advogada</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Não há cargos anteriores informados na fonte consultada.</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Roberto Vasconcelos — UP<br>
-                            2º Elza do MLB — UP
-                        </div>
-                    </div>
-
-                    <!-- ===== 11. MONICA BENICIO ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">PSOL</span>
-                        <h3>Monica Benicio</h3>
-                        <p class="nome-completo">Monica Tereza Azeredo Benício</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Arquiteta</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Vereadora do Rio de Janeiro</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Vanderlea Aguiar — PSOL<br>
-                            2º Maria dos Camelôs — PSOL
-                        </div>
-                    </div>
-
-                    <!-- ===== 12. Ó CLEMENTE ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">DEMOCRATA</span>
-                        <h3>Ó Clemente</h3>
-                        <p class="nome-completo">Clemente Sebastião de Almeida Campos</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Servidor público</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Itinga (MG)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Não há cargos anteriores informados na fonte consultada.</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Alberto Pró Vida — Democrata<br>
-                            2º Jorge Page — Democrata
-                        </div>
-                    </div>
-
-                    <!-- ===== 13. PAULA FALCÃO ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">PSTU</span>
-                        <h3>Paula Falcão</h3>
-                        <p class="nome-completo">Paula Andreia Almeida Falcão</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Professora</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Goiânia (GO)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Não há cargos anteriores informados na fonte consultada.</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Florinda Lombardi — PSTU<br>
-                            2º Carlão Silveira — PSTU
-                        </div>
-                    </div>
-
-                    <!-- ===== 14. PEDRO PAULO ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">PSD</span>
-                        <h3>Pedro Paulo</h3>
-                        <p class="nome-completo">Pedro Paulo Carvalho Teixeira</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Economista</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Secretário municipal de Meio Ambiente do Rio de Janeiro</li>
-                                <li>Deputado estadual</li>
-                                <li>Deputado federal</li>
-                                <li>Secretário municipal de Fazenda e Planejamento</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Miro Teixeira — PDT<br>
-                            2º Sávio Neves — PSDB
-                        </div>
-                    </div>
-
-                    <!-- ===== 15. VINICIUS BENEVIDES ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">UP</span>
-                        <h3>Vinicius Benevides</h3>
-                        <p class="nome-completo">Vinícius Benevides dos Santos Conceição</p>
-                        <p class="info-secundaria"><strong>Profissão:</strong> Trabalhador da construção civil</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Não há cargos anteriores informados na fonte consultada.</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º Gabriela Gonçalves — UP<br>
-                            2º George Thomson — UP
-                        </div>
-                    </div>
-
-                    <!-- ===== 16. WAGUINHO ===== -->
-                    <div class="candidato-card">
-                        <span class="partido-badge">REPUBLICANOS</span>
-                        <h3>Waguinho</h3>
-                        <p class="nome-completo">Wagner dos Santos Carneiro</p>
-                        <p class="info-secundaria"><strong>Profissões:</strong> Servidor público e advogado, entre outras</p>
-                        <p class="info-secundaria"><strong>Naturalidade:</strong> Rio de Janeiro (RJ)</p>
-
-                        <div class="detalhes">
-                            <strong>📋 Experiência política:</strong>
-                            <ul>
-                                <li>Vereador de Belford Roxo</li>
-                                <li>Deputado estadual</li>
-                                <li>Prefeito de Belford Roxo</li>
-                            </ul>
-                        </div>
-
-                        <div class="suplentes">
-                            <strong>👥 Suplentes:</strong><br>
-                            1º André R. Soares — Republicanos<br>
-                            2º Dra. Renata — Republicanos
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- ===== BOTÕES VOLTAR ===== -->
-                <div style="text-align: center; margin-top: 2rem;">
-                    <a href="senador.html" class="btn-voltar">
-                        ← Voltar para Página do Senador
-                    </a>
-
+                <div style="text-align:center; margin-top:2rem;">
+                    <a href="senador.html" class="btn-voltar">← Voltar para Página do Senador</a>
                     <br><br>
-
-                    <a href="eleicoes-2026.html"
-                       class="btn-voltar"
-                       style="background: var(--cor-secundaria);">
-                        ← Voltar para Eleições 2026
-                    </a>
+                    <a href="eleicoes-2026.html" class="btn-voltar" style="background:var(--cor-secundaria);">← Voltar para Eleições 2026</a>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container footer__inner">
             <div class="footer__col">
@@ -659,7 +301,6 @@
                 <p>Escola de Ciência Política</p>
                 <p>UNIRIO</p>
             </div>
-
             <div class="footer__col">
                 <h4>Links úteis</h4>
                 <ul>
@@ -668,13 +309,11 @@
                     <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
                 </ul>
             </div>
-
             <div class="footer__col">
                 <h4>Contato</h4>
                 <p>votoconsciente@unirio.br</p>
                 <p>(21) 99999-9999</p>
             </div>
-
             <div class="footer__col">
                 <h4>Mapa do site</h4>
                 <ul>
@@ -684,11 +323,8 @@
                 </ul>
             </div>
         </div>
-
         <div class="footer__bottom">
-            <div class="container">
-                <p>&copy; 2026 Voto Consciente — UNIRIO</p>
-            </div>
+            <div class="container"><p>&copy; 2026 Voto Consciente — UNIRIO</p></div>
         </div>
     </footer>
 
