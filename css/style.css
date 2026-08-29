@@ -1083,3 +1083,29 @@ a:hover { color: var(--cor-marrom); text-decoration: underline; }
 }
 
 .modal-close:hover { transform: rotate(90deg); }
+
+/* ===== ÍCONES SOCIAIS ===== */
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    transition: all 0.3s;
+    cursor: default;
+}
+
+.social-icon:hover {
+    background: var(--cor-destaque);
+    transform: translateY(-2px);
+}
+
+.header-social .social-icon {
+    margin-right: 0.5rem;
+}
+
+.footer-social .social-icon {
+    margin-right: 0.5rem;
+}
