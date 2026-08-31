@@ -81,6 +81,8 @@
         @media (max-width: 768px) {
             .admin-grid { grid-template-columns: 1fr; }
             .admin-stats { grid-template-columns: 1fr; }
+            .admin-header { flex-direction: column; align-items: stretch; text-align: center; }
+            .admin-header .user { justify-content: center; flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -175,13 +177,21 @@
             if (!session) { window.location.href = 'login.html'; return; }
             try {
                 const data = JSON.parse(session);
-                if (data.username !== 'admin') { window.location.href = 'login.html'; }
+                if (data.username !== 'admin') { window.location.href = 'login.html'; return; }
+                if (data.expires && data.expires < Date.now()) {
+                    localStorage.removeItem('votoConscienteSession');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                if (data.name) { document.getElementById('user-name').textContent = data.name; }
             } catch(e) { window.location.href = 'login.html'; }
         }
 
         function logout() {
-            localStorage.removeItem('votoConscienteSession');
-            window.location.href = 'login.html';
+            if (confirm('Tem certeza que deseja sair?')) {
+                localStorage.removeItem('votoConscienteSession');
+                window.location.href = 'login.html';
+            }
         }
 
         function updateStats() {
@@ -193,7 +203,20 @@
             const savedContent = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
             let currentContent = savedContent[sectionId] || '';
             
-            const newContent = prompt('Editar ' + sectionId + ':\n\n' + currentContent);
+            const labels = {
+                'hero': '🎨 Editar Hero\n\nDigite o texto do Hero:',
+                'apresentacao': '📝 Editar Apresentação\n\nDigite o texto:',
+                'objetivos': '🎯 Editar Objetivos\n\nDigite os objetivos (um por linha):',
+                'equipe': '👥 Editar Equipe\n\nDigite os membros (Nome - Cargo):',
+                'eventos': '📅 Editar Eventos\n\nDigite os eventos:',
+                'noticias': '📰 Editar Notícias\n\nDigite as notícias:',
+                'cards': '🃏 Editar Cards\n\nDigite os cards:',
+                'footer': '📌 Editar Rodapé\n\nDigite o texto:'
+            };
+
+            const label = labels[sectionId] || '✏️ Editar Conteúdo';
+            const newContent = prompt(label, currentContent);
+            
             if (newContent !== null) {
                 savedContent[sectionId] = newContent;
                 localStorage.setItem('votoConscienteContent', JSON.stringify(savedContent));
@@ -203,7 +226,7 @@
         }
 
         function confirmReset() {
-            if (confirm('⚠️ Tem certeza que deseja restaurar o conteúdo padrão?')) {
+            if (confirm('⚠️ ATENÇÃO: Isso vai apagar TODO o conteúdo personalizado!')) {
                 if (confirm('🔄 Confirme novamente: resetar tudo?')) {
                     localStorage.removeItem('votoConscienteContent');
                     updateStats();

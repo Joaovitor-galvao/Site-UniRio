@@ -1,5 +1,6 @@
 // ============================================
 // ADMIN - BOTÃO FLUTUANTE
+// CON(S)CIÊNCIA POLÍTICA - UNIRIO
 // ============================================
 
 let isAuthenticated = false;
