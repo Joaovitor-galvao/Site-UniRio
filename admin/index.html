@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin — CON(S)CIÊNCIA POLÍTICA</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
+    <style>
+        .admin-container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .admin-header {
+            background: #2c1e1f;
+            color: #faf5e8;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .admin-header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; }
+        .admin-header .user { display: flex; align-items: center; gap: 1rem; }
+        .admin-header .user .avatar {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: #cf6357;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; font-weight: 700;
+        }
+        .btn-logout {
+            background: #c0392b; color: #faf5e8;
+            border: none; padding: 0.5rem 1.2rem;
+            border-radius: 2rem; font-weight: 600; cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-logout:hover { background: #e74c3c; }
+
+        .admin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .admin-card {
+            background: #ffffff; padding: 1.5rem; border-radius: 1rem;
+            text-align: center; cursor: pointer;
+            transition: all 0.3s; border: 2px solid transparent;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+            border-color: #cf6357;
+        }
+        .admin-card .icon { font-size: 2.5rem; display: block; }
+        .admin-card h3 { color: #612a2a; font-size: 1rem; margin: 0.3rem 0; }
+        .admin-card p { font-size: 0.8rem; color: #888; }
+        .admin-card .badge {
+            display: inline-block; background: #cf6357; color: #faf5e8;
+            padding: 0.15rem 0.6rem; border-radius: 2rem;
+            font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+        .admin-card-danger {
+            border-color: #e74c3c; background: #fdf2f2;
+        }
+        .admin-card-danger:hover { border-color: #c0392b; background: #fde8e8; }
+        .admin-card-danger h3 { color: #c0392b; }
+
+        .admin-stats {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 1rem; margin-bottom: 2rem;
+        }
+        .admin-stat {
+            background: #ffffff; padding: 1.2rem; border-radius: 1rem;
+            text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .admin-stat .number { font-size: 2rem; font-weight: 700; color: #cf6357; display: block; }
+        .admin-stat .label { font-size: 0.8rem; color: #888; }
+
+        @media (max-width: 992px) {
+            .admin-grid { grid-template-columns: 1fr 1fr; }
+            .admin-stats { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .admin-grid { grid-template-columns: 1fr; }
+            .admin-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <div>
+                <h1>👑 Painel Administrativo</h1>
+                <p style="opacity:0.7; font-size:0.9rem;">Gerencie o conteúdo do site</p>
+            </div>
+            <div class="user">
+                <div class="avatar">👤</div>
+                <div>
+                    <strong id="user-name">Administrador</strong>
+                    <p style="font-size:0.8rem; opacity:0.7;">🔐 Usuário Master</p>
+                </div>
+                <button class="btn-logout" onclick="logout()">🚪 Sair</button>
+            </div>
+        </div>
+
+        <div class="admin-stats">
+            <div class="admin-stat"><span class="number">15</span><span class="label">📄 Páginas</span></div>
+            <div class="admin-stat"><span class="number" id="stat-edits">0</span><span class="label">✏️ Edições</span></div>
+            <div class="admin-stat"><span class="number">6</span><span class="label">📅 Eventos</span></div>
+            <div class="admin-stat"><span class="number">8</span><span class="label">👥 Equipe</span></div>
+        </div>
+
+        <h2 style="color:#612a2a; font-family:'Playfair Display',Georgia,serif; margin:2rem 0 1rem;">📝 Gerenciar Conteúdo</h2>
+        <div class="admin-grid">
+            <div class="admin-card" onclick="editSection('hero')">
+                <span class="icon">🎨</span><h3>Hero</h3>
+                <p>Título, subtítulo e botão</p><span class="badge">Texto</span>
+            </div>
+            <div class="admin-card" onclick="editSection('apresentacao')">
+                <span class="icon">📝</span><h3>Apresentação</h3>
+                <p>Texto de apresentação</p><span class="badge">Texto</span>
+            </div>
+            <div class="admin-card" onclick="editSection('objetivos')">
+                <span class="icon">🎯</span><h3>Objetivos</h3>
+                <p>Lista de objetivos</p><span class="badge">Lista</span>
+            </div>
+            <div class="admin-card" onclick="editSection('equipe')">
+                <span class="icon">👥</span><h3>Equipe</h3>
+                <p>Membros da equipe</p><span class="badge">Lista</span>
+            </div>
+            <div class="admin-card" onclick="editSection('eventos')">
+                <span class="icon">📅</span><h3>Eventos</h3>
+                <p>Eventos e atividades</p><span class="badge">Lista</span>
+            </div>
+            <div class="admin-card" onclick="editSection('noticias')">
+                <span class="icon">📰</span><h3>Notícias</h3>
+                <p>Notícias do portal</p><span class="badge">Lista</span>
+            </div>
+            <div class="admin-card" onclick="editSection('cards')">
+                <span class="icon">🃏</span><h3>Cards Destaque</h3>
+                <p>Cards da página inicial</p><span class="badge">Lista</span>
+            </div>
+            <div class="admin-card" onclick="editSection('footer')">
+                <span class="icon">📌</span><h3>Rodapé</h3>
+                <p>Informações de contato</p><span class="badge">Texto</span>
+            </div>
+            <div class="admin-card admin-card-danger" onclick="confirmReset()">
+                <span class="icon">⚠️</span><h3>Resetar Conteúdo</h3>
+                <p>Restaurar conteúdo padrão</p><span class="badge">⚠️ Perigoso</span>
+            </div>
+        </div>
+
+        <h2 style="color:#612a2a; font-family:'Playfair Display',Georgia,serif; margin:2rem 0 1rem;">⚡ Atalhos</h2>
+        <div class="admin-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <a href="../index.html" class="admin-card" style="background:#faf5e8; text-decoration:none; color:#2c1e1f;">
+                <span class="icon">🏠</span><h3>Ver Site</h3><p>Página inicial</p>
+            </a>
+            <a href="../eventos.html" class="admin-card" style="background:#faf5e8; text-decoration:none; color:#2c1e1f;">
+                <span class="icon">📅</span><h3>Ver Eventos</h3><p>Eventos do projeto</p>
+            </a>
+            <a href="../contato.html" class="admin-card" style="background:#faf5e8; text-decoration:none; color:#2c1e1f;">
+                <span class="icon">📬</span><h3>Ver Contato</h3><p>Página de contato</p>
+            </a>
+            <a href="#" class="admin-card" style="background:#faf5e8; text-decoration:none; color:#2c1e1f;" onclick="location.reload();">
+                <span class="icon">🔄</span><h3>Recarregar</h3><p>Atualizar painel</p>
+            </a>
+        </div>
+
+        <div style="text-align:center; margin-top:2rem;">
+            <a href="../index.html" class="btn-logout" style="background:#cf6357; text-decoration:none; display:inline-block; padding:0.7rem 2rem;">← Voltar para o site</a>
+        </div>
+    </div>
+
+    <script>
+        function checkAuth() {
+            const session = localStorage.getItem('votoConscienteSession');
+            if (!session) { window.location.href = 'login.html'; return; }
+            try {
+                const data = JSON.parse(session);
+                if (data.username !== 'admin') { window.location.href = 'login.html'; }
+            } catch(e) { window.location.href = 'login.html'; }
+        }
+
+        function logout() {
+            localStorage.removeItem('votoConscienteSession');
+            window.location.href = 'login.html';
+        }
+
+        function updateStats() {
+            const content = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+            document.getElementById('stat-edits').textContent = Object.keys(content).length;
+        }
+
+        function editSection(sectionId) {
+            const savedContent = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+            let currentContent = savedContent[sectionId] || '';
+            
+            const newContent = prompt('Editar ' + sectionId + ':\n\n' + currentContent);
+            if (newContent !== null) {
+                savedContent[sectionId] = newContent;
+                localStorage.setItem('votoConscienteContent', JSON.stringify(savedContent));
+                updateStats();
+                alert('✅ Conteúdo salvo com sucesso!');
+            }
+        }
+
+        function confirmReset() {
+            if (confirm('⚠️ Tem certeza que deseja restaurar o conteúdo padrão?')) {
+                if (confirm('🔄 Confirme novamente: resetar tudo?')) {
+                    localStorage.removeItem('votoConscienteContent');
+                    updateStats();
+                    alert('🔄 Conteúdo restaurado para o padrão.');
+                    location.reload();
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            updateStats();
+        });
+    </script>
+</body>
+</html>
