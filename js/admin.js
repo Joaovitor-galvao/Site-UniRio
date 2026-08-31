@@ -1,5 +1,5 @@
 // ============================================
-// ADMIN - EDIÇÃO IN-LINE (CLICK TO EDIT)
+// ADMIN - EDIÇÃO DIRETA NA PÁGINA
 // CON(S)CIÊNCIA POLÍTICA - UNIRIO
 // ============================================
 
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     checkSession();
     addAdminButton();
     if (isAuthenticated) {
-        enableInlineEditing();
+        enableDirectEditing();
     }
 });
 
@@ -32,8 +32,6 @@ function addAdminButton() {
     adminBtn.id = 'admin-toggle';
     adminBtn.className = 'admin-float-btn';
     adminBtn.innerHTML = isAuthenticated ? '👑' : '🔐';
-    adminBtn.setAttribute('aria-label', isAuthenticated ? 'Painel Administrativo' : 'Login');
-    adminBtn.title = isAuthenticated ? 'Abrir painel' : 'Fazer login';
     adminBtn.style.cssText = `
         position: fixed;
         bottom: 30px;
@@ -66,50 +64,78 @@ function addAdminButton() {
 }
 
 // ============================================
-// EDIÇÃO IN-LINE (CLICK TO EDIT)
+// EDIÇÃO DIRETA NA PÁGINA (CONTENTEDITABLE)
 // ============================================
 
-function enableInlineEditing() {
-    // Adicionar botões de edição em elementos editáveis
-    const editables = document.querySelectorAll('.hero__title, .hero__subtitle, .section .grid-2 p, .section .grid-2 ul, .card h3, .card p');
+function enableDirectEditing() {
+    // Elementos que podem ser editados
+    const editables = document.querySelectorAll(
+        '.hero__title, .hero__subtitle, ' +
+        '.section .grid-2 p, .section .grid-2 ul, ' +
+        '.card h3, .card p, .news-card h3, .news-card p, ' +
+        '.section-title'
+    );
     
     editables.forEach(el => {
-        // Adicionar classe para indicar que é editável
-        el.classList.add('editable-inline');
-        el.style.cursor = 'pointer';
-        el.style.position = 'relative';
+        // Tornar editável
+        el.contentEditable = true;
+        el.setAttribute('spellcheck', 'true');
         
-        // Adicionar indicador visual
+        // Estilo visual
+        el.style.transition = 'all 0.2s';
+        el.style.borderRadius = '4px';
+        el.style.padding = '4px 8px';
+        el.style.margin = '-4px -8px';
+        
+        // Indicador visual ao passar o mouse
         el.addEventListener('mouseenter', function() {
-            this.style.outline = '2px dashed #cf6357';
-            this.style.outlineOffset = '4px';
-        });
-        el.addEventListener('mouseleave', function() {
-            this.style.outline = 'none';
+            if (!this.classList.contains('editing')) {
+                this.style.backgroundColor = 'rgba(207, 99, 87, 0.08)';
+                this.style.outline = '2px dashed #cf6357';
+                this.style.outlineOffset = '2px';
+            }
         });
         
-        // Clique para editar
-        el.addEventListener('click', function(e) {
-            e.stopPropagation();
-            openInlineEditor(this);
+        el.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('editing')) {
+                this.style.backgroundColor = 'transparent';
+                this.style.outline = 'none';
+            }
         });
-    });
-    
-    // Adicionar estilo para o modo de edição
-    const style = document.createElement('style');
-    style.textContent = `
-        .editable-inline {
-            transition: all 0.2s;
-            border-radius: 4px;
-            padding: 4px;
-        }
-        .editable-inline.editing {
-            outline: 3px solid #cf6357 !important;
-            background: #fff8f0 !important;
-        }
-        .editable-inline .edit-hint {
+        
+        // Salvar ao perder o foco
+        el.addEventListener('blur', function() {
+            this.classList.remove('editing');
+            this.style.backgroundColor = 'transparent';
+            this.style.outline = 'none';
+            saveContent(this);
+        });
+        
+        // Salvar com Ctrl+Enter
+        el.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                this.blur();
+            }
+            if (e.key === 'Escape') {
+                this.blur();
+            }
+        });
+        
+        // Foco - modo edição
+        el.addEventListener('focus', function() {
+            this.classList.add('editing');
+            this.style.backgroundColor = 'rgba(207, 99, 87, 0.1)';
+            this.style.outline = '3px solid #cf6357';
+            this.style.outlineOffset = '2px';
+        });
+        
+        // Adicionar indicação "Clique para editar"
+        const hint = document.createElement('span');
+        hint.className = 'edit-hint';
+        hint.textContent = '✏️ Clique e edite';
+        hint.style.cssText = `
             position: absolute;
-            top: -20px;
+            top: -22px;
             right: 0;
             font-size: 0.6rem;
             background: #cf6357;
@@ -119,191 +145,116 @@ function enableInlineEditing() {
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        `;
+        el.style.position = 'relative';
+        el.appendChild(hint);
+        
+        el.addEventListener('mouseenter', function() {
+            const hintEl = this.querySelector('.edit-hint');
+            if (hintEl) hintEl.style.opacity = '1';
+        });
+        
+        el.addEventListener('mouseleave', function() {
+            const hintEl = this.querySelector('.edit-hint');
+            if (hintEl) hintEl.style.opacity = '0';
+        });
+    });
+    
+    // Estilo para o modo de edição
+    const style = document.createElement('style');
+    style.textContent = `
+        .editing {
+            background: rgba(207, 99, 87, 0.1) !important;
+            outline: 3px solid #cf6357 !important;
+            outline-offset: 2px !important;
+            border-radius: 4px !important;
         }
-        .editable-inline:hover .edit-hint {
-            opacity: 1;
+        [contenteditable="true"]:focus {
+            outline: none !important;
+        }
+        .edit-hint {
+            position: absolute !important;
+            top: -22px !important;
+            right: 0 !important;
+            font-size: 0.6rem !important;
+            background: #cf6357 !important;
+            color: white !important;
+            padding: 0 0.5rem !important;
+            border-radius: 4px !important;
+            opacity: 0 !important;
+            transition: opacity 0.3s !important;
+            pointer-events: none !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.5px !important;
+        }
+        [contenteditable="true"]:hover .edit-hint {
+            opacity: 1 !important;
         }
     `;
     document.head.appendChild(style);
     
-    // Adicionar hint em cada elemento
-    editables.forEach(el => {
-        const hint = document.createElement('span');
-        hint.className = 'edit-hint';
-        hint.textContent = '✏️ Clique para editar';
-        el.style.position = 'relative';
-        el.appendChild(hint);
-    });
-    
-    console.log('✅ Modo de edição in-line ativado! Clique em qualquer texto para editar.');
+    console.log('✅ Modo de edição direta ativado! Clique em qualquer texto para editar.');
 }
 
 // ============================================
-// EDITOR IN-LINE
+// SALVAR CONTEÚDO
 // ============================================
 
-function openInlineEditor(element) {
-    // Verificar se já está em modo de edição
-    if (element.dataset.editing === 'true') return;
-    
-    // Salvar o conteúdo original
-    const originalContent = element.innerHTML;
-    const elementType = element.tagName.toLowerCase();
-    const isList = elementType === 'ul' || elementType === 'ol';
-    
-    // Criar o editor
-    const editor = document.createElement('div');
-    editor.className = 'inline-editor';
-    editor.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        padding: 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        z-index: 10001;
-        max-width: 600px;
-        width: 90%;
-        max-height: 80vh;
-        overflow-y: auto;
-    `;
-    
-    // Conteúdo do editor
-    let contentValue = '';
-    if (isList) {
-        const items = element.querySelectorAll('li');
-        contentValue = Array.from(items).map(li => li.textContent.trim()).join('\n');
-    } else {
-        contentValue = element.textContent.trim();
-    }
-    
-    editor.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-            <h3 style="color:#612a2a;font-family:'Playfair Display',serif;">✏️ Editar Conteúdo</h3>
-            <button onclick="closeInlineEditor()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">✕</button>
-        </div>
-        <div style="margin-bottom:1rem;">
-            <label style="display:block;font-weight:600;margin-bottom:0.3rem;font-size:0.9rem;">${isList ? 'Digite cada item em uma linha:' : 'Edite o texto:'}</label>
-            <textarea id="inline-editor-textarea" style="width:100%;min-height:150px;padding:0.8rem;border:2px solid #e0d6c8;border-radius:0.8rem;font-family:inherit;font-size:1rem;resize:vertical;">${contentValue}</textarea>
-        </div>
-        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
-            <button onclick="saveInlineEdit()" style="background:#27ae60;color:white;border:none;padding:0.6rem 2rem;border-radius:2rem;font-weight:600;cursor:pointer;">💾 Salvar</button>
-            <button onclick="closeInlineEditor()" style="background:#95a5a6;color:white;border:none;padding:0.6rem 2rem;border-radius:2rem;font-weight:600;cursor:pointer;">Cancelar</button>
-        </div>
-    `;
-    
-    // Criar overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'inline-overlay';
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        backdrop-filter: blur(4px);
-        z-index: 10000;
-    `;
-    overlay.addEventListener('click', closeInlineEditor);
-    
-    document.body.appendChild(overlay);
-    document.body.appendChild(editor);
-    
-    // Salvar referência ao elemento
-    editor.dataset.targetElement = element.id || 'element';
-    editor.dataset.isList = isList;
-    editor.dataset.originalContent = originalContent;
-    
-    // Focar no textarea
-    setTimeout(() => {
-        document.getElementById('inline-editor-textarea').focus();
-    }, 100);
-    
-    element.dataset.editing = 'true';
-    element.classList.add('editing');
-}
-
-function closeInlineEditor() {
-    document.querySelectorAll('.inline-editor').forEach(el => el.remove());
-    document.querySelectorAll('.inline-overlay').forEach(el => el.remove());
-    document.querySelectorAll('.editing').forEach(el => {
-        el.dataset.editing = 'false';
-        el.classList.remove('editing');
-    });
-}
-
-function saveInlineEdit() {
-    const editor = document.querySelector('.inline-editor');
-    if (!editor) return;
-    
-    const textarea = document.getElementById('inline-editor-textarea');
-    const isList = editor.dataset.isList === 'true';
-    const content = textarea.value;
-    
-    // Encontrar o elemento alvo
-    const targetElement = document.querySelector('.editing');
-    if (!targetElement) {
-        closeInlineEditor();
-        return;
-    }
-    
-    // Atualizar o conteúdo
-    if (isList) {
-        const items = content.split('\n').filter(line => line.trim());
-        targetElement.innerHTML = items.map(item => `<li>${item.trim()}</li>`).join('');
-    } else {
-        targetElement.textContent = content;
-    }
-    
-    // Salvar no localStorage
-    saveContentToLocalStorage(targetElement, content);
-    
-    // Salvar também no editor de arquivos
-    const savedFiles = JSON.parse(localStorage.getItem('votoConscienteEditedFiles') || '{}');
-    savedFiles['/index.html'] = document.documentElement.outerHTML;
-    localStorage.setItem('votoConscienteEditedFiles', JSON.stringify(savedFiles));
-    
-    closeInlineEditor();
-    showNotification('✅ Conteúdo atualizado com sucesso!');
-}
-
-function saveContentToLocalStorage(element, content) {
-    const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-    
+function saveContent(element) {
     // Identificar qual seção foi editada
     let sectionId = 'conteudo';
-    if (element.closest('.hero')) {
+    let content = element.textContent.trim();
+    
+    const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+    
+    if (element.classList.contains('hero__title')) {
         sectionId = 'hero';
-        // Para hero, salvar título e subtítulo separadamente
-        const heroTitle = document.querySelector('.hero__title');
-        const heroSub = document.querySelector('.hero__subtitle');
-        if (heroTitle && heroSub) {
-            saved.hero = heroTitle.textContent + '\n' + heroSub.textContent;
-        }
-    } else if (element.closest('#apresentacao') || element.closest('.section:first-of-type .grid-2 p')) {
+        const sub = document.querySelector('.hero__subtitle');
+        saved.hero = content + '\n' + (sub ? sub.textContent.trim() : '');
+    } else if (element.classList.contains('hero__subtitle')) {
+        sectionId = 'hero';
+        const title = document.querySelector('.hero__title');
+        saved.hero = (title ? title.textContent.trim() : '') + '\n' + content;
+    } else if (element.closest('.section') && element.closest('.grid-2 p')) {
         sectionId = 'apresentacao';
         saved.apresentacao = content;
-    } else if (element.closest('.grid-2 ul') || element.closest('ul')) {
+    } else if (element.closest('.grid-2 ul')) {
         sectionId = 'objetivos';
         const items = element.querySelectorAll('li');
         saved.objetivos = Array.from(items).map(li => li.textContent.trim()).join('\n');
-    } else if (element.closest('#equipe') || element.closest('.card--team')) {
-        sectionId = 'equipe';
-        // Tentar salvar equipe
-        const members = document.querySelectorAll('#equipe .card--team h3');
-        if (members.length) {
-            saved.equipe = Array.from(members).map(h3 => h3.textContent + ' - Membro').join('\n');
+    } else if (element.closest('.card')) {
+        sectionId = 'cards';
+        // Salvar cards
+        const cards = document.querySelectorAll('.card');
+        saved.cards = Array.from(cards).map(card => {
+            const title = card.querySelector('h3');
+            const desc = card.querySelector('p');
+            return (title ? title.textContent.trim() : '') + ' - ' + (desc ? desc.textContent.trim() : '');
+        }).join('\n');
+    } else if (element.closest('.section-title')) {
+        sectionId = 'section-title';
+        // Atualizar título da seção
+        const section = element.closest('.section');
+        if (section && section.id) {
+            saved[section.id + '_title'] = content;
         }
     }
     
     localStorage.setItem('votoConscienteContent', JSON.stringify(saved));
+    
+    // Salvar também no editor de arquivos
+    try {
+        const savedFiles = JSON.parse(localStorage.getItem('votoConscienteEditedFiles') || '{}');
+        savedFiles['/index.html'] = document.documentElement.outerHTML;
+        localStorage.setItem('votoConscienteEditedFiles', JSON.stringify(savedFiles));
+    } catch(e) {}
+    
+    showNotification('✅ Conteúdo salvo!');
 }
 
 function showNotification(message) {
-    // Remover notificações antigas
     document.querySelectorAll('.admin-notification').forEach(el => el.remove());
     
     const notification = document.createElement('div');
@@ -316,12 +267,12 @@ function showNotification(message) {
         transform: translateX(-50%);
         background: #27ae60;
         color: white;
-        padding: 0.8rem 2rem;
+        padding: 0.6rem 1.5rem;
         border-radius: 2rem;
         z-index: 99999;
         box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         font-weight: 500;
-        font-size: 1rem;
+        font-size: 0.9rem;
         opacity: 1;
         transition: opacity 0.4s ease;
     `;
@@ -330,44 +281,44 @@ function showNotification(message) {
     setTimeout(() => {
         notification.style.opacity = '0';
         setTimeout(() => notification.remove(), 400);
-    }, 3000);
+    }, 2000);
 }
 
 // ============================================
-// INICIALIZAR QUANDO O CONTEÚDO CARREGAR
+// CARREGAR CONTEÚDO SALVO
 // ============================================
 
-// Observar mudanças no DOM para reaplicar edição
-const observer = new MutationObserver(function(mutations) {
-    if (isAuthenticated) {
-        // Reaplicar edição em novos elementos
-        document.querySelectorAll('.hero__title, .hero__subtitle, .section .grid-2 p, .section .grid-2 ul, .card h3, .card p:not(.card p .edit-hint)').forEach(el => {
-            if (!el.classList.contains('editable-inline')) {
-                el.classList.add('editable-inline');
-                el.style.cursor = 'pointer';
-                // Adicionar hint
-                const hint = document.createElement('span');
-                hint.className = 'edit-hint';
-                hint.textContent = '✏️ Clique para editar';
-                el.style.position = 'relative';
-                el.appendChild(hint);
-                // Adicionar eventos
-                el.addEventListener('mouseenter', function() {
-                    this.style.outline = '2px dashed #cf6357';
-                    this.style.outlineOffset = '4px';
-                });
-                el.addEventListener('mouseleave', function() {
-                    this.style.outline = 'none';
-                });
-                el.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    openInlineEditor(this);
-                });
-            }
-        });
+function loadSavedContent() {
+    const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+    
+    // Aplicar hero
+    if (saved.hero) {
+        const parts = saved.hero.split('\n');
+        const title = document.querySelector('.hero__title');
+        const sub = document.querySelector('.hero__subtitle');
+        if (title) title.textContent = parts[0] || title.textContent;
+        if (sub && parts[1]) sub.textContent = parts.slice(1).join('\n');
     }
+    
+    // Aplicar apresentacao
+    if (saved.apresentacao) {
+        const p = document.querySelector('.section:first-of-type .grid-2 p');
+        if (p) p.textContent = saved.apresentacao;
+    }
+    
+    // Aplicar objetivos
+    if (saved.objetivos) {
+        const ul = document.querySelector('.section:first-of-type .grid-2 ul');
+        if (ul) {
+            const items = saved.objetivos.split('\n').filter(l => l.trim());
+            ul.innerHTML = items.map(item => `<li>${item.trim()}</li>`).join('');
+        }
+    }
+}
+
+// Carregar conteúdo salvo ao iniciar
+document.addEventListener('DOMContentLoaded', function() {
+    loadSavedContent();
 });
 
-observer.observe(document.body, { childList: true, subtree: true });
-
-console.log('✅ Admin.js carregado - Modo de edição in-line ativado!');
+console.log('✅ Admin.js carregado - Edição direta na página!');
