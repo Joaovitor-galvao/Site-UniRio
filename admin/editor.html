@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor de Conteúdo — CON(S)CIÊNCIA POLÍTICA</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #faf5e8;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .editor-container { max-width: 1200px; margin: 0 auto; }
+        
+        .editor-header {
+            background: #2c1e1f;
+            color: #faf5e8;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .editor-header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.6rem; }
+        .btn-back {
+            background: #cf6357; color: #faf5e8;
+            border: none; padding: 0.4rem 1.2rem;
+            border-radius: 2rem; font-weight: 600; cursor: pointer;
+            text-decoration: none; display: inline-block;
+        }
+        .btn-back:hover { background: #74402d; }
+
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* ===== EDITOR ===== */
+        .editor-panel {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .editor-panel h2 {
+            color: #612a2a;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .editor-panel .section-group {
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #eee;
+        }
+        .editor-panel .section-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .editor-panel label {
+            display: block;
+            font-weight: 600;
+            color: #2c1e1f;
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+        .editor-panel label small { font-weight: 400; color: #999; font-size: 0.75rem; }
+        .editor-panel textarea {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 2px solid #e0d6c8;
+            border-radius: 0.6rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: vertical;
+            transition: border-color 0.3s;
+            background: #faf5e8;
+        }
+        .editor-panel textarea:focus {
+            border-color: #cf6357;
+            outline: none;
+        }
+        .editor-panel textarea.hero-title { min-height: 60px; font-size: 1.2rem; font-weight: 700; }
+        .editor-panel textarea.hero-sub { min-height: 80px; }
+        .editor-panel textarea.large { min-height: 150px; }
+
+        .editor-actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-save {
+            background: #27ae60; color: #faf5e8;
+            border: none; padding: 0.6rem 2rem;
+            border-radius: 2rem; font-weight: 600; cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-save:hover { background: #1e8449; }
+        .btn-reset {
+            background: #95a5a6; color: #faf5e8;
+            border: none; padding: 0.6rem 2rem;
+            border-radius: 2rem; font-weight: 600; cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-reset:hover { background: #7f8c8d; }
+
+        .status-msg {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.5rem;
+            display: inline-block;
+        }
+        .status-msg.success { background: #eafaf1; color: #27ae60; }
+        .status-msg.error { background: #fdedec; color: #c0392b; }
+        .status-msg.saved { background: #eafaf1; color: #27ae60; }
+
+        /* ===== PREVIEW ===== */
+        .preview-panel {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 1rem;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .preview-panel h2 {
+            color: #612a2a;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #27ae60;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .preview-content {
+            background: #faf5e8;
+            border-radius: 0.8rem;
+            padding: 1.5rem;
+            min-height: 300px;
+            border: 2px dashed #e0d6c8;
+        }
+        .preview-content .hero-preview {
+            background: #612a2a; color: #faf5e8;
+            padding: 1.5rem; border-radius: 0.8rem; text-align: center;
+        }
+        .preview-content .hero-preview h1 { color: #faf5e8; font-family: 'Playfair Display', Georgia, serif; }
+        .preview-content .card-preview {
+            background: #ffffff; padding: 0.8rem; border-radius: 0.6rem;
+            border-left: 4px solid #cf6357; margin-bottom: 0.5rem;
+        }
+        .preview-content ul { padding-left: 1.5rem; }
+
+        @media (max-width: 992px) {
+            .editor-grid { grid-template-columns: 1fr; }
+            .preview-panel { position: static; max-height: none; }
+        }
+        @media (max-width: 768px) {
+            .editor-header { flex-direction: column; align-items: stretch; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <!-- HEADER -->
+        <div class="editor-header">
+            <h1>✏️ Editor de Conteúdo</h1>
+            <div>
+                <a href="index.html" class="btn-back">← Voltar ao Painel</a>
+                <a href="../index.html" target="_blank" class="btn-back" style="background:#27ae60;">🌐 Ver Site</a>
+            </div>
+        </div>
+
+        <!-- EDITOR GRID -->
+        <div class="editor-grid">
+            <!-- EDITOR -->
+            <div class="editor-panel">
+                <h2>📝 Editar Conteúdo</h2>
+
+                <div class="section-group">
+                    <label for="hero-title">🎨 Título do Hero <small>(use &lt;br&gt; para quebra)</small></label>
+                    <textarea id="hero-title" class="hero-title">VOTO CONSCIENTE:<br />SAIBA COMO ESCOLHER</textarea>
+                </div>
+
+                <div class="section-group">
+                    <label for="hero-sub">📝 Subtítulo</label>
+                    <textarea id="hero-sub" class="hero-sub">Três votos. Cada um com um papel diferente. Aprenda a escolher bem.</textarea>
+                </div>
+
+                <div class="section-group">
+                    <label for="apresentacao">📖 Apresentação</label>
+                    <textarea id="apresentacao" class="large">O CON(S)CIÊNCIA POLÍTICA é um projeto de pesquisa e extensão da UNIRIO, vinculado à Escola de Ciência Política. Nossa missão é promover a educação política apartidária, fortalecendo a democracia por meio da informação clara, acessível e qualificada.</textarea>
+                </div>
+
+                <div class="section-group">
+                    <label for="objetivos">🎯 Objetivos <small>(um por linha)</small></label>
+                    <textarea id="objetivos">Explicar o funcionamento do sistema eleitoral brasileiro.
+Auxiliar na compreensão dos cargos políticos.
+Incentivar o voto consciente e crítico.
+Divulgar ações de pesquisa e extensão da UNIRIO.
+Oferecer conteúdos educativos interativos.</textarea>
+                </div>
+
+                <div class="section-group">
+                    <label for="equipe">👥 Equipe <small>(Nome - Cargo)</small></label>
+                    <textarea id="equipe">Profª. Dra. Ana Carla Silva - Coordenação
+Prof. Dr. João Mendes - Coordenação
+Profª. Dra. Maria Oliveira - Professora Responsável
+Prof. Dr. Carlos Santos - Professor Responsável</textarea>
+                </div>
+
+                <div class="section-group">
+                    <label for="eventos">📅 Eventos <small>(Nome - Data - Local)</small></label>
+                    <textarea id="eventos">Oficina: Educação Política - 15/04/2026 - UNIRIO
+Palestra: O Papel do Presidente - 25/04/2026 - Online
+Seminário: Democracia e Participação - 10/05/2026 - Centro de Ciências</textarea>
+                </div>
+
+                <div class="editor-actions">
+                    <button class="btn-save" onclick="saveAll()">💾 Salvar Tudo</button>
+                    <button class="btn-reset" onclick="resetAll()">🔄 Resetar Tudo</button>
+                    <span id="status-msg" class="status-msg"></span>
+                </div>
+            </div>
+
+            <!-- PREVIEW -->
+            <div class="preview-panel">
+                <h2>👁️ Preview <span class="live-indicator"></span></h2>
+                <div class="preview-content" id="live-preview">
+                    <p style="color:#999;">Carregando preview...</p>
+                </div>
+                <div style="margin-top:1rem;text-align:center;">
+                    <button onclick="applyPreview()" class="btn-save" style="font-size:0.8rem;">🔄 Atualizar Preview</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // EDITOR DE CONTEÚDO - FUNCIONANDO!
+        // ============================================
+
+        // ===== CARREGAR CONTEÚDO SALVO =====
+        function loadSaved() {
+            const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+            
+            if (saved.hero) {
+                const parts = saved.hero.split('\n');
+                if (parts[0]) document.getElementById('hero-title').value = parts[0];
+                if (parts[1]) document.getElementById('hero-sub').value = parts.slice(1).join('\n');
+            }
+            if (saved.apresentacao) document.getElementById('apresentacao').value = saved.apresentacao;
+            if (saved.objetivos) document.getElementById('objetivos').value = saved.objetivos;
+            if (saved.equipe) document.getElementById('equipe').value = saved.equipe;
+            if (saved.eventos) document.getElementById('eventos').value = saved.eventos;
+            
+            updatePreview();
+        }
+
+        // ===== ATUALIZAR PREVIEW =====
+        function updatePreview() {
+            const preview = document.getElementById('live-preview');
+            const title = document.getElementById('hero-title').value || 'VOTO CONSCIENTE';
+            const sub = document.getElementById('hero-sub').value || '';
+            const apres = document.getElementById('apresentacao').value || '';
+            const objetivos = document.getElementById('objetivos').value.split('\n').filter(l => l.trim());
+            const equipe = document.getElementById('equipe').value.split('\n').filter(l => l.trim());
+            const eventos = document.getElementById('eventos').value.split('\n').filter(l => l.trim());
+
+            preview.innerHTML = `
+                <div class="hero-preview">
+                    <h1>${title}</h1>
+                    <p style="margin:0.5rem 0;">${sub.replace(/\n/g, '<br>')}</p>
+                    <a href="#" style="background:#cf6357;color:#faf5e8;padding:0.4rem 1.5rem;border-radius:2rem;display:inline-block;text-decoration:none;">Saiba Mais</a>
+                </div>
+                <div style="margin-top:1rem;">
+                    <h3 style="font-size:1.1rem;">Apresentação</h3>
+                    <p>${apres}</p>
+                </div>
+                ${objetivos.length ? `<div style="margin-top:0.8rem;"><h4>Objetivos</h4><ul>${objetivos.map(o => `<li>${o}</li>`).join('')}</ul></div>` : ''}
+                ${equipe.length ? `<div style="margin-top:0.8rem;"><h4>Equipe</h4>${equipe.map(m => {
+                    const p = m.split('-').map(s => s.trim());
+                    return `<div class="card-preview"><strong>${p[0] || 'Membro'}</strong><br><span style="color:#666;">${p[1] || 'Cargo'}</span></div>`;
+                }).join('')}</div>` : ''}
+                ${eventos.length ? `<div style="margin-top:0.8rem;"><h4>Eventos</h4>${eventos.map(e => {
+                    const p = e.split('-').map(s => s.trim());
+                    return `<div class="card-preview"><strong>${p[0] || 'Evento'}</strong><br><span style="color:#666;">${p[1] || 'Data'} • ${p[2] || 'Local'}</span></div>`;
+                }).join('')}</div>` : ''}
+            `;
+        }
+
+        // ===== APLICAR PREVIEW =====
+        function applyPreview() {
+            updatePreview();
+            showStatus('success', '✅ Preview atualizado!');
+        }
+
+        // ===== SALVAR TUDO =====
+        function saveAll() {
+            const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+            
+            const title = document.getElementById('hero-title').value;
+            const sub = document.getElementById('hero-sub').value;
+            saved.hero = title + '\n' + sub;
+            saved.apresentacao = document.getElementById('apresentacao').value;
+            saved.objetivos = document.getElementById('objetivos').value;
+            saved.equipe = document.getElementById('equipe').value;
+            saved.eventos = document.getElementById('eventos').value;
+            
+            localStorage.setItem('votoConscienteContent', JSON.stringify(saved));
+            
+            // Também salvar no formato de edição de arquivos
+            const editedFiles = JSON.parse(localStorage.getItem('votoConscienteEditedFiles') || '{}');
+            editedFiles['/index.html'] = document.documentElement.outerHTML;
+            localStorage.setItem('votoConscienteEditedFiles', JSON.stringify(editedFiles));
+            
+            showStatus('saved', '✅ Todos os conteúdos salvos com sucesso!');
+            updatePreview();
+        }
+
+        // ===== RESETAR TUDO =====
+        function resetAll() {
+            if (!confirm('⚠️ ATENÇÃO: Isso vai apagar TODO o conteúdo personalizado!')) return;
+            if (!confirm('🔄 Confirme novamente: resetar tudo?')) return;
+            
+            localStorage.removeItem('votoConscienteContent');
+            localStorage.removeItem('votoConscienteEditedFiles');
+            
+            // Recarregar valores padrão
+            document.getElementById('hero-title').value = 'VOTO CONSCIENTE:<br />SAIBA COMO ESCOLHER';
+            document.getElementById('hero-sub').value = 'Três votos. Cada um com um papel diferente. Aprenda a escolher bem.';
+            document.getElementById('apresentacao').value = 'O CON(S)CIÊNCIA POLÍTICA é um projeto de pesquisa e extensão da UNIRIO...';
+            document.getElementById('objetivos').value = 'Explicar o funcionamento do sistema eleitoral brasileiro.\nAuxiliar na compreensão dos cargos políticos.\nIncentivar o voto consciente e crítico.';
+            document.getElementById('equipe').value = 'Profª. Dra. Ana Carla Silva - Coordenação\nProf. Dr. João Mendes - Coordenação';
+            document.getElementById('eventos').value = 'Oficina: Educação Política - 15/04/2026 - UNIRIO';
+            
+            showStatus('error', '🔄 Conteúdo resetado para o padrão!');
+            updatePreview();
+        }
+
+        // ===== STATUS =====
+        function showStatus(type, message) {
+            const el = document.getElementById('status-msg');
+            el.textContent = message;
+            el.className = 'status-msg ' + type;
+            setTimeout(() => { el.textContent = ''; el.className = 'status-msg'; }, 3000);
+        }
+
+        // ===== ATUALIZAR PREVIEW EM TEMPO REAL =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar autenticação
+            const session = localStorage.getItem('votoConscienteSession');
+            if (!session) { window.location.href = 'login.html'; return; }
+            
+            loadSaved();
+            
+            // Atualizar preview em tempo real
+            const inputs = document.querySelectorAll('textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    clearTimeout(this._timeout);
+                    this._timeout = setTimeout(() => updatePreview(), 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

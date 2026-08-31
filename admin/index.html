@@ -5,34 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel Admin — CON(S)CIÊNCIA POLÍTICA</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
     <style>
         .admin-container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
         .admin-header {
-            background: #2c1e1f;
-            color: #faf5e8;
-            padding: 2rem;
-            border-radius: 1rem;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            background: #2c1e1f; color: #faf5e8;
+            padding: 2rem; border-radius: 1rem; margin-bottom: 2rem;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
         }
         .admin-header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; }
-        .admin-header .user { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-        .admin-header .user .avatar {
-            width: 45px; height: 45px; border-radius: 50%;
-            background: #cf6357;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; font-weight: 700;
-        }
         .btn-logout {
             background: #c0392b; color: #faf5e8;
             border: none; padding: 0.5rem 1.2rem;
             border-radius: 2rem; font-weight: 600; cursor: pointer;
-            transition: background 0.3s;
         }
         .btn-logout:hover { background: #e74c3c; }
 
@@ -42,6 +26,7 @@
             text-align: center; cursor: pointer;
             transition: all 0.3s; border: 2px solid transparent;
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            text-decoration: none; color: inherit; display: block;
         }
         .admin-card:hover {
             transform: translateY(-5px);
@@ -54,31 +39,17 @@
         .admin-card .badge {
             display: inline-block; background: #cf6357; color: #faf5e8;
             padding: 0.15rem 0.6rem; border-radius: 2rem;
-            font-size: 0.6rem; font-weight: 700;
-            margin-top: 0.3rem;
+            font-size: 0.6rem; font-weight: 700; margin-top: 0.3rem;
         }
         .admin-card .badge.editor { background: #3498db; }
+        .admin-card-danger {
+            border-color: #e74c3c; background: #fdf2f2;
+        }
+        .admin-card-danger:hover { border-color: #c0392b; background: #fde8e8; }
 
-        .admin-stats {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 1rem; margin-bottom: 2rem;
-        }
-        .admin-stat {
-            background: #ffffff; padding: 1.2rem; border-radius: 1rem;
-            text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-        }
-        .admin-stat .number { font-size: 2rem; font-weight: 700; color: #cf6357; display: block; }
-        .admin-stat .label { font-size: 0.8rem; color: #888; }
-
-        @media (max-width: 992px) {
-            .admin-grid { grid-template-columns: 1fr 1fr; }
-            .admin-stats { grid-template-columns: 1fr 1fr; }
-        }
         @media (max-width: 768px) {
             .admin-grid { grid-template-columns: 1fr; }
-            .admin-stats { grid-template-columns: 1fr; }
-            .admin-header { flex-direction: column; align-items: stretch; text-align: center; }
-            .admin-header .user { justify-content: center; }
+            .admin-header { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -87,39 +58,27 @@
         <div class="admin-header">
             <div>
                 <h1>👑 Painel Administrativo</h1>
-                <p style="opacity:0.7; font-size:0.9rem;">Gerencie todo o conteúdo do site</p>
+                <p style="opacity:0.7;">Gerencie todo o conteúdo do site</p>
             </div>
-            <div class="user">
-                <div class="avatar">👤</div>
-                <div>
-                    <strong>Administrador</strong>
-                    <p style="font-size:0.8rem; opacity:0.7;">🔐 Usuário Master</p>
-                </div>
+            <div>
                 <button class="btn-logout" onclick="logout()">🚪 Sair</button>
             </div>
         </div>
 
-        <div class="admin-stats">
-            <div class="admin-stat"><span class="number">15</span><span class="label">📄 Páginas</span></div>
-            <div class="admin-stat"><span class="number" id="stat-edits">0</span><span class="label">✏️ Edições</span></div>
-            <div class="admin-stat"><span class="number">6</span><span class="label">📅 Eventos</span></div>
-            <div class="admin-stat"><span class="number">8</span><span class="label">👥 Equipe</span></div>
-        </div>
-
         <h2 style="color:#612a2a; font-family:'Playfair Display',Georgia,serif; margin:2rem 0 1rem;">📝 Ferramentas</h2>
         <div class="admin-grid">
-            <a href="file-editor.html" class="admin-card" style="text-decoration:none; color:inherit;">
-                <span class="icon">📝</span>
+            <a href="editor.html" class="admin-card">
+                <span class="icon">✏️</span>
+                <h3>Editor de Conteúdo</h3>
+                <p>Edite textos e veja em tempo real</p>
+                <span class="badge editor">📝 Editor</span>
+            </a>
+            <a href="file-editor.html" class="admin-card">
+                <span class="icon">📄</span>
                 <h3>Editor de Arquivos</h3>
                 <p>Edite o código-fonte diretamente</p>
-                <span class="badge editor">✏️ Editor</span>
+                <span class="badge editor">💻 Código</span>
             </a>
-            <div class="admin-card" onclick="editContent()">
-                <span class="icon">📄</span>
-                <h3>Editar Conteúdo</h3>
-                <p>Altere textos do site (modo simples)</p>
-                <span class="badge">Texto</span>
-            </div>
             <div class="admin-card admin-card-danger" onclick="confirmReset()">
                 <span class="icon">⚠️</span>
                 <h3>Resetar Conteúdo</h3>
@@ -129,90 +88,24 @@
         </div>
 
         <h2 style="color:#612a2a; font-family:'Playfair Display',Georgia,serif; margin:2rem 0 1rem;">⚡ Atalhos</h2>
-        <div class="admin-grid" style="grid-template-columns: repeat(4, 1fr);">
-            <a href="../index.html" class="admin-card" style="background:#faf5e8; text-decoration:none; color:#2c1e1f;">
+        <div class="admin-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <a href="../index.html" class="admin-card" style="background:#faf5e8;">
                 <span class="icon">🏠</span><h3>Ver Site</h3><p>Página inicial</p>
             </a>
-            <a href="../eventos.html" class="admin-card" style="background:#faf5e8; text-decoration:none; color:#2c1e1f;">
+            <a href="../eventos.html" class="admin-card" style="background:#faf5e8;">
                 <span class="icon">📅</span><h3>Ver Eventos</h3><p>Eventos do projeto</p>
             </a>
-            <a href="../contato.html" class="admin-card" style="background:#faf5e8; text-decoration:none; color:#2c1e1f;">
+            <a href="../contato.html" class="admin-card" style="background:#faf5e8;">
                 <span class="icon">📬</span><h3>Ver Contato</h3><p>Página de contato</p>
             </a>
-            <a href="#" class="admin-card" style="background:#faf5e8; text-decoration:none; color:#2c1e1f;" onclick="location.reload();">
-                <span class="icon">🔄</span><h3>Recarregar</h3><p>Atualizar painel</p>
-            </a>
-        </div>
-
-        <div style="text-align:center; margin-top:2rem;">
-            <a href="../index.html" class="btn-logout" style="background:#cf6357; text-decoration:none; display:inline-block; padding:0.7rem 2rem;">← Voltar para o site</a>
         </div>
     </div>
 
     <script>
-        function checkAuth() {
-            const session = localStorage.getItem('votoConscienteSession');
-            if (!session) { window.location.href = 'login.html'; return; }
-            try {
-                const data = JSON.parse(session);
-                if (data.username !== 'admin') { window.location.href = 'login.html'; }
-                if (data.expires && data.expires < Date.now()) {
-                    localStorage.removeItem('votoConscienteSession');
-                    window.location.href = 'login.html';
-                }
-            } catch(e) { window.location.href = 'login.html'; }
-        }
-
         function logout() {
             if (confirm('Tem certeza que deseja sair?')) {
                 localStorage.removeItem('votoConscienteSession');
                 window.location.href = 'login.html';
-            }
-        }
-
-        function updateStats() {
-            const content = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-            document.getElementById('stat-edits').textContent = Object.keys(content).length;
-        }
-
-        function editContent() {
-            const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-            const sections = ['hero', 'apresentacao', 'objetivos', 'equipe', 'eventos', 'noticias', 'cards', 'footer'];
-            let current = '';
-            sections.forEach(s => {
-                if (saved[s]) current += `[${s}]\n${saved[s]}\n\n`;
-            });
-            
-            const newContent = prompt('Editar conteúdo:\n\n' + current);
-            if (newContent !== null) {
-                // Parse simples: cada seção começa com [nome]
-                const lines = newContent.split('\n');
-                let currentSection = null;
-                let currentText = [];
-                const newSaved = {};
-                
-                lines.forEach(line => {
-                    const match = line.match(/^\[(.*?)\]/);
-                    if (match) {
-                        if (currentSection && currentText.length) {
-                            newSaved[currentSection] = currentText.join('\n');
-                        }
-                        currentSection = match[1];
-                        currentText = [];
-                    } else if (currentSection) {
-                        currentText.push(line);
-                    }
-                });
-                if (currentSection && currentText.length) {
-                    newSaved[currentSection] = currentText.join('\n');
-                }
-                
-                Object.keys(newSaved).forEach(key => {
-                    saved[key] = newSaved[key];
-                });
-                localStorage.setItem('votoConscienteContent', JSON.stringify(saved));
-                updateStats();
-                alert('✅ Conteúdo salvo com sucesso!');
             }
         }
 
@@ -221,17 +114,15 @@
                 if (confirm('🔄 Confirme novamente: resetar tudo?')) {
                     localStorage.removeItem('votoConscienteContent');
                     localStorage.removeItem('votoConscienteEditedFiles');
-                    updateStats();
                     alert('🔄 Conteúdo restaurado para o padrão.');
                     location.reload();
                 }
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            checkAuth();
-            updateStats();
-        });
+        // Verificar autenticação
+        const session = localStorage.getItem('votoConscienteSession');
+        if (!session) { window.location.href = 'login.html'; }
     </script>
 </body>
 </html>
