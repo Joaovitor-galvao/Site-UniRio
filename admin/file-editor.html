@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editor de Arquivos — CON(S)CIÊNCIA POLÍTICA</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #faf5e8;
+            min-height: 100vh;
+        }
+
+        .editor-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .editor-header {
+            background: #2c1e1f;
+            color: #faf5e8;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .editor-header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.6rem; }
+        .editor-header .user { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .editor-header .user .avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: #cf6357;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: 700;
+        }
+        .btn-back {
+            background: #cf6357; color: #faf5e8;
+            border: none; padding: 0.4rem 1.2rem;
+            border-radius: 2rem; font-weight: 600; cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-back:hover { background: #74402d; }
+
+        .editor-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 1.5rem;
+        }
+
+        /* ===== FILE LIST ===== */
+        .file-list {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .file-list h3 {
+            color: #612a2a;
+            font-family: 'Playfair Display', Georgia, serif;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+        .file-list .file-item {
+            padding: 0.6rem 0.8rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-left: 3px solid transparent;
+        }
+        .file-list .file-item:hover {
+            background: #faf5e8;
+        }
+        .file-list .file-item.active {
+            background: #faf5e8;
+            border-left-color: #cf6357;
+            font-weight: 600;
+        }
+        .file-list .file-item .icon { font-size: 1.1rem; }
+        .file-list .file-item .name { flex: 1; }
+        .file-list .file-item .ext {
+            font-size: 0.65rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.3rem;
+            background: #e0d6c8;
+            color: #666;
+        }
+        .file-list .file-item .ext.html { background: #e44d26; color: #fff; }
+        .file-list .file-item .ext.css { background: #264de4; color: #fff; }
+        .file-list .file-item .ext.js { background: #f7df1e; color: #000; }
+        .file-list .file-item .ext.json { background: #f5a623; color: #fff; }
+
+        .file-list .folder {
+            font-weight: 700;
+            color: #612a2a;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== EDITOR ===== */
+        .editor-panel {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .editor-panel .file-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .editor-panel .file-info .path {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 600;
+        }
+        .editor-panel .file-info .path .highlight { color: #cf6357; }
+
+        .editor-panel textarea {
+            width: 100%;
+            min-height: 500px;
+            padding: 1rem;
+            border: 2px solid #e0d6c8;
+            border-radius: 0.8rem;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            resize: vertical;
+            transition: border-color 0.3s;
+            background: #faf5e8;
+            tab-size: 4;
+        }
+        .editor-panel textarea:focus {
+            border-color: #cf6357;
+            outline: none;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-save {
+            background: #27ae60;
+            color: #faf5e8;
+            border: none;
+            padding: 0.6rem 2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-save:hover { background: #1e8449; }
+
+        .btn-reset {
+            background: #95a5a6;
+            color: #faf5e8;
+            border: none;
+            padding: 0.6rem 2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-reset:hover { background: #7f8c8d; }
+
+        .btn-download {
+            background: #3498db;
+            color: #faf5e8;
+            border: none;
+            padding: 0.6rem 2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-download:hover { background: #2980b9; }
+
+        .status-msg {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.5rem;
+            display: inline-block;
+        }
+        .status-msg.success { background: #eafaf1; color: #27ae60; }
+        .status-msg.error { background: #fdedec; color: #c0392b; }
+        .status-msg.saved { background: #eafaf1; color: #27ae60; }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 1024px) {
+            .editor-layout { grid-template-columns: 1fr; }
+            .file-list { max-height: 300px; }
+        }
+        @media (max-width: 768px) {
+            .editor-header { flex-direction: column; align-items: stretch; text-align: center; }
+            .editor-header .user { justify-content: center; }
+            .editor-panel textarea { min-height: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <!-- ===== HEADER ===== -->
+        <div class="editor-header">
+            <div>
+                <h1>📝 Editor de Arquivos</h1>
+                <p style="opacity:0.7; font-size:0.9rem;">Edite o código-fonte do site diretamente</p>
+            </div>
+            <div class="user">
+                <div class="avatar">👤</div>
+                <div>
+                    <strong>Administrador</strong>
+                    <p style="font-size:0.8rem; opacity:0.7;">🔐 Editor de Código</p>
+                </div>
+                <a href="index.html" class="btn-back">← Voltar</a>
+            </div>
+        </div>
+
+        <!-- ===== LAYOUT ===== -->
+        <div class="editor-layout">
+            <!-- ===== FILE LIST ===== -->
+            <div class="file-list" id="file-list">
+                <h3>📂 Arquivos</h3>
+                <div id="file-tree"></div>
+            </div>
+
+            <!-- ===== EDITOR ===== -->
+            <div class="editor-panel">
+                <div class="file-info">
+                    <span class="path" id="current-path">📄 <span class="highlight">Selecione um arquivo</span></span>
+                    <span id="file-size" style="font-size:0.8rem;color:#999;"></span>
+                </div>
+                <textarea id="code-editor" placeholder="Selecione um arquivo para editar..." spellcheck="false"></textarea>
+                <div class="editor-actions">
+                    <button class="btn-save" onclick="saveFile()">💾 Salvar</button>
+                    <button class="btn-reset" onclick="resetFile()">↩️ Desfazer</button>
+                    <button class="btn-download" onclick="downloadFile()">⬇️ Baixar</button>
+                    <span id="editor-status" class="status-msg"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // EDITOR DE ARQUIVOS
+        // ============================================
+
+        // ===== LISTA DE ARQUIVOS =====
+        const files = [
+            { name: 'index.html', path: '/index.html', type: 'html' },
+            { name: 'sobre.html', path: '/sobre.html', type: 'html' },
+            { name: 'eventos.html', path: '/eventos.html', type: 'html' },
+            { name: 'contato.html', path: '/contato.html', type: 'html' },
+            { name: 'css/style.css', path: '/css/style.css', type: 'css' },
+            { name: 'js/script.js', path: '/js/script.js', type: 'js' },
+            { name: 'js/admin.js', path: '/js/admin.js', type: 'js' },
+        ];
+
+        let currentFile = null;
+        let originalContent = '';
+
+        // ===== VERIFICAR AUTENTICAÇÃO =====
+        function checkAuth() {
+            const session = localStorage.getItem('votoConscienteSession');
+            if (!session) { window.location.href = 'login.html'; return; }
+            try {
+                const data = JSON.parse(session);
+                if (data.username !== 'admin') { window.location.href = 'login.html'; }
+                if (data.expires && data.expires < Date.now()) {
+                    localStorage.removeItem('votoConscienteSession');
+                    window.location.href = 'login.html';
+                }
+            } catch(e) { window.location.href = 'login.html'; }
+        }
+
+        // ===== RENDERIZAR FILE TREE =====
+        function renderFileTree() {
+            const container = document.getElementById('file-tree');
+            container.innerHTML = '';
+            
+            // Agrupar por pasta
+            const folders = {};
+            files.forEach(file => {
+                const parts = file.path.split('/');
+                if (parts.length > 2) {
+                    const folder = parts.slice(0, -1).join('/');
+                    if (!folders[folder]) folders[folder] = [];
+                    folders[folder].push(file);
+                } else {
+                    if (!folders['/']) folders['/'] = [];
+                    folders['/'].push(file);
+                }
+            });
+
+            // Renderizar pastas
+            Object.keys(folders).sort().forEach(folder => {
+                if (folder !== '/') {
+                    const folderDiv = document.createElement('div');
+                    folderDiv.className = 'folder';
+                    folderDiv.textContent = '📁 ' + folder;
+                    container.appendChild(folderDiv);
+                }
+                folders[folder].forEach(file => {
+                    const item = document.createElement('div');
+                    item.className = 'file-item';
+                    item.dataset.path = file.path;
+                    const extMap = {
+                        'html': 'html',
+                        'css': 'css',
+                        'js': 'js',
+                        'json': 'json'
+                    };
+                    const ext = file.path.split('.').pop();
+                    const extClass = extMap[ext] || '';
+
+                    item.innerHTML = `
+                        <span class="icon">${ext === 'html' ? '📄' : ext === 'css' ? '🎨' : ext === 'js' ? '⚡' : '📄'}</span>
+                        <span class="name">${file.name}</span>
+                        <span class="ext ${extClass}">${ext}</span>
+                    `;
+                    item.addEventListener('click', () => loadFile(file.path));
+                    container.appendChild(item);
+                });
+            });
+
+            // Selecionar primeiro arquivo
+            if (files.length > 0) {
+                loadFile(files[0].path);
+            }
+        }
+
+        // ===== CARREGAR ARQUIVO =====
+        async function loadFile(path) {
+            try {
+                // Destacar item na lista
+                document.querySelectorAll('.file-item').forEach(el => el.classList.remove('active'));
+                document.querySelector(`.file-item[data-path="${path}"]`)?.classList.add('active');
+
+                const response = await fetch(path);
+                if (!response.ok) throw new Error('Arquivo não encontrado');
+                const content = await response.text();
+                
+                currentFile = path;
+                originalContent = content;
+                document.getElementById('code-editor').value = content;
+                document.getElementById('current-path').innerHTML = `📄 <span class="highlight">${path}</span>`;
+                document.getElementById('file-size').textContent = `${content.length} caracteres`;
+                document.getElementById('editor-status').textContent = '';
+                document.getElementById('editor-status').className = 'status-msg';
+
+            } catch (error) {
+                document.getElementById('code-editor').value = `// Erro ao carregar arquivo: ${error.message}`;
+                document.getElementById('current-path').innerHTML = `❌ <span class="highlight">Erro ao carregar</span>`;
+                showStatus('error', '❌ Erro ao carregar arquivo');
+            }
+        }
+
+        // ===== SALVAR ARQUIVO =====
+        function saveFile() {
+            if (!currentFile) {
+                showStatus('error', '❌ Nenhum arquivo selecionado');
+                return;
+            }
+
+            const content = document.getElementById('code-editor').value;
+            
+            // Salvar no localStorage para persistência
+            const savedFiles = JSON.parse(localStorage.getItem('votoConscienteEditedFiles') || '{}');
+            savedFiles[currentFile] = content;
+            localStorage.setItem('votoConscienteEditedFiles', JSON.stringify(savedFiles));
+
+            showStatus('success', '✅ Arquivo salvo com sucesso!');
+            
+            // Atualizar também no localStorage do conteúdo (para compatibilidade)
+            if (currentFile === '/index.html' || currentFile === 'index.html') {
+                localStorage.setItem('votoConscienteContent', JSON.stringify({ hero: 'Conteúdo editado via código' }));
+            }
+        }
+
+        // ===== RESETAR ARQUIVO =====
+        function resetFile() {
+            if (!currentFile) return;
+            if (!confirm(`Tem certeza que deseja desfazer as alterações em "${currentFile}"?`)) return;
+            
+            document.getElementById('code-editor').value = originalContent;
+            showStatus('saved', '🔄 Alterações desfeitas');
+        }
+
+        // ===== BAIXAR ARQUIVO =====
+        function downloadFile() {
+            if (!currentFile) return;
+            const content = document.getElementById('code-editor').value;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = currentFile.split('/').pop();
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // ===== STATUS =====
+        function showStatus(type, message) {
+            const el = document.getElementById('editor-status');
+            el.textContent = message;
+            el.className = 'status-msg ' + type;
+            setTimeout(() => { el.textContent = ''; el.className = 'status-msg'; }, 3000);
+        }
+
+        // ===== SALVAR ATALHO TECLADO =====
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveFile();
+            }
+        });
+
+        // ===== INICIALIZAR =====
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            renderFileTree();
+        });
+    </script>
+</body>
+</html>

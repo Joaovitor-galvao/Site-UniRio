@@ -21,7 +21,7 @@
             gap: 1rem;
         }
         .admin-header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; }
-        .admin-header .user { display: flex; align-items: center; gap: 1rem; }
+        .admin-header .user { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
         .admin-header .user .avatar {
             width: 45px; height: 45px; border-radius: 50%;
             background: #cf6357;
@@ -54,14 +54,10 @@
         .admin-card .badge {
             display: inline-block; background: #cf6357; color: #faf5e8;
             padding: 0.15rem 0.6rem; border-radius: 2rem;
-            font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+            font-size: 0.6rem; font-weight: 700;
             margin-top: 0.3rem;
         }
-        .admin-card-danger {
-            border-color: #e74c3c; background: #fdf2f2;
-        }
-        .admin-card-danger:hover { border-color: #c0392b; background: #fde8e8; }
-        .admin-card-danger h3 { color: #c0392b; }
+        .admin-card .badge.editor { background: #3498db; }
 
         .admin-stats {
             display: grid; grid-template-columns: repeat(4, 1fr);
@@ -82,7 +78,7 @@
             .admin-grid { grid-template-columns: 1fr; }
             .admin-stats { grid-template-columns: 1fr; }
             .admin-header { flex-direction: column; align-items: stretch; text-align: center; }
-            .admin-header .user { justify-content: center; flex-wrap: wrap; }
+            .admin-header .user { justify-content: center; }
         }
     </style>
 </head>
@@ -91,12 +87,12 @@
         <div class="admin-header">
             <div>
                 <h1>👑 Painel Administrativo</h1>
-                <p style="opacity:0.7; font-size:0.9rem;">Gerencie o conteúdo do site</p>
+                <p style="opacity:0.7; font-size:0.9rem;">Gerencie todo o conteúdo do site</p>
             </div>
             <div class="user">
                 <div class="avatar">👤</div>
                 <div>
-                    <strong id="user-name">Administrador</strong>
+                    <strong>Administrador</strong>
                     <p style="font-size:0.8rem; opacity:0.7;">🔐 Usuário Master</p>
                 </div>
                 <button class="btn-logout" onclick="logout()">🚪 Sair</button>
@@ -110,43 +106,25 @@
             <div class="admin-stat"><span class="number">8</span><span class="label">👥 Equipe</span></div>
         </div>
 
-        <h2 style="color:#612a2a; font-family:'Playfair Display',Georgia,serif; margin:2rem 0 1rem;">📝 Gerenciar Conteúdo</h2>
+        <h2 style="color:#612a2a; font-family:'Playfair Display',Georgia,serif; margin:2rem 0 1rem;">📝 Ferramentas</h2>
         <div class="admin-grid">
-            <div class="admin-card" onclick="editSection('hero')">
-                <span class="icon">🎨</span><h3>Hero</h3>
-                <p>Título, subtítulo e botão</p><span class="badge">Texto</span>
-            </div>
-            <div class="admin-card" onclick="editSection('apresentacao')">
-                <span class="icon">📝</span><h3>Apresentação</h3>
-                <p>Texto de apresentação</p><span class="badge">Texto</span>
-            </div>
-            <div class="admin-card" onclick="editSection('objetivos')">
-                <span class="icon">🎯</span><h3>Objetivos</h3>
-                <p>Lista de objetivos</p><span class="badge">Lista</span>
-            </div>
-            <div class="admin-card" onclick="editSection('equipe')">
-                <span class="icon">👥</span><h3>Equipe</h3>
-                <p>Membros da equipe</p><span class="badge">Lista</span>
-            </div>
-            <div class="admin-card" onclick="editSection('eventos')">
-                <span class="icon">📅</span><h3>Eventos</h3>
-                <p>Eventos e atividades</p><span class="badge">Lista</span>
-            </div>
-            <div class="admin-card" onclick="editSection('noticias')">
-                <span class="icon">📰</span><h3>Notícias</h3>
-                <p>Notícias do portal</p><span class="badge">Lista</span>
-            </div>
-            <div class="admin-card" onclick="editSection('cards')">
-                <span class="icon">🃏</span><h3>Cards Destaque</h3>
-                <p>Cards da página inicial</p><span class="badge">Lista</span>
-            </div>
-            <div class="admin-card" onclick="editSection('footer')">
-                <span class="icon">📌</span><h3>Rodapé</h3>
-                <p>Informações de contato</p><span class="badge">Texto</span>
+            <a href="file-editor.html" class="admin-card" style="text-decoration:none; color:inherit;">
+                <span class="icon">📝</span>
+                <h3>Editor de Arquivos</h3>
+                <p>Edite o código-fonte diretamente</p>
+                <span class="badge editor">✏️ Editor</span>
+            </a>
+            <div class="admin-card" onclick="editContent()">
+                <span class="icon">📄</span>
+                <h3>Editar Conteúdo</h3>
+                <p>Altere textos do site (modo simples)</p>
+                <span class="badge">Texto</span>
             </div>
             <div class="admin-card admin-card-danger" onclick="confirmReset()">
-                <span class="icon">⚠️</span><h3>Resetar Conteúdo</h3>
-                <p>Restaurar conteúdo padrão</p><span class="badge">⚠️ Perigoso</span>
+                <span class="icon">⚠️</span>
+                <h3>Resetar Conteúdo</h3>
+                <p>Restaurar conteúdo padrão</p>
+                <span class="badge">⚠️ Perigoso</span>
             </div>
         </div>
 
@@ -177,13 +155,11 @@
             if (!session) { window.location.href = 'login.html'; return; }
             try {
                 const data = JSON.parse(session);
-                if (data.username !== 'admin') { window.location.href = 'login.html'; return; }
+                if (data.username !== 'admin') { window.location.href = 'login.html'; }
                 if (data.expires && data.expires < Date.now()) {
                     localStorage.removeItem('votoConscienteSession');
                     window.location.href = 'login.html';
-                    return;
                 }
-                if (data.name) { document.getElementById('user-name').textContent = data.name; }
             } catch(e) { window.location.href = 'login.html'; }
         }
 
@@ -199,27 +175,42 @@
             document.getElementById('stat-edits').textContent = Object.keys(content).length;
         }
 
-        function editSection(sectionId) {
-            const savedContent = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-            let currentContent = savedContent[sectionId] || '';
+        function editContent() {
+            const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+            const sections = ['hero', 'apresentacao', 'objetivos', 'equipe', 'eventos', 'noticias', 'cards', 'footer'];
+            let current = '';
+            sections.forEach(s => {
+                if (saved[s]) current += `[${s}]\n${saved[s]}\n\n`;
+            });
             
-            const labels = {
-                'hero': '🎨 Editar Hero\n\nDigite o texto do Hero:',
-                'apresentacao': '📝 Editar Apresentação\n\nDigite o texto:',
-                'objetivos': '🎯 Editar Objetivos\n\nDigite os objetivos (um por linha):',
-                'equipe': '👥 Editar Equipe\n\nDigite os membros (Nome - Cargo):',
-                'eventos': '📅 Editar Eventos\n\nDigite os eventos:',
-                'noticias': '📰 Editar Notícias\n\nDigite as notícias:',
-                'cards': '🃏 Editar Cards\n\nDigite os cards:',
-                'footer': '📌 Editar Rodapé\n\nDigite o texto:'
-            };
-
-            const label = labels[sectionId] || '✏️ Editar Conteúdo';
-            const newContent = prompt(label, currentContent);
-            
+            const newContent = prompt('Editar conteúdo:\n\n' + current);
             if (newContent !== null) {
-                savedContent[sectionId] = newContent;
-                localStorage.setItem('votoConscienteContent', JSON.stringify(savedContent));
+                // Parse simples: cada seção começa com [nome]
+                const lines = newContent.split('\n');
+                let currentSection = null;
+                let currentText = [];
+                const newSaved = {};
+                
+                lines.forEach(line => {
+                    const match = line.match(/^\[(.*?)\]/);
+                    if (match) {
+                        if (currentSection && currentText.length) {
+                            newSaved[currentSection] = currentText.join('\n');
+                        }
+                        currentSection = match[1];
+                        currentText = [];
+                    } else if (currentSection) {
+                        currentText.push(line);
+                    }
+                });
+                if (currentSection && currentText.length) {
+                    newSaved[currentSection] = currentText.join('\n');
+                }
+                
+                Object.keys(newSaved).forEach(key => {
+                    saved[key] = newSaved[key];
+                });
+                localStorage.setItem('votoConscienteContent', JSON.stringify(saved));
                 updateStats();
                 alert('✅ Conteúdo salvo com sucesso!');
             }
@@ -229,6 +220,7 @@
             if (confirm('⚠️ ATENÇÃO: Isso vai apagar TODO o conteúdo personalizado!')) {
                 if (confirm('🔄 Confirme novamente: resetar tudo?')) {
                     localStorage.removeItem('votoConscienteContent');
+                    localStorage.removeItem('votoConscienteEditedFiles');
                     updateStats();
                     alert('🔄 Conteúdo restaurado para o padrão.');
                     location.reload();
