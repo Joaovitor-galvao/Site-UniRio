@@ -250,9 +250,6 @@
     <script>
         let currentSection = '';
 
-        // ============================================
-        // VERIFICAR AUTENTICAÇÃO
-        // ============================================
         function checkAuth() {
             const session = localStorage.getItem('votoConscienteSession');
             if (!session) { window.location.href = 'login.html'; return; }
@@ -267,9 +264,6 @@
             } catch(e) { window.location.href = 'login.html'; }
         }
 
-        // ============================================
-        // LOGOUT
-        // ============================================
         function logout() {
             if (confirm('Tem certeza que deseja sair?')) {
                 localStorage.removeItem('votoConscienteSession');
@@ -277,17 +271,11 @@
             }
         }
 
-        // ============================================
-        // ESTATÍSTICAS
-        // ============================================
         function updateStats() {
             const content = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
             document.getElementById('stat-edits').textContent = Object.keys(content).length;
         }
 
-        // ============================================
-        // ABRIR EDITOR
-        // ============================================
         function openEditor(sectionId, title, desc) {
             currentSection = sectionId;
             const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
@@ -301,9 +289,6 @@
             document.getElementById('edit-area').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // ============================================
-        // PEGAR CONTEÚDO ATUAL DO SITE
-        // ============================================
         function getCurrentContent(sectionId) {
             switch(sectionId) {
                 case 'hero':
@@ -320,9 +305,6 @@
             }
         }
 
-        // ============================================
-        // SALVAR E APLICAR
-        // ============================================
         function saveEdit() {
             const content = document.getElementById('edit-content').value;
             if (!content.trim()) {
@@ -341,10 +323,8 @@
             closeEdit();
         }
 
-        // ============================================
-        // APLICAR MUDANÇAS NO SITE (DOM)
-        // ============================================
         function applyChangesToSite(sectionId, content) {
+            // Aplicar mudanças no DOM
             switch(sectionId) {
                 case 'hero':
                     const lines = content.split('\n').filter(l => l.trim());
@@ -370,6 +350,51 @@
                     }
                     break;
 
+                case 'equipe':
+                    const equipeGrid = document.querySelector('#equipe .grid-3');
+                    if (equipeGrid) {
+                        const membros = content.split('\n').filter(l => l.trim());
+                        equipeGrid.innerHTML = membros.map((m, i) => {
+                            const partes = m.split('-').map(p => p.trim());
+                            return `<div class="card card--team"><span class="card__icon">👤</span><h3>${partes[0] || "Membro"}</h3><p>${partes[1] || "Cargo"}</p></div>`;
+                        }).join('');
+                    }
+                    break;
+
+                case 'eventos':
+                    const eventosGrid = document.querySelector('.section--alt .grid-2');
+                    if (eventosGrid) {
+                        const eventos = content.split('\n').filter(l => l.trim());
+                        eventosGrid.innerHTML = eventos.map((e, i) => {
+                            const partes = e.split('-').map(p => p.trim());
+                            return `<div class="card"><h3>📅 ${partes[0] || "Evento"}</h3><p><strong>Data:</strong> ${partes[1] || "Data"}</p><p><strong>Local:</strong> ${partes[2] || "Local"}</p></div>`;
+                        }).join('');
+                    }
+                    break;
+
+                case 'noticias':
+                    const noticiasGrid = document.querySelector('.section .grid-2');
+                    if (noticiasGrid) {
+                        const noticias = content.split('\n').filter(l => l.trim());
+                        noticiasGrid.innerHTML = noticias.map((n, i) => {
+                            const partes = n.split('-').map(p => p.trim());
+                            return `<article class="card news-card"><h3>${partes[0] || "Notícia"}</h3><p>${partes[2] || "Descrição"}</p><time datetime="${partes[1] || ""}">${partes[1] || "Data"}</time></article>`;
+                        }).join('');
+                    }
+                    break;
+
+                case 'cards':
+                    const cardsGrid = document.querySelector('.section--alt .grid-3');
+                    if (cardsGrid) {
+                        const cards = content.split('\n').filter(l => l.trim());
+                        cardsGrid.innerHTML = cards.map((c, i) => {
+                            const partes = c.split('-').map(p => p.trim());
+                            const link = partes[2] || '#';
+                            return `<a href="${link}" class="card card--link"><span class="card__icon">📄</span><h3>${partes[0] || "Card"}</h3><p>${partes[1] || "Descrição"}</p></a>`;
+                        }).join('');
+                    }
+                    break;
+
                 case 'footer':
                     const footerP = document.querySelector('.footer__col p');
                     if (footerP) footerP.textContent = content;
@@ -379,6 +404,7 @@
                     console.log('Seção atualizada:', sectionId);
             }
 
+            // Salvar também no formato de arquivos editados
             try {
                 const editedFiles = JSON.parse(localStorage.getItem('votoConscienteEditedFiles') || '{}');
                 editedFiles['/index.html'] = document.documentElement.outerHTML;
@@ -386,9 +412,6 @@
             } catch(e) {}
         }
 
-        // ============================================
-        // APLICAR PREVIEW
-        // ============================================
         function applyPreview() {
             const content = document.getElementById('edit-content').value;
             const previewBox = document.getElementById('preview-box');
@@ -427,17 +450,11 @@
             }
         }
 
-        // ============================================
-        // FECHAR EDITOR
-        // ============================================
         function closeEdit() {
             document.getElementById('edit-area').style.display = 'none';
             document.getElementById('preview-box').style.display = 'none';
         }
 
-        // ============================================
-        // RESETAR CONTEÚDO
-        // ============================================
         function confirmReset() {
             if (confirm('⚠️ ATENÇÃO: Isso vai apagar TODO o conteúdo personalizado!')) {
                 if (confirm('🔄 Confirme novamente: resetar tudo?')) {
@@ -450,9 +467,6 @@
             }
         }
 
-        // ============================================
-        // CARREGAR CONTEÚDO SALVO AO INICIAR
-        // ============================================
         function loadSavedContent() {
             const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
             Object.keys(saved).forEach(key => {
@@ -461,9 +475,6 @@
             updateStats();
         }
 
-        // ============================================
-        // INICIALIZAR
-        // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             checkAuth();
             loadSavedContent();
