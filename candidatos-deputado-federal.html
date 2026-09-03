@@ -1,376 +1,1165 @@
-cat > candidatos-deputado.html << 'EOF'
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Candidatos a Deputado Federal 2026 — CON(S)CIÊNCIA POLÍTICA</title>
-    <meta name="description" content="Lista de candidatos a Deputado Federal nas Eleições 2026. Informações educativas e apartidárias." />
+
+    <title>Candidatos a Deputado Federal — Rio de Janeiro 2026 — CON(S)CIÊNCIA POLÍTICA</title>
+
+    <meta
+        name="description"
+        content="Lista de candidatos a Deputado Federal pelo Rio de Janeiro nas Eleições 2026. Informações educativas e apartidárias."
+    />
+
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="imagens/logo.png" />
+
     <style>
-        .candidato-card {
-            background: #ffffff;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            border-left: 4px solid #cf6357;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-        }
-        .candidato-card:hover {
-            transform: translateX(4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-        }
-        .candidato-card .numero {
-            display: inline-block;
+        .candidatos-hero {
             background: #612a2a;
+            padding: 3rem 0;
             color: #faf5e8;
-            padding: 0.2rem 0.8rem;
-            border-radius: 2rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
         }
-        .candidato-card h3 {
-            color: #612a2a;
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.2rem;
-        }
-        .candidato-card .partido {
-            color: #cf6357;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .candidato-card .coligacao {
-            color: #888;
-            font-size: 0.85rem;
-        }
-        .candidato-card .propostas {
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid #eee;
-        }
-        .candidato-card .propostas ul {
-            list-style: disc;
-            padding-left: 1.5rem;
-            font-size: 0.95rem;
-            color: #444;
-        }
-        .candidato-card .propostas ul li {
-            margin-bottom: 0.2rem;
-        }
-        .botoes-container {
+
+        .candidatos-hero__inner {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 2rem;
             flex-wrap: wrap;
         }
-        .btn-vermelho {
-            background: #c0392b;
-            color: #faf5e8;
-            padding: 0.7rem 1.5rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: background 0.3s;
-            border: none;
-            cursor: pointer;
+
+        .candidatos-hero__content {
+            flex: 1;
         }
-        .btn-vermelho:hover { background: #e74c3c; }
-        .btn-verde {
-            background: #27ae60;
+
+        .candidatos-hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
             color: #faf5e8;
-            padding: 0.7rem 1.5rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: background 0.3s;
-            border: none;
-            cursor: pointer;
         }
-        .btn-verde:hover { background: #2ecc71; }
+
+        .candidatos-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .candidatos-hero__icon {
+            font-size: 5rem;
+            text-align: center;
+            flex: 0 0 auto;
+        }
+
         .aviso {
-            background: #faf5e8;
+            background: #f4cbc2;
             border: 2px dashed #cf6357;
             padding: 1rem 1.5rem;
             border-radius: 1rem;
             text-align: center;
             margin-bottom: 2rem;
         }
-        .aviso p { margin: 0; font-weight: 500; color: #612a2a; }
+
+        .aviso p {
+            margin: 0;
+            color: #2c1e1f;
+            font-weight: 500;
+        }
+
+        .candidatos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .candidato-card {
+            background: #ffffff;
+            padding: 1.8rem;
+            border-radius: 1rem;
+            border-left: 4px solid #cf6357;
+            box-shadow: 0 4px 12px rgba(44, 30, 31, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .candidato-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(44, 30, 31, 0.12);
+        }
+
+        .candidato-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .partido-badge {
+            display: inline-block;
+            background: #612a2a;
+            color: #faf5e8;
+            padding: 0.25rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .numero-candidato {
+            display: inline-block;
+            background: #cf6357;
+            color: #faf5e8;
+            padding: 0.25rem 0.9rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .candidato-card h3 {
+            color: #612a2a;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.35rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .nome-completo {
+            color: #cf6357;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .info-secundaria {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.2rem;
+        }
+
+        .detalhes,
+        .propostas {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .detalhes strong,
+        .propostas strong {
+            color: #612a2a;
+        }
+
+        .detalhes ul,
+        .propostas ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .detalhes ul li,
+        .propostas ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        .botoes-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            background: #cf6357;
+            color: #faf5e8;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-voltar:hover {
+            background: #74402d;
+            color: #faf5e8;
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .btn-eleicoes {
+            background: #612a2a;
+        }
+
+        .btn-eleicoes:hover {
+            background: #2c1e1f;
+        }
+
         @media (max-width: 768px) {
-            .botoes-container { flex-direction: column; align-items: stretch; }
-            .botoes-container .btn-left,
-            .botoes-container .btn-right { margin: 0; text-align: center; }
+            .candidatos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .candidatos-hero h1 {
+                font-size: 2rem;
+            }
+
+            .candidatos-hero__icon {
+                width: 100%;
+                font-size: 4rem;
+            }
+
+            .botoes-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-voltar {
+                text-align: center;
+            }
         }
     </style>
 </head>
-<body>
-    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
-    <!-- ===== HEADER ===== -->
+<body>
+
+    <a href="#main-content" class="skip-link">
+        Pular para o conteúdo principal
+    </a>
+
     <header class="header" role="banner">
+
         <div class="top-bar">
             <div class="container top-bar__inner">
+
                 <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
+
+                    <button
+                        class="access-btn"
+                        id="high-contrast"
+                        onclick="toggleAltoContraste()"
+                    >
+                        ☀️ Alto Contraste
+                    </button>
+
                 </div>
+
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
                     <a href="contato.html">Fale conosco</a>
                 </div>
+
             </div>
         </div>
+
+
         <div class="main-header">
+
             <div class="container main-header__inner">
+
                 <div class="logo">
-                    <a href="index.html" style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
-                        <img src="imagens/logo.png" alt="CON(S)CIÊNCIA POLÍTICA" class="logo__imagem" style="width:45px; height:45px; border-radius:12px;">
+
+                    <a
+                        href="index.html"
+                        style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;"
+                    >
+
+                        <img
+                            src="imagens/logo.png"
+                            alt="CON(S)CIÊNCIA POLÍTICA"
+                            class="logo__imagem"
+                            style="width:45px; height:45px; border-radius:12px;"
+                        >
+
                         <div class="logo__text">
-                            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
-                            <small>VOTO CONSCIENTE — UNIRIO</small>
+
+                            <strong>
+                                CON(S)CIÊNCIA POLÍTICA
+                            </strong>
+
+                            <small>
+                                VOTO CONSCIENTE — UNIRIO
+                            </small>
+
                         </div>
+
                     </a>
+
                 </div>
+
+
                 <div class="header-search" role="search">
-                    <form action="#" method="get" onsubmit="return false;">
-                        <label for="search-input" class="visually-hidden">Buscar</label>
-                        <input type="search" id="search-input" placeholder="" autocomplete="off" />
-                        <button type="submit" aria-label="Pesquisar">🔍</button>
+
+                    <form
+                        action="#"
+                        method="get"
+                        onsubmit="return false;"
+                    >
+
+                        <label
+                            for="search-input"
+                            class="visually-hidden"
+                        >
+                            Buscar
+                        </label>
+
+                        <input
+                            type="search"
+                            id="search-input"
+                            placeholder=""
+                            autocomplete="off"
+                        />
+
+                        <button
+                            type="submit"
+                            aria-label="Pesquisar"
+                        >
+                            🔍
+                        </button>
+
                     </form>
-                    <div id="search-results" class="search-results" style="display:none;"></div>
+
+                    <div
+                        id="search-results"
+                        class="search-results"
+                        style="display:none;"
+                    ></div>
+
                 </div>
+
+
                 <div class="header-social">
-                    <a href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj" target="_blank" aria-label="Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+
+                    <a
+                        href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj"
+                        target="_blank"
+                        aria-label="Instagram"
+                    >
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                            viewBox="0 0 24 24" fill="none" stroke="#faf5e8"
+                            stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+
+                            <rect x="2" y="2" width="20" height="20"
+                                rx="5" ry="5"/>
+
+                            <path
+                                d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                            />
+
+                            <line
+                                x1="17.5"
+                                y1="6.5"
+                                x2="17.51"
+                                y2="6.5"
+                            />
+
                         </svg>
+
                     </a>
-                    <a href="https://x.com/conspoliticax" target="_blank" aria-label="X (Twitter)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/>
+
+
+                    <a
+                        href="https://x.com/conspoliticax"
+                        target="_blank"
+                        aria-label="X (Twitter)"
+                    >
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                            viewBox="0 0 24 24" fill="none" stroke="#faf5e8"
+                            stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+
+                            <path
+                                d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"
+                            />
+
                         </svg>
+
                     </a>
+
+
                     <a href="#" aria-label="TikTok">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"/>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                            viewBox="0 0 24 24" fill="none" stroke="#faf5e8"
+                            stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+
+                            <path
+                                d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"
+                            />
+
                         </svg>
+
                     </a>
+
                 </div>
+
             </div>
+
         </div>
-        <nav class="main-nav" aria-label="Menu principal" role="navigation">
+
+
+        <nav
+            class="main-nav"
+            aria-label="Menu principal"
+            role="navigation"
+        >
+
             <div class="container">
-                <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
-                <ul id="primary-menu" class="nav-list">
-                    <li><a href="index.html">Início</a></li>
-                    <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="eventos.html">Eventos</a></li>
-                    <li class="has-dropdown">
-                        <a href="eleicoes-2026.html">Eleições 2026</a>
-                        <ul class="dropdown">
-                            <li><a href="presidente.html">Presidente</a></li>
-                            <li><a href="senador.html">Senador</a></li>
-                            <li><a href="deputado-federal.html">Deputado Federal</a></li>
-                        </ul>
+
+                <button
+                    class="menu-toggle"
+                    id="menu-toggle"
+                >
+                    ☰ Menu
+                </button>
+
+                <ul
+                    id="primary-menu"
+                    class="nav-list"
+                >
+
+                    <li>
+                        <a href="index.html">Início</a>
                     </li>
-                    <li><a href="informacoes.html">Informações</a></li>
-                    <li class="has-dropdown">
-                        <a href="conteudo-interativo.html">Conteúdo Interativo</a>
-                        <ul class="dropdown">
-                            <li><a href="quiz.html">Quiz</a></li>
-                            <li><a href="simulador.html">Simulador</a></li>
-                            <li><a href="voce-e-o-senador.html">Você é o Senador</a></li>
-                            <li><a href="flashcards.html">Flashcards</a></li>
-                        </ul>
+
+                    <li>
+                        <a href="sobre.html">Sobre</a>
                     </li>
-                    <li><a href="referencias.html">Referências</a></li>
-                    <li><a href="contato.html">Contato</a></li>
+
+                    <li>
+                        <a href="eventos.html">Eventos</a>
+                    </li>
+
+
+                    <li class="has-dropdown">
+
+                        <a href="eleicoes-2026.html">
+                            Eleições 2026
+                        </a>
+
+                        <ul class="dropdown">
+
+                            <li>
+                                <a href="presidente.html">
+                                    Presidente
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="senador.html">
+                                    Senador
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    href="deputado-federal.html"
+                                    class="active"
+                                >
+                                    Deputado Federal
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="informacoes.html">
+                            Informações
+                        </a>
+                    </li>
+
+
+                    <li class="has-dropdown">
+
+                        <a href="conteudo-interativo.html">
+                            Conteúdo Interativo
+                        </a>
+
+                        <ul class="dropdown">
+
+                            <li>
+                                <a href="quiz.html">
+                                    Quiz
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="simulador.html">
+                                    Simulador
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="voce-e-o-senador.html">
+                                    Você é o Senador
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="flashcards.html">
+                                    Flashcards
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <li>
+                        <a href="referencias.html">
+                            Referências
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="contato.html">
+                            Contato
+                        </a>
+                    </li>
+
                 </ul>
+
             </div>
+
         </nav>
+
     </header>
 
-    <!-- ===== MAIN ===== -->
-    <main id="main-content" class="main">
 
-        <!-- ===== HERO ===== -->
-        <section class="hero" style="padding: 2.5rem 0;">
-            <div class="container">
-                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">🗳️ Candidatos a Deputado Federal 2026</h1>
-                <p style="font-size:1.2rem; color:#faf5e8;">Conheça os candidatos registrados no TSE para as Eleições 2026</p>
+    <main
+        id="main-content"
+        class="main"
+    >
+
+        <section class="candidatos-hero">
+
+            <div class="container candidatos-hero__inner">
+
+                <div class="candidatos-hero__content">
+
+                    <h1>
+                        🏛️ Candidatos a Deputado Federal —
+                        Rio de Janeiro 2026
+                    </h1>
+
+                    <p>
+                        Conheça as candidaturas a Deputado Federal
+                        pelo estado do Rio de Janeiro nas Eleições 2026.
+                    </p>
+
+                    <p
+                        style="font-size:1rem; opacity:0.8; margin-top:0.4rem;"
+                    >
+                        Informações educativas e apartidárias.
+                    </p>
+
+                </div>
+
+                <div
+                    class="candidatos-hero__icon"
+                    aria-hidden="true"
+                >
+                    🗳️
+                </div>
+
             </div>
+
         </section>
 
-        <!-- ===== AVISO ===== -->
-        <section class="section" style="padding-top: 0;">
+
+        <section
+            class="section"
+            style="padding:2rem 0 0;"
+        >
+
             <div class="container">
+
                 <div class="aviso">
-                    <p>📢 <strong>Informação educativa:</strong> Esta lista é baseada em dados oficiais do TSE. O projeto CON(S)CIÊNCIA POLÍTICA não apoia, endossa ou favorece qualquer candidato ou partido político.</p>
+
+                    <p>
+                        📢
+                        <strong>Informação educativa:</strong>
+
+                       Esta lista é baseada em dados oficiais do TSE. O projeto CON(S)CIÊNCIA POLÍTICA não apoia, endossa ou favorece qualquer candidato ou partido político.
+                    </p>
+
                 </div>
+
             </div>
+
         </section>
 
-        <!-- ===== LISTA DE CANDIDATOS ===== -->
-        <section class="section" style="padding-top: 0;">
+
+        <section
+            class="section"
+            style="padding-top:0;"
+        >
+
             <div class="container">
 
-                <!-- CANDIDATO 1 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 1234</span>
-                    <h3>Nome do Candidato A</h3>
-                    <p class="partido">PT - Partido dos Trabalhadores</p>
-                    <p class="coligacao">Coligação: "Brasil da Esperança"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Defesa dos direitos trabalhistas</li>
-                            <li>Ampliação de políticas sociais</li>
-                            <li>Investimento em educação pública</li>
-                            <li>Fortalecimento da democracia participativa</li>
-                        </ul>
-                    </div>
+                <div class="candidatos-grid">
+
+
+                    <!-- CANDIDATO 1 -->
+
+                    <article class="candidato-card">
+
+                        <div class="candidato-topo">
+
+                            <span class="partido-badge">
+                                PT
+                            </span>
+
+                            <span class="numero-candidato">
+                                1313
+                            </span>
+
+                        </div>
+
+                        <h3>
+                            Nome do Candidato A
+                        </h3>
+
+                        <p class="nome-completo">
+                            Nome completo do Candidato A
+                        </p>
+
+                        <p class="info-secundaria">
+                            👔 Profissão: Professor
+                        </p>
+
+                        <p class="info-secundaria">
+                            📍 Naturalidade: Rio de Janeiro — RJ
+                        </p>
+
+
+                        <div class="detalhes">
+
+                            <strong>
+                                🏛️ Experiência política
+                            </strong>
+
+                            <ul>
+                                <li>Experiência política anterior</li>
+                                <li>Atuação parlamentar</li>
+                                <li>Participação em políticas públicas</li>
+                            </ul>
+
+                        </div>
+
+
+                        <div class="propostas">
+
+                            <strong>
+                                📋 Principais propostas
+                            </strong>
+
+                            <ul>
+                                <li>Investimento em educação pública</li>
+                                <li>Fortalecimento de políticas sociais</li>
+                                <li>Desenvolvimento regional</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CANDIDATO 2 -->
+
+                    <article class="candidato-card">
+
+                        <div class="candidato-topo">
+
+                            <span class="partido-badge">
+                                PL
+                            </span>
+
+                            <span class="numero-candidato">
+                                2222
+                            </span>
+
+                        </div>
+
+                        <h3>
+                            Nome do Candidato B
+                        </h3>
+
+                        <p class="nome-completo">
+                            Nome completo do Candidato B
+                        </p>
+
+                        <p class="info-secundaria">
+                            👔 Profissão: Empresário
+                        </p>
+
+                        <p class="info-secundaria">
+                            📍 Naturalidade: Niterói — RJ
+                        </p>
+
+
+                        <div class="detalhes">
+
+                            <strong>
+                                🏛️ Experiência política
+                            </strong>
+
+                            <ul>
+                                <li>Atuação partidária</li>
+                                <li>Experiência administrativa</li>
+                                <li>Participação em projetos públicos</li>
+                            </ul>
+
+                        </div>
+
+
+                        <div class="propostas">
+
+                            <strong>
+                                📋 Principais propostas
+                            </strong>
+
+                            <ul>
+                                <li>Incentivo ao empreendedorismo</li>
+                                <li>Geração de empregos</li>
+                                <li>Redução da burocracia</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CANDIDATO 3 -->
+
+                    <article class="candidato-card">
+
+                        <div class="candidato-topo">
+
+                            <span class="partido-badge">
+                                PSDB
+                            </span>
+
+                            <span class="numero-candidato">
+                                4545
+                            </span>
+
+                        </div>
+
+                        <h3>
+                            Nome da Candidata C
+                        </h3>
+
+                        <p class="nome-completo">
+                            Nome completo da Candidata C
+                        </p>
+
+                        <p class="info-secundaria">
+                            👔 Profissão: Advogada
+                        </p>
+
+                        <p class="info-secundaria">
+                            📍 Naturalidade: Petrópolis — RJ
+                        </p>
+
+
+                        <div class="detalhes">
+
+                            <strong>
+                                🏛️ Experiência política
+                            </strong>
+
+                            <ul>
+                                <li>Experiência legislativa</li>
+                                <li>Atuação no serviço público</li>
+                                <li>Participação institucional</li>
+                            </ul>
+
+                        </div>
+
+
+                        <div class="propostas">
+
+                            <strong>
+                                📋 Principais propostas
+                            </strong>
+
+                            <ul>
+                                <li>Modernização dos serviços públicos</li>
+                                <li>Investimento em ciência e tecnologia</li>
+                                <li>Melhoria da infraestrutura</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CANDIDATO 4 -->
+
+                    <article class="candidato-card">
+
+                        <div class="candidato-topo">
+
+                            <span class="partido-badge">
+                                MDB
+                            </span>
+
+                            <span class="numero-candidato">
+                                1515
+                            </span>
+
+                        </div>
+
+                        <h3>
+                            Nome do Candidato D
+                        </h3>
+
+                        <p class="nome-completo">
+                            Nome completo do Candidato D
+                        </p>
+
+                        <p class="info-secundaria">
+                            👔 Profissão: Economista
+                        </p>
+
+                        <p class="info-secundaria">
+                            📍 Naturalidade: Campos dos Goytacazes — RJ
+                        </p>
+
+
+                        <div class="detalhes">
+
+                            <strong>
+                                🏛️ Experiência política
+                            </strong>
+
+                            <ul>
+                                <li>Mandatos políticos anteriores</li>
+                                <li>Experiência administrativa</li>
+                                <li>Atuação em políticas públicas</li>
+                            </ul>
+
+                        </div>
+
+
+                        <div class="propostas">
+
+                            <strong>
+                                📋 Principais propostas
+                            </strong>
+
+                            <ul>
+                                <li>Desenvolvimento econômico</li>
+                                <li>Investimento em infraestrutura</li>
+                                <li>Geração de emprego e renda</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CANDIDATO 5 -->
+
+                    <article class="candidato-card">
+
+                        <div class="candidato-topo">
+
+                            <span class="partido-badge">
+                                PSOL
+                            </span>
+
+                            <span class="numero-candidato">
+                                5050
+                            </span>
+
+                        </div>
+
+                        <h3>
+                            Nome da Candidata E
+                        </h3>
+
+                        <p class="nome-completo">
+                            Nome completo da Candidata E
+                        </p>
+
+                        <p class="info-secundaria">
+                            👔 Profissão: Professora
+                        </p>
+
+                        <p class="info-secundaria">
+                            📍 Naturalidade: Rio de Janeiro — RJ
+                        </p>
+
+
+                        <div class="detalhes">
+
+                            <strong>
+                                🏛️ Experiência política
+                            </strong>
+
+                            <ul>
+                                <li>Atuação em movimentos sociais</li>
+                                <li>Experiência legislativa</li>
+                                <li>Participação em organizações civis</li>
+                            </ul>
+
+                        </div>
+
+
+                        <div class="propostas">
+
+                            <strong>
+                                📋 Principais propostas
+                            </strong>
+
+                            <ul>
+                                <li>Fortalecimento da saúde pública</li>
+                                <li>Ampliação de direitos sociais</li>
+                                <li>Políticas de igualdade</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CANDIDATO 6 -->
+
+                    <article class="candidato-card">
+
+                        <div class="candidato-topo">
+
+                            <span class="partido-badge">
+                                NOVO
+                            </span>
+
+                            <span class="numero-candidato">
+                                3030
+                            </span>
+
+                        </div>
+
+                        <h3>
+                            Nome do Candidato F
+                        </h3>
+
+                        <p class="nome-completo">
+                            Nome completo do Candidato F
+                        </p>
+
+                        <p class="info-secundaria">
+                            👔 Profissão: Empresário
+                        </p>
+
+                        <p class="info-secundaria">
+                            📍 Naturalidade: Volta Redonda — RJ
+                        </p>
+
+
+                        <div class="detalhes">
+
+                            <strong>
+                                🏛️ Experiência política
+                            </strong>
+
+                            <ul>
+                                <li>Experiência no setor privado</li>
+                                <li>Participação partidária</li>
+                                <li>Atuação em projetos de gestão</li>
+                            </ul>
+
+                        </div>
+
+
+                        <div class="propostas">
+
+                            <strong>
+                                📋 Principais propostas
+                            </strong>
+
+                            <ul>
+                                <li>Modernização da administração pública</li>
+                                <li>Desburocratização</li>
+                                <li>Incentivo à iniciativa privada</li>
+                            </ul>
+
+                        </div>
+
+                    </article>
+
+
                 </div>
 
-                <!-- CANDIDATO 2 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 2345</span>
-                    <h3>Nome do Candidato B</h3>
-                    <p class="partido">PL - Partido Liberal</p>
-                    <p class="coligacao">Coligação: "Brasil em Frente"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Reforma do Estado</li>
-                            <li>Desburocratização da economia</li>
-                            <li>Incentivo ao empreendedorismo</li>
-                            <li>Redução da carga tributária</li>
-                        </ul>
-                    </div>
-                </div>
 
-                <!-- CANDIDATO 3 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 3456</span>
-                    <h3>Nome da Candidata C</h3>
-                    <p class="partido">PSDB - Partido da Social Democracia Brasileira</p>
-                    <p class="coligacao">Coligação: "União pelo Brasil"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Políticas de sustentabilidade</li>
-                            <li>Investimento em ciência e tecnologia</li>
-                            <li>Programa de inclusão social</li>
-                            <li>Parcerias público-privadas</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- CANDIDATO 4 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 4567</span>
-                    <h3>Nome do Candidato D</h3>
-                    <p class="partido">MDB - Movimento Democrático Brasileiro</p>
-                    <p class="coligacao">Coligação: "Brasil para Todos"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Desenvolvimento regional</li>
-                            <li>Políticas de geração de emprego</li>
-                            <li>Reforma política</li>
-                            <li>Investimento em infraestrutura</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- CANDIDATO 5 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 5678</span>
-                    <h3>Nome da Candidata E</h3>
-                    <p class="partido">PSOL - Partido Socialismo e Liberdade</p>
-                    <p class="coligacao">Coligação: "Frente de Esquerda"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Políticas de igualdade social</li>
-                            <li>Investimento em saúde pública</li>
-                            <li>Reforma do sistema previdenciário</li>
-                            <li>Ampliação de direitos sociais</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- CANDIDATO 6 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 6789</span>
-                    <h3>Nome do Candidato F</h3>
-                    <p class="partido">NOVO - Partido Novo</p>
-                    <p class="coligacao">Coligação: "Mudança Já"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Reforma tributária</li>
-                            <li>Políticas de transparência pública</li>
-                            <li>Modernização do Estado</li>
-                            <li>Desestatização de empresas públicas</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- ===== BOTÕES ===== -->
                 <div class="botoes-container">
-                    <a href="deputado-federal.html" class="btn-vermelho btn-left">← Voltar para Deputado Federal</a>
-                    <a href="eleicoes-2026.html" class="btn-verde btn-right">🗳️ Voltar para Eleições 2026</a>
+
+                    <a
+                        href="deputado-federal.html"
+                        class="btn-voltar"
+                    >
+                        ← Voltar para Deputado Federal
+                    </a>
+
+                    <a
+                        href="eleicoes-2026.html"
+                        class="btn-voltar btn-eleicoes"
+                    >
+                        🗳️ Voltar para Eleições 2026
+                    </a>
+
                 </div>
 
             </div>
+
         </section>
 
     </main>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer" role="contentinfo">
+
+    <footer
+        class="footer"
+        role="contentinfo"
+    >
+
         <div class="container footer__inner">
+
             <div class="footer__col">
-                <h3>CON(S)CIÊNCIA POLÍTICA</h3>
-                <p>Projeto de Pesquisa e Extensão</p>
-                <p>Escola de Ciência Política</p>
-                <p>UNIRIO — Universidade Federal do Estado do Rio de Janeiro</p>
+
+                <h3>
+                    CON(S)CIÊNCIA POLÍTICA
+                </h3>
+
+                <p>
+                    Projeto de Pesquisa e Extensão
+                </p>
+
+                <p>
+                    Escola de Ciência Política
+                </p>
+
+                <p>
+                    UNIRIO — Universidade Federal do Estado do Rio de Janeiro
+                </p>
+
             </div>
+
+
             <div class="footer__col">
-                <h4>Links úteis</h4>
+
+                <h4>
+                    Links úteis
+                </h4>
+
                 <ul>
-                    <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="eventos.html">Eventos</a></li>
-                    <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
-                    <li><a href="referencias.html">Referências</a></li>
+
+                    <li>
+                        <a href="sobre.html">
+                            Sobre
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="eventos.html">
+                            Eventos
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="eleicoes-2026.html">
+                            Eleições 2026
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="referencias.html">
+                            Referências
+                        </a>
+                    </li>
+
                 </ul>
+
             </div>
+
+
             <div class="footer__col">
-                <h4>Contato</h4>
-                <p><a href="mailto:conspolitica.unirio@gmail.com">conspolitica.unirio@gmail.com</a></p>
+
+                <h4>
+                    Contato
+                </h4>
+
+                <p>
+
+                    <a href="mailto:conspolitica.unirio@gmail.com">
+                        conspolitica.unirio@gmail.com
+                    </a>
+
+                </p>
+
             </div>
+
+
             <div class="footer__col">
-                <h4>Mapa do site</h4>
+
+                <h4>
+                    Mapa do site
+                </h4>
+
                 <ul>
-                    <li><a href="index.html">Início</a></li>
-                    <li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li>
-                    <li><a href="contato.html">Contato</a></li>
+
+                    <li>
+                        <a href="index.html">
+                            Início
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="conteudo-interativo.html">
+                            Conteúdo Interativo
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="contato.html">
+                            Contato
+                        </a>
+                    </li>
+
                 </ul>
+
             </div>
+
         </div>
-        <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
+
+
+        <div class="footer__bottom">
+
+            <div class="container">
+
+                <p>
+                    &copy; 2026 CON(S)CIÊNCIA POLÍTICA —
+                    Voto Consciente UNIRIO.
+                    Todos os direitos reservados.
+                </p>
+
+            </div>
+
+        </div>
+
     </footer>
+
 
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
+
 </body>
+
 </html>
