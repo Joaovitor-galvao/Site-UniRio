@@ -1,20 +1,263 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Você é o Senador — CON(S)CIÊNCIA POLÍTICA</title>
+    <meta name="description" content="Jogo interativo onde você assume o papel de um Senador e toma decisões em cenários reais." />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="icon" href="imagens/logo.png" /><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>
+    <link rel="icon" href="imagens/logo.png" />
+    <style>
+        .jogo-hero {
+            background: linear-gradient(135deg, #2c1e1f 0%, #612a2a 100%);
+            padding: 2.5rem 0;
+            color: #faf5e8;
+        }
+        .jogo-hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.3rem;
+        }
+        .jogo-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .jogo-container { max-width: 800px; margin: 0 auto; }
+
+        .start-screen {
+            text-align: center;
+            padding: 2.5rem;
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .start-screen .icon { font-size: 4rem; }
+        .start-screen h2 {
+            color: #612a2a;
+            font-family: 'Playfair Display', Georgia, serif;
+            margin: 1rem 0;
+        }
+        .start-screen p { color: #666; max-width: 500px; margin: 0 auto 1.5rem; }
+
+        .cenario-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .cenario-card.active { display: block; }
+        .cenario-card .numero {
+            display: inline-block;
+            background: #cf6357;
+            color: #faf5e8;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .cenario-card .titulo {
+            color: #612a2a;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.4rem;
+            margin: 0.5rem 0;
+        }
+        .cenario-card .descricao {
+            color: #444;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 1rem;
+            background: #faf5e8;
+            border-radius: 0.8rem;
+            margin: 0.5rem 0 1rem;
+            border-left: 4px solid #cf6357;
+        }
+        .cenario-card .opcoes {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .cenario-card .opcoes button {
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #e0d6c8;
+            border-radius: 0.8rem;
+            background: #faf5e8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Segoe UI', sans-serif;
+            width: 100%;
+        }
+        .cenario-card .opcoes button:hover {
+            border-color: #cf6357;
+            background: #fef0ec;
+            transform: translateX(4px);
+        }
+        .cenario-card .opcoes button .letra {
+            display: inline-block;
+            background: #612a2a;
+            color: #faf5e8;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .cenario-card .opcoes button .texto { flex: 1; }
+        .cenario-card .opcoes button.selected {
+            border-color: #cf6357;
+            background: #fef0ec;
+        }
+        .cenario-card .opcoes button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .cenario-card .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .cenario-card .feedback.show { display: block; }
+        .cenario-card .feedback.aprovado {
+            background: #eafaf1;
+            border-left: 4px solid #27ae60;
+            color: #1a6e3a;
+        }
+        .cenario-card .feedback.rejeitado {
+            background: #fdedec;
+            border-left: 4px solid #e74c3c;
+            color: #922b21;
+        }
+        .cenario-card .feedback .consequencia {
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+
+        .jogo-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .jogo-nav .btn {
+            padding: 0.7rem 2rem;
+            border: none;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.95rem;
+        }
+        .jogo-nav .btn-primary {
+            background: #cf6357;
+            color: #faf5e8;
+        }
+        .jogo-nav .btn-primary:hover { background: #74402d; }
+        .jogo-nav .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .jogo-nav .btn-secondary {
+            background: #e0d6c8;
+            color: #2c1e1f;
+        }
+        .jogo-nav .btn-secondary:hover { background: #ccc; }
+        .jogo-nav .btn-secondary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progresso {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        .progresso .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: background 0.3s;
+        }
+        .progresso .dot.active { background: #cf6357; }
+        .progresso .dot.respondido { background: #612a2a; }
+
+        .resultado-container {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .resultado-container .pontuacao {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #cf6357;
+        }
+        .resultado-container .mensagem { font-size: 1.2rem; margin: 0.5rem 0; }
+        .resultado-container .detalhes { text-align: left; margin: 1.5rem 0; }
+        .resultado-container .detalhes .item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .resultado-container .detalhes .item.aprovado { color: #27ae60; }
+        .resultado-container .detalhes .item.rejeitado { color: #e74c3c; }
+
+        .btn-voltar-jogo {
+            display: inline-block;
+            background: #cf6357;
+            color: #faf5e8;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .btn-voltar-jogo:hover { background: #74402d; color: #faf5e8; text-decoration: none; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .jogo-hero h1 { font-size: 2rem; }
+            .cenario-card { padding: 1.2rem; }
+            .jogo-nav { flex-wrap: wrap; }
+            .jogo-nav .btn { flex: 1; text-align: center; }
+        }
+    </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- ===== HEADER ===== -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
                 <div class="top-bar__access">
                     <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
-                    <button class="access-btn" id="font-inc" onclick="ajustarFonte(0.1)">A+</button>
-                    <button class="access-btn" id="font-dec" onclick="ajustarFonte(-0.1)">A-</button>
                 </div>
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
@@ -35,7 +278,7 @@
                 </div>
                 <div class="header-search" role="search">
                     <form action="#" method="get" onsubmit="return false;">
-                        <label for="search-input" class="visually-hidden"></label>
+                      
                         <input type="search" id="search-input" placeholder="" autocomplete="off" />
                         <button type="submit" aria-label="Pesquisar">🔍</button>
                     </form>
@@ -83,7 +326,7 @@
                         <ul class="dropdown">
                             <li><a href="quiz.html">Quiz</a></li>
                             <li><a href="simulador.html">Simulador</a></li>
-                            <li><a href="voce-e-o-senador.html">Você é o Senador</a></li>
+                            <li><a href="voce-e-o-senador.html" class="active">Você é o Senador</a></li>
                             <li><a href="flashcards.html">Flashcards</a></li>
                         </ul>
                     </li>
@@ -93,23 +336,63 @@
             </div>
         </nav>
     </header>
-    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
-        <section class="hero" style="padding: 3rem 0;">
+
+        <!-- ===== HERO ===== -->
+        <section class="jogo-hero">
             <div class="container">
-                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">🏛️ Você é o Senador</h1>
-                <p style="font-size:1.2rem; color:#faf5e8;">Vivencie 10 cenários reais e tome decisões como um Senador!</p>
-            </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                <p style="text-align:center; font-size:1.2rem;">Em breve: Jogo interativo com 10 cenários!</p>
-                <div style="text-align:center; margin-top:2rem;">
-                    <a href="conteudo-interativo.html" class="btn btn--primary">← Voltar</a>
+                <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+                    <div style="flex:1;">
+                        <h1>🏛️ Você é o Senador</h1>
+                        <p>Vivencie 10 cenários reais e tome decisões como um Senador!</p>
+                        <p style="font-size:1rem; opacity:0.8;">Aprove ou rejeite cada proposta e veja as consequências.</p>
+                    </div>
+                    <div style="font-size:5rem; text-align:center; flex:0 0 auto;">⚖️</div>
                 </div>
             </div>
         </section>
+
+        <!-- ===== JOGO ===== -->
+        <section class="section" style="padding-top:0;">
+            <div class="container jogo-container">
+
+                <!-- TELA INICIAL -->
+                <div id="start-screen" class="start-screen">
+                    <div class="icon">🏛️</div>
+                    <h2>Pronto para ser Senador?</h2>
+                    <p>Você vai enfrentar 10 cenários reais. Em cada um, você deve decidir entre <strong>Aprovar</strong> ou <strong>Rejeitar</strong> uma proposta. Veja as consequências institucionais de cada decisão!</p>
+                    <button class="btn btn--primary" onclick="iniciarJogo()">▶️ Começar Jornada</button>
+                </div>
+
+                <!-- JOGO -->
+                <div id="jogo-content" style="display:none;">
+                    <div class="progresso" id="progresso-dots"></div>
+
+                    <div id="cenarios-container"></div>
+
+                    <div class="jogo-nav">
+                        <button class="btn btn-secondary" id="prev-btn" onclick="cenarioAnterior()">← Anterior</button>
+                        <button class="btn btn-primary" id="next-btn" onclick="proximoCenario()">Próximo →</button>
+                    </div>
+                </div>
+
+                <!-- RESULTADO -->
+                <div id="resultado-container" class="resultado-container">
+                    <div class="pontuacao" id="pontuacao-final">0/10</div>
+                    <div class="mensagem" id="resultado-mensagem"></div>
+                    <div class="detalhes" id="resultado-detalhes"></div>
+                    <button class="btn btn--primary" onclick="reiniciarJogo()">🔄 Refazer Jornada</button>
+                    <a href="conteudo-interativo.html" class="btn-voltar-jogo">← Voltar para Interativo</a>
+                </div>
+
+            </div>
+        </section>
+
     </main>
+
+    <!-- ===== FOOTER ===== -->
     <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
@@ -142,7 +425,278 @@
         </div>
         <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
+
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
+    <script>
+        // ============================================
+        // JOGO "VOCÊ É O SENADOR" - DADOS E LÓGICA
+        // ============================================
+
+        const cenarios = [{
+            id: 1,
+            titulo: "Projeto de Lei sobre Saúde Pública",
+            descricao: "Um projeto de lei que aumenta em 30% o orçamento da saúde pública, financiado por um corte em verbas de publicidade governamental.",
+            opcoes: [
+                { texto: "Aprovar o projeto", valor: true, consequencia: "O projeto é aprovado! A saúde pública recebe mais recursos, melhorando o atendimento à população." },
+                { texto: "Rejeitar o projeto", valor: false, consequencia: "O projeto é rejeitado. O orçamento da saúde permanece o mesmo, mas a publicidade do governo continua." }
+            ],
+            correta: true
+        }, {
+            id: 2,
+            titulo: "Indicação para o STF",
+            descricao: "O Presidente indica um ministro para o Supremo Tribunal Federal. O indicado tem vasta experiência, mas há controvérsias sobre sua atuação em casos polêmicos.",
+            opcoes: [
+                { texto: "Aprovar a indicação", valor: true, consequencia: "A indicação é aprovada. O novo ministro toma posse no STF." },
+                { texto: "Rejeitar a indicação", valor: false, consequencia: "A indicação é rejeitada. O Presidente precisa indicar outro nome." }
+            ],
+            correta: false
+        }, {
+            id: 3,
+            titulo: "CPI da Educação",
+            descricao: "É proposta uma CPI para investigar irregularidades no ensino fundamental em todo o país.",
+            opcoes: [
+                { texto: "Apoiar a criação da CPI", valor: true, consequencia: "A CPI é criada. As investigações começam e podem trazer melhorias para a educação." },
+                { texto: "Rejeitar a criação da CPI", valor: false, consequencia: "A CPI não é criada. As denúncias não serão investigadas formalmente." }
+            ],
+            correta: true
+        }, {
+            id: 4,
+            titulo: "Projeto de Lei Ambiental",
+            descricao: "Um projeto que flexibiliza regras ambientais para agilizar obras de infraestrutura, gerando debate entre desenvolvimento e preservação.",
+            opcoes: [
+                { texto: "Aprovar o projeto", valor: true, consequencia: "O projeto é aprovado. Obras são aceleradas, mas ambientalistas criticam a medida." },
+                { texto: "Rejeitar o projeto", valor: false, consequencia: "O projeto é rejeitado. As regras ambientais permanecem, mas obras podem atrasar." }
+            ],
+            correta: false
+        }, {
+            id: 5,
+            titulo: "Reforma Tributária",
+            descricao: "Uma proposta de reforma tributária que simplifica impostos, mas pode reduzir a arrecadação de alguns setores.",
+            opcoes: [
+                { texto: "Aprovar a reforma", valor: true, consequencia: "A reforma é aprovada. O sistema tributário fica mais simples, mas há impactos fiscais." },
+                { texto: "Rejeitar a reforma", valor: false, consequencia: "A reforma é rejeitada. O sistema tributário permanece como está." }
+            ],
+            correta: true
+        }, {
+            id: 6,
+            titulo: "Veto Presidencial",
+            descricao: "O Presidente veta um projeto de lei aprovado pelo Congresso que prevê aumento de salário para servidores públicos.",
+            opcoes: [
+                { texto: "Manter o veto", valor: false, consequencia: "O veto é mantido. O aumento salarial não acontece." },
+                { texto: "Derrubar o veto", valor: true, consequencia: "O veto é derrubado. O aumento salarial é aprovado." }
+            ],
+            correta: true
+        }, {
+            id: 7,
+            titulo: "Emenda Constitucional",
+            descricao: "Uma PEC (Proposta de Emenda Constitucional) que altera o sistema previdenciário, com impactos de longo prazo.",
+            opcoes: [
+                { texto: "Aprovar a PEC", valor: true, consequencia: "A PEC é aprovada. O sistema previdenciário é reformado." },
+                { texto: "Rejeitar a PEC", valor: false, consequencia: "A PEC é rejeitada. O sistema permanece inalterado." }
+            ],
+            correta: false
+        }, {
+            id: 8,
+            titulo: "Política de Cotas",
+            descricao: "Um projeto que amplia as políticas de cotas raciais e sociais em universidades e concursos públicos.",
+            opcoes: [
+                { texto: "Aprovar o projeto", valor: true, consequencia: "O projeto é aprovado. As cotas são ampliadas, promovendo maior inclusão." },
+                { texto: "Rejeitar o projeto", valor: false, consequencia: "O projeto é rejeitado. As cotas permanecem como estão." }
+            ],
+            correta: true
+        }, {
+            id: 9,
+            titulo: "Acordo Internacional",
+            descricao: "O Executivo propõe um acordo comercial com um bloco econômico, mas há preocupações sobre impactos na indústria nacional.",
+            opcoes: [
+                { texto: "Aprovar o acordo", valor: true, consequencia: "O acordo é aprovado. Novos mercados se abrem, mas a indústria pode ser afetada." },
+                { texto: "Rejeitar o acordo", valor: false, consequencia: "O acordo é rejeitado. O comércio segue como está." }
+            ],
+            correta: false
+        }, {
+            id: 10,
+            titulo: "Projeto de Lei Anticorrupção",
+            descricao: "Um projeto que endurece penas para crimes de corrupção e aumenta a transparência no serviço público.",
+            opcoes: [
+                { texto: "Aprovar o projeto", valor: true, consequencia: "O projeto é aprovado! As penas para corrupção são endurecidas e a transparência é ampliada." },
+                { texto: "Rejeitar o projeto", valor: false, consequencia: "O projeto é rejeitado. As leis anticorrupção permanecem as mesmas." }
+            ],
+            correta: true
+        }];
+
+        let cenarioAtual = 0;
+        let respostas = [];
+        let jogoIniciado = false;
+
+        function iniciarJogo() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('jogo-content').style.display = 'block';
+            jogoIniciado = true;
+            respostas = new Array(cenarios.length).fill(null);
+            renderizarCenarios();
+            atualizarProgresso();
+            atualizarBotoes();
+        }
+
+        function renderizarCenarios() {
+            const container = document.getElementById('cenarios-container');
+            container.innerHTML = '';
+            cenarios.forEach((c, index) => {
+                const div = document.createElement('div');
+                div.className = `cenario-card ${index === 0 ? 'active' : ''}`;
+                div.id = `cenario-${index}`;
+                div.innerHTML = `
+                    <span class="numero">Cenário ${index + 1} de ${cenarios.length}</span>
+                    <h3 class="titulo">${c.titulo}</h3>
+                    <div class="descricao">${c.descricao}</div>
+                    <div class="opcoes">
+                        ${c.opcoes.map((op, optIndex) => `
+                            <button onclick="responderCenario(${index}, ${optIndex})" id="opcao-${index}-${optIndex}">
+                                <span class="letra">${optIndex === 0 ? 'A' : 'B'}</span>
+                                <span class="texto">${op.texto}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}">
+                        <div id="feedback-text-${index}"></div>
+                        <div class="consequencia" id="feedback-conseq-${index}"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function responderCenario(index, optIndex) {
+            if (respostas[index] !== null) return;
+
+            respostas[index] = optIndex;
+            const cenario = cenarios[index];
+            const opcao = cenario.opcoes[optIndex];
+            const isCorrect = opcao.valor === cenario.correta;
+
+            const botoes = document.querySelectorAll(`#cenario-${index} .opcoes button`);
+            botoes.forEach((btn, i) => {
+                btn.classList.toggle('selected', i === optIndex);
+                btn.disabled = true;
+            });
+
+            const feedback = document.getElementById(`feedback-${index}`);
+            feedback.className = `feedback show ${isCorrect ? 'aprovado' : 'rejeitado'}`;
+            document.getElementById(`feedback-text-${index}`).textContent = isCorrect ? '✅ Decisão aprovada!' : '❌ Decisão rejeitada.';
+            document.getElementById(`feedback-conseq-${index}`).textContent = opcao.consequencia;
+
+            atualizarProgresso();
+            atualizarBotoes();
+        }
+
+        function proximoCenario() {
+            if (cenarioAtual < cenarios.length - 1) {
+                document.getElementById(`cenario-${cenarioAtual}`).classList.remove('active');
+                cenarioAtual++;
+                document.getElementById(`cenario-${cenarioAtual}`).classList.add('active');
+                atualizarBotoes();
+                atualizarProgresso();
+                document.getElementById('cenarios-container').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                mostrarResultado();
+            }
+        }
+
+        function cenarioAnterior() {
+            if (cenarioAtual > 0) {
+                document.getElementById(`cenario-${cenarioAtual}`).classList.remove('active');
+                cenarioAtual--;
+                document.getElementById(`cenario-${cenarioAtual}`).classList.add('active');
+                atualizarBotoes();
+                atualizarProgresso();
+            }
+        }
+
+        function atualizarBotoes() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            prevBtn.disabled = cenarioAtual === 0;
+            
+            const isLast = cenarioAtual === cenarios.length - 1;
+            const isAnswered = respostas[cenarioAtual] !== null;
+            nextBtn.textContent = isLast ? '📊 Ver Resultado' : 'Próximo →';
+            nextBtn.disabled = !isAnswered;
+        }
+
+        function atualizarProgresso() {
+            const dots = document.getElementById('progresso-dots');
+            dots.innerHTML = '';
+            cenarios.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                if (index === cenarioAtual) dot.classList.add('active');
+                if (respostas[index] !== null) {
+                    dot.classList.add('respondido');
+                }
+                dots.appendChild(dot);
+            });
+        }
+
+        function mostrarResultado() {
+            document.getElementById('jogo-content').style.display = 'none';
+            const resultContainer = document.getElementById('resultado-container');
+            resultContainer.style.display = 'block';
+
+            let acertos = 0;
+            const detalhes = [];
+            cenarios.forEach((c, index) => {
+                const resposta = respostas[index];
+                if (resposta === null) {
+                    detalhes.push({ cenario: c.titulo, status: 'Não respondido', acertou: false });
+                    return;
+                }
+                const acertou = c.opcoes[resposta].valor === c.correta;
+                if (acertou) acertos++;
+                detalhes.push({
+                    cenario: c.titulo,
+                    status: acertou ? '✅ Aprovado' : '❌ Rejeitado',
+                    acertou: acertou
+                });
+            });
+
+            document.getElementById('pontuacao-final').textContent = `${acertos}/${cenarios.length}`;
+
+            const percentual = Math.round((acertos / cenarios.length) * 100);
+            let mensagem = '';
+            if (percentual === 100) mensagem = '🏆 Perfeito! Você seria um Senador exemplar!';
+            else if (percentual >= 80) mensagem = '🌟 Excelente! Você tem ótimo senso de julgamento!';
+            else if (percentual >= 60) mensagem = '📚 Bom trabalho! Continue estudando as atribuições do Senado!';
+            else if (percentual >= 40) mensagem = '💪 Você está aprendendo! Reflita mais sobre o papel do Senador.';
+            else mensagem = '🎯 Que tal revisar as funções do Senador? Você pode melhorar!';
+            document.getElementById('resultado-mensagem').textContent = mensagem;
+
+            const detalhesHtml = detalhes.map((d, i) => `
+                <div class="item ${d.acertou ? 'aprovado' : 'rejeitado'}">
+                    <span><strong>${i + 1}.</strong> ${d.cenario}</span>
+                    <span>${d.status}</span>
+                </div>
+            `).join('');
+            document.getElementById('resultado-detalhes').innerHTML = detalhesHtml;
+
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function reiniciarJogo() {
+            document.getElementById('resultado-container').style.display = 'none';
+            document.getElementById('jogo-content').style.display = 'block';
+            cenarioAtual = 0;
+            respostas = new Array(cenarios.length).fill(null);
+            renderizarCenarios();
+            atualizarProgresso();
+            atualizarBotoes();
+            document.getElementById('cenarios-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('jogo-content').style.display = 'none';
+            document.getElementById('resultado-container').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
