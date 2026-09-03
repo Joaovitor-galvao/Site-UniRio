@@ -391,11 +391,11 @@
 
         function checkAdminLogin() {
             const session = localStorage.getItem('votoConscienteSession');
-            if (!session) { window.location.href = 'index.html'; return; }
+            if (!session) { window.location.href = 'admin/login/'; return; }
             try {
                 const data = JSON.parse(session);
-                if (data.username !== 'admin') { window.location.href = 'index.html'; }
-            } catch(e) { window.location.href = 'index.html'; }
+                if (data.username !== 'admin') { window.location.href = 'admin/login/'; }
+            } catch(e) { window.location.href = 'admin/login/'; }
         }
 
         function updateStats() {
@@ -406,7 +406,7 @@
         function logout() {
             if (confirm('Tem certeza que deseja sair?')) {
                 localStorage.removeItem('votoConscienteSession');
-                window.location.href = 'index.html';
+                window.location.href = 'admin/login/';
             }
         }
 

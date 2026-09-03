@@ -265,7 +265,7 @@ Palestra: O Papel do Presidente - 25/04/2026 - Online</textarea>
         // ===== AUTO-UPDATE =====
         document.addEventListener('DOMContentLoaded', function() {
             const session = localStorage.getItem('votoConscienteSession');
-            if (!session) { window.location.href = 'login.html'; return; }
+            if (!session) { window.location.href = 'login/'; return; }
             carregarConteudo();
             
             document.querySelectorAll('textarea').forEach(el => {

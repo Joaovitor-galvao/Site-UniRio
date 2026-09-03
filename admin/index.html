@@ -252,22 +252,22 @@
 
         function checkAuth() {
             const session = localStorage.getItem('votoConscienteSession');
-            if (!session) { window.location.href = 'login.html'; return; }
+            if (!session) { window.location.href = 'login/'; return; }
             try {
                 const data = JSON.parse(session);
-                if (data.username !== 'admin') { window.location.href = 'login.html'; }
+                if (data.username !== 'admin') { window.location.href = 'login/'; }
                 if (data.expires && data.expires < Date.now()) {
                     localStorage.removeItem('votoConscienteSession');
-                    window.location.href = 'login.html';
+                    window.location.href = 'login/';
                 }
                 if (data.name) { document.getElementById('user-name').textContent = data.name; }
-            } catch(e) { window.location.href = 'login.html'; }
+            } catch(e) { window.location.href = 'login/'; }
         }
 
         function logout() {
             if (confirm('Tem certeza que deseja sair?')) {
                 localStorage.removeItem('votoConscienteSession');
-                window.location.href = 'login.html';
+                window.location.href = 'login/';
             }
         }
 
