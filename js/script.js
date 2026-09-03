@@ -282,3 +282,94 @@ document.addEventListener('DOMContentLoaded', function() {
     carregarConteudoSalvo();
 });
 EOF
+
+cat >> js/script.js << 'EOF'
+
+// ============================================
+// BARRA DE PESQUISA - FUNCIONAL
+// ============================================
+
+// Dados para busca
+const searchData = [
+    { title: 'Início', url: 'index.html', category: 'Página inicial' },
+    { title: 'Sobre o Projeto', url: 'sobre.html', category: 'Informações' },
+    { title: 'Eventos', url: 'eventos.html', category: 'Eventos' },
+    { title: 'Eleições 2026', url: 'eleicoes-2026.html', category: 'Eleições' },
+    { title: 'Presidente', url: 'presidente.html', category: 'Cargos' },
+    { title: 'Senador', url: 'senador.html', category: 'Cargos' },
+    { title: 'Deputado Federal', url: 'deputado-federal.html', category: 'Cargos' },
+    { title: 'Informações', url: 'informacoes.html', category: 'Dados' },
+    { title: 'Quiz', url: 'quiz.html', category: 'Interativo' },
+    { title: 'Simulador', url: 'simulador.html', category: 'Interativo' },
+    { title: 'Você é o Senador', url: 'voce-e-o-senador.html', category: 'Jogo' },
+    { title: 'Flashcards', url: 'flashcards.html', category: 'Interativo' },
+    { title: 'Referências', url: 'referencias.html', category: 'Biblioteca' },
+    { title: 'Contato', url: 'contato.html', category: 'Contato' },
+];
+
+function buscar(query) {
+    query = query.toLowerCase().trim();
+    if (query.length === 0) return [];
+    return searchData.filter(item => 
+        item.title.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
+    );
+}
+
+function mostrarResultados(query) {
+    const container = document.getElementById('search-results');
+    if (!container) return;
+    
+    const results = buscar(query);
+    container.innerHTML = '';
+    
+    if (results.length === 0) {
+        container.innerHTML = `<div class="search-result-empty"><span>🔍</span><p>Nenhum resultado encontrado para "<strong>${query}</strong>"</p></div>`;
+        container.style.display = 'block';
+        return;
+    }
+    
+    results.forEach(item => {
+        const resultItem = document.createElement('a');
+        resultItem.href = item.url;
+        resultItem.className = 'search-result-item';
+        resultItem.innerHTML = `<strong>${item.title}</strong><span class="category">${item.category}</span>`;
+        container.appendChild(resultItem);
+    });
+    container.style.display = 'block';
+}
+
+function initSearch() {
+    const searchInput = document.getElementById('search-input');
+    if (!searchInput) return;
+    
+    const container = document.getElementById('search-results');
+    if (!container) return;
+    
+    searchInput.addEventListener('input', function(e) {
+        const query = this.value;
+        if (query.length >= 2) { 
+            mostrarResultados(query); 
+        } else { 
+            container.style.display = 'none'; 
+        }
+    });
+    
+    // Fechar ao clicar fora
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !container.contains(e.target)) {
+            container.style.display = 'none';
+        }
+    });
+    
+    // Tecla ESC para fechar
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            container.style.display = 'none';
+            this.blur();
+        }
+    });
+    
+    console.log('🔍 Barra de pesquisa inicializada!');
+}
+EOF
