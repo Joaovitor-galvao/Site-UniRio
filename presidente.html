@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,9 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Presidente — CON(S)CIÊNCIA POLÍTICA</title>
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="icon" href="imagens/logo.png" /><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>
+    <link rel="icon" href="imagens/logo.png" />
+    <style>
+        .botoes-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .botoes-container .btn-left {
+            margin-right: auto;
+        }
+        .botoes-container .btn-right {
+            margin-left: auto;
+        }
+        @media (max-width: 768px) {
+            .botoes-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .botoes-container .btn-left,
+            .botoes-container .btn-right {
+                margin: 0;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- ===== HEADER ===== -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
@@ -35,7 +66,7 @@
                 </div>
                 <div class="header-search" role="search">
                     <form action="#" method="get" onsubmit="return false;">
-                        <label for="search-input" class="visually-hidden"></label>
+                        <label for="search-input" class="visually-hidden">Buscar</label>
                         <input type="search" id="search-input" placeholder="" autocomplete="off" />
                         <button type="submit" aria-label="Pesquisar">🔍</button>
                     </form>
@@ -72,7 +103,7 @@
                     <li class="has-dropdown">
                         <a href="eleicoes-2026.html">Eleições 2026</a>
                         <ul class="dropdown">
-                            <li><a href="presidente.html">Presidente</a></li>
+                            <li><a href="presidente.html" class="active">Presidente</a></li>
                             <li><a href="senador.html">Senador</a></li>
                             <li><a href="deputado-federal.html">Deputado Federal</a></li>
                         </ul>
@@ -93,7 +124,8 @@
             </div>
         </nav>
     </header>
-    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
         <section class="hero" style="padding: 3rem 0;">
             <div class="container">
@@ -101,6 +133,7 @@
                 <p style="font-size:1.2rem; color:#faf5e8;">Chefe do Poder Executivo Federal</p>
             </div>
         </section>
+
         <section class="section">
             <div class="container">
                 <div class="grid-2">
@@ -142,12 +175,17 @@
                         </div>
                     </div>
                 </div>
-                <div style="text-align:center; margin-top:2rem;">
-                    <a href="eleicoes-2026.html" class="btn btn--primary">← Voltar para Eleições 2026</a>
+
+                <!-- ===== BOTÕES LADO A LADO ===== -->
+                <div class="botoes-container">
+                    <a href="eleicoes-2026.html" class="btn btn--primary btn-left">← Voltar para Eleições 2026</a>
+                    <a href="candidatos-presidente.html" class="btn btn--primary btn-right" style="background:#27ae60;">👤 Ver Candidatos a Presidente</a>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- ===== FOOTER ===== -->
     <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
@@ -180,6 +218,7 @@
         </div>
         <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
+
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
 </body>
