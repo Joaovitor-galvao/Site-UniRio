@@ -4,9 +4,7 @@
 
 console.log('🚀 Script carregado!');
 
-// ============================================
-// ALTO CONTRASTE
-// ============================================
+// ===== ALTO CONTRASTE =====
 function toggleAltoContraste() {
     document.body.classList.toggle('high-contrast');
     const isActive = document.body.classList.contains('high-contrast');
@@ -19,9 +17,7 @@ function toggleAltoContraste() {
     console.log('Alto contraste:', isActive ? 'ativado' : 'desativado');
 }
 
-// ============================================
-// AJUSTE DE FONTE
-// ============================================
+// ===== AJUSTE DE FONTE =====
 function ajustarFonte(delta) {
     const html = document.documentElement;
     let escala = parseFloat(html.style.getPropertyValue('--font-scale')) || 1;
@@ -37,9 +33,7 @@ function resetarFonte() {
     console.log('Fonte resetada para o padrão');
 }
 
-// ============================================
-// CARREGAR PREFERÊNCIAS
-// ============================================
+// ===== CARREGAR PREFERÊNCIAS =====
 function carregarPreferencias() {
     const highContrast = localStorage.getItem('votoConscienteHighContrast');
     if (highContrast === 'true') {
@@ -59,9 +53,7 @@ function carregarPreferencias() {
     }
 }
 
-// ============================================
-// MENU MOBILE
-// ============================================
+// ===== MENU MOBILE =====
 function initMenuMobile() {
     const menuToggle = document.getElementById('menu-toggle');
     const navList = document.getElementById('primary-menu');
@@ -82,9 +74,7 @@ function initMenuMobile() {
     }
 }
 
-// ============================================
-// SKIP LINK
-// ============================================
+// ===== SKIP LINK =====
 function initSkipLink() {
     const skipLink = document.querySelector('.skip-link');
     if (skipLink) {
@@ -102,91 +92,7 @@ function initSkipLink() {
     }
 }
 
-// ============================================
-// BARRA DE PESQUISA
-// ============================================
-const searchData = [
-    { title: 'Início', url: 'index.html', category: 'Página inicial' },
-    { title: 'Sobre', url: 'sobre.html', category: 'Informações' },
-    { title: 'Eventos', url: 'eventos.html', category: 'Eventos' },
-    { title: 'Eleições 2026', url: 'eleicoes-2026.html', category: 'Eleições' },
-    { title: 'Presidente', url: 'presidente.html', category: 'Cargos' },
-    { title: 'Senador', url: 'senador.html', category: 'Cargos' },
-    { title: 'Deputado Federal', url: 'deputado-federal.html', category: 'Cargos' },
-    { title: 'Informações', url: 'informacoes.html', category: 'Dados' },
-    { title: 'Quiz', url: 'quiz.html', category: 'Interativo' },
-    { title: 'Simulador', url: 'simulador.html', category: 'Interativo' },
-    { title: 'Você é o Senador', url: 'voce-e-o-senador.html', category: 'Jogo' },
-    { title: 'Flashcards', url: 'flashcards.html', category: 'Interativo' },
-    { title: 'Referências', url: 'referencias.html', category: 'Biblioteca' },
-    { title: 'Contato', url: 'contato.html', category: 'Contato' },
-];
-
-function buscar(query) {
-    query = query.toLowerCase().trim();
-    if (query.length === 0) return [];
-    return searchData.filter(item => 
-        item.title.toLowerCase().includes(query) ||
-        item.category.toLowerCase().includes(query)
-    );
-}
-
-function mostrarResultados(query) {
-    const container = document.getElementById('search-results');
-    if (!container) return;
-    const results = buscar(query);
-    container.innerHTML = '';
-    if (results.length === 0) {
-        container.innerHTML = `<div class="search-result-empty"><span>🔍</span><p>Nenhum resultado encontrado</p></div>`;
-        container.style.display = 'block';
-        return;
-    }
-    results.forEach(item => {
-        const resultItem = document.createElement('a');
-        resultItem.href = item.url;
-        resultItem.className = 'search-result-item';
-        resultItem.innerHTML = `<strong>${item.title}</strong><span class="category">${item.category}</span>`;
-        container.appendChild(resultItem);
-    });
-    container.style.display = 'block';
-}
-
-function initSearch() {
-    const searchInput = document.getElementById('search-input');
-    if (!searchInput) {
-        console.log('⚠️ Input de busca não encontrado');
-        return;
-    }
-    const container = document.getElementById('search-results');
-    if (!container) {
-        console.log('⚠️ Container de resultados não encontrado');
-        return;
-    }
-    searchInput.addEventListener('input', function(e) {
-        const query = this.value;
-        if (query.length >= 2) {
-            mostrarResultados(query);
-        } else {
-            container.style.display = 'none';
-        }
-    });
-    document.addEventListener('click', function(e) {
-        if (!searchInput.contains(e.target) && !container.contains(e.target)) {
-            container.style.display = 'none';
-        }
-    });
-    searchInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            container.style.display = 'none';
-            this.blur();
-        }
-    });
-    console.log('🔍 Barra de pesquisa inicializada!');
-}
-
-// ============================================
-// CARREGAR CONTEÚDO SALVO DO ADMIN
-// ============================================
+// ===== CARREGAR CONTEÚDO SALVO DO ADMIN =====
 function carregarConteudoSalvo() {
     const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
     if (saved.hero) {
@@ -213,9 +119,98 @@ function carregarConteudoSalvo() {
     console.log('✅ Conteúdo salvo carregado!');
 }
 
-// ============================================
-// INICIALIZAR
-// ============================================
+// ===== BARRA DE PESQUISA =====
+const searchData = [
+    { title: 'Início', url: 'index.html', category: 'Página' },
+    { title: 'Sobre', url: 'sobre.html', category: 'Página' },
+    { title: 'Eventos', url: 'eventos.html', category: 'Página' },
+    { title: 'Eleições 2026', url: 'eleicoes-2026.html', category: 'Eleições' },
+    { title: 'Presidente', url: 'presidente.html', category: 'Cargos' },
+    { title: 'Senador', url: 'senador.html', category: 'Cargos' },
+    { title: 'Deputado Federal', url: 'deputado-federal.html', category: 'Cargos' },
+    { title: 'Informações', url: 'informacoes.html', category: 'Dados' },
+    { title: 'Quiz', url: 'quiz.html', category: 'Interativo' },
+    { title: 'Simulador', url: 'simulador.html', category: 'Interativo' },
+    { title: 'Você é o Senador', url: 'voce-e-o-senador.html', category: 'Jogo' },
+    { title: 'Flashcards', url: 'flashcards.html', category: 'Interativo' },
+    { title: 'Referências', url: 'referencias.html', category: 'Biblioteca' },
+    { title: 'Contato', url: 'contato.html', category: 'Página' },
+];
+
+function buscar(query) {
+    query = query.toLowerCase().trim();
+    if (query.length === 0) return [];
+    return searchData.filter(item => 
+        item.title.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
+    );
+}
+
+function mostrarResultados(query) {
+    const container = document.getElementById('search-results');
+    if (!container) return;
+    
+    const results = buscar(query);
+    container.innerHTML = '';
+    
+    if (results.length === 0) {
+        container.innerHTML = `<div class="search-result-empty"><span>🔍</span><p>Nenhum resultado encontrado</p></div>`;
+        container.style.display = 'block';
+        return;
+    }
+    
+    results.forEach(item => {
+        const resultItem = document.createElement('a');
+        resultItem.href = item.url;
+        resultItem.className = 'search-result-item';
+        resultItem.innerHTML = `<strong>${item.title}</strong><span class="category">${item.category}</span>`;
+        container.appendChild(resultItem);
+    });
+    container.style.display = 'block';
+}
+
+function initSearch() {
+    const searchInput = document.getElementById('search-input');
+    if (!searchInput) {
+        console.log('❌ Input de busca não encontrado');
+        return;
+    }
+    
+    const container = document.getElementById('search-results');
+    if (!container) {
+        console.log('❌ Container de resultados não encontrado');
+        return;
+    }
+    
+    console.log('✅ Input e container encontrados');
+    
+    searchInput.addEventListener('input', function(e) {
+        const query = this.value;
+        console.log('Digitando:', query);
+        if (query.length >= 2) {
+            mostrarResultados(query);
+        } else {
+            container.style.display = 'none';
+        }
+    });
+    
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !container.contains(e.target)) {
+            container.style.display = 'none';
+        }
+    });
+    
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            container.style.display = 'none';
+            this.blur();
+        }
+    });
+    
+    console.log('🔍 Barra de pesquisa inicializada!');
+}
+
+// ===== INICIALIZAR =====
 document.addEventListener('DOMContentLoaded', function() {
     console.log('📄 DOM carregado - Inicializando...');
     carregarPreferencias();
