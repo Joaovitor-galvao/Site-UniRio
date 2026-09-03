@@ -201,3 +201,29 @@ h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
         height: 35px;
     }
 }
+
+/* ===== ÍCONES SOCIAIS ===== */
+.header-social {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.header-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.header-social a:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+}
+
+.header-social svg {
+    stroke: #faf5e8;
+    width: 24px;
+    height: 24px;
+}
