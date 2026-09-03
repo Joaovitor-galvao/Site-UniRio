@@ -35,6 +35,12 @@
                     </a>
                 </div>
                 <div class="header-search" role="search">
+                    <form action="#" method="get" onsubmit="return false;">
+                        <label for="search-input" class="visually-hidden">Buscar</label>
+                        <input type="search" id="search-input" placeholder="Buscar..." autocomplete="off" />
+                        <button type="submit" aria-label="Pesquisar">🔍</button>
+                    </form>
+                    <div id="search-results" class="search-results" style="display:none;"></div>
                 </div>
                 <div class="header-social">
                     <a href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj" target="_blank" aria-label="Instagram">
@@ -92,7 +98,7 @@
         <section class="hero">
             <div class="container hero__inner">
                 <div class="hero__content">
-                    <h1 class="hero__title">VOTO CONSCIENTE:<br />SAIBA COMO ESCOLHER</h1>
+                    <h1 class="hero__title">VOTO CONSCIENTE: SAIBA COMO ESCOLHER</h1>
                     <p class="hero__subtitle">Três votos.<br />Cada um com um papel diferente.<br /><strong>Aprenda a escolher bem.</strong></p>
                     <a href="sobre.html" class="btn btn--primary">Saiba Mais</a>
                 </div>
@@ -195,7 +201,7 @@
             </div>
             <div class="footer__col">
                 <h4>Contato</h4>
-                <p>Email: conspolitica.unirio@gmail.com</p>
+                <p><a href="mailto:conspolitica.unirio@gmail.com">conspolitica.unirio@gmail.com</a></p>
             </div>
             <div class="footer__col">
                 <h4>Mapa do site</h4>
@@ -212,4 +218,3 @@
     <script src="js/admin.js"></script>
 </body>
 </html>
-EOF

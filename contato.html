@@ -206,9 +206,6 @@ cat > contato.html << 'EOF'
     </style>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-
-    <!-- ===== HEADER ===== -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
@@ -235,7 +232,7 @@ cat > contato.html << 'EOF'
                     </a>
                 </div>
                 <div class="header-search" role="search">
-                    <form action="#" method="get">
+                    <form action="#" method="get" onsubmit="return false;">
                         <label for="search-input" class="visually-hidden">Buscar</label>
                         <input type="search" id="search-input" placeholder="Buscar..." autocomplete="off" />
                         <button type="submit" aria-label="Pesquisar">🔍</button>
@@ -289,11 +286,14 @@ cat > contato.html << 'EOF'
                         </ul>
                     </li>
                     <li><a href="referencias.html">Referências</a></li>
-                    <li><a href="contato.html" class="active">Contato</a></li>
+                    <li><a href="contato.html">Contato</a></li>
                 </ul>
             </div>
         </nav>
     </header>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- ===== HEADER ===== -->
 
     <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
@@ -413,8 +413,6 @@ cat > contato.html << 'EOF'
         </section>
 
     </main>
-
-    <!-- ===== FOOTER ===== -->
     <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
@@ -447,6 +445,8 @@ cat > contato.html << 'EOF'
         </div>
         <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
+
+    <!-- ===== FOOTER ===== -->
 
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
