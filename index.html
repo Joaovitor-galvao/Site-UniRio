@@ -4,21 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO</title>
-    <meta name="description" content="Projeto de pesquisa e extensão da UNIRIO para promover educação política apartidária e voto consciente." />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://votoconsciente.unirio.br" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-    <header class="header" role="banner">
+    <header class="header">
         <div class="top-bar">
             <div class="container top-bar__inner">
                 <div class="top-bar__access">
                     <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
                     <button class="access-btn" id="font-inc" onclick="ajustarFonte(0.1)">A+</button>
-                    x'<button class="access-btn" id="font-dec" onclick="ajustarFonte(-0.1)">A-</button>
+                    <button class="access-btn" id="font-dec" onclick="ajustarFonte(-0.1)">A-</button>
                     <button class="access-btn" id="font-reset" onclick="resetarFonte()">A</button>
                 </div>
                 <div class="top-bar__links">
@@ -38,22 +35,19 @@
                         </div>
                     </a>
                 </div>
-                <div class="header-search" role="search">
-                    <form action="#" method="get">
-                        <label for="search-input" class="visually-hidden">Pesquisar no site</label>
-                        <input type="search" id="search-input" placeholder="O que você busca?" autocomplete="off" />
-                        <button type="submit" aria-label="Pesquisar">🔍</button>
+                <div class="header-search">
+                    <form action="#">
+                        <label for="search-input" class="visually-hidden">Pesquisar</label>
+                        <input type="search" id="search-input" placeholder="O que você busca?" />
+                        <button type="submit">🔍</button>
                     </form>
-                    <div id="search-results" class="search-results" style="display:none;"></div>
                 </div>
                 <div class="header-social">
-                    <a href="#" aria-label="Instagram"><span>📷</span></a>
-                    <a href="#" aria-label="YouTube"><span>▶️</span></a>
-                    <a href="#" aria-label="Twitter"><span>🐦</span></a>
+                    <a href="#">📷</a><a href="#">▶️</a><a href="#">🐦</a>
                 </div>
             </div>
         </div>
-        <nav class="main-nav" aria-label="Menu principal" role="navigation">
+        <nav class="main-nav">
             <div class="container">
                 <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
                 <ul id="primary-menu" class="nav-list">
@@ -70,7 +64,7 @@
                     </li>
                     <li><a href="informacoes.html">Informações</a></li>
                     <li class="has-dropdown">
-                        <a href="conteudo-interativo.html">Conteúdo Interativo</a>''
+                        <a href="conteudo-interativo.html">Conteúdo Interativo</a>
                         <ul class="dropdown">
                             <li><a href="quiz.html">Quiz</a></li>
                             <li><a href="simulador.html">Simulador</a></li>
@@ -92,9 +86,7 @@
                     <p class="hero__subtitle">Três votos.<br />Cada um com um papel diferente.<br /><strong>Aprenda a escolher bem.</strong></p>
                     <a href="sobre.html" class="btn btn--primary">Saiba Mais</a>
                 </div>
-                <div class="hero__image" aria-hidden="true">
-                    <span style="font-size:8rem;">🏛️</span>
-                </div>
+                <div class="hero__image"><span style="font-size:8rem;">🏛️</span></div>
             </div>
         </section>
         <section class="section" id="apresentacao">
@@ -122,14 +114,8 @@
             <div class="container">
                 <h2 class="section-title">Importância Social e Acadêmica</h2>
                 <div class="grid-2">
-                    <div class="card">
-                        <h3>Impacto Social</h3>
-                        <p>O projeto contribui para a formação de uma cidadania ativa, reduzindo a desinformação e fortalecendo a confiança nas instituições democráticas.</p>
-                    </div>
-                    <div class="card">
-                        <h3>Impacto Acadêmico</h3>
-                        <p>Gera conhecimento científico sobre comportamento eleitoral, produção de materiais didáticos e formação de pesquisadores na área de ciência política.</p>
-                    </div>
+                    <div class="card"><h3>Impacto Social</h3><p>O projeto contribui para a formação de uma cidadania ativa, reduzindo a desinformação e fortalecendo a confiança nas instituições democráticas.</p></div>
+                    <div class="card"><h3>Impacto Acadêmico</h3><p>Gera conhecimento científico sobre comportamento eleitoral, produção de materiais didáticos e formação de pesquisadores na área de ciência política.</p></div>
                 </div>
             </div>
         </section>
@@ -137,36 +123,12 @@
             <div class="container">
                 <h2 class="section-title">Equipe</h2>
                 <div class="grid-3">
-                    <div class="card card--team">
-                        <span class="card__icon">👩‍🏫</span>
-                        <h3>Coordenação</h3>
-                        <p>Profª. Dra. Ana Carla Silva<br />Prof. Dr. João Mendes</p>
-                    </div>
-                    <div class="card card--team">
-                        <span class="card__icon">👨‍🏫</span>
-                        <h3>Professores Responsáveis</h3>
-                        <p>Profª. Dra. Maria Oliveira<br />Prof. Dr. Carlos Santos</p>
-                    </div>
-                    <div class="card card--team">
-                        <span class="card__icon">🔬</span>
-                        <h3>Pesquisadores</h3>
-                        <p>Dra. Fernanda Lima<br />Me. Rafael Costa</p>
-                    </div>
-                    <div class="card card--team">
-                        <span class="card__icon">🎓</span>
-                        <h3>Bolsistas</h3>
-                        <p>10 estudantes de graduação e pós-graduação</p>
-                    </div>
-                    <div class="card card--team">
-                        <span class="card__icon">🤝</span>
-                        <h3>Parceiros</h3>
-                        <p>TSE, Justiça Eleitoral,<br />DivulgaCand</p>
-                    </div>
-                    <div class="card card--team">
-                        <span class="card__icon">🏛️</span>
-                        <h3>Escola de Ciência Política</h3>
-                        <p>UNIRIO — Centro de Ciências Jurídicas e Políticas</p>
-                    </div>
+                    <div class="card card--team"><span class="card__icon">👩‍🏫</span><h3>Coordenação</h3><p>Profª. Dra. Ana Carla Silva<br />Prof. Dr. João Mendes</p></div>
+                    <div class="card card--team"><span class="card__icon">👨‍🏫</span><h3>Professores Responsáveis</h3><p>Profª. Dra. Maria Oliveira<br />Prof. Dr. Carlos Santos</p></div>
+                    <div class="card card--team"><span class="card__icon">🔬</span><h3>Pesquisadores</h3><p>Dra. Fernanda Lima<br />Me. Rafael Costa</p></div>
+                    <div class="card card--team"><span class="card__icon">🎓</span><h3>Bolsistas</h3><p>10 estudantes de graduação e pós-graduação</p></div>
+                    <div class="card card--team"><span class="card__icon">🤝</span><h3>Parceiros</h3><p>TSE, Justiça Eleitoral,<br />DivulgaCand</p></div>
+                    <div class="card card--team"><span class="card__icon">🏛️</span><h3>Escola de Ciência Política</h3><p>UNIRIO — Centro de Ciências Jurídicas e Políticas</p></div>
                 </div>
             </div>
         </section>
@@ -174,36 +136,12 @@
             <div class="container">
                 <h2 class="section-title">Destaques</h2>
                 <div class="grid-3">
-                    <a href="eleicoes-2026.html" class="card card--link">
-                        <span class="card__icon">🗳️</span>
-                        <h3>Eleições 2026</h3>
-                        <p>Entenda o processo eleitoral e o papel de cada cargo.</p>
-                    </a>
-                    <a href="eventos.html" class="card card--link">
-                        <span class="card__icon">📅</span>
-                        <h3>Eventos</h3>
-                        <p>Oficinas, palestras, seminários e congressos.</p>
-                    </a>
-                    <a href="quiz.html" class="card card--link">
-                        <span class="card__icon">🧠</span>
-                        <h3>Quiz</h3>
-                        <p>Teste seus conhecimentos sobre política e cidadania.</p>
-                    </a>
-                    <a href="simulador.html" class="card card--link">
-                        <span class="card__icon">⚖️</span>
-                        <h3>Simulador</h3>
-                        <p>Escolha suas prioridades e veja seu perfil eleitoral.</p>
-                    </a>
-                    <a href="conteudo-interativo.html" class="card card--link">
-                        <span class="card__icon">📚</span>
-                        <h3>Materiais Educativos</h3>
-                        <p>Flashcards, jogos e conteúdos interativos.</p>
-                    </a>
-                    <a href="informacoes.html" class="card card--link">
-                        <span class="card__icon">📊</span>
-                        <h3>Estatísticas</h3>
-                        <p>Dados sobre participação, abstenção e mais.</p>
-                    </a>
+                    <a href="eleicoes-2026.html" class="card card--link"><span class="card__icon">🗳️</span><h3>Eleições 2026</h3><p>Entenda o processo eleitoral e o papel de cada cargo.</p></a>
+                    <a href="eventos.html" class="card card--link"><span class="card__icon">📅</span><h3>Eventos</h3><p>Oficinas, palestras, seminários e congressos.</p></a>
+                    <a href="quiz.html" class="card card--link"><span class="card__icon">🧠</span><h3>Quiz</h3><p>Teste seus conhecimentos sobre política e cidadania.</p></a>
+                    <a href="simulador.html" class="card card--link"><span class="card__icon">⚖️</span><h3>Simulador</h3><p>Escolha suas prioridades e veja seu perfil eleitoral.</p></a>
+                    <a href="conteudo-interativo.html" class="card card--link"><span class="card__icon">📚</span><h3>Materiais Educativos</h3><p>Flashcards, jogos e conteúdos interativos.</p></a>
+                    <a href="informacoes.html" class="card card--link"><span class="card__icon">📊</span><h3>Estatísticas</h3><p>Dados sobre participação, abstenção e mais.</p></a>
                 </div>
             </div>
         </section>
@@ -211,16 +149,8 @@
             <div class="container">
                 <h2 class="section-title">Notícias</h2>
                 <div class="grid-2">
-                    <article class="card news-card">
-                        <h3>Lançamento do portal Voto Consciente</h3>
-                        <p>O projeto oficializa sua plataforma digital com conteúdos educativos e interativos para as Eleições 2026.</p>
-                        <time datetime="2026-03-01">1º de março de 2026</time>
-                    </article>
-                    <article class="card news-card">
-                        <h3>Oficina de Educação Política na UNIRIO</h3>
-                        <p>Inscrições abertas para a oficina que será realizada no dia 15 de abril. Vagas limitadas!</p>
-                        <time datetime="2026-03-10">10 de março de 2026</time>
-                    </article>
+                    <article class="card news-card"><h3>Lançamento do portal Voto Consciente</h3><p>O projeto oficializa sua plataforma digital com conteúdos educativos e interativos para as Eleições 2026.</p><time datetime="2026-03-01">1º de março de 2026</time></article>
+                    <article class="card news-card"><h3>Oficina de Educação Política na UNIRIO</h3><p>Inscrições abertas para a oficina que será realizada no dia 15 de abril. Vagas limitadas!</p><time datetime="2026-03-10">10 de março de 2026</time></article>
                 </div>
             </div>
         </section>
@@ -228,21 +158,13 @@
             <div class="container">
                 <h2 class="section-title">Próximos Eventos</h2>
                 <div class="grid-2">
-                    <div class="card">
-                        <h3>Seminário: Democracia e Participação</h3>
-                        <p><strong>Data:</strong> 10/04/2026</p>
-                        <p><strong>Local:</strong> Auditório da UNIRIO</p>
-                    </div>
-                    <div class="card">
-                        <h3>Palestra: O Papel do Senador</h3>
-                        <p><strong>Data:</strong> 25/04/2026</p>
-                        <p><strong>Local:</strong> Online — YouTube UNIRIO</p>
-                    </div>
+                    <div class="card"><h3>Seminário: Democracia e Participação</h3><p><strong>Data:</strong> 10/04/2026</p><p><strong>Local:</strong> Auditório da UNIRIO</p></div>
+                    <div class="card"><h3>Palestra: O Papel do Senador</h3><p><strong>Data:</strong> 25/04/2026</p><p><strong>Local:</strong> Online — YouTube UNIRIO</p></div>
                 </div>
             </div>
         </section>
     </main>
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
         <div class="container footer__inner">
             <div class="footer__col">
                 <h3>CON(S)CIÊNCIA POLÍTICA</h3>
@@ -252,37 +174,20 @@
             </div>
             <div class="footer__col">
                 <h4>Links úteis</h4>
-                <ul>
-                    <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="eventos.html">Eventos</a></li>
-                    <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
-                    <li><a href="referencias.html">Referências</a></li>
-                </ul>
+                <ul><li><a href="sobre.html">Sobre</a></li><li><a href="eventos.html">Eventos</a></li><li><a href="eleicoes-2026.html">Eleições 2026</a></li><li><a href="referencias.html">Referências</a></li></ul>
             </div>
             <div class="footer__col">
                 <h4>Contato</h4>
                 <p>Email: votoconsciente@unirio.br</p>
                 <p>Telefone: (21) 99999-9999</p>
-                <div class="footer-social">
-                    <a href="#" aria-label="Instagram">📷</a>
-                    <a href="#" aria-label="YouTube">▶️</a>
-                    <a href="#" aria-label="Twitter">🐦</a>
-                </div>
+                <div class="footer-social"><a href="#">📷</a><a href="#">▶️</a><a href="#">🐦</a></div>
             </div>
             <div class="footer__col">
                 <h4>Mapa do site</h4>
-                <ul>
-                    <li><a href="index.html">Início</a></li>
-                    <li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li>
-                    <li><a href="contato.html">Contato</a></li>
-                </ul>
+                <ul><li><a href="index.html">Início</a></li><li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li><li><a href="contato.html">Contato</a></li></ul>
             </div>
         </div>
-        <div class="footer__bottom">
-            <div class="container">
-                <p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p>
-            </div>
-        </div>
+        <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
