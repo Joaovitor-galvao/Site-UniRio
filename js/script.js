@@ -4,7 +4,9 @@
 
 console.log('🚀 Script carregado!');
 
-// ===== ALTO CONTRASTE =====
+// ============================================
+// ALTO CONTRASTE
+// ============================================
 function toggleAltoContraste() {
     document.body.classList.toggle('high-contrast');
     const isActive = document.body.classList.contains('high-contrast');
@@ -12,287 +14,100 @@ function toggleAltoContraste() {
     const btn = document.getElementById('high-contrast');
     if (btn) {
         btn.textContent = isActive ? '🌙 Contraste Normal' : '☀️ Alto Contraste';
+        btn.setAttribute('aria-pressed', isActive);
     }
     console.log('Alto contraste:', isActive ? 'ativado' : 'desativado');
 }
 
-// ===== AJUSTE DE FONTE =====
+// ============================================
+// AJUSTE DE FONTE
+// ============================================
 function ajustarFonte(delta) {
     const html = document.documentElement;
     let escala = parseFloat(html.style.getPropertyValue('--font-scale')) || 1;
     escala = Math.min(Math.max(escala + delta, 0.8), 1.8);
     html.style.setProperty('--font-scale', escala);
     localStorage.setItem('votoConscienteFontSize', escala);
-    console.log('Fonte:', escala);
+    console.log('Fonte ajustada para:', escala);
 }
 
 function resetarFonte() {
     document.documentElement.style.setProperty('--font-scale', 1);
     localStorage.setItem('votoConscienteFontSize', '1');
-    console.log('Fonte resetada');
+    console.log('Fonte resetada para o padrão');
 }
 
-// ===== CARREGAR PREFERÊNCIAS =====
+// ============================================
+// CARREGAR PREFERÊNCIAS
+// ============================================
 function carregarPreferencias() {
-    const high = localStorage.getItem('votoConscienteHighContrast');
-    if (high === 'true') {
+    const highContrast = localStorage.getItem('votoConscienteHighContrast');
+    if (highContrast === 'true') {
         document.body.classList.add('high-contrast');
         const btn = document.getElementById('high-contrast');
-        if (btn) btn.textContent = '🌙 Contraste Normal';
+        if (btn) {
+            btn.textContent = '🌙 Contraste Normal';
+            btn.setAttribute('aria-pressed', 'true');
+        }
     }
-    const size = localStorage.getItem('votoConscienteFontSize');
-    if (size) {
-        const val = parseFloat(size);
-        if (val >= 0.8 && val <= 1.8) {
+    const fontSize = localStorage.getItem('votoConscienteFontSize');
+    if (fontSize) {
+        const val = parseFloat(fontSize);
+        if (!isNaN(val) && val >= 0.8 && val <= 1.8) {
             document.documentElement.style.setProperty('--font-scale', val);
         }
     }
 }
 
-// ===== MENU MOBILE =====
-function initMenu() {
-    const toggle = document.getElementById('menu-toggle');
-    const list = document.getElementById('primary-menu');
-    if (toggle && list) {
-        toggle.addEventListener('click', function() {
+// ============================================
+// MENU MOBILE
+// ============================================
+function initMenuMobile() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const navList = document.getElementById('primary-menu');
+    if (menuToggle && navList) {
+        menuToggle.addEventListener('click', function() {
             const expanded = this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true';
             this.setAttribute('aria-expanded', expanded);
-            list.classList.toggle('open');
+            navList.classList.toggle('open');
         });
-        list.querySelectorAll('a').forEach(function(link) {
+        navList.querySelectorAll('a').forEach(function(link) {
             link.addEventListener('click', function() {
                 if (window.innerWidth <= 768) {
-                    list.classList.remove('open');
-                    toggle.setAttribute('aria-expanded', 'false');
+                    navList.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
                 }
             });
         });
     }
 }
 
-// ===== INICIALIZAR =====
-document.addEventListener('DOMContentLoaded', function() {
-    carregarPreferencias();
-    initMenu();
-    console.log('✅ Site inicializado!');
-});
-EOFcat > js/script.js << 'EOF'
 // ============================================
-// SCRIPT PRINCIPAL - CON(S)CIÊNCIA POLÍTICA
+// SKIP LINK
 // ============================================
-
-console.log('🚀 Script carregado!');
-
-// ===== ALTO CONTRASTE =====
-function toggleAltoContraste() {
-    document.body.classList.toggle('high-contrast');
-    const isActive = document.body.classList.contains('high-contrast');
-    localStorage.setItem('votoConscienteHighContrast', isActive ? 'true' : 'false');
-    const btn = document.getElementById('high-contrast');
-    if (btn) {
-        btn.textContent = isActive ? '🌙 Contraste Normal' : '☀️ Alto Contraste';
-    }
-    console.log('Alto contraste:', isActive ? 'ativado' : 'desativado');
-}
-
-// ===== AJUSTE DE FONTE =====
-function ajustarFonte(delta) {
-    const html = document.documentElement;
-    let escala = parseFloat(html.style.getPropertyValue('--font-scale')) || 1;
-    escala = Math.min(Math.max(escala + delta, 0.8), 1.8);
-    html.style.setProperty('--font-scale', escala);
-    localStorage.setItem('votoConscienteFontSize', escala);
-    console.log('Fonte:', escala);
-}
-
-function resetarFonte() {
-    document.documentElement.style.setProperty('--font-scale', 1);
-    localStorage.setItem('votoConscienteFontSize', '1');
-    console.log('Fonte resetada');
-}
-
-// ===== CARREGAR PREFERÊNCIAS =====
-function carregarPreferencias() {
-    const high = localStorage.getItem('votoConscienteHighContrast');
-    if (high === 'true') {
-        document.body.classList.add('high-contrast');
-        const btn = document.getElementById('high-contrast');
-        if (btn) btn.textContent = '🌙 Contraste Normal';
-    }
-    const size = localStorage.getItem('votoConscienteFontSize');
-    if (size) {
-        const val = parseFloat(size);
-        if (val >= 0.8 && val <= 1.8) {
-            document.documentElement.style.setProperty('--font-scale', val);
-        }
-    }
-}
-
-// ===== MENU MOBILE =====
-function initMenu() {
-    const toggle = document.getElementById('menu-toggle');
-    const list = document.getElementById('primary-menu');
-    if (toggle && list) {
-        toggle.addEventListener('click', function() {
-            const expanded = this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true';
-            this.setAttribute('aria-expanded', expanded);
-            list.classList.toggle('open');
-        });
-        list.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    list.classList.remove('open');
-                    toggle.setAttribute('aria-expanded', 'false');
-                }
-            });
+function initSkipLink() {
+    const skipLink = document.querySelector('.skip-link');
+    if (skipLink) {
+        skipLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const main = document.getElementById('main-content');
+            if (main) {
+                main.setAttribute('tabindex', '-1');
+                main.focus();
+                main.addEventListener('blur', function() {
+                    this.removeAttribute('tabindex');
+                }, { once: true });
+            }
         });
     }
 }
 
-// ===== INICIALIZAR =====
-document.addEventListener('DOMContentLoaded', function() {
-    carregarPreferencias();
-    initMenu();
-    console.log('✅ Site inicializado!');
-});
-EOFddfdf
-
-
-
-cat > js/script.js << 'EOF'
 // ============================================
-// SCRIPT PRINCIPAL - CON(S)CIÊNCIA POLÍTICA
+// BARRA DE PESQUISA
 // ============================================
-
-console.log('🚀 Script carregado!');
-
-// ===== ALTO CONTRASTE =====
-function toggleAltoContraste() {
-    document.body.classList.toggle('high-contrast');
-    const isActive = document.body.classList.contains('high-contrast');
-    localStorage.setItem('votoConscienteHighContrast', isActive ? 'true' : 'false');
-    const btn = document.getElementById('high-contrast');
-    if (btn) {
-        btn.textContent = isActive ? '🌙 Contraste Normal' : '☀️ Alto Contraste';
-    }
-    console.log('Alto contraste:', isActive ? 'ativado' : 'desativado');
-}
-
-// ===== AJUSTE DE FONTE =====
-function ajustarFonte(delta) {
-    const html = document.documentElement;
-    let escala = parseFloat(html.style.getPropertyValue('--font-scale')) || 1;
-    escala = Math.min(Math.max(escala + delta, 0.8), 1.8);
-    html.style.setProperty('--font-scale', escala);
-    localStorage.setItem('votoConscienteFontSize', escala);
-    console.log('Fonte:', escala);
-}
-
-function resetarFonte() {
-    document.documentElement.style.setProperty('--font-scale', 1);
-    localStorage.setItem('votoConscienteFontSize', '1');
-    console.log('Fonte resetada');
-}
-
-// ===== CARREGAR PREFERÊNCIAS =====
-function carregarPreferencias() {
-    const high = localStorage.getItem('votoConscienteHighContrast');
-    if (high === 'true') {
-        document.body.classList.add('high-contrast');
-        const btn = document.getElementById('high-contrast');
-        if (btn) btn.textContent = '🌙 Contraste Normal';
-    }
-    const size = localStorage.getItem('votoConscienteFontSize');
-    if (size) {
-        const val = parseFloat(size);
-        if (val >= 0.8 && val <= 1.8) {
-            document.documentElement.style.setProperty('--font-scale', val);
-        }
-    }
-}
-
-// ===== MENU MOBILE =====
-function initMenu() {
-    const toggle = document.getElementById('menu-toggle');
-    const list = document.getElementById('primary-menu');
-    if (toggle && list) {
-        toggle.addEventListener('click', function() {
-            const expanded = this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true';
-            this.setAttribute('aria-expanded', expanded);
-            list.classList.toggle('open');
-        });
-        list.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    list.classList.remove('open');
-                    toggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        });
-    }
-}
-
-// ===== INICIALIZAR =====
-document.addEventListener('DOMContentLoaded', function() {
-    carregarPreferencias();
-    initMenu();
-    console.log('✅ Site inicializado!');
-});
-
-cat >> js/script.js << 'EOF'
-
-// ============================================
-// CARREGAR CONTEÚDO SALVO DO ADMIN
-// ============================================
-function carregarConteudoSalvo() {
-    const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-    
-    // Hero
-    if (saved.hero) {
-        const lines = saved.hero.split('\n').filter(l => l.trim());
-        const titleEl = document.querySelector('.hero__title');
-        const subEl = document.querySelector('.hero__subtitle');
-        if (titleEl && lines[0]) titleEl.textContent = lines[0].trim();
-        if (subEl) {
-            const rest = lines.slice(1).join('\n').trim();
-            subEl.innerHTML = rest.replace(/\n/g, '<br>');
-        }
-    }
-    
-    // Apresentação
-    if (saved.apresentacao) {
-        const pEl = document.querySelector('.section#apresentacao .grid-2 p');
-        if (pEl) pEl.textContent = saved.apresentacao;
-    }
-    
-    // Objetivos
-    if (saved.objetivos) {
-        const ulEl = document.querySelector('.section#apresentacao .grid-2 ul');
-        if (ulEl) {
-            const items = saved.objetivos.split('\n').filter(l => l.trim());
-            ulEl.innerHTML = items.map(item => `<li>${item.trim()}</li>`).join('');
-        }
-    }
-    
-    console.log('✅ Conteúdo salvo carregado!');
-}
-
-// Carregar conteúdo ao iniciar
-document.addEventListener('DOMContentLoaded', function() {
-    carregarConteudoSalvo();
-});
-EOF
-
-cat >> js/script.js << 'EOF'
-
-// ============================================
-// BARRA DE PESQUISA - FUNCIONAL
-// ============================================
-
-// Dados para busca
 const searchData = [
     { title: 'Início', url: 'index.html', category: 'Página inicial' },
-    { title: 'Sobre o Projeto', url: 'sobre.html', category: 'Informações' },
+    { title: 'Sobre', url: 'sobre.html', category: 'Informações' },
     { title: 'Eventos', url: 'eventos.html', category: 'Eventos' },
     { title: 'Eleições 2026', url: 'eleicoes-2026.html', category: 'Eleições' },
     { title: 'Presidente', url: 'presidente.html', category: 'Cargos' },
@@ -319,16 +134,13 @@ function buscar(query) {
 function mostrarResultados(query) {
     const container = document.getElementById('search-results');
     if (!container) return;
-    
     const results = buscar(query);
     container.innerHTML = '';
-    
     if (results.length === 0) {
-        container.innerHTML = `<div class="search-result-empty"><span>🔍</span><p>Nenhum resultado encontrado para "<strong>${query}</strong>"</p></div>`;
+        container.innerHTML = `<div class="search-result-empty"><span>🔍</span><p>Nenhum resultado encontrado</p></div>`;
         container.style.display = 'block';
         return;
     }
-    
     results.forEach(item => {
         const resultItem = document.createElement('a');
         resultItem.href = item.url;
@@ -341,35 +153,75 @@ function mostrarResultados(query) {
 
 function initSearch() {
     const searchInput = document.getElementById('search-input');
-    if (!searchInput) return;
-    
+    if (!searchInput) {
+        console.log('⚠️ Input de busca não encontrado');
+        return;
+    }
     const container = document.getElementById('search-results');
-    if (!container) return;
-    
+    if (!container) {
+        console.log('⚠️ Container de resultados não encontrado');
+        return;
+    }
     searchInput.addEventListener('input', function(e) {
         const query = this.value;
-        if (query.length >= 2) { 
-            mostrarResultados(query); 
-        } else { 
-            container.style.display = 'none'; 
+        if (query.length >= 2) {
+            mostrarResultados(query);
+        } else {
+            container.style.display = 'none';
         }
     });
-    
-    // Fechar ao clicar fora
     document.addEventListener('click', function(e) {
         if (!searchInput.contains(e.target) && !container.contains(e.target)) {
             container.style.display = 'none';
         }
     });
-    
-    // Tecla ESC para fechar
     searchInput.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             container.style.display = 'none';
             this.blur();
         }
     });
-    
     console.log('🔍 Barra de pesquisa inicializada!');
 }
-EOF
+
+// ============================================
+// CARREGAR CONTEÚDO SALVO DO ADMIN
+// ============================================
+function carregarConteudoSalvo() {
+    const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+    if (saved.hero) {
+        const lines = saved.hero.split('\n').filter(l => l.trim());
+        const titleEl = document.querySelector('.hero__title');
+        const subEl = document.querySelector('.hero__subtitle');
+        if (titleEl && lines[0]) titleEl.textContent = lines[0].trim();
+        if (subEl) {
+            const rest = lines.slice(1).join('\n').trim();
+            subEl.innerHTML = rest.replace(/\n/g, '<br>');
+        }
+    }
+    if (saved.apresentacao) {
+        const pEl = document.querySelector('.section#apresentacao .grid-2 p');
+        if (pEl) pEl.textContent = saved.apresentacao;
+    }
+    if (saved.objetivos) {
+        const ulEl = document.querySelector('.section#apresentacao .grid-2 ul');
+        if (ulEl) {
+            const items = saved.objetivos.split('\n').filter(l => l.trim());
+            ulEl.innerHTML = items.map(item => `<li>${item.trim()}</li>`).join('');
+        }
+    }
+    console.log('✅ Conteúdo salvo carregado!');
+}
+
+// ============================================
+// INICIALIZAR
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📄 DOM carregado - Inicializando...');
+    carregarPreferencias();
+    initMenuMobile();
+    initSkipLink();
+    carregarConteudoSalvo();
+    initSearch();
+    console.log('✅ Site inicializado!');
+});
