@@ -150,3 +150,56 @@ h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
     .header-social { gap: 0.4rem; margin-left: 0.3rem; }
     .header-social svg { width: 18px; height: 18px; }
 }
+
+/* ===== ALTO CONTRASTE ===== */
+.high-contrast {
+    --cor-principal: #000000 !important;
+    --cor-secundaria: #1a1a1a !important;
+    --cor-destaque: #ffcc00 !important;
+    --cor-marrom: #ffaa00 !important;
+    --cor-suporte: #ffdd88 !important;
+    --fundo: #ffffff !important;
+    --fundo-secundario: #f0f0f0 !important;
+    --texto: #000000 !important;
+    --texto-claro: #ffffff !important;
+}
+
+.high-contrast .header,
+.high-contrast .footer,
+.high-contrast .main-nav,
+.high-contrast .top-bar {
+    background: #000000 !important;
+}
+
+.high-contrast .hero {
+    background: #111111 !important;
+}
+
+.high-contrast .btn--primary {
+    background: #111111 !important;
+    color: #ffffff !important;
+    border: 3px solid #ffcc00 !important;
+}
+
+.high-contrast a {
+    color: #ffcc00 !important;
+    text-decoration: underline !important;
+}
+
+.high-contrast .card {
+    background: #ffffff !important;
+    border: 2px solid #000000 !important;
+}
+
+.high-contrast .card h3 {
+    color: #000000 !important;
+}
+
+.high-contrast .section-title {
+    color: #000000 !important;
+}
+
+.high-contrast .hero__title,
+.high-contrast .hero__subtitle {
+    color: #ffffff !important;
+}
