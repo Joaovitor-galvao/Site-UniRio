@@ -4,19 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO</title>
+    <meta name="description" content="Projeto de pesquisa e extensão da UNIRIO para promover educação política apartidária e voto consciente." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://votoconsciente.unirio.br" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-    <header class="header">
+    <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
                 <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
-                    <button class="access-btn" id="font-inc" onclick="ajustarFonte(0.1)">A+</button>
-                    <button class="access-btn" id="font-dec" onclick="ajustarFonte(-0.1)">A-</button>
-                    <button class="access-btn" id="font-reset" onclick="resetarFonte()">A</button>
+                    <button class="access-btn" id="high-contrast">Alto contraste</button>
+                    <button class="access-btn" id="font-inc">A+</button>
+                    <button class="access-btn" id="font-dec">A-</button>
                 </div>
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
@@ -35,19 +37,22 @@
                         </div>
                     </a>
                 </div>
-                <div class="header-search">
-                    <form action="#">
-                        <label for="search-input" class="visually-hidden">Pesquisar</label>
-                        <input type="search" id="search-input" placeholder="O que você busca?" />
-                        <button type="submit">🔍</button>
+                <div class="header-search" role="search">
+                    <form action="#" method="get">
+                        <label for="search-input" class="visually-hidden">Pesquisar no site</label>
+                        <input type="search" id="search-input" placeholder="O que você busca?" autocomplete="off" />
+                        <button type="submit" aria-label="Pesquisar">🔍</button>
                     </form>
+                    <div id="search-results" class="search-results" style="display:none;"></div>
                 </div>
                 <div class="header-social">
-                    <a href="#">📷</a><a href="#">▶️</a><a href="#">🐦</a>
+                    <a href="#" aria-label="Instagram"><span>📷</span></a>
+                    <a href="#" aria-label="YouTube"><span>▶️</span></a>
+                    <a href="#" aria-label="Twitter"><span>🐦</span></a>
                 </div>
             </div>
         </div>
-        <nav class="main-nav">
+        <nav class="main-nav" aria-label="Menu principal" role="navigation">
             <div class="container">
                 <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
                 <ul id="primary-menu" class="nav-list">
@@ -86,7 +91,9 @@
                     <p class="hero__subtitle">Três votos.<br />Cada um com um papel diferente.<br /><strong>Aprenda a escolher bem.</strong></p>
                     <a href="sobre.html" class="btn btn--primary">Saiba Mais</a>
                 </div>
-                <div class="hero__image"><span style="font-size:8rem;">🏛️</span></div>
+                <div class="hero__image" aria-hidden="true">
+                    <span style="font-size:8rem;">🏛️</span>
+                </div>
             </div>
         </section>
         <section class="section" id="apresentacao">
@@ -164,7 +171,7 @@
             </div>
         </section>
     </main>
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
                 <h3>CON(S)CIÊNCIA POLÍTICA</h3>
@@ -174,20 +181,29 @@
             </div>
             <div class="footer__col">
                 <h4>Links úteis</h4>
-                <ul><li><a href="sobre.html">Sobre</a></li><li><a href="eventos.html">Eventos</a></li><li><a href="eleicoes-2026.html">Eleições 2026</a></li><li><a href="referencias.html">Referências</a></li></ul>
+                <ul>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
+                    <li><a href="referencias.html">Referências</a></li>
+                </ul>
             </div>
             <div class="footer__col">
                 <h4>Contato</h4>
                 <p>Email: votoconsciente@unirio.br</p>
                 <p>Telefone: (21) 99999-9999</p>
-                <div class="footer-social"><a href="#">📷</a><a href="#">▶️</a><a href="#">🐦</a></div>
+                <div class="footer-social"><a href="#" aria-label="Instagram">📷</a><a href="#" aria-label="YouTube">▶️</a><a href="#" aria-label="Twitter">🐦</a></div>
             </div>
             <div class="footer__col">
                 <h4>Mapa do site</h4>
-                <ul><li><a href="index.html">Início</a></li><li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li><li><a href="contato.html">Contato</a></li></ul>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
             </div>
         </div>
-        <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — UNIRIO. Todos os direitos reservados.</p></div></div>
+        <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>

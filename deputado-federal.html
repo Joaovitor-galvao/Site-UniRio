@@ -1,4 +1,173 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>Deputado Federal</title><link rel="stylesheet" href="css/style.css"></head>
-<body><h1>Deputado Federal</h1><a href="index.html">Voltar</a></body>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deputado Federal — CON(S)CIÊNCIA POLÍTICA</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+    <header class="header" role="banner">
+        <div class="top-bar">
+            <div class="container top-bar__inner">
+                <div class="top-bar__access">
+                    <button class="access-btn" id="high-contrast">Alto contraste</button>
+                    <button class="access-btn" id="font-inc">A+</button>
+                    <button class="access-btn" id="font-dec">A-</button>
+                </div>
+                <div class="top-bar__links">
+                    <a href="#">Ouvidoria</a>
+                    <a href="contato.html">Fale conosco</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container main-header__inner">
+                <div class="logo">
+                    <a href="index.html" style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
+                        <div class="logo__monograma">CP</div>
+                        <div class="logo__text">
+                            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
+                            <small>VOTO CONSCIENTE — UNIRIO</small>
+                        </div>
+                    </a>
+                </div>
+                <div class="header-search" role="search">
+                    <form action="#" method="get">
+                        <label for="search-input" class="visually-hidden">Pesquisar no site</label>
+                        <input type="search" id="search-input" placeholder="O que você busca?" autocomplete="off" />
+                        <button type="submit" aria-label="Pesquisar">🔍</button>
+                    </form>
+                    <div id="search-results" class="search-results" style="display:none;"></div>
+                </div>
+                <div class="header-social">
+                    <a href="#" aria-label="Instagram"><span>📷</span></a>
+                    <a href="#" aria-label="YouTube"><span>▶️</span></a>
+                    <a href="#" aria-label="Twitter"><span>🐦</span></a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Menu principal" role="navigation">
+            <div class="container">
+                <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
+                <ul id="primary-menu" class="nav-list">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li class="has-dropdown">
+                        <a href="eleicoes-2026.html" class="active">Eleições 2026</a>
+                        <ul class="dropdown">
+                            <li><a href="presidente.html">Presidente</a></li>
+                            <li><a href="senador.html">Senador</a></li>
+                            <li><a href="deputado-federal.html" class="active">Deputado Federal</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="informacoes.html">Informações</a></li>
+                    <li class="has-dropdown">
+                        <a href="conteudo-interativo.html">Conteúdo Interativo</a>
+                        <ul class="dropdown">
+                            <li><a href="quiz.html">Quiz</a></li>
+                            <li><a href="simulador.html">Simulador</a></li>
+                            <li><a href="voce-e-o-senador.html">Você é o Senador</a></li>
+                            <li><a href="flashcards.html">Flashcards</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="referencias.html">Referências</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main id="main-content" class="main">
+        <section class="hero" style="padding: 3rem 0;">
+            <div class="container">
+                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">📜 Deputado Federal</h1>
+                <p style="font-size:1.2rem; color:#faf5e8;">Representante do Povo no Poder Legislativo Federal</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="grid-2">
+                    <div>
+                        <div class="card" style="border-left:4px solid #cf6357;">
+                            <h3>📋 O que faz o Deputado Federal?</h3>
+                            <ul>
+                                <li>Representa o povo no Congresso Nacional</li>
+                                <li>Propõe, discute e vota leis</li>
+                                <li>Fiscaliza o Executivo</li>
+                                <li>Aprova o orçamento da União</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="border-left:4px solid #cf6357; margin-top:1rem;">
+                            <h3>💰 Aprovação do Orçamento</h3>
+                            <ul>
+                                <li>Analisa a proposta do Executivo</li>
+                                <li>Pode sugerir emendas</li>
+                                <li>Aprova ou rejeita o orçamento</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card" style="border-left:4px solid #cf6357;">
+                            <h3>🗳️ Como é eleito?</h3>
+                            <ul>
+                                <li><strong>Sistema:</strong> Proporcional</li>
+                                <li><strong>Mandato:</strong> 4 anos</li>
+                                <li><strong>Número:</strong> 513 deputados</li>
+                            </ul>
+                        </div>
+                        <div class="card" style="border-left:4px solid #cf6357; margin-top:1rem;">
+                            <h3>📊 Sistema Proporcional</h3>
+                            <ul>
+                                <li><strong>Quociente Eleitoral:</strong> Votos válidos ÷ Nº de cadeiras</li>
+                                <li><strong>Quociente Partidário:</strong> Votos do partido ÷ Quociente Eleitoral</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center; margin-top:2rem;">
+                    <a href="eleicoes-2026.html" class="btn btn--primary">← Voltar para Eleições 2026</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer" role="contentinfo">
+        <div class="container footer__inner">
+            <div class="footer__col">
+                <h3>CON(S)CIÊNCIA POLÍTICA</h3>
+                <p>Projeto de Pesquisa e Extensão</p>
+                <p>Escola de Ciência Política</p>
+                <p>UNIRIO — Universidade Federal do Estado do Rio de Janeiro</p>
+            </div>
+            <div class="footer__col">
+                <h4>Links úteis</h4>
+                <ul>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
+                    <li><a href="referencias.html">Referências</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>Contato</h4>
+                <p>Email: votoconsciente@unirio.br</p>
+                <p>Telefone: (21) 99999-9999</p>
+                <div class="footer-social"><a href="#" aria-label="Instagram">📷</a><a href="#" aria-label="YouTube">▶️</a><a href="#" aria-label="Twitter">🐦</a></div>
+            </div>
+            <div class="footer__col">
+                <h4>Mapa do site</h4>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
+    </footer>
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+</body>
 </html>

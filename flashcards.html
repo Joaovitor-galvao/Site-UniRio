@@ -3,180 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flashcards — Voto Consciente UNIRIO</title>
-    <meta name="description" content="Aprenda o que pode e o que não pode ser prometido por cada cargo político." />
+    <title>Flashcards — CON(S)CIÊNCIA POLÍTICA</title>
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>" />
-    <style>
-        .flash-hero {
-            background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
-            padding: 3rem 0;
-            color: var(--texto-claro);
-        }
-        .flash-hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
-        .flash-hero p { font-size: 1.2rem; opacity: 0.9; }
-
-        .flash-container { max-width: 1000px; margin: 0 auto; }
-
-        /* ===== FILTROS ===== */
-        .filtros {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-        .filtros .btn-filtro {
-            padding: 0.5rem 1.5rem;
-            border: 2px solid var(--cor-destaque);
-            background: transparent;
-            color: var(--cor-destaque);
-            border-radius: 2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-        .filtros .btn-filtro:hover {
-            background: var(--cor-destaque);
-            color: var(--texto-claro);
-        }
-        .filtros .btn-filtro.active {
-            background: var(--cor-destaque);
-            color: var(--texto-claro);
-        }
-
-        /* ===== FLASHCARDS ===== */
-        .flash-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-        .flash-card {
-            perspective: 1000px;
-            height: 380px;
-            cursor: pointer;
-        }
-        .flash-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .flash-card.flipped .flash-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flash-front, .flash-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-        }
-        .flash-front {
-            background: var(--fundo-secundario);
-            border: 2px solid var(--cor-suporte);
-        }
-        .flash-front .cargo-icon { font-size: 3rem; }
-        .flash-front .cargo-nome { font-size: 1.3rem; font-weight: 700; color: var(--cor-secundaria); margin: 0.3rem 0; }
-        .flash-front .cargo-tag {
-            display: inline-block;
-            background: var(--cor-destaque);
-            color: var(--texto-claro);
-            padding: 0.2rem 0.8rem;
-            border-radius: 2rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-        .flash-front .virar-dica {
-            margin-top: 0.8rem;
-            font-size: 0.8rem;
-            color: #999;
-        }
-
-        .flash-back {
-            transform: rotateY(180deg);
-            background: var(--cor-secundaria);
-            color: var(--texto-claro);
-            overflow-y: auto;
-            padding: 1.2rem;
-        }
-        .flash-back .back-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--cor-suporte);
-        }
-        .flash-back .back-content {
-            text-align: left;
-            width: 100%;
-            font-size: 0.85rem;
-        }
-        .flash-back .back-content ul {
-            list-style: none;
-            padding: 0;
-            margin: 0.2rem 0;
-        }
-        .flash-back .back-content ul li {
-            padding: 0.15rem 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-        }
-        .flash-back .back-content .pode { color: #8bc34a; }
-        .flash-back .back-content .nao-pode { color: #ef5350; }
-        .flash-back .virar-dica-back {
-            margin-top: 0.5rem;
-            font-size: 0.7rem;
-            opacity: 0.6;
-        }
-
-        /* ===== CORES POR CARGO ===== */
-        .flash-card.presidente .flash-back { background: #1a237e; }
-        .flash-card.senador .flash-back { background: #1b5e20; }
-        .flash-card.deputado .flash-back { background: #4a148c; }
-
-        /* ===== CONTADOR ===== */
-        .flash-counter {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #666;
-            font-size: 0.95rem;
-        }
-        .flash-counter strong { color: var(--cor-destaque); }
-
-        /* ===== RESPONSIVIDADE ===== */
-        @media (max-width: 992px) {
-            .flash-grid { grid-template-columns: 1fr 1fr; }
-        }
-        @media (max-width: 768px) {
-            .flash-hero h1 { font-size: 2rem; }
-            .flash-grid { grid-template-columns: 1fr; }
-            .flash-card { height: 340px; }
-        }
-    </style>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-
-    <!-- ===== HEADER ===== -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
                 <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">Alto contraste</button>
-                    <button class="access-btn" id="font-inc" onclick="ajustarFonte(0.1)">A+</button>
-                    <button class="access-btn" id="font-dec" onclick="ajustarFonte(-0.1)">A-</button>
+                    <button class="access-btn" id="high-contrast">Alto contraste</button>
+                    <button class="access-btn" id="font-inc">A+</button>
+                    <button class="access-btn" id="font-dec">A-</button>
                 </div>
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
@@ -186,36 +25,31 @@
         </div>
         <div class="main-header">
             <div class="container main-header__inner">
- <div class="logo">
-    <a href="index.html"
-       style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
-
-        <img
-            src="img/logo.png"
-            alt="Logo do projeto Consciência Política"
-            class="logo__imagem"
-        >
-
-        <div class="logo__text">
-            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
-            <small>VOTO CONSCIENTE — UNIRIO</small>
-        </div>
-
-    </a>
-</div>
-                <div class="header-search">
-                    <form action="#">
-                        <label for="search-input" class="visually-hidden">Pesquisar</label>
-                        <input type="search" id="search-input" placeholder="O que você busca?" />
-                        <button type="submit">🔍</button>
+                <div class="logo">
+                    <a href="index.html" style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
+                        <div class="logo__monograma">CP</div>
+                        <div class="logo__text">
+                            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
+                            <small>VOTO CONSCIENTE — UNIRIO</small>
+                        </div>
+                    </a>
+                </div>
+                <div class="header-search" role="search">
+                    <form action="#" method="get">
+                        <label for="search-input" class="visually-hidden">Pesquisar no site</label>
+                        <input type="search" id="search-input" placeholder="O que você busca?" autocomplete="off" />
+                        <button type="submit" aria-label="Pesquisar">🔍</button>
                     </form>
+                    <div id="search-results" class="search-results" style="display:none;"></div>
                 </div>
                 <div class="header-social">
-                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a><a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a><a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><span>📷</span></a>
+                    <a href="#" aria-label="YouTube"><span>▶️</span></a>
+                    <a href="#" aria-label="Twitter"><span>🐦</span></a>
                 </div>
             </div>
         </div>
-        <nav class="main-nav">
+        <nav class="main-nav" aria-label="Menu principal" role="navigation">
             <div class="container">
                 <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
                 <ul id="primary-menu" class="nav-list">
@@ -232,7 +66,7 @@
                     </li>
                     <li><a href="informacoes.html">Informações</a></li>
                     <li class="has-dropdown">
-                        <a href="conteudo-interativo.html">Conteúdo Interativo</a>
+                        <a href="conteudo-interativo.html" class="active">Conteúdo Interativo</a>
                         <ul class="dropdown">
                             <li><a href="quiz.html">Quiz</a></li>
                             <li><a href="simulador.html">Simulador</a></li>
@@ -246,64 +80,45 @@
             </div>
         </nav>
     </header>
-
-    <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
-
-        <!-- ===== HERO ===== -->
-        <section class="flash-hero">
+        <section class="hero" style="padding: 3rem 0;">
             <div class="container">
-                <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
-                    <div style="flex:1;">
-                        <h1>🃏 Flashcards Educativos</h1>
-                        <p>O que pode e o que NÃO pode ser prometido por cada cargo</p>
-                        <p style="font-size:1rem; opacity:0.8;">Clique em cada card para virar e aprender!</p>
-                    </div>
-                    <div style="font-size:5rem; text-align:center; flex:0 0 auto;">📚</div>
-                </div>
+                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">🃏 Flashcards</h1>
+                <p style="font-size:1.2rem; color:#faf5e8;">Aprenda o que pode e o que não pode ser prometido por cada cargo!</p>
             </div>
         </section>
-
-        <!-- ===== FLASHCARDS ===== -->
         <section class="section">
-            <div class="container flash-container">
-
-                <!-- Filtros -->
-                <div class="filtros">
-                    <button class="btn-filtro active" data-filtro="todos" onclick="filtrarFlashcards('todos', this)">📋 Todos</button>
-                    <button class="btn-filtro" data-filtro="presidente" onclick="filtrarFlashcards('presidente', this)">👤 Presidente</button>
-                    <button class="btn-filtro" data-filtro="senador" onclick="filtrarFlashcards('senador', this)">🏛️ Senador</button>
-                    <button class="btn-filtro" data-filtro="deputado" onclick="filtrarFlashcards('deputado', this)">📜 Deputado Federal</button>
+            <div class="container">
+                <div class="grid-3">
+                    <div class="card" style="background:#612a2a; color:#faf5e8;">
+                        <h3 style="color:#faf5e8;">👤 Presidente</h3>
+                        <p><strong>✅ PODE:</strong> Políticas públicas, projetos de lei</p>
+                        <p><strong>❌ NÃO PODE:</strong> Fechar o Congresso, governar por decreto</p>
+                    </div>
+                    <div class="card" style="background:#cf6357; color:#faf5e8;">
+                        <h3 style="color:#faf5e8;">🏛️ Senador</h3>
+                        <p><strong>✅ PODE:</strong> Propor leis, fiscalizar o Executivo</p>
+                        <p><strong>❌ NÃO PODE:</strong> Governar estados, dar ordens ao Presidente</p>
+                    </div>
+                    <div class="card" style="background:#74402d; color:#faf5e8;">
+                        <h3 style="color:#faf5e8;">📜 Deputado Federal</h3>
+                        <p><strong>✅ PODE:</strong> Criar leis, votar o orçamento</p>
+                        <p><strong>❌ NÃO PODE:</strong> Administrar cidades, decretar estado de sítio</p>
+                    </div>
                 </div>
-
-                <!-- Contador -->
-                <div class="flash-counter">
-                    Mostrando <strong id="flash-count">3</strong> flashcards
+                <div style="text-align:center; margin-top:2rem;">
+                    <a href="conteudo-interativo.html" class="btn btn--primary">← Voltar</a>
                 </div>
-
-                <!-- Grid de Flashcards -->
-                <div class="flash-grid" id="flash-grid">
-                    <!-- Os flashcards serão gerados pelo JavaScript -->
-                </div>
-
-                <!-- Botão Voltar -->
-                <div style="text-align: center; margin-top: 2rem;">
-                    <a href="conteudo-interativo.html" class="btn btn--primary">← Voltar para Conteúdo Interativo</a>
-                </div>
-
             </div>
         </section>
-
     </main>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
-                <h3>VOTO CONSCIENTE</h3>
+                <h3>CON(S)CIÊNCIA POLÍTICA</h3>
                 <p>Projeto de Pesquisa e Extensão</p>
                 <p>Escola de Ciência Política</p>
-                <p>UNIRIO</p>
+                <p>UNIRIO — Universidade Federal do Estado do Rio de Janeiro</p>
             </div>
             <div class="footer__col">
                 <h4>Links úteis</h4>
@@ -311,181 +126,27 @@
                     <li><a href="sobre.html">Sobre</a></li>
                     <li><a href="eventos.html">Eventos</a></li>
                     <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
+                    <li><a href="referencias.html">Referências</a></li>
                 </ul>
             </div>
             <div class="footer__col">
                 <h4>Contato</h4>
-                <p>votoconsciente@unirio.br</p>
-                <p>(21) 99999-9999</p>
+                <p>Email: votoconsciente@unirio.br</p>
+                <p>Telefone: (21) 99999-9999</p>
+                <div class="footer-social"><a href="#" aria-label="Instagram">📷</a><a href="#" aria-label="YouTube">▶️</a><a href="#" aria-label="Twitter">🐦</a></div>
             </div>
             <div class="footer__col">
                 <h4>Mapa do site</h4>
                 <ul>
                     <li><a href="index.html">Início</a></li>
-                    <li><a href="conteudo-interativo.html">Interativo</a></li>
+                    <li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li>
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer__bottom">
-            <div class="container"><p>&copy; 2026 Voto Consciente — UNIRIO</p></div>
-        </div>
+        <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
-
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
-    <script>
-        // ============================================
-        // FLASHCARDS - DADOS E LÓGICA (SEM DUPLICATAS)
-        // ============================================
-
-        const flashcardsData = [
-            // ===== PRESIDENTE =====
-            {
-                id: 'presidente',
-                cargo: 'presidente',
-                icone: '👤',
-                nome: 'Presidente da República',
-                pode: [
-                    'Políticas públicas nacionais',
-                    'Programas sociais (Bolsa Família, etc.)',
-                    'Infraestrutura nacional (estradas, portos)',
-                    'Projetos de lei',
-                    'Representar o país no exterior',
-                    'Nomear ministros de Estado',
-                    'Vetar ou sancionar leis',
-                    'Propor o orçamento federal'
-                ],
-                naoPode: [
-                    'Fechar o Congresso Nacional',
-                    'Governar por decreto sem base legal',
-                    'Obras em estados específicos',
-                    'Benefícios individuais',
-                    'Interferir no Judiciário',
-                    'Conceder benefícios pessoais',
-                    'Ignorar a Constituição Federal'
-                ]
-            },
-            // ===== SENADOR =====
-            {
-                id: 'senador',
-                cargo: 'senador',
-                icone: '🏛️',
-                nome: 'Senador da República',
-                pode: [
-                    'Propor leis nacionais',
-                    'Fiscalizar o Executivo Federal',
-                    'Aprovar ministros do STF',
-                    'Representar o estado no Senado',
-                    'Convocar ministros para esclarecimentos',
-                    'Criar Comissões Parlamentares de Inquérito (CPIs)',
-                    'Analisar contas do governo',
-                    'Aprovar o orçamento da União'
-                ],
-                naoPode: [
-                    'Governar estados (função do Governador)',
-                    'Dar ordens ao Presidente',
-                    'Obras municipais (função do Prefeito)',
-                    'Benefícios pessoais',
-                    'Administrar cidades',
-                    'Interferir no Judiciário',
-                    'Decretar leis sem votação no plenário',
-                    'Usar o cargo para benefício próprio'
-                ]
-            },
-            // ===== DEPUTADO FEDERAL =====
-            {
-                id: 'deputado',
-                cargo: 'deputado',
-                icone: '📜',
-                nome: 'Deputado Federal',
-                pode: [
-                    'Criar leis nacionais',
-                    'Fiscalizar o Executivo Federal',
-                    'Votar o orçamento da União',
-                    'Representar o povo no Congresso Nacional',
-                    'Propor emendas ao orçamento',
-                    'Criar comissões parlamentares',
-                    'Fiscalizar programas do governo',
-                    'Sugerir políticas públicas',
-                    'Propor PECs (Emendas Constitucionais)'
-                ],
-                naoPode: [
-                    'Administrar cidades (função do Prefeito)',
-                    'Decretar estado de sítio',
-                    'Fazer leis inconstitucionais',
-                    'Benefícios exclusivos',
-                    'Governar estados ou cidades',
-                    'Nomear ministros (função do Presidente)',
-                    'Ignorar a Constituição Federal',
-                    'Benefícios individuais'
-                ]
-            }
-        ];
-
-        let flashFiltro = 'todos';
-
-        function renderizarFlashcards(filtro = 'todos') {
-            const grid = document.getElementById('flash-grid');
-            const filtered = filtro === 'todos' ? flashcardsData : flashcardsData.filter(f => f.cargo === filtro);
-
-            grid.innerHTML = '';
-            filtered.forEach((data) => {
-                const card = document.createElement('div');
-                card.className = `flash-card ${data.cargo}`;
-                card.dataset.cargo = data.cargo;
-                card.id = `flash-${data.id}`;
-                card.innerHTML = `
-                    <div class="flash-card-inner" onclick="virarFlashcard('flash-${data.id}')">
-                        <div class="flash-front">
-                            <span class="cargo-icon">${data.icone}</span>
-                            <span class="cargo-nome">${data.nome}</span>
-                            <span class="cargo-tag">Clique para virar</span>
-                            <span class="virar-dica">🔄 Clique para ver o que pode e não pode</span>
-                        </div>
-                        <div class="flash-back">
-                            <div class="back-title">${data.icone} ${data.nome}</div>
-                            <div class="back-content">
-                                <p style="color:#8bc34a; font-weight:700; margin:0.2rem 0;">✅ PODE prometer:</p>
-                                <ul>
-                                    ${data.pode.map(item => `<li><span class="pode">✅</span> ${item}</li>`).join('')}
-                                </ul>
-                                <p style="color:#ef5350; font-weight:700; margin:0.2rem 0;">❌ NÃO PODE prometer:</p>
-                                <ul>
-                                    ${data.naoPode.map(item => `<li><span class="nao-pode">❌</span> ${item}</li>`).join('')}
-                                </ul>
-                            </div>
-                            <span class="virar-dica-back">🔄 Clique para voltar</span>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-
-            // Atualizar contador
-            document.getElementById('flash-count').textContent = filtered.length;
-        }
-
-        function virarFlashcard(id) {
-            const card = document.getElementById(id);
-            if (card) {
-                card.classList.toggle('flipped');
-            }
-        }
-
-        function filtrarFlashcards(filtro, btn) {
-            flashFiltro = filtro;
-            renderizarFlashcards(filtro);
-
-            // Atualizar botões ativos
-            document.querySelectorAll('.btn-filtro').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-        }
-
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
-            renderizarFlashcards('todos');
-        });
-    </script>
 </body>
 </html>

@@ -3,159 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simulador — Voto Consciente UNIRIO</title>
-    <meta name="description" content="Escolha suas prioridades e descubra seu perfil eleitoral." />
+    <title>Simulador — CON(S)CIÊNCIA POLÍTICA</title>
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>" />
-    <style>
-        .simulador-hero {
-            background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
-            padding: 3rem 0;
-            color: var(--texto-claro);
-        }
-        .simulador-hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
-        .simulador-hero p { font-size: 1.2rem; opacity: 0.9; }
-
-        .sim-container { max-width: 800px; margin: 0 auto; }
-
-        .start-screen {
-            text-align: center;
-            padding: 2.5rem;
-            background: var(--fundo-secundario);
-            border-radius: 1rem;
-        }
-        .start-screen .icon { font-size: 4rem; }
-        .start-screen h2 { color: var(--cor-secundaria); margin: 1rem 0; }
-        .start-screen p { color: #666; max-width: 500px; margin: 0 auto 1.5rem; }
-
-        .prioridade-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        .prioridade-item {
-            background: var(--fundo);
-            padding: 1.5rem 1rem;
-            border-radius: 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            user-select: none;
-        }
-        .prioridade-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-color: var(--cor-suporte);
-        }
-        .prioridade-item .emoji { font-size: 2.5rem; display: block; }
-        .prioridade-item .label { font-weight: 600; color: var(--cor-principal); font-size: 0.95rem; }
-        .prioridade-item .desc { font-size: 0.8rem; color: #999; }
-        .prioridade-item.selected {
-            border-color: var(--cor-destaque);
-            background: #fef0ec;
-            transform: scale(1.02);
-        }
-        .prioridade-item.selected .label { color: var(--cor-destaque); }
-
-        .btn-primary {
-            background: var(--cor-destaque);
-            color: var(--texto-claro);
-            border: none;
-            padding: 0.8rem 2.5rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-primary:hover { background: var(--cor-marrom); transform: scale(1.02); }
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .btn-secondary {
-            background: #e0d6c8;
-            color: var(--texto);
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-secondary:hover { background: #ccc; }
-
-        .resultado-container {
-            background: var(--fundo-secundario);
-            padding: 2.5rem;
-            border-radius: 1rem;
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        .resultado-container .perfil-icon { font-size: 4rem; text-align: center; }
-        .resultado-container h2 { color: var(--cor-secundaria); text-align: center; }
-        .resultado-container .perfil-desc {
-            background: var(--fundo);
-            padding: 1.5rem;
-            border-radius: 0.8rem;
-            margin: 1rem 0;
-            border-left: 4px solid var(--cor-destaque);
-        }
-        .resultado-container .perfil-desc h4 { color: var(--cor-secundaria); margin-bottom: 0.3rem; }
-        .resultado-container .perfil-desc ul { list-style: disc; padding-left: 1.5rem; }
-        .resultado-container .perfil-desc ul li { margin-bottom: 0.2rem; }
-
-        .prioridades-escolhidas { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 1rem 0; }
-        .prioridades-escolhidas .tag {
-            background: var(--cor-destaque);
-            color: var(--texto-claro);
-            padding: 0.3rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .btn-voltar-sim {
-            display: inline-block;
-            background: var(--cor-destaque);
-            color: var(--texto-claro);
-            padding: 0.7rem 1.5rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-        .btn-voltar-sim:hover { background: var(--cor-marrom); color: var(--texto-claro); text-decoration: none; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            .simulador-hero h1 { font-size: 2rem; }
-            .prioridade-grid { grid-template-columns: 1fr 1fr; }
-            .resultado-container { padding: 1.5rem; }
-        }
-        @media (max-width: 480px) {
-            .prioridade-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-
-    <!-- ===== HEADER ===== -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
                 <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">Alto contraste</button>
-                    <button class="access-btn" id="font-inc" onclick="ajustarFonte(0.1)">A+</button>
-                    <button class="access-btn" id="font-dec" onclick="ajustarFonte(-0.1)">A-</button>
+                    <button class="access-btn" id="high-contrast">Alto contraste</button>
+                    <button class="access-btn" id="font-inc">A+</button>
+                    <button class="access-btn" id="font-dec">A-</button>
                 </div>
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
@@ -165,36 +25,31 @@
         </div>
         <div class="main-header">
             <div class="container main-header__inner">
- <div class="logo">
-    <a href="index.html"
-       style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
-
-        <img
-            src="img/logo.png"
-            alt="Logo do projeto Consciência Política"
-            class="logo__imagem"
-        >
-
-        <div class="logo__text">
-            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
-            <small>VOTO CONSCIENTE — UNIRIO</small>
-        </div>
-
-    </a>
-</div>
-                <div class="header-search">
-                    <form action="#">
-                        <label for="search-input" class="visually-hidden">Pesquisar</label>
-                        <input type="search" id="search-input" placeholder="O que você busca?" />
-                        <button type="submit">🔍</button>
+                <div class="logo">
+                    <a href="index.html" style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
+                        <div class="logo__monograma">CP</div>
+                        <div class="logo__text">
+                            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
+                            <small>VOTO CONSCIENTE — UNIRIO</small>
+                        </div>
+                    </a>
+                </div>
+                <div class="header-search" role="search">
+                    <form action="#" method="get">
+                        <label for="search-input" class="visually-hidden">Pesquisar no site</label>
+                        <input type="search" id="search-input" placeholder="O que você busca?" autocomplete="off" />
+                        <button type="submit" aria-label="Pesquisar">🔍</button>
                     </form>
+                    <div id="search-results" class="search-results" style="display:none;"></div>
                 </div>
                 <div class="header-social">
-                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a><a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a><a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><span>📷</span></a>
+                    <a href="#" aria-label="YouTube"><span>▶️</span></a>
+                    <a href="#" aria-label="Twitter"><span>🐦</span></a>
                 </div>
             </div>
         </div>
-        <nav class="main-nav">
+        <nav class="main-nav" aria-label="Menu principal" role="navigation">
             <div class="container">
                 <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
                 <ul id="primary-menu" class="nav-list">
@@ -211,7 +66,7 @@
                     </li>
                     <li><a href="informacoes.html">Informações</a></li>
                     <li class="has-dropdown">
-                        <a href="conteudo-interativo.html">Conteúdo Interativo</a>
+                        <a href="conteudo-interativo.html" class="active">Conteúdo Interativo</a>
                         <ul class="dropdown">
                             <li><a href="quiz.html">Quiz</a></li>
                             <li><a href="simulador.html" class="active">Simulador</a></li>
@@ -225,120 +80,29 @@
             </div>
         </nav>
     </header>
-
-    <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
-
-        <!-- ===== HERO ===== -->
-        <section class="simulador-hero">
+        <section class="hero" style="padding: 3rem 0;">
             <div class="container">
-                <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
-                    <div style="flex:1;">
-                        <h1>⚖️ Simulador: Escolha suas prioridades</h1>
-                        <p>Descubra seu perfil eleitoral!</p>
-                        <p style="font-size:1rem; opacity:0.8;">Escolha até 3 áreas que você considera mais importantes e veja seu perfil.</p>
-                    </div>
-                    <div style="font-size:5rem; text-align:center; flex:0 0 auto;">🎯</div>
-                </div>
+                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">⚖️ Simulador</h1>
+                <p style="font-size:1.2rem; color:#faf5e8;">Escolha suas prioridades e descubra seu perfil eleitoral!</p>
             </div>
         </section>
-
-        <!-- ===== SIMULADOR ===== -->
         <section class="section">
-            <div class="container sim-container">
-
-                <!-- TELA INICIAL -->
-                <div id="start-screen" class="start-screen">
-                    <div class="icon">🗳️</div>
-                    <h2>Qual é a sua prioridade?</h2>
-                    <p>Escolha até <strong>3 áreas</strong> que você considera mais importantes para o país. O simulador vai gerar um perfil eleitoral baseado nas suas escolhas.</p>
-                    <button class="btn-primary" onclick="startSimulador()">▶️ Começar</button>
+            <div class="container">
+                <p style="text-align:center; font-size:1.2rem;">Em breve: Simulador interativo de prioridades!</p>
+                <div style="text-align:center; margin-top:2rem;">
+                    <a href="conteudo-interativo.html" class="btn btn--primary">← Voltar</a>
                 </div>
-
-                <!-- SELEÇÃO DE PRIORIDADES -->
-                <div id="sim-content" style="display:none;">
-                    <div style="text-align:center; margin-bottom:1rem;">
-                        <p style="font-size:1.1rem; color:var(--cor-secundaria); font-weight:600;">
-                            Escolha até <span id="contador-selecao" style="color:var(--cor-destaque);">3</span> prioridades
-                        </p>
-                        <p style="font-size:0.9rem; color:#666;">Clique em cada área para selecionar ou deselecionar</p>
-                    </div>
-
-                    <div class="prioridade-grid" id="prioridades-grid">
-                        <div class="prioridade-item" data-id="saude" onclick="togglePrioridade(this)">
-                            <span class="emoji">🏥</span>
-                            <span class="label">Saúde</span>
-                            <span class="desc">SUS, hospitais, vacinas</span>
-                        </div>
-                        <div class="prioridade-item" data-id="educacao" onclick="togglePrioridade(this)">
-                            <span class="emoji">📚</span>
-                            <span class="label">Educação</span>
-                            <span class="desc">Escolas, universidades, ensino</span>
-                        </div>
-                        <div class="prioridade-item" data-id="seguranca" onclick="togglePrioridade(this)">
-                            <span class="emoji">🛡️</span>
-                            <span class="label">Segurança</span>
-                            <span class="desc">Polícia, justiça, proteção</span>
-                        </div>
-                        <div class="prioridade-item" data-id="emprego" onclick="togglePrioridade(this)">
-                            <span class="emoji">💼</span>
-                            <span class="label">Emprego</span>
-                            <span class="desc">Trabalho, renda, economia</span>
-                        </div>
-                        <div class="prioridade-item" data-id="transporte" onclick="togglePrioridade(this)">
-                            <span class="emoji">🚌</span>
-                            <span class="label">Transporte</span>
-                            <span class="desc">Mobilidade, infraestrutura</span>
-                        </div>
-                        <div class="prioridade-item" data-id="meio-ambiente" onclick="togglePrioridade(this)">
-                            <span class="emoji">🌿</span>
-                            <span class="label">Meio Ambiente</span>
-                            <span class="desc">Sustentabilidade, natureza</span>
-                        </div>
-                    </div>
-
-                    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem;">
-                        <button class="btn-primary" id="btn-gerar-perfil" onclick="gerarPerfil()" disabled>📊 Gerar meu perfil</button>
-                        <button class="btn-secondary" onclick="resetarSelecao()">🔄 Limpar escolhas</button>
-                    </div>
-                </div>
-
-                <!-- RESULTADO -->
-                <div id="resultado-container" class="resultado-container">
-                    <div class="perfil-icon" id="resultado-icon">🗳️</div>
-                    <h2 id="resultado-titulo">Seu Perfil Eleitoral</h2>
-
-                    <div class="prioridades-escolhidas" id="resultado-tags"></div>
-
-                    <div class="perfil-desc" id="resultado-descricao">
-                        <h4>📋 Sobre seu perfil</h4>
-                        <p>Carregando...</p>
-                    </div>
-
-                    <div class="perfil-desc" id="resultado-dica" style="border-left-color: var(--cor-secundaria);">
-                        <h4>💡 Dica do Voto Consciente</h4>
-                        <p>Carregando...</p>
-                    </div>
-
-                    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem;">
-                        <button class="btn-secondary" onclick="refazerSimulador()">🔄 Refazer simulador</button>
-                        <a href="conteudo-interativo.html" class="btn-voltar-sim">← Voltar para Interativo</a>
-                    </div>
-                </div>
-
             </div>
         </section>
-
     </main>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
-                <h3>VOTO CONSCIENTE</h3>
+                <h3>CON(S)CIÊNCIA POLÍTICA</h3>
                 <p>Projeto de Pesquisa e Extensão</p>
                 <p>Escola de Ciência Política</p>
-                <p>UNIRIO</p>
+                <p>UNIRIO — Universidade Federal do Estado do Rio de Janeiro</p>
             </div>
             <div class="footer__col">
                 <h4>Links úteis</h4>
@@ -346,216 +110,27 @@
                     <li><a href="sobre.html">Sobre</a></li>
                     <li><a href="eventos.html">Eventos</a></li>
                     <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
+                    <li><a href="referencias.html">Referências</a></li>
                 </ul>
             </div>
             <div class="footer__col">
                 <h4>Contato</h4>
-                <p>votoconsciente@unirio.br</p>
-                <p>(21) 99999-9999</p>
+                <p>Email: votoconsciente@unirio.br</p>
+                <p>Telefone: (21) 99999-9999</p>
+                <div class="footer-social"><a href="#" aria-label="Instagram">📷</a><a href="#" aria-label="YouTube">▶️</a><a href="#" aria-label="Twitter">🐦</a></div>
             </div>
             <div class="footer__col">
                 <h4>Mapa do site</h4>
                 <ul>
                     <li><a href="index.html">Início</a></li>
-                    <li><a href="conteudo-interativo.html">Interativo</a></li>
+                    <li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li>
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer__bottom">
-            <div class="container"><p>&copy; 2026 Voto Consciente — UNIRIO</p></div>
-        </div>
+        <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
-
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
-    <script>
-        // ============================================
-        // SIMULADOR - LÓGICA
-        // ============================================
-
-        const prioridades = {
-            saude: {
-                nome: 'Saúde',
-                emoji: '🏥',
-                descricao: 'Você valoriza a saúde pública, o acesso a hospitais e o Sistema Único de Saúde (SUS). Acredita que a saúde é um direito fundamental e deve ser prioridade do Estado.',
-                dica: 'Ao votar, pesquise as propostas dos candidatos para a área da saúde. Verifique o histórico de ações e investimentos em saúde pública.'
-            },
-            educacao: {
-                nome: 'Educação',
-                emoji: '📚',
-                descricao: 'Você acredita que a educação é a base para o desenvolvimento do país. Valoriza investimentos em escolas, universidades e formação de professores.',
-                dica: 'Analise as propostas educacionais dos candidatos. Veja se eles defendem investimentos em educação básica, técnica e superior.'
-            },
-            seguranca: {
-                nome: 'Segurança',
-                emoji: '🛡️',
-                descricao: 'Você prioriza a segurança pública e o combate à violência. Acredita que o Estado deve atuar com firmeza para proteger os cidadãos.',
-                dica: 'Pesquise as propostas de segurança pública dos candidatos. Verifique se há planos concretos e viáveis para a área.'
-            },
-            emprego: {
-                nome: 'Emprego',
-                emoji: '💼',
-                descricao: 'Você valoriza a geração de emprego e renda. Acredita que o trabalho digno é essencial para a dignidade e desenvolvimento social.',
-                dica: 'Analise as propostas econômicas dos candidatos. Veja como pretendem gerar empregos e estimular a economia.'
-            },
-            transporte: {
-                nome: 'Transporte',
-                emoji: '🚌',
-                descricao: 'Você valoriza a mobilidade urbana e o transporte público de qualidade. Acredita que a infraestrutura é fundamental para o desenvolvimento.',
-                dica: 'Verifique as propostas para transporte público, mobilidade urbana e infraestrutura das cidades.'
-            },
-            'meio-ambiente': {
-                nome: 'Meio Ambiente',
-                emoji: '🌿',
-                descricao: 'Você prioriza a sustentabilidade e a proteção do meio ambiente. Acredita que o desenvolvimento deve ser equilibrado com a preservação.',
-                dica: 'Pesquise as propostas ambientais dos candidatos. Veja como pretendem equilibrar desenvolvimento e preservação.'
-            }
-        };
-
-        const perfis = {
-            'saude+educacao': {
-                icon: '👩‍🏫',
-                titulo: 'Perfil Social',
-                descricao: 'Você valoriza políticas sociais e acredita que a base do desenvolvimento está na saúde e na educação. Defende investimentos públicos nessas áreas e acredita no papel transformador do Estado.',
-                dica: 'Candidatos com propostas sólidas para saúde e educação podem ter mais alinhamento com seu perfil. Avalie o histórico e a viabilidade das propostas.'
-            },
-            'seguranca+emprego': {
-                icon: '🛡️',
-                titulo: 'Perfil Desenvolvimentista',
-                descricao: 'Você valoriza a segurança e o desenvolvimento econômico. Acredita que o crescimento econômico aliado à segurança pública é o caminho para o progresso.',
-                dica: 'Analise as propostas econômicas e de segurança dos candidatos. Verifique se há planos integrados para essas áreas.'
-            },
-            'meio-ambiente+transporte': {
-                icon: '🌍',
-                titulo: 'Perfil Sustentável',
-                descricao: 'Você valoriza a sustentabilidade e a qualidade de vida. Acredita que o desenvolvimento deve ser equilibrado com a preservação ambiental e a mobilidade urbana.',
-                dica: 'Pesquise candidatos com propostas ambientais consistentes. Veja como pretendem conciliar desenvolvimento e preservação.'
-            },
-            'default': {
-                icon: '🗳️',
-                titulo: 'Perfil Participativo',
-                descricao: 'Você tem um perfil plural, valorizando diferentes áreas. Acredita que a democracia se fortalece com a participação ativa e a diversidade de ideias.',
-                dica: 'Seu perfil é participativo! Informe-se sobre as propostas dos candidatos e participe ativamente do processo eleitoral.'
-            }
-        };
-
-        let prioridadesSelecionadas = [];
-        const MAX_SELECAO = 3;
-
-        function startSimulador() {
-            document.getElementById('start-screen').style.display = 'none';
-            document.getElementById('sim-content').style.display = 'block';
-        }
-
-        function togglePrioridade(element) {
-            const id = element.dataset.id;
-            const index = prioridadesSelecionadas.indexOf(id);
-
-            if (index > -1) {
-                prioridadesSelecionadas.splice(index, 1);
-                element.classList.remove('selected');
-            } else if (prioridadesSelecionadas.length < MAX_SELECAO) {
-                prioridadesSelecionadas.push(id);
-                element.classList.add('selected');
-            } else {
-                // Feedback visual
-                element.style.animation = 'shake 0.3s ease';
-                setTimeout(() => element.style.animation = '', 300);
-            }
-
-            atualizarContador();
-            atualizarBotao();
-        }
-
-        function atualizarContador() {
-            const restante = MAX_SELECAO - prioridadesSelecionadas.length;
-            document.getElementById('contador-selecao').textContent = restante;
-        }
-
-        function atualizarBotao() {
-            const btn = document.getElementById('btn-gerar-perfil');
-            btn.disabled = prioridadesSelecionadas.length === 0;
-        }
-
-        function resetarSelecao() {
-            prioridadesSelecionadas = [];
-            document.querySelectorAll('.prioridade-item').forEach(el => el.classList.remove('selected'));
-            atualizarContador();
-            atualizarBotao();
-        }
-
-        function gerarPerfil() {
-            if (prioridadesSelecionadas.length === 0) return;
-
-            // Esconder seleção e mostrar resultado
-            document.getElementById('sim-content').style.display = 'none';
-            const resultado = document.getElementById('resultado-container');
-            resultado.style.display = 'block';
-
-            // Criar tags das prioridades escolhidas
-            const tagsContainer = document.getElementById('resultado-tags');
-            tagsContainer.innerHTML = prioridadesSelecionadas.map(id =>
-                `<span class="tag">${prioridades[id].emoji} ${prioridades[id].nome}</span>`
-            ).join('');
-
-            // Determinar perfil baseado nas escolhas
-            let perfil = perfis.default;
-            const sorted = [...prioridadesSelecionadas].sort();
-
-            if (prioridadesSelecionadas.includes('saude') || prioridadesSelecionadas.includes('educacao')) {
-                perfil = perfis['saude+educacao'];
-            } else if (prioridadesSelecionadas.includes('seguranca') || prioridadesSelecionadas.includes('emprego')) {
-                perfil = perfis['seguranca+emprego'];
-            } else if (prioridadesSelecionadas.includes('meio-ambiente') || prioridadesSelecionadas.includes('transporte')) {
-                perfil = perfis['meio-ambiente+transporte'];
-            }
-
-            // Atualizar resultado
-            document.getElementById('resultado-icon').textContent = perfil.icon;
-            document.getElementById('resultado-titulo').textContent = perfil.titulo;
-            document.getElementById('resultado-descricao').innerHTML = `
-                <h4>📋 Sobre seu perfil</h4>
-                <p>${perfil.descricao}</p>
-                <p style="margin-top:0.5rem; font-weight:600;">Prioridades escolhidas:</p>
-                <ul>
-                    ${prioridadesSelecionadas.map(id => 
-                        `<li><strong>${prioridades[id].emoji} ${prioridades[id].nome}:</strong> ${prioridades[id].descricao}</li>`
-                    ).join('')}
-                </ul>
-            `;
-            document.getElementById('resultado-dica').innerHTML = `
-                <h4>💡 Dica do Voto Consciente</h4>
-                <p>${perfil.dica}</p>
-            `;
-
-            // Scroll para o resultado
-            resultado.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function refazerSimulador() {
-            document.getElementById('resultado-container').style.display = 'none';
-            document.getElementById('sim-content').style.display = 'block';
-            resetarSelecao();
-            document.getElementById('sim-content').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // CSS para animação de shake
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                25% { transform: translateX(-8px); }
-                75% { transform: translateX(8px); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('sim-content').style.display = 'none';
-            document.getElementById('resultado-container').style.display = 'none';
-        });
-    </script>
 </body>
 </html>

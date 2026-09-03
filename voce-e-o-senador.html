@@ -3,222 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Você é o Senador — Voto Consciente UNIRIO</title>
-    <meta name="description" content="Jogo interativo onde você assume o papel de um Senador e toma decisões em cenários reais." />
+    <title>Você é o Senador — CON(S)CIÊNCIA POLÍTICA</title>
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>" />
-    <style>
-        .jogo-hero {
-            background: linear-gradient(135deg, var(--cor-principal) 0%, var(--cor-secundaria) 100%);
-            padding: 3rem 0;
-            color: var(--texto-claro);
-        }
-        .jogo-hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
-        .jogo-hero p { font-size: 1.2rem; opacity: 0.9; }
-
-        .jogo-container { max-width: 800px; margin: 0 auto; }
-
-        .start-screen {
-            text-align: center;
-            padding: 2.5rem;
-            background: var(--fundo-secundario);
-            border-radius: 1rem;
-        }
-        .start-screen .icon { font-size: 4rem; }
-        .start-screen h2 { color: var(--cor-secundaria); margin: 1rem 0; }
-        .start-screen p { color: #666; max-width: 500px; margin: 0 auto 1.5rem; }
-
-        .cenario-card {
-            background: var(--fundo-secundario);
-            padding: 2rem;
-            border-radius: 1rem;
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        .cenario-card.active { display: block; }
-        .cenario-card .numero {
-            display: inline-block;
-            background: var(--cor-destaque);
-            color: var(--texto-claro);
-            padding: 0.2rem 0.8rem;
-            border-radius: 2rem;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-        .cenario-card .titulo {
-            color: var(--cor-secundaria);
-            font-size: 1.4rem;
-            margin: 0.5rem 0;
-        }
-        .cenario-card .descricao {
-            color: #444;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            padding: 1rem;
-            background: var(--fundo);
-            border-radius: 0.8rem;
-            margin: 0.5rem 0 1rem;
-            border-left: 4px solid var(--cor-destaque);
-        }
-        .cenario-card .opcoes {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-        .cenario-card .opcoes button {
-            padding: 0.8rem 1.2rem;
-            border: 2px solid #e0d6c8;
-            border-radius: 0.8rem;
-            background: var(--fundo);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .cenario-card .opcoes button:hover {
-            border-color: var(--cor-destaque);
-            background: #fef0ec;
-            transform: translateX(4px);
-        }
-        .cenario-card .opcoes button .letra {
-            display: inline-block;
-            background: var(--cor-secundaria);
-            color: var(--texto-claro);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 28px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-        }
-        .cenario-card .opcoes button .texto { flex: 1; }
-        .cenario-card .opcoes button.selected {
-            border-color: var(--cor-destaque);
-            background: #fef0ec;
-        }
-
-        .cenario-card .feedback {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 0.8rem;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-        .cenario-card .feedback.show { display: block; }
-        .cenario-card .feedback.aprovado {
-            background: #eafaf1;
-            border-left: 4px solid #27ae60;
-            color: #1a6e3a;
-        }
-        .cenario-card .feedback.rejeitado {
-            background: #fdedec;
-            border-left: 4px solid #e74c3c;
-            color: #922b21;
-        }
-        .cenario-card .feedback .consequencia {
-            font-weight: 600;
-            margin-top: 0.3rem;
-        }
-
-        .jogo-nav {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        .jogo-nav .btn {
-            padding: 0.7rem 2rem;
-            border: none;
-            border-radius: 2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .jogo-nav .btn-primary {
-            background: var(--cor-destaque);
-            color: var(--texto-claro);
-        }
-        .jogo-nav .btn-primary:hover { background: var(--cor-marrom); }
-        .jogo-nav .btn-secondary {
-            background: #e0d6c8;
-            color: var(--texto);
-        }
-        .jogo-nav .btn-secondary:hover { background: #ccc; }
-        .jogo-nav .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .progresso {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-        .progresso .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ddd;
-            transition: background 0.3s;
-        }
-        .progresso .dot.active { background: var(--cor-destaque); }
-        .progresso .dot.respondido { background: var(--cor-secundaria); }
-
-        .resultado-container {
-            background: var(--fundo-secundario);
-            padding: 2.5rem;
-            border-radius: 1rem;
-            display: none;
-            animation: fadeIn 0.5s ease;
-            text-align: center;
-        }
-        .resultado-container .pontuacao {
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--cor-destaque);
-        }
-        .resultado-container .mensagem { font-size: 1.2rem; margin: 0.5rem 0; }
-        .resultado-container .detalhes { text-align: left; margin: 1.5rem 0; }
-        .resultado-container .detalhes .item {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .resultado-container .detalhes .item.aprovado { color: #27ae60; }
-        .resultado-container .detalhes .item.rejeitado { color: #e74c3c; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            .jogo-hero h1 { font-size: 2rem; }
-            .cenario-card { padding: 1.2rem; }
-            .jogo-nav { flex-wrap: wrap; }
-            .jogo-nav .btn { flex: 1; text-align: center; }
-        }
-    </style>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23cf6357' rx='20'/><text x='50' y='68' text-anchor='middle' font-family='Georgia' font-weight='900' font-size='50' fill='%23faf5e8'>CP</text></svg>" />
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-
-    <!-- ===== HEADER ===== -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
                 <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">Alto contraste</button>
-                    <button class="access-btn" id="font-inc" onclick="ajustarFonte(0.1)">A+</button>
-                    <button class="access-btn" id="font-dec" onclick="ajustarFonte(-0.1)">A-</button>
+                    <button class="access-btn" id="high-contrast">Alto contraste</button>
+                    <button class="access-btn" id="font-inc">A+</button>
+                    <button class="access-btn" id="font-dec">A-</button>
                 </div>
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
@@ -228,36 +25,31 @@
         </div>
         <div class="main-header">
             <div class="container main-header__inner">
-<div class="logo">
-    <a href="index.html"
-       style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
-
-        <img
-            src="img/logo.png"
-            alt="Logo do projeto Consciência Política"
-            class="logo__imagem"
-        >
-
-        <div class="logo__text">
-            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
-            <small>VOTO CONSCIENTE — UNIRIO</small>
-        </div>
-
-    </a>
-</div>
-                <div class="header-search">
-                    <form action="#">
-                        <label for="search-input" class="visually-hidden">Pesquisar</label>
-                        <input type="search" id="search-input" placeholder="O que você busca?" />
-                        <button type="submit">🔍</button>
+                <div class="logo">
+                    <a href="index.html" style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
+                        <div class="logo__monograma">CP</div>
+                        <div class="logo__text">
+                            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
+                            <small>VOTO CONSCIENTE — UNIRIO</small>
+                        </div>
+                    </a>
+                </div>
+                <div class="header-search" role="search">
+                    <form action="#" method="get">
+                        <label for="search-input" class="visually-hidden">Pesquisar no site</label>
+                        <input type="search" id="search-input" placeholder="O que você busca?" autocomplete="off" />
+                        <button type="submit" aria-label="Pesquisar">🔍</button>
                     </form>
+                    <div id="search-results" class="search-results" style="display:none;"></div>
                 </div>
                 <div class="header-social">
-                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a><a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a><a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><span>📷</span></a>
+                    <a href="#" aria-label="YouTube"><span>▶️</span></a>
+                    <a href="#" aria-label="Twitter"><span>🐦</span></a>
                 </div>
             </div>
         </div>
-        <nav class="main-nav">
+        <nav class="main-nav" aria-label="Menu principal" role="navigation">
             <div class="container">
                 <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
                 <ul id="primary-menu" class="nav-list">
@@ -274,7 +66,7 @@
                     </li>
                     <li><a href="informacoes.html">Informações</a></li>
                     <li class="has-dropdown">
-                        <a href="conteudo-interativo.html">Conteúdo Interativo</a>
+                        <a href="conteudo-interativo.html" class="active">Conteúdo Interativo</a>
                         <ul class="dropdown">
                             <li><a href="quiz.html">Quiz</a></li>
                             <li><a href="simulador.html">Simulador</a></li>
@@ -288,70 +80,29 @@
             </div>
         </nav>
     </header>
-
-    <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
-
-        <!-- ===== HERO ===== -->
-        <section class="jogo-hero">
+        <section class="hero" style="padding: 3rem 0;">
             <div class="container">
-                <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
-                    <div style="flex:1;">
-                        <h1>🏛️ Você é o Senador</h1>
-                        <p>Vivencie 10 cenários reais e tome decisões como um Senador!</p>
-                        <p style="font-size:1rem; opacity:0.8;">Aprove ou rejeite cada proposta e veja as consequências.</p>
-                    </div>
-                    <div style="font-size:5rem; text-align:center; flex:0 0 auto;">⚖️</div>
-                </div>
+                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">🏛️ Você é o Senador</h1>
+                <p style="font-size:1.2rem; color:#faf5e8;">Vivencie 10 cenários reais e tome decisões como um Senador!</p>
             </div>
         </section>
-
-        <!-- ===== JOGO ===== -->
         <section class="section">
-            <div class="container jogo-container">
-
-                <!-- TELA INICIAL -->
-                <div id="start-screen" class="start-screen">
-                    <div class="icon">🏛️</div>
-                    <h2>Pronto para ser Senador?</h2>
-                    <p>Você vai enfrentar 10 cenários reais. Em cada um, você deve decidir entre <strong>Aprovar</strong> ou <strong>Rejeitar</strong> uma proposta. Veja as consequências institucionais de cada decisão!</p>
-                    <button class="btn btn--primary" onclick="iniciarJogo()">▶️ Começar Jornada</button>
+            <div class="container">
+                <p style="text-align:center; font-size:1.2rem;">Em breve: Jogo interativo com 10 cenários!</p>
+                <div style="text-align:center; margin-top:2rem;">
+                    <a href="conteudo-interativo.html" class="btn btn--primary">← Voltar</a>
                 </div>
-
-                <!-- JOGO -->
-                <div id="jogo-content" style="display:none;">
-                    <div class="progresso" id="progresso-dots"></div>
-
-                    <div id="cenarios-container"></div>
-
-                    <div class="jogo-nav">
-                        <button class="btn btn-secondary" id="prev-btn" onclick="cenarioAnterior()">← Anterior</button>
-                        <button class="btn btn-primary" id="next-btn" onclick="proximoCenario()">Próximo →</button>
-                    </div>
-                </div>
-
-                <!-- RESULTADO -->
-                <div id="resultado-container" class="resultado-container">
-                    <div class="pontuacao" id="pontuacao-final">0/10</div>
-                    <div class="mensagem" id="resultado-mensagem"></div>
-                    <div class="detalhes" id="resultado-detalhes"></div>
-                    <button class="btn btn--primary" onclick="reiniciarJogo()">🔄 Refazer Jornada</button>
-                    <a href="conteudo-interativo.html" class="btn" style="display:inline-block; margin-top:0.5rem; background:var(--cor-secundaria); color:var(--texto-claro); padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none;">← Voltar para Interativo</a>
-                </div>
-
             </div>
         </section>
-
     </main>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
-                <h3>VOTO CONSCIENTE</h3>
+                <h3>CON(S)CIÊNCIA POLÍTICA</h3>
                 <p>Projeto de Pesquisa e Extensão</p>
                 <p>Escola de Ciência Política</p>
-                <p>UNIRIO</p>
+                <p>UNIRIO — Universidade Federal do Estado do Rio de Janeiro</p>
             </div>
             <div class="footer__col">
                 <h4>Links úteis</h4>
@@ -359,302 +110,27 @@
                     <li><a href="sobre.html">Sobre</a></li>
                     <li><a href="eventos.html">Eventos</a></li>
                     <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
+                    <li><a href="referencias.html">Referências</a></li>
                 </ul>
             </div>
             <div class="footer__col">
                 <h4>Contato</h4>
-                <p>votoconsciente@unirio.br</p>
-                <p>(21) 99999-9999</p>
+                <p>Email: votoconsciente@unirio.br</p>
+                <p>Telefone: (21) 99999-9999</p>
+                <div class="footer-social"><a href="#" aria-label="Instagram">📷</a><a href="#" aria-label="YouTube">▶️</a><a href="#" aria-label="Twitter">🐦</a></div>
             </div>
             <div class="footer__col">
                 <h4>Mapa do site</h4>
                 <ul>
                     <li><a href="index.html">Início</a></li>
-                    <li><a href="conteudo-interativo.html">Interativo</a></li>
+                    <li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li>
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer__bottom">
-            <div class="container"><p>&copy; 2026 Voto Consciente — UNIRIO</p></div>
-        </div>
+        <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
-
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
-    <script>
-        // ============================================
-        // JOGO "VOCÊ É O SENADOR" - DADOS E LÓGICA
-        // ============================================
-
-        const cenarios = [{
-            id: 1,
-            titulo: "Projeto de Lei sobre Saúde Pública",
-            descricao: "Um projeto de lei que aumenta em 30% o orçamento da saúde pública, financiado por um corte em verbas de publicidade governamental.",
-            opcoes: [
-                { texto: "Aprovar o projeto", valor: true, consequencia: "O projeto é aprovado! A saúde pública recebe mais recursos, melhorando o atendimento à população." },
-                { texto: "Rejeitar o projeto", valor: false, consequencia: "O projeto é rejeitado. O orçamento da saúde permanece o mesmo, mas a publicidade do governo continua." }
-            ],
-            correta: true
-        }, {
-            id: 2,
-            titulo: "Indicação para o STF",
-            descricao: "O Presidente indica um ministro para o Supremo Tribunal Federal. O indicado tem vasta experiência, mas há controvérsias sobre sua atuação em casos polêmicos.",
-            opcoes: [
-                { texto: "Aprovar a indicação", valor: true, consequencia: "A indicação é aprovada. O novo ministro toma posse no STF." },
-                { texto: "Rejeitar a indicação", valor: false, consequencia: "A indicação é rejeitada. O Presidente precisa indicar outro nome." }
-            ],
-            correta: false
-        }, {
-            id: 3,
-            titulo: "CPI da Educação",
-            descricao: "É proposta uma CPI para investigar irregularidades no ensino fundamental em todo o país.",
-            opcoes: [
-                { texto: "Apoiar a criação da CPI", valor: true, consequencia: "A CPI é criada. As investigações começam e podem trazer melhorias para a educação." },
-                { texto: "Rejeitar a criação da CPI", valor: false, consequencia: "A CPI não é criada. As denúncias não serão investigadas formalmente." }
-            ],
-            correta: true
-        }, {
-            id: 4,
-            titulo: "Projeto de Lei Ambiental",
-            descricao: "Um projeto que flexibiliza regras ambientais para agilizar obras de infraestrutura, gerando debate entre desenvolvimento e preservação.",
-            opcoes: [
-                { texto: "Aprovar o projeto", valor: true, consequencia: "O projeto é aprovado. Obras são aceleradas, mas ambientalistas criticam a medida." },
-                { texto: "Rejeitar o projeto", valor: false, consequencia: "O projeto é rejeitado. As regras ambientais permanecem, mas obras podem atrasar." }
-            ],
-            correta: false
-        }, {
-            id: 5,
-            titulo: "Reforma Tributária",
-            descricao: "Uma proposta de reforma tributária que simplifica impostos, mas pode reduzir a arrecadação de alguns setores.",
-            opcoes: [
-                { texto: "Aprovar a reforma", valor: true, consequencia: "A reforma é aprovada. O sistema tributário fica mais simples, mas há impactos fiscais." },
-                { texto: "Rejeitar a reforma", valor: false, consequencia: "A reforma é rejeitada. O sistema tributário permanece como está." }
-            ],
-            correta: true
-        }, {
-            id: 6,
-            titulo: "Veto Presidencial",
-            descricao: "O Presidente veta um projeto de lei aprovado pelo Congresso que prevê aumento de salário para servidores públicos.",
-            opcoes: [
-                { texto: "Manter o veto", valor: false, consequencia: "O veto é mantido. O aumento salarial não acontece." },
-                { texto: "Derrubar o veto", valor: true, consequencia: "O veto é derrubado. O aumento salarial é aprovado." }
-            ],
-            correta: true
-        }, {
-            id: 7,
-            titulo: "Emenda Constitucional",
-            descricao: "Uma PEC (Proposta de Emenda Constitucional) que altera o sistema previdenciário, com impactos de longo prazo.",
-            opcoes: [
-                { texto: "Aprovar a PEC", valor: true, consequencia: "A PEC é aprovada. O sistema previdenciário é reformado." },
-                { texto: "Rejeitar a PEC", valor: false, consequencia: "A PEC é rejeitada. O sistema permanece inalterado." }
-            ],
-            correta: false
-        }, {
-            id: 8,
-            titulo: "Política de Cotas",
-            descricao: "Um projeto que amplia as políticas de cotas raciais e sociais em universidades e concursos públicos.",
-            opcoes: [
-                { texto: "Aprovar o projeto", valor: true, consequencia: "O projeto é aprovado. As cotas são ampliadas, promovendo maior inclusão." },
-                { texto: "Rejeitar o projeto", valor: false, consequencia: "O projeto é rejeitado. As cotas permanecem como estão." }
-            ],
-            correta: true
-        }, {
-            id: 9,
-            titulo: "Acordo Internacional",
-            descricao: "O Executivo propõe um acordo comercial com um bloco econômico, mas há preocupações sobre impactos na indústria nacional.",
-            opcoes: [
-                { texto: "Aprovar o acordo", valor: true, consequencia: "O acordo é aprovado. Novos mercados se abrem, mas a indústria pode ser afetada." },
-                { texto: "Rejeitar o acordo", valor: false, consequencia: "O acordo é rejeitado. O comércio segue como está." }
-            ],
-            correta: false
-        }, {
-            id: 10,
-            titulo: "Projeto de Lei Anticorrupção",
-            descricao: "Um projeto que endurece penas para crimes de corrupção e aumenta a transparência no serviço público.",
-            opcoes: [
-                { texto: "Aprovar o projeto", valor: true, consequencia: "O projeto é aprovado! As penas para corrupção são endurecidas e a transparência é ampliada." },
-                { texto: "Rejeitar o projeto", valor: false, consequencia: "O projeto é rejeitado. As leis anticorrupção permanecem as mesmas." }
-            ],
-            correta: true
-        }];
-
-        let cenarioAtual = 0;
-        let respostas = [];
-        let jogoIniciado = false;
-
-        function iniciarJogo() {
-            document.getElementById('start-screen').style.display = 'none';
-            document.getElementById('jogo-content').style.display = 'block';
-            jogoIniciado = true;
-            respostas = new Array(cenarios.length).fill(null);
-            renderizarCenarios();
-            atualizarProgresso();
-            atualizarBotoes();
-        }
-
-        function renderizarCenarios() {
-            const container = document.getElementById('cenarios-container');
-            container.innerHTML = '';
-            cenarios.forEach((c, index) => {
-                const div = document.createElement('div');
-                div.className = `cenario-card ${index === 0 ? 'active' : ''}`;
-                div.id = `cenario-${index}`;
-                div.innerHTML = `
-                    <span class="numero">Cenário ${index + 1} de ${cenarios.length}</span>
-                    <h3 class="titulo">${c.titulo}</h3>
-                    <div class="descricao">${c.descricao}</div>
-                    <div class="opcoes">
-                        ${c.opcoes.map((op, optIndex) => `
-                            <button onclick="responderCenario(${index}, ${optIndex})" id="opcao-${index}-${optIndex}">
-                                <span class="letra">${optIndex === 0 ? 'A' : 'B'}</span>
-                                <span class="texto">${op.texto}</span>
-                            </button>
-                        `).join('')}
-                    </div>
-                    <div class="feedback" id="feedback-${index}">
-                        <div id="feedback-text-${index}"></div>
-                        <div class="consequencia" id="feedback-conseq-${index}"></div>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function responderCenario(index, optIndex) {
-            if (respostas[index] !== null) return;
-
-            respostas[index] = optIndex;
-            const cenario = cenarios[index];
-            const opcao = cenario.opcoes[optIndex];
-            const isCorrect = opcao.valor === cenario.correta;
-
-            // Marcar opção selecionada
-            const botoes = document.querySelectorAll(`#cenario-${index} .opcoes button`);
-            botoes.forEach((btn, i) => {
-                btn.classList.toggle('selected', i === optIndex);
-                btn.disabled = true;
-            });
-
-            // Mostrar feedback
-            const feedback = document.getElementById(`feedback-${index}`);
-            feedback.className = `feedback show ${isCorrect ? 'aprovado' : 'rejeitado'}`;
-            document.getElementById(`feedback-text-${index}`).textContent = isCorrect ? '✅ Decisão aprovada!' : '❌ Decisão rejeitada.';
-            document.getElementById(`feedback-conseq-${index}`).textContent = opcao.consequencia;
-
-            // Atualizar progresso
-            atualizarProgresso();
-            atualizarBotoes();
-        }
-
-        function proximoCenario() {
-            if (cenarioAtual < cenarios.length - 1) {
-                document.getElementById(`cenario-${cenarioAtual}`).classList.remove('active');
-                cenarioAtual++;
-                document.getElementById(`cenario-${cenarioAtual}`).classList.add('active');
-                atualizarBotoes();
-                atualizarProgresso();
-                document.getElementById('cenarios-container').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                mostrarResultado();
-            }
-        }
-
-        function cenarioAnterior() {
-            if (cenarioAtual > 0) {
-                document.getElementById(`cenario-${cenarioAtual}`).classList.remove('active');
-                cenarioAtual--;
-                document.getElementById(`cenario-${cenarioAtual}`).classList.add('active');
-                atualizarBotoes();
-                atualizarProgresso();
-            }
-        }
-
-        function atualizarBotoes() {
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            prevBtn.disabled = cenarioAtual === 0;
-            
-            const isLast = cenarioAtual === cenarios.length - 1;
-            const isAnswered = respostas[cenarioAtual] !== null;
-            nextBtn.textContent = isLast ? '📊 Ver Resultado' : 'Próximo →';
-            nextBtn.disabled = !isAnswered;
-        }
-
-        function atualizarProgresso() {
-            const dots = document.getElementById('progresso-dots');
-            dots.innerHTML = '';
-            cenarios.forEach((_, index) => {
-                const dot = document.createElement('span');
-                dot.className = 'dot';
-                if (index === cenarioAtual) dot.classList.add('active');
-                if (respostas[index] !== null) {
-                    dot.classList.add('respondido');
-                }
-                dots.appendChild(dot);
-            });
-        }
-
-        function mostrarResultado() {
-            document.getElementById('jogo-content').style.display = 'none';
-            const resultContainer = document.getElementById('resultado-container');
-            resultContainer.style.display = 'block';
-
-            let acertos = 0;
-            const detalhes = [];
-            cenarios.forEach((c, index) => {
-                const resposta = respostas[index];
-                if (resposta === null) {
-                    detalhes.push({ cenario: c.titulo, status: 'Não respondido', acertou: false });
-                    return;
-                }
-                const acertou = c.opcoes[resposta].valor === c.correta;
-                if (acertou) acertos++;
-                detalhes.push({
-                    cenario: c.titulo,
-                    status: acertou ? '✅ Aprovado' : '❌ Rejeitado',
-                    acertou: acertou
-                });
-            });
-
-            document.getElementById('pontuacao-final').textContent = `${acertos}/${cenarios.length}`;
-
-            const percentual = Math.round((acertos / cenarios.length) * 100);
-            let mensagem = '';
-            if (percentual === 100) mensagem = '🏆 Perfeito! Você seria um Senador exemplar!';
-            else if (percentual >= 80) mensagem = '🌟 Excelente! Você tem ótimo senso de julgamento!';
-            else if (percentual >= 60) mensagem = '📚 Bom trabalho! Continue estudando as atribuições do Senado!';
-            else if (percentual >= 40) mensagem = '💪 Você está aprendendo! Reflita mais sobre o papel do Senador.';
-            else mensagem = '🎯 Que tal revisar as funções do Senador? Você pode melhorar!';
-            document.getElementById('resultado-mensagem').textContent = mensagem;
-
-            const detalhesHtml = detalhes.map((d, i) => `
-                <div class="item ${d.acertou ? 'aprovado' : 'rejeitado'}">
-                    <span><strong>${i + 1}.</strong> ${d.cenario}</span>
-                    <span>${d.status}</span>
-                </div>
-            `).join('');
-            document.getElementById('resultado-detalhes').innerHTML = detalhesHtml;
-
-            resultContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function reiniciarJogo() {
-            document.getElementById('resultado-container').style.display = 'none';
-            document.getElementById('jogo-content').style.display = 'block';
-            cenarioAtual = 0;
-            respostas = new Array(cenarios.length).fill(null);
-            renderizarCenarios();
-            atualizarProgresso();
-            atualizarBotoes();
-            document.getElementById('cenarios-container').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('jogo-content').style.display = 'none';
-            document.getElementById('resultado-container').style.display = 'none';
-        });
-    </script>
 </body>
 </html>
