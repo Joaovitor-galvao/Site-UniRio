@@ -6,6 +6,410 @@
     <title>CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="imagens/logo.png" />
+
+    <style>
+        
+                .equipe-slider {
+                    position: relative;
+        
+                    width: 100%;
+                    max-width: 1100px;
+                    height: 520px;
+        
+                    margin: 2rem auto 0;
+        
+                    border-radius: 18px;
+                    overflow: hidden;
+        
+                    background: #2c1e1f;
+        
+                    box-shadow:
+                        0 8px 25px
+                        rgba(0, 0, 0, 0.15);
+                }
+        
+        
+                /* Cada slide */
+        
+                .equipe-slide {
+                    display: none;
+        
+                    position: relative;
+        
+                    width: 100%;
+                    height: 100%;
+                }
+        
+        
+                .equipe-slide.ativo {
+                    display: block;
+                }
+        
+        
+                /* Imagem */
+        
+                .equipe-slide img {
+                    width: 100%;
+                    height: 100%;
+        
+                    object-fit: cover;
+        
+                    display: block;
+                }
+        
+        
+                /* Sombra em cima da imagem */
+        
+                .equipe-slide::after {
+                    content: "";
+        
+                    position: absolute;
+        
+                    inset: 0;
+        
+                    background:
+                        linear-gradient(
+                            to top,
+                            rgba(44, 30, 31, 0.90),
+                            rgba(44, 30, 31, 0.05) 65%
+                        );
+                }
+        
+        
+                /* Texto */
+        
+                .equipe-slide__texto {
+                    position: absolute;
+        
+                    z-index: 2;
+        
+                    left: 50%;
+                    bottom: 70px;
+        
+                    transform: translateX(-50%);
+        
+                    width: 90%;
+        
+                    text-align: center;
+        
+                    color: #faf5e8;
+                }
+        
+        
+                .equipe-slide__texto h3 {
+                    font-family:
+                        'Playfair Display',
+                        Georgia,
+                        serif;
+        
+                    font-size: 2.5rem;
+        
+                    margin-bottom: 0.5rem;
+        
+                    color: #faf5e8;
+                }
+        
+        
+                .equipe-slide__texto p {
+                    margin: 0.2rem 0;
+        
+                    font-size: 1.1rem;
+        
+                    color: #faf5e8;
+                }
+        
+        
+                /* =====================================================
+                   SETAS
+                ====================================================== */
+        
+                .equipe-seta {
+                    position: absolute;
+        
+                    z-index: 5;
+        
+                    top: 50%;
+        
+                    transform: translateY(-50%);
+        
+                    width: 45px;
+                    height: 55px;
+        
+                    border: none;
+        
+                    border-radius: 8px;
+        
+                    background:
+                        rgba(44, 30, 31, 0.70);
+        
+                    color: #faf5e8;
+        
+                    font-size: 1.7rem;
+        
+                    cursor: pointer;
+        
+                    transition:
+                        background 0.2s,
+                        transform 0.2s;
+                }
+        
+        
+                .equipe-seta:hover {
+                    background:
+                        rgba(44, 30, 31, 0.95);
+                }
+        
+        
+                .equipe-seta--esquerda {
+                    left: 20px;
+                }
+        
+        
+                .equipe-seta--direita {
+                    right: 20px;
+                }
+        
+        
+                /* =====================================================
+                   BOLINHAS
+                ====================================================== */
+        
+                .equipe-bolhas {
+                    position: absolute;
+        
+                    z-index: 5;
+        
+                    bottom: 25px;
+        
+                    left: 50%;
+        
+                    transform: translateX(-50%);
+        
+                    display: flex;
+        
+                    gap: 10px;
+                }
+        
+        
+                .equipe-bolha {
+                    width: 12px;
+                    height: 12px;
+        
+                    padding: 0;
+        
+                    border-radius: 50%;
+        
+                    border:
+                        2px solid #faf5e8;
+        
+                    background: transparent;
+        
+                    cursor: pointer;
+        
+                    transition:
+                        background 0.3s,
+                        transform 0.3s;
+                }
+        
+        
+                .equipe-bolha:hover {
+                    transform: scale(1.2);
+                }
+        
+        
+                .equipe-bolha.ativo {
+                    background: #faf5e8;
+                }
+        
+        
+                /* =====================================================
+                   CELULAR
+                ====================================================== */
+        
+                @media (max-width: 768px) {
+        
+                    .equipe-slider {
+                        height: 420px;
+        
+                        border-radius: 12px;
+                    }
+        
+        
+                    .equipe-slide__texto {
+                        bottom: 65px;
+                    }
+        
+        
+                    .equipe-slide__texto h3 {
+                        font-size: 1.8rem;
+                    }
+        
+        
+                    .equipe-slide__texto p {
+                        font-size: 0.95rem;
+                    }
+        
+        
+                    .equipe-seta {
+                        width: 38px;
+                        height: 48px;
+        
+                        font-size: 1.4rem;
+                    }
+        
+        
+                    .equipe-seta--esquerda {
+                        left: 10px;
+                    }
+        
+        
+                    .equipe-seta--direita {
+                        right: 10px;
+                    }
+        
+                }
+        
+        
+                /* =====================================================
+                   IMAGEM DO HERO
+                ====================================================== */
+        
+                .hero__politico {
+                    width: 100%;
+                    max-width: 360px;
+                    height: auto;
+                    display: block;
+                    margin: 0 auto;
+                    object-fit: contain;
+                }
+        
+                @media (max-width: 768px) {
+                    .hero__politico {
+                        max-width: 280px;
+                        margin-top: 1.5rem;
+                    }
+                }
+        
+        
+                /* =====================================================
+                   CARROSSEL DE DESTAQUES
+                ====================================================== */
+        
+                .destaques-slider {
+                    position: relative;
+                    margin-top: 2rem;
+                    padding: 0 55px 45px;
+                }
+        
+                .destaques-viewport {
+                    overflow: hidden;
+                    width: 100%;
+                }
+        
+                .destaques-track {
+                    display: flex;
+                    gap: 1.5rem;
+                    transition: transform 0.5s ease;
+                }
+        
+                .destaque-item {
+                    flex: 0 0 calc((100% - 3rem) / 3);
+                    min-width: 0;
+                    text-decoration: none;
+                }
+        
+                .destaque-imagem {
+                    width: 100%;
+                    height: 150px;
+                    margin-bottom: 1rem;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    background: #faf5e8;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+        
+                .destaque-imagem img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    display: block;
+                }
+        
+                .destaques-seta {
+                    position: absolute;
+                    top: 50%;
+                    z-index: 5;
+                    transform: translateY(-70%);
+                    width: 42px;
+                    height: 55px;
+                    border: none;
+                    border-radius: 8px;
+                    background: #74402d;
+                    color: #faf5e8;
+                    font-size: 1.6rem;
+                    cursor: pointer;
+                    transition: background 0.2s ease;
+                }
+        
+                .destaques-seta:hover {
+                    background: #2c1e1f;
+                }
+        
+                .destaques-seta--esquerda {
+                    left: 0;
+                }
+        
+                .destaques-seta--direita {
+                    right: 0;
+                }
+        
+                .destaques-bolhas {
+                    position: absolute;
+                    left: 50%;
+                    bottom: 5px;
+                    transform: translateX(-50%);
+                    display: flex;
+                    gap: 10px;
+                }
+        
+                .destaques-bolha {
+                    width: 12px;
+                    height: 12px;
+                    padding: 0;
+                    border-radius: 50%;
+                    border: 2px solid #74402d;
+                    background: transparent;
+                    cursor: pointer;
+                }
+        
+                .destaques-bolha.ativo {
+                    background: #74402d;
+                }
+        
+                @media (max-width: 950px) {
+                    .destaque-item {
+                        flex: 0 0 calc((100% - 1.5rem) / 2);
+                    }
+                }
+        
+                @media (max-width: 650px) {
+                    .destaques-slider {
+                        padding-left: 45px;
+                        padding-right: 45px;
+                    }
+        
+                    .destaque-item {
+                        flex: 0 0 100%;
+                    }
+        
+                    .destaque-imagem {
+                        height: 180px;
+                    }
+                }
+        
+            </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
@@ -73,17 +477,14 @@
                     <li class="has-dropdown">
                         <a href="eleicoes-2026.html">Eleições 2026</a>
                         <ul class="dropdown">
-                            <li><a href="presidente.html">Presidente</a>
-                            <li><a href="governador.html">Governador</a>
-                        </ul>
+            <li><a href="presidente.html">Presidente</a></li>
+            <li><a href="governador.html">Governador</a></li>
+        </ul>
                     </li>
                     <li><a href="informacoes.html">Informações</a></li>
                     <li class="has-dropdown">
                         <a href="conteudo-interativo.html">Conteúdo Interativo</a>
-                        <ul class="dropdown">
-                            <li><a href="presidente.html">Presidente</a>
-                            <li><a href="governador.html">Governador</a>
-                            <li><a href="quiz.html">Quiz</a></li>
+                        <ul class="dropdown"><li><a href="quiz.html">Quiz</a></li>
                             <li><a href="simulador.html">Simulador</a></li>
                             <li><a href="voce-e-o-senador.html">Você é o Senador</a></li>
                             <li><a href="flashcards.html">Flashcards</a></li>
@@ -138,31 +539,467 @@
                 </div>
             </div>
         </section>
-        <section class="section" id="equipe">
+        <!-- =====================================================
+             DESTAQUES - CARROSSEL
+        ====================================================== -->
+
+        <section class="section">
+
             <div class="container">
-                <h2 class="section-title">Equipe</h2>
-                <div class="grid-3">
-                    <div class="card card--team"><span class="card__icon">👩‍🏫</span><h3>Coordenação</h3><p>Profª. Dra. Ana Carla Silva<br />Prof. Dr. João Mendes</p></div>
-                    <div class="card card--team"><span class="card__icon">👨‍🏫</span><h3>Professores Responsáveis</h3><p>Profª. Dra. Maria Oliveira<br />Prof. Dr. Carlos Santos</p></div>
-                    <div class="card card--team"><span class="card__icon">🔬</span><h3>Pesquisadores</h3><p>Dra. Fernanda Lima<br />Me. Rafael Costa</p></div>
-                    <div class="card card--team"><span class="card__icon">🎓</span><h3>Bolsistas</h3><p>10 estudantes de graduação e pós-graduação</p></div>
-                    <div class="card card--team"><span class="card__icon">🤝</span><h3>Parceiros</h3><p>TSE, Justiça Eleitoral,<br />DivulgaCand</p></div>
-                    <div class="card card--team"><span class="card__icon">🏛️</span><h3>Escola de Ciência Política</h3><p>UNIRIO — Centro de Ciências Jurídicas e Políticas</p></div>
+
+                <h2 class="section-title">
+                    Destaques
+                </h2>
+
+                <div class="destaques-slider">
+
+                    <button
+                        class="destaques-seta destaques-seta--esquerda"
+                        onclick="mudarDestaques(-1)"
+                        aria-label="Destaque anterior"
+                    >
+                        ❮
+                    </button>
+
+                    <div class="destaques-viewport">
+
+                        <div class="destaques-track">
+
+                            <a href="eleicoes-2026.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="imagens/destaques/eleicoes.png"
+                                        alt="Ilustração sobre Eleições 2026"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Eleições 2026
+                                </h3>
+
+                                <p>
+                                    Entenda o processo eleitoral e o papel de cada cargo.
+                                </p>
+
+                            </a>
+
+                            <a href="eventos.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="imagens/destaques/eventos.png"
+                                        alt="Ilustração sobre eventos"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Eventos
+                                </h3>
+
+                                <p>
+                                    Oficinas, palestras, seminários e congressos.
+                                </p>
+
+                            </a>
+
+                            <a href="quiz.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="imagens/destaques/quiz.png"
+                                        alt="Ilustração sobre quiz"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Quiz
+                                </h3>
+
+                                <p>
+                                    Teste seus conhecimentos sobre política e cidadania.
+                                </p>
+
+                            </a>
+
+                            <a href="simulador.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="imagens/destaques/simulador.png"
+                                        alt="Ilustração sobre simulador"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Simulador
+                                </h3>
+
+                                <p>
+                                    Escolha suas prioridades e veja seu perfil eleitoral.
+                                </p>
+
+                            </a>
+
+                            <a href="conteudo-interativo.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="imagens/destaques/materiais.png"
+                                        alt="Ilustração sobre materiais educativos"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Materiais Educativos
+                                </h3>
+
+                                <p>
+                                    Flashcards, jogos e conteúdos interativos.
+                                </p>
+
+                            </a>
+
+                            <a href="informacoes.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="imagens/destaques/estatisticas.png"
+                                        alt="Ilustração sobre estatísticas"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Estatísticas
+                                </h3>
+
+                                <p>
+                                    Dados sobre participação, abstenção e mais.
+                                </p>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="destaques-seta destaques-seta--direita"
+                        onclick="mudarDestaques(1)"
+                        aria-label="Próximo destaque"
+                    >
+                        ❯
+                    </button>
+
+                    <div class="destaques-bolhas">
+
+                        <button
+                            class="destaques-bolha ativo"
+                            onclick="mostrarGrupoDestaques(0)"
+                            aria-label="Mostrar primeiro grupo de destaques"
+                        ></button>
+
+                        <button
+                            class="destaques-bolha"
+                            onclick="mostrarGrupoDestaques(1)"
+                            aria-label="Mostrar segundo grupo de destaques"
+                        ></button>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </section>
-        <section class="section section--alt">
+
+
+        
+<!-- =====================================================
+             EQUIPE - CARROSSEL
+        ====================================================== -->
+
+        <section
+            class="section section--alt"
+            id="equipe"
+        >
+
             <div class="container">
-                <h2 class="section-title">Destaques</h2>
-                <div class="grid-3">
-                    <a href="eleicoes-2026.html" class="card card--link"><span class="card__icon">🗳️</span><h3>Eleições 2026</h3><p>Entenda o processo eleitoral e o papel de cada cargo.</p></a>
-                    <a href="eventos.html" class="card card--link"><span class="card__icon">📅</span><h3>Eventos</h3><p>Oficinas, palestras, seminários e congressos.</p></a>
-                    <a href="quiz.html" class="card card--link"><span class="card__icon" style="font-size:2.2rem;">🧠</span><h3>Quiz</h3><p>Teste seus conhecimentos sobre política e cidadania.</p></a>
-                    <a href="simulador.html" class="card card--link"><span class="card__icon" style="font-size:2.2rem;">⚖️</span><h3>Simulador</h3><p>Escolha suas prioridades e veja seu perfil eleitoral.</p></a>
-                    <a href="conteudo-interativo.html" class="card card--link"><span class="card__icon">📚</span><h3>Materiais Educativos</h3><p>Flashcards, jogos e conteúdos interativos.</p></a>
-                    <a href="informacoes.html" class="card card--link"><span class="card__icon">📊</span><h3>Estatísticas</h3><p>Dados sobre participação, abstenção e mais.</p></a>
+
+
+                <h2 class="section-title">
+                    Equipe
+                </h2>
+
+
+
+                <div class="equipe-slider">
+
+
+                    <!-- =================================================
+                         SLIDE 1
+                    ================================================== -->
+
+                    <div class="equipe-slide ativo">
+
+                        <img
+                            src="imagens/equipe/coordenacao.jpg"
+                            alt="Equipe de coordenação"
+                        >
+
+
+                        <div class="equipe-slide__texto">
+
+                            <h3>
+                                Coordenação
+                            </h3>
+
+                            <p>
+                                Profª. Dra. Ana Carla Silva
+                            </p>
+
+                            <p>
+                                Prof. Dr. João Mendes
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SLIDE 2
+                    ================================================== -->
+
+                    <div class="equipe-slide">
+
+                        <img
+                            src="imagens/equipe/professores.jpg"
+                            alt="Professores responsáveis"
+                        >
+
+
+                        <div class="equipe-slide__texto">
+
+                            <h3>
+                                Professores Responsáveis
+                            </h3>
+
+                            <p>
+                                Profª. Dra. Maria Oliveira
+                            </p>
+
+                            <p>
+                                Prof. Dr. Carlos Santos
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SLIDE 3
+                    ================================================== -->
+
+                    <div class="equipe-slide">
+
+                        <img
+                            src="imagens/equipe/pesquisadores.jpg"
+                            alt="Pesquisadores"
+                        >
+
+
+                        <div class="equipe-slide__texto">
+
+                            <h3>
+                                Pesquisadores
+                            </h3>
+
+                            <p>
+                                Dra. Fernanda Lima
+                            </p>
+
+                            <p>
+                                Me. Rafael Costa
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SLIDE 4
+                    ================================================== -->
+
+                    <div class="equipe-slide">
+
+                        <img
+                            src="imagens/equipe/bolsistas.jpg"
+                            alt="Bolsistas"
+                        >
+
+
+                        <div class="equipe-slide__texto">
+
+                            <h3>
+                                Bolsistas
+                            </h3>
+
+                            <p>
+                                10 estudantes de graduação
+                                e pós-graduação
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SLIDE 5
+                    ================================================== -->
+
+                    <div class="equipe-slide">
+
+                        <img
+                            src="imagens/equipe/parceiros.jpg"
+                            alt="Parceiros do projeto"
+                        >
+
+
+                        <div class="equipe-slide__texto">
+
+                            <h3>
+                                Parceiros
+                            </h3>
+
+                            <p>
+                                TSE, Justiça Eleitoral e DivulgaCand
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SLIDE 6
+                    ================================================== -->
+
+                    <div class="equipe-slide">
+
+                        <img
+                            src="imagens/equipe/escola.jpg"
+                            alt="Escola de Ciência Política"
+                        >
+
+
+                        <div class="equipe-slide__texto">
+
+                            <h3>
+                                Escola de Ciência Política
+                            </h3>
+
+                            <p>
+                                UNIRIO — Centro de Ciências Jurídicas e Políticas
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SETA ESQUERDA
+                    ================================================== -->
+
+                    <button
+                        class="equipe-seta equipe-seta--esquerda"
+                        onclick="mudarSlideEquipe(-1)"
+                        aria-label="Imagem anterior"
+                    >
+                        ❮
+                    </button>
+
+
+
+                    <!-- =================================================
+                         SETA DIREITA
+                    ================================================== -->
+
+                    <button
+                        class="equipe-seta equipe-seta--direita"
+                        onclick="mudarSlideEquipe(1)"
+                        aria-label="Próxima imagem"
+                    >
+                        ❯
+                    </button>
+
+
+
+                    <!-- =================================================
+                         BOLINHAS
+                    ================================================== -->
+
+                    <div class="equipe-bolhas">
+
+                        <button
+                            class="equipe-bolha ativo"
+                            onclick="mostrarSlideEquipe(0)"
+                            aria-label="Mostrar slide 1"
+                        ></button>
+
+
+                        <button
+                            class="equipe-bolha"
+                            onclick="mostrarSlideEquipe(1)"
+                            aria-label="Mostrar slide 2"
+                        ></button>
+
+
+                        <button
+                            class="equipe-bolha"
+                            onclick="mostrarSlideEquipe(2)"
+                            aria-label="Mostrar slide 3"
+                        ></button>
+
+
+                        <button
+                            class="equipe-bolha"
+                            onclick="mostrarSlideEquipe(3)"
+                            aria-label="Mostrar slide 4"
+                        ></button>
+
+
+                        <button
+                            class="equipe-bolha"
+                            onclick="mostrarSlideEquipe(4)"
+                            aria-label="Mostrar slide 5"
+                        ></button>
+
+
+                        <button
+                            class="equipe-bolha"
+                            onclick="mostrarSlideEquipe(5)"
+                            aria-label="Mostrar slide 6"
+                        ></button>
+
+                    </div>
+
+
                 </div>
+
+
             </div>
+
         </section>
         <section class="section">
             <div class="container">
@@ -215,6 +1052,259 @@
         </div>
         <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
+    <script>
+        
+                let slideEquipeAtual = 0;
+        
+                let intervaloEquipe;
+        
+        
+                function mostrarSlideEquipe(indice) {
+        
+                    const slides =
+                        document.querySelectorAll(
+                            ".equipe-slide"
+                        );
+        
+                    const bolhas =
+                        document.querySelectorAll(
+                            ".equipe-bolha"
+                        );
+        
+        
+                    if (slides.length === 0) {
+                        return;
+                    }
+        
+        
+                    /* Passou do último */
+        
+                    if (indice >= slides.length) {
+                        indice = 0;
+                    }
+        
+        
+                    /* Voltou antes do primeiro */
+        
+                    if (indice < 0) {
+                        indice = slides.length - 1;
+                    }
+        
+        
+                    /* Esconde todos */
+        
+                    slides.forEach(
+                        function(slide) {
+        
+                            slide.classList.remove(
+                                "ativo"
+                            );
+        
+                        }
+                    );
+        
+        
+                    /* Desmarca bolinhas */
+        
+                    bolhas.forEach(
+                        function(bolha) {
+        
+                            bolha.classList.remove(
+                                "ativo"
+                            );
+        
+                        }
+                    );
+        
+        
+                    /* Mostra o selecionado */
+        
+                    slides[indice]
+                        .classList
+                        .add("ativo");
+        
+        
+                    /* Marca a bolinha */
+        
+                    if (bolhas[indice]) {
+        
+                        bolhas[indice]
+                            .classList
+                            .add("ativo");
+        
+                    }
+        
+        
+                    slideEquipeAtual = indice;
+        
+                }
+        
+        
+        
+                function mudarSlideEquipe(direcao) {
+        
+                    mostrarSlideEquipe(
+                        slideEquipeAtual + direcao
+                    );
+        
+                    reiniciarCarrosselEquipe();
+        
+                }
+        
+        
+        
+                function reiniciarCarrosselEquipe() {
+        
+                    clearInterval(
+                        intervaloEquipe
+                    );
+        
+        
+                    intervaloEquipe =
+                        setInterval(
+                            function() {
+        
+                                mostrarSlideEquipe(
+                                    slideEquipeAtual + 1
+                                );
+        
+                            },
+        
+                            5000
+                        );
+        
+                }
+        
+        
+        
+                document.addEventListener(
+                    "DOMContentLoaded",
+                    function() {
+        
+                        mostrarSlideEquipe(0);
+        
+                        reiniciarCarrosselEquipe();
+        
+                    }
+                );
+        
+            </script>
+    
+    <script>
+        
+                let grupoDestaquesAtual = 0;
+        
+                function quantidadeDestaquesVisiveis() {
+        
+                    if (window.innerWidth <= 650) {
+                        return 1;
+                    }
+        
+                    if (window.innerWidth <= 950) {
+                        return 2;
+                    }
+        
+                    return 3;
+                }
+        
+        
+                function mostrarGrupoDestaques(indice) {
+        
+                    const track =
+                        document.querySelector(".destaques-track");
+        
+                    const itens =
+                        document.querySelectorAll(".destaque-item");
+        
+                    const bolhas =
+                        document.querySelectorAll(".destaques-bolha");
+        
+                    if (!track || itens.length === 0) {
+                        return;
+                    }
+        
+                    const visiveis =
+                        quantidadeDestaquesVisiveis();
+        
+                    const totalGrupos =
+                        Math.ceil(itens.length / visiveis);
+        
+                    if (indice >= totalGrupos) {
+                        indice = 0;
+                    }
+        
+                    if (indice < 0) {
+                        indice = totalGrupos - 1;
+                    }
+        
+                    const larguraViewport =
+                        document.querySelector(".destaques-viewport").clientWidth;
+        
+                    const gap =
+                        parseFloat(
+                            getComputedStyle(track).gap
+                        ) || 0;
+        
+                    const larguraItem =
+                        itens[0].getBoundingClientRect().width;
+        
+                    const deslocamento =
+                        indice * visiveis * (larguraItem + gap);
+        
+                    const larguraTotal =
+                        (itens.length * larguraItem) +
+                        ((itens.length - 1) * gap);
+        
+                    const maximo =
+                        Math.max(
+                            0,
+                            larguraTotal - larguraViewport
+                        );
+        
+                    track.style.transform =
+                        "translateX(-" +
+                        Math.min(deslocamento, maximo) +
+                        "px)";
+        
+                    bolhas.forEach(
+                        function(bolha) {
+                            bolha.classList.remove("ativo");
+                        }
+                    );
+        
+                    if (bolhas[indice]) {
+                        bolhas[indice].classList.add("ativo");
+                    }
+        
+                    grupoDestaquesAtual = indice;
+                }
+        
+        
+                function mudarDestaques(direcao) {
+        
+                    mostrarGrupoDestaques(
+                        grupoDestaquesAtual + direcao
+                    );
+                }
+        
+        
+                window.addEventListener(
+                    "resize",
+                    function() {
+                        mostrarGrupoDestaques(0);
+                    }
+                );
+        
+        
+                document.addEventListener(
+                    "DOMContentLoaded",
+                    function() {
+                        mostrarGrupoDestaques(0);
+                    }
+                );
+        
+            </script>
+
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
 </body>
