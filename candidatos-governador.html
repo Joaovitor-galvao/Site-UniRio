@@ -3,10 +3,64 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Senador — CON(S)CIÊNCIA POLÍTICA</title>
+    <title>Candidatos a Governador 2026 — CON(S)CIÊNCIA POLÍTICA</title>
+    <meta name="description" content="Lista de candidatos a Governador nas Eleições 2026. Informações educativas e apartidárias." />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="imagens/logo.png" />
     <style>
+        .candidato-card {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border-left: 4px solid #cf6357;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .candidato-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        .candidato-card .numero {
+            display: inline-block;
+            background: #612a2a;
+            color: #faf5e8;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .candidato-card h3 {
+            color: #612a2a;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+        .candidato-card .partido {
+            color: #cf6357;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .candidato-card .coligacao {
+            color: #888;
+            font-size: 0.85rem;
+        }
+        .candidato-card .propostas {
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #eee;
+        }
+        .candidato-card .propostas ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            font-size: 0.95rem;
+            color: #444;
+        }
+        .candidato-card .propostas ul li {
+            margin-bottom: 0.2rem;
+        }
+
         .botoes-container {
             display: flex;
             justify-content: space-between;
@@ -14,12 +68,6 @@
             gap: 1rem;
             margin-top: 2rem;
             flex-wrap: wrap;
-        }
-        .botoes-container .btn-left {
-            margin-right: auto;
-        }
-        .botoes-container .btn-right {
-            margin-left: auto;
         }
         .btn-vermelho {
             background: #c0392b;
@@ -33,9 +81,7 @@
             border: none;
             cursor: pointer;
         }
-        .btn-vermelho:hover {
-            background: #e74c3c;
-        }
+        .btn-vermelho:hover { background: #e74c3c; }
         .btn-verde {
             background: #27ae60;
             color: #faf5e8;
@@ -48,19 +94,20 @@
             border: none;
             cursor: pointer;
         }
-        .btn-verde:hover {
-            background: #2ecc71;
+        .btn-verde:hover { background: #2ecc71; }
+        .aviso {
+            background: #faf5e8;
+            border: 2px dashed #cf6357;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
         }
+        .aviso p { margin: 0; font-weight: 500; color: #612a2a; }
         @media (max-width: 768px) {
-            .botoes-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
+            .botoes-container { flex-direction: column; align-items: stretch; }
             .botoes-container .btn-left,
-            .botoes-container .btn-right {
-                margin: 0;
-                text-align: center;
-            }
+            .botoes-container .btn-right { margin: 0; text-align: center; }
         }
     </style>
 </head>
@@ -134,7 +181,7 @@
                             <li><a href="senador.html">Senador</a>
                             <li><a href="deputado-federal.html">Deputado Federal</a>
                             <li><a href="governador.html">Governador</a>
-                            <li><a href="senador.html" class="active">Senador</a></li>
+                            <li><a href="senador.html">Senador</a></li>
                             <li><a href="deputado-federal.html">Deputado Federal</a></li>
                         </ul>
                     </li>
@@ -161,62 +208,105 @@
 
     <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
-        <section class="hero" style="padding: 3rem 0;">
+
+        <!-- ===== HERO ===== -->
+        <section class="hero" style="padding: 2.5rem 0;">
             <div class="container">
-                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">🏛️ Senador da República</h1>
-                <p style="font-size:1.2rem; color:#faf5e8;">Representante do Estado no Poder Legislativo Federal</p>
+                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">🗳️ Candidatos a Governador 2026</h1>
+                <p style="font-size:1.2rem; color:#faf5e8;">Conheça os candidatos registrados no TSE para as Eleições 2026</p>
             </div>
         </section>
 
-        <section class="section">
+        <!-- ===== AVISO ===== -->
+        <section class="section" style="padding-top: 0;">
             <div class="container">
-                <div class="grid-2">
-                    <div>
-                        <div class="card" style="border-left:4px solid #cf6357;">
-                            <h3>📋 O que faz o Senador?</h3>
-                            <ul>
-                                <li>Representa o estado no Senado Federal</li>
-                                <li>Propõe, discute e vota leis nacionais</li>
-                                <li>Aprova indicações para cargos públicos</li>
-                                <li>Fiscaliza o Executivo Federal</li>
-                            </ul>
-                        </div>
-                        <div class="card" style="border-left:4px solid #cf6357; margin-top:1rem;">
-                            <h3>🔍 Como fiscaliza?</h3>
-                            <ul>
-                                <li>CPI - Comissões Parlamentares de Inquérito</li>
-                                <li>Convoca ministros para prestar esclarecimentos</li>
-                                <li>Analisa contas do governo</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card" style="border-left:4px solid #cf6357;">
-                            <h3>🗳️ Como é eleito?</h3>
-                            <ul>
-                                <li><strong>Sistema:</strong> Majoritário (mais votos)</li>
-                                <li><strong>Mandato:</strong> 8 anos</li>
-                                <li><strong>Renovação:</strong> 1/3 e 2/3 a cada eleição</li>
-                            </ul>
-                        </div>
-                        <div class="card" style="border-left:4px solid #cf6357; margin-top:1rem;">
-                            <h3>⏳ Mandato de 8 Anos</h3>
-                            <ul>
-                                <li>Mais longo entre os cargos eletivos</li>
-                                <li>Permite maior estabilidade política</li>
-                                <li>Fiscalização contínua do Executivo</li>
-                            </ul>
-                        </div>
+                <div class="aviso">
+                    <p>📢 <strong>Informação educativa:</strong> Esta lista é baseada em dados oficiais do TSE. O projeto CON(S)CIÊNCIA POLÍTICA não apoia, endossa ou favorece qualquer candidato ou partido político.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== LISTA DE CANDIDATOS ===== -->
+        <section class="section" style="padding-top: 0;">
+            <div class="container">
+
+                <!-- CANDIDATO 1 -->
+                <div class="candidato-card">
+                    <span class="numero">🔢 11</span>
+                    <h3>Nome do Candidato A</h3>
+                    <p class="partido">PT - Partido dos Trabalhadores</p>
+                    <p class="coligacao">Coligação: "Brasil da Esperança"</p>
+                    <div class="propostas">
+                        <strong>📋 Principais propostas:</strong>
+                        <ul>
+                            <li>Investimento em segurança pública</li>
+                            <li>Ampliação de políticas sociais</li>
+                            <li>Melhoria da infraestrutura estadual</li>
+                            <li>Fortalecimento da saúde pública</li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- ===== BOTÕES LADO A LADO ===== -->
+                <!-- CANDIDATO 2 -->
+                <div class="candidato-card">
+                    <span class="numero">🔢 22</span>
+                    <h3>Nome do Candidato B</h3>
+                    <p class="partido">PL - Partido Liberal</p>
+                    <p class="coligacao">Coligação: "Brasil em Frente"</p>
+                    <div class="propostas">
+                        <strong>📋 Principais propostas:</strong>
+                        <ul>
+                            <li>Reforma administrativa do estado</li>
+                            <li>Desburocratização de serviços</li>
+                            <li>Incentivo ao empreendedorismo</li>
+                            <li>Redução de impostos estaduais</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CANDIDATO 3 -->
+                <div class="candidato-card">
+                    <span class="numero">🔢 33</span>
+                    <h3>Nome da Candidata C</h3>
+                    <p class="partido">PSDB - Partido da Social Democracia Brasileira</p>
+                    <p class="coligacao">Coligação: "União pelo Brasil"</p>
+                    <div class="propostas">
+                        <strong>📋 Principais propostas:</strong>
+                        <ul>
+                            <li>Políticas de sustentabilidade</li>
+                            <li>Investimento em educação estadual</li>
+                            <li>Programa de inclusão social</li>
+                            <li>Parcerias público-privadas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CANDIDATO 4 -->
+                <div class="candidato-card">
+                    <span class="numero">🔢 44</span>
+                    <h3>Nome do Candidato D</h3>
+                    <p class="partido">MDB - Movimento Democrático Brasileiro</p>
+                    <p class="coligacao">Coligação: "Brasil para Todos"</p>
+                    <div class="propostas">
+                        <strong>📋 Principais propostas:</strong>
+                        <ul>
+                            <li>Desenvolvimento regional</li>
+                            <li>Políticas de geração de emprego</li>
+                            <li>Reforma política estadual</li>
+                            <li>Investimento em infraestrutura</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ===== BOTÕES ===== -->
                 <div class="botoes-container">
-                    <a href="eleicoes-2026.html" class="btn-vermelho btn-left">← Voltar para Eleições 2026</a>
-                    <a href="candidatos-senador.html" class="btn-verde btn-right">🏛️ Ver Candidatos a Senador</a>
+                    <a href="governador.html" class="btn-vermelho btn-left">← Voltar para Governador</a>
+                    <a href="eleicoes-2026.html" class="btn-verde btn-right">🗳️ Voltar para Eleições 2026</a>
                 </div>
+
             </div>
         </section>
+
     </main>
 
     <!-- ===== FOOTER ===== -->
