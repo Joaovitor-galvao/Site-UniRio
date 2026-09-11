@@ -5,35 +5,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Candidatos a Presidente 2026 — CON(S)CIÊNCIA POLÍTICA</title>
-    <meta name="description" content="Lista de candidatos a Presidente da República nas Eleições 2026. Informações educativas e apartidárias." />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="imagens/logo.png" />
     <style>
+        .candidatos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
         .candidato-card {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1rem;
             background: #ffffff;
-            padding: 1.5rem;
+            padding: 1rem;
             border-radius: 1rem;
             border-left: 4px solid #cf6357;
-            margin-bottom: 1rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             text-decoration: none;
             color: inherit;
             cursor: pointer;
+            min-height: 100px;
         }
         .candidato-card:hover {
-            transform: translateX(6px);
+            transform: translateY(-4px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.12);
             border-left-color: #74402d;
             text-decoration: none;
             color: inherit;
         }
         .candidato-card .foto-candidato {
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #cf6357;
@@ -42,35 +47,39 @@
         }
         .candidato-card .info-candidato {
             flex: 1;
+            min-width: 0;
         }
         .candidato-card .numero-partido {
             display: inline-block;
             background: #612a2a;
             color: #faf5e8;
-            padding: 0.2rem 0.9rem;
+            padding: 0.15rem 0.7rem;
             border-radius: 2rem;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
         }
         .candidato-card h3 {
             color: #612a2a;
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.2rem;
+            font-size: 1rem;
+            margin-bottom: 0.15rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .candidato-card .partido {
             color: #cf6357;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.8rem;
         }
         .candidato-card .coligacao {
             color: #888;
-            font-size: 0.85rem;
-            margin-top: 0.2rem;
+            font-size: 0.75rem;
+            margin-top: 0.15rem;
         }
         .candidato-card .seta {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #cf6357;
             flex-shrink: 0;
             transition: transform 0.3s ease;
@@ -89,11 +98,16 @@
         }
         .aviso p { margin: 0; font-weight: 500; color: #612a2a; }
 
-        @media (max-width: 576px) {
+        @media (max-width: 768px) {
+            .candidatos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
             .candidato-card {
                 flex-direction: column;
                 text-align: center;
-                gap: 1rem;
+                gap: 0.5rem;
             }
             .candidato-card .seta {
                 display: none;
@@ -103,8 +117,6 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-
-    <!-- HEADER -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
@@ -180,7 +192,6 @@
         </nav>
     </header>
 
-    <!-- MAIN -->
     <main id="main-content" class="main">
         <section class="hero" style="padding: 2.5rem 0;">
             <div class="container">
@@ -199,152 +210,142 @@
 
         <section class="section" style="padding-top: 0;">
             <div class="container">
+                <div class="candidatos-grid">
 
-                <!-- CANDIDATO 1 -->
-                <a href="candidato-presidente-1.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-1.svg" alt="Foto do Candidato A" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 13 • PT</span>
-                        <h3>Nome do Candidato A</h3>
-                        <p class="partido">PT - Partido dos Trabalhadores</p>
-                        <p class="coligacao">Coligação: "Brasil da Esperança"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-1.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-1.svg" alt="Candidato 1" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 13 • PT</span>
+                            <h3>Nome do Candidato A</h3>
+                            <p class="partido">PT - Partido dos Trabalhadores</p>
+                            <p class="coligacao">Coligação: "Brasil da Esperança"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 2 -->
-                <a href="candidato-presidente-2.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-2.svg" alt="Foto do Candidato B" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 22 • PL</span>
-                        <h3>Nome do Candidato B</h3>
-                        <p class="partido">PL - Partido Liberal</p>
-                        <p class="coligacao">Coligação: "Brasil em Frente"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-2.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-2.svg" alt="Candidato 2" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 22 • PL</span>
+                            <h3>Nome do Candidato B</h3>
+                            <p class="partido">PL - Partido Liberal</p>
+                            <p class="coligacao">Coligação: "Brasil em Frente"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 3 -->
-                <a href="candidato-presidente-3.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-3.svg" alt="Foto da Candidata C" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 30 • NOVO</span>
-                        <h3>Nome da Candidata C</h3>
-                        <p class="partido">NOVO - Partido Novo</p>
-                        <p class="coligacao">Coligação: "Mudança Já"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-3.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-3.svg" alt="Candidata 3" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 30 • NOVO</span>
+                            <h3>Nome da Candidata C</h3>
+                            <p class="partido">NOVO - Partido Novo</p>
+                            <p class="coligacao">Coligação: "Mudança Já"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 4 -->
-                <a href="candidato-presidente-4.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-4.svg" alt="Foto do Candidato D" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 45 • PSDB</span>
-                        <h3>Nome do Candidato D</h3>
-                        <p class="partido">PSDB - Partido da Social Democracia Brasileira</p>
-                        <p class="coligacao">Coligação: "União pelo Brasil"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-4.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-4.svg" alt="Candidato 4" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 45 • PSDB</span>
+                            <h3>Nome do Candidato D</h3>
+                            <p class="partido">PSDB - Partido da Social Democracia Brasileira</p>
+                            <p class="coligacao">Coligação: "União pelo Brasil"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 5 -->
-                <a href="candidato-presidente-5.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-5.svg" alt="Foto da Candidata E" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 50 • PSOL</span>
-                        <h3>Nome da Candidata E</h3>
-                        <p class="partido">PSOL - Partido Socialismo e Liberdade</p>
-                        <p class="coligacao">Coligação: "Frente de Esquerda"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-5.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-5.svg" alt="Candidata 5" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 50 • PSOL</span>
+                            <h3>Nome da Candidata E</h3>
+                            <p class="partido">PSOL - Partido Socialismo e Liberdade</p>
+                            <p class="coligacao">Coligação: "Frente de Esquerda"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 6 -->
-                <a href="candidato-presidente-6.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-6.svg" alt="Foto da Candidata F" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 15 • MDB</span>
-                        <h3>Nome da Candidata F</h3>
-                        <p class="partido">MDB - Movimento Democrático Brasileiro</p>
-                        <p class="coligacao">Coligação: "Brasil para Todos"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-6.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-6.svg" alt="Candidata 6" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 15 • MDB</span>
+                            <h3>Nome da Candidata F</h3>
+                            <p class="partido">MDB - Movimento Democrático Brasileiro</p>
+                            <p class="coligacao">Coligação: "Brasil para Todos"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 7 -->
-                <a href="candidato-presidente-7.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-7.svg" alt="Foto do Candidato G" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 16 • PSTU</span>
-                        <h3>Nome do Candidato G</h3>
-                        <p class="partido">PSTU - Partido Socialista dos Trabalhadores Unificado</p>
-                        <p class="coligacao">Coligação: "Frente Popular"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-7.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-7.svg" alt="Candidato 7" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 16 • PSTU</span>
+                            <h3>Nome do Candidato G</h3>
+                            <p class="partido">PSTU - Partido Socialista dos Trabalhadores</p>
+                            <p class="coligacao">Coligação: "Frente Popular"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 8 -->
-                <a href="candidato-presidente-8.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-8.svg" alt="Foto do Candidato H" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 27 • DC</span>
-                        <h3>Nome do Candidato H</h3>
-                        <p class="partido">DC - Democracia Cristã</p>
-                        <p class="coligacao">Coligação: "Brasil Cristão"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-8.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-8.svg" alt="Candidato 8" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 27 • DC</span>
+                            <h3>Nome do Candidato H</h3>
+                            <p class="partido">DC - Democracia Cristã</p>
+                            <p class="coligacao">Coligação: "Brasil Cristão"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 9 -->
-                <a href="candidato-presidente-9.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-9.svg" alt="Foto da Candidata I" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 33 • REDE</span>
-                        <h3>Nome da Candidata I</h3>
-                        <p class="partido">REDE - Rede Sustentabilidade</p>
-                        <p class="coligacao">Coligação: "Sustentabilidade e Justiça"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-9.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-9.svg" alt="Candidata 9" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 33 • REDE</span>
+                            <h3>Nome da Candidata I</h3>
+                            <p class="partido">REDE - Rede Sustentabilidade</p>
+                            <p class="coligacao">Coligação: "Sustentabilidade e Justiça"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 10 -->
-                <a href="candidato-presidente-10.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-10.svg" alt="Foto do Candidato J" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 12 • PDT</span>
-                        <h3>Nome do Candidato J</h3>
-                        <p class="partido">PDT - Partido Democrático Trabalhista</p>
-                        <p class="coligacao">Coligação: "Trabalho e Democracia"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-10.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-10.svg" alt="Candidato 10" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 12 • PDT</span>
+                            <h3>Nome do Candidato J</h3>
+                            <p class="partido">PDT - Partido Democrático Trabalhista</p>
+                            <p class="coligacao">Coligação: "Trabalho e Democracia"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 11 -->
-                <a href="candidato-presidente-11.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-11.svg" alt="Foto do Candidato K" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 14 • PTB</span>
-                        <h3>Nome do Candidato K</h3>
-                        <p class="partido">PTB - Partido Trabalhista Brasileiro</p>
-                        <p class="coligacao">Coligação: "Força do Trabalho"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-11.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-11.svg" alt="Candidato 11" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 14 • PTB</span>
+                            <h3>Nome do Candidato K</h3>
+                            <p class="partido">PTB - Partido Trabalhista Brasileiro</p>
+                            <p class="coligacao">Coligação: "Força do Trabalho"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- CANDIDATO 12 -->
-                <a href="candidato-presidente-12.html" class="candidato-card">
-                    <img src="imagens/candidatos/candidato-12.svg" alt="Foto da Candidata L" class="foto-candidato" onerror="this.src='imagens/logo.png'">
-                    <div class="info-candidato">
-                        <span class="numero-partido">🔢 18 • PSC</span>
-                        <h3>Nome da Candidata L</h3>
-                        <p class="partido">PSC - Partido Social Cristão</p>
-                        <p class="coligacao">Coligação: "Valores e Família"</p>
-                    </div>
-                    <span class="seta">→</span>
-                </a>
+                    <a href="candidato-presidente-12.html" class="candidato-card">
+                        <img src="imagens/candidatos/candidato-12.svg" alt="Candidata 12" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">🔢 18 • PSC</span>
+                            <h3>Nome da Candidata L</h3>
+                            <p class="partido">PSC - Partido Social Cristão</p>
+                            <p class="coligacao">Coligação: "Valores e Família"</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
 
-                <!-- BOTÕES DE NAVEGAÇÃO -->
+                </div>
+
                 <div style="display:flex; justify-content:space-between; gap:1rem; margin-top:2rem; flex-wrap:wrap;">
                     <a href="presidente.html" style="background:#c0392b; color:#faf5e8; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; font-weight:600;">← Voltar para Presidente</a>
                     <a href="eleicoes-2026.html" style="background:#27ae60; color:#faf5e8; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; font-weight:600;">🗳️ Voltar para Eleições 2026</a>
@@ -354,7 +355,6 @@
         </section>
     </main>
 
-    <!-- FOOTER -->
     <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
