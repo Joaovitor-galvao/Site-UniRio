@@ -220,3 +220,57 @@ document.addEventListener('DOMContentLoaded', function() {
     initSearch();
     console.log('✅ Site inicializado!');
 });
+
+// ============================================
+// CARREGAR CONTEÚDO SALVO DO ADMIN
+// ============================================
+function carregarConteudoSalvo() {
+    const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+    
+    if (Object.keys(saved).length === 0) {
+        console.log('ℹ️ Nenhum conteúdo personalizado encontrado');
+        return;
+    }
+    
+    console.log('📂 Carregando conteúdo salvo:', Object.keys(saved));
+    
+    // Hero
+    if (saved.hero) {
+        const lines = saved.hero.split('\n').filter(l => l.trim());
+        const titleEl = document.querySelector('.hero__title');
+        const subEl = document.querySelector('.hero__subtitle');
+        if (titleEl && lines[0]) titleEl.textContent = lines[0].trim();
+        if (subEl) {
+            const rest = lines.slice(1).join('\n').trim();
+            subEl.innerHTML = rest.replace(/\n/g, '<br>');
+        }
+    }
+    
+    // Apresentação
+    if (saved.apresentacao) {
+        const pEl = document.querySelector('.section#apresentacao .grid-2 p');
+        if (pEl) pEl.textContent = saved.apresentacao;
+    }
+    
+    // Objetivos
+    if (saved.objetivos) {
+        const ulEl = document.querySelector('.section#apresentacao .grid-2 ul');
+        if (ulEl) {
+            const items = saved.objetivos.split('\n').filter(l => l.trim());
+            ulEl.innerHTML = items.map(item => `<li>${item.trim()}</li>`).join('');
+        }
+    }
+    
+    // Footer
+    if (saved.footer) {
+        const footerP = document.querySelector('.footer__col p');
+        if (footerP) footerP.textContent = saved.footer;
+    }
+    
+    console.log('✅ Conteúdo personalizado carregado!');
+}
+
+// Chamar ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    carregarConteudoSalvo();
+});
