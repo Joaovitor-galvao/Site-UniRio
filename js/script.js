@@ -2,6 +2,8 @@
 // SCRIPT PRINCIPAL - CON(S)CIÊNCIA POLÍTICA
 // ============================================
 
+import { getContent, onContentChange } from './storage.js';
+
 console.log('🚀 Script carregado!');
 
 // ===== ALTO CONTRASTE =====
@@ -93,8 +95,17 @@ function initSkipLink() {
 }
 
 // ===== CARREGAR CONTEÚDO SALVO DO ADMIN =====
-function carregarConteudoSalvo() {
-    const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
+async function carregarConteudoSalvo() {
+    try {
+        const saved = await getContent();
+        aplicarConteudo(saved);
+        console.log('✅ Conteúdo salvo carregado!');
+    } catch (err) {
+        console.error('Erro ao carregar conteúdo:', err);
+    }
+}
+
+function aplicarConteudo(saved) {
     if (saved.hero) {
         const lines = saved.hero.split('\n').filter(l => l.trim());
         const titleEl = document.querySelector('.hero__title');
@@ -116,7 +127,6 @@ function carregarConteudoSalvo() {
             ulEl.innerHTML = items.map(item => `<li>${item.trim()}</li>`).join('');
         }
     }
-    console.log('✅ Conteúdo salvo carregado!');
 }
 
 // ===== BARRA DE PESQUISA =====
@@ -211,12 +221,19 @@ function initSearch() {
 }
 
 // ===== INICIALIZAR =====
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     console.log('📄 DOM carregado - Inicializando...');
     carregarPreferencias();
     initMenuMobile();
     initSkipLink();
-    carregarConteudoSalvo();
+    await carregarConteudoSalvo();
     initSearch();
+    
+    // Real-time updates from Firebase
+    onContentChange((content) => {
+        console.log('🔄 Atualização real-time recebida');
+        aplicarConteudo(content);
+    });
+    
     console.log('✅ Site inicializado!');
 });

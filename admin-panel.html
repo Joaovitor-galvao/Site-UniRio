@@ -384,8 +384,9 @@
     </footer>
 
     <script src="js/script.js"></script>
-    <script src="js/admin.js"></script>
-    <script>
+    <script type="module">
+        import { getContent, saveContent, resetContent } from './js/storage.js';
+
         // ============================================
         // PAINEL ADMIN - FUNÇÕES
         // ============================================
@@ -400,8 +401,9 @@
         }
 
         function updateStats() {
-            const content = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-            document.getElementById('stat-edits').textContent = Object.keys(content).length;
+            getContent().then(content => {
+                document.getElementById('stat-edits').textContent = Object.keys(content).length;
+            });
         }
 
         function logout() {
@@ -415,42 +417,43 @@
             const existing = document.getElementById('edit-modal');
             if (existing) existing.remove();
 
-            const savedContent = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-            let currentContent = savedContent[sectionId] || getContentFromDOM(sectionId) || '';
+            getContent().then(savedContent => {
+                let currentContent = savedContent[sectionId] || getContentFromDOM(sectionId) || '';
 
-            const configs = {
-                'hero': { title: '🎨 Editar Hero', label: 'Texto do Hero (use <br> para quebras)', placeholder: 'Digite o título e subtítulo...' },
-                'apresentacao': { title: '📝 Editar Apresentação', label: 'Texto de apresentação', placeholder: 'Digite o texto de apresentação...' },
-                'objetivos': { title: '🎯 Editar Objetivos', label: 'Lista de objetivos (um por linha)', placeholder: 'Objetivo 1\nObjetivo 2' },
-                'equipe': { title: '👥 Editar Equipe', label: 'Membros (Nome - Cargo)', placeholder: 'Ana Silva - Coordenadora' },
-                'eventos': { title: '📅 Editar Eventos', label: 'Eventos (Nome - Data - Local)', placeholder: 'Oficina - 15/04/2026 - UNIRIO' },
-                'noticias': { title: '📰 Editar Notícias', label: 'Notícias (Título - Data - Descrição)', placeholder: 'Lançamento - 01/03/2026 - Descrição' },
-                'cards': { title: '🃏 Editar Cards', label: 'Cards (Título - Descrição - Link)', placeholder: 'Eleições - Entenda - eleicoes-2026.html' },
-                'footer': { title: '📌 Editar Rodapé', label: 'Texto do rodapé', placeholder: 'Digite o texto do rodapé...' },
-                'candidatos': { title: '🗳️ Editar Candidatos', label: 'Candidatos (Nome - Partido - Número)', placeholder: 'Candidato A - PT - 13' }
-            };
+                const configs = {
+                    'hero': { title: '🎨 Editar Hero', label: 'Texto do Hero (use <br> para quebras)', placeholder: 'Digite o título e subtítulo...' },
+                    'apresentacao': { title: '📝 Editar Apresentação', label: 'Texto de apresentação', placeholder: 'Digite o texto de apresentação...' },
+                    'objetivos': { title: '🎯 Editar Objetivos', label: 'Lista de objetivos (um por linha)', placeholder: 'Objetivo 1\nObjetivo 2' },
+                    'equipe': { title: '👥 Editar Equipe', label: 'Membros (Nome - Cargo)', placeholder: 'Ana Silva - Coordenadora' },
+                    'eventos': { title: '📅 Editar Eventos', label: 'Eventos (Nome - Data - Local)', placeholder: 'Oficina - 15/04/2026 - UNIRIO' },
+                    'noticias': { title: '📰 Editar Notícias', label: 'Notícias (Título - Data - Descrição)', placeholder: 'Lançamento - 01/03/2026 - Descrição' },
+                    'cards': { title: '🃏 Editar Cards', label: 'Cards (Título - Descrição - Link)', placeholder: 'Eleições - Entenda - eleicoes-2026.html' },
+                    'footer': { title: '📌 Editar Rodapé', label: 'Texto do rodapé', placeholder: 'Digite o texto do rodapé...' },
+                    'candidatos': { title: '🗳️ Editar Candidatos', label: 'Candidatos (Nome - Partido - Número)', placeholder: 'Candidato A - PT - 13' }
+                };
 
-            const config = configs[sectionId] || { title: '✏️ Editar', label: 'Conteúdo', placeholder: 'Digite...' };
+                const config = configs[sectionId] || { title: '✏️ Editar', label: 'Conteúdo', placeholder: 'Digite...' };
 
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.id = 'edit-modal';
-            modal.innerHTML = `
-                <div class="modal-content edit-modal" role="dialog">
-                    <button class="modal-close" onclick="closeEditModal()">✕</button>
-                    <h2>${config.title}</h2>
-                    <div class="form-group">
-                        <label for="edit-content">${config.label}</label>
-                        <textarea id="edit-content" placeholder="${config.placeholder}">${currentContent}</textarea>
+                const modal = document.createElement('div');
+                modal.className = 'modal-overlay';
+                modal.id = 'edit-modal';
+                modal.innerHTML = `
+                    <div class="modal-content edit-modal" role="dialog">
+                        <button class="modal-close" onclick="closeEditModal()">✕</button>
+                        <h2>${config.title}</h2>
+                        <div class="form-group">
+                            <label for="edit-content">${config.label}</label>
+                            <textarea id="edit-content" placeholder="${config.placeholder}">${currentContent}</textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn--primary" onclick="saveEdit('${sectionId}')">💾 Salvar</button>
+                            <button class="btn btn-cancel" onclick="closeEditModal()">Cancelar</button>
+                        </div>
                     </div>
-                    <div class="form-actions">
-                        <button class="btn btn--primary" onclick="saveEdit('${sectionId}')">💾 Salvar</button>
-                        <button class="btn btn-cancel" onclick="closeEditModal()">Cancelar</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            document.getElementById('edit-content').focus();
+                `;
+                document.body.appendChild(modal);
+                document.getElementById('edit-content').focus();
+            });
         }
 
         function getContentFromDOM(sectionId) {
@@ -470,12 +473,11 @@
 
         function saveEdit(sectionId) {
             const content = document.getElementById('edit-content').value;
-            const savedContent = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-            savedContent[sectionId] = content;
-            localStorage.setItem('votoConscienteContent', JSON.stringify(savedContent));
-            updateStats();
-            showNotification('✅ Conteúdo salvo com sucesso!', 'success');
-            closeEditModal();
+            saveContent(sectionId, content).then(() => {
+                updateStats();
+                showNotification('✅ Conteúdo salvo com sucesso!', 'success');
+                closeEditModal();
+            });
         }
 
         function closeEditModal() {
@@ -486,10 +488,11 @@
         function confirmReset() {
             if (confirm('⚠️ Tem certeza que deseja restaurar o conteúdo padrão?')) {
                 if (confirm('🔄 Confirme novamente: resetar tudo?')) {
-                    localStorage.removeItem('votoConscienteContent');
-                    updateStats();
-                    showNotification('🔄 Conteúdo restaurado para o padrão.', 'warning');
-                    setTimeout(() => location.reload(), 2000);
+                    resetContent().then(() => {
+                        updateStats();
+                        showNotification('🔄 Conteúdo restaurado para o padrão.', 'warning');
+                        setTimeout(() => location.reload(), 2000);
+                    });
                 }
             }
         }

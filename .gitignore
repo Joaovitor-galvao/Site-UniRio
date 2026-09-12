@@ -1,0 +1,17 @@
+# Firebase config (contains credentials, generated at build time)
+js/firebase-config.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/*
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.bak
+*.save
