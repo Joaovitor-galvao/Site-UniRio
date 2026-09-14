@@ -8,175 +8,35 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="imagens/logo.png" />
     <style>
-        .candidato-hero {
-            background: linear-gradient(135deg, #2c1e1f 0%, #612a2a 100%);
-            padding: 3rem 0;
-            color: #faf5e8;
-        }
-        .candidato-hero__inner {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            align-items: center;
-        }
-        .candidato-hero .foto-grande {
-            width: 100%;
-            max-width: 320px;
-            height: 320px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 6px solid #cf6357;
-            margin: 0 auto;
-            display: block;
-            background: #faf5e8;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-        .candidato-hero .info-principal {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-        .candidato-hero .numero-partido {
-            display: inline-block;
-            background: #cf6357;
-            color: #faf5e8;
-            padding: 0.3rem 1.2rem;
-            border-radius: 2rem;
-            font-size: 0.9rem;
-            font-weight: 700;
-            width: fit-content;
-        }
-        .candidato-hero h1 {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 2.5rem;
-            line-height: 1.2;
-        }
-        .candidato-hero .partido {
-            font-size: 1.2rem;
-            color: #e8a090;
-            font-weight: 600;
-        }
-        .candidato-hero .coligacao {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        .candidato-hero .cargo {
-            font-size: 1rem;
-            opacity: 0.8;
-            font-style: italic;
-        }
-
-        .secao-titulo {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.8rem;
-            color: #612a2a;
-            margin-bottom: 1.5rem;
-            border-left: 5px solid #cf6357;
-            padding-left: 1rem;
-        }
-
-        .biografia-box {
-            background: #ffffff;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-            color: #2c1e1f;
-            font-size: 1.05rem;
-        }
-        .biografia-box p {
-            margin-bottom: 1rem;
-        }
-
-        .propostas-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-        .proposta-card {
-            background: #ffffff;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            border-left: 4px solid #cf6357;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
-        }
-        .proposta-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .proposta-card .icone {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-        .proposta-card h3 {
-            color: #612a2a;
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-        }
-        .proposta-card ul {
-            list-style: none;
-            padding: 0;
-        }
-        .proposta-card ul li {
-            padding: 0.3rem 0 0.3rem 1.5rem;
-            position: relative;
-            color: #444;
-            font-size: 0.95rem;
-        }
-        .proposta-card ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #27ae60;
-            font-weight: 700;
-        }
-
-        .botoes-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-        .btn-vermelho {
-            background: #c0392b;
-            color: #faf5e8;
-            padding: 0.8rem 2rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-            display: inline-block;
-        }
+        .candidato-hero { background: linear-gradient(135deg, #2c1e1f 0%, #612a2a 100%); padding: 3rem 0; color: #faf5e8; }
+        .candidato-hero__inner { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: center; }
+        .candidato-hero .foto-grande { width: 100%; max-width: 320px; height: 320px; border-radius: 50%; object-fit: cover; border: 6px solid #cf6357; margin: 0 auto; display: block; background: #faf5e8; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .candidato-hero .info-principal { display: flex; flex-direction: column; gap: 0.8rem; }
+        .candidato-hero .numero-partido { display: inline-block; background: #cf6357; color: #faf5e8; padding: 0.3rem 1.2rem; border-radius: 2rem; font-size: 0.9rem; font-weight: 700; width: fit-content; }
+        .candidato-hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.5rem; line-height: 1.2; }
+        .candidato-hero .partido { font-size: 1.2rem; color: #e8a090; font-weight: 600; }
+        .candidato-hero .coligacao { font-size: 1rem; opacity: 0.9; }
+        .candidato-hero .cargo { font-size: 1rem; opacity: 0.8; font-style: italic; }
+        .secao-titulo { font-family: 'Playfair Display', Georgia, serif; font-size: 1.8rem; color: #612a2a; margin-bottom: 1.5rem; border-left: 5px solid #cf6357; padding-left: 1rem; }
+        .biografia-box { background: #ffffff; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 2rem; line-height: 1.8; color: #2c1e1f; font-size: 1.05rem; }
+        .biografia-box p { margin-bottom: 1rem; }
+        .propostas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .proposta-card { background: #ffffff; padding: 1.5rem; border-radius: 1rem; border-left: 4px solid #cf6357; box-shadow: 0 4px 12px rgba(0,0,0,0.06); transition: all 0.3s ease; }
+        .proposta-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .proposta-card .icone { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+        .proposta-card h3 { color: #612a2a; font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; margin-bottom: 0.8rem; }
+        .proposta-card ul { list-style: none; padding: 0; }
+        .proposta-card ul li { padding: 0.3rem 0 0.3rem 1.5rem; position: relative; color: #444; font-size: 0.95rem; }
+        .proposta-card ul li::before { content: '✓'; position: absolute; left: 0; color: #27ae60; font-weight: 700; }
+        .botoes-container { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; }
+        .btn-vermelho { background: #c0392b; color: #faf5e8; padding: 0.8rem 2rem; border-radius: 2rem; text-decoration: none; font-weight: 600; transition: background 0.3s; display: inline-block; }
         .btn-vermelho:hover { background: #e74c3c; color: #faf5e8; text-decoration: none; }
-        .btn-verde {
-            background: #27ae60;
-            color: #faf5e8;
-            padding: 0.8rem 2rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-            display: inline-block;
-        }
+        .btn-verde { background: #27ae60; color: #faf5e8; padding: 0.8rem 2rem; border-radius: 2rem; text-decoration: none; font-weight: 600; transition: background 0.3s; display: inline-block; }
         .btn-verde:hover { background: #2ecc71; color: #faf5e8; text-decoration: none; }
-
         @media (max-width: 992px) {
-            .candidato-hero__inner {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .candidato-hero .info-principal {
-                align-items: center;
-            }
-            .propostas-grid {
-                grid-template-columns: 1fr;
-            }
+            .candidato-hero__inner { grid-template-columns: 1fr; text-align: center; }
+            .candidato-hero .info-principal { align-items: center; }
+            .propostas-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
             .candidato-hero h1 { font-size: 1.8rem; }
@@ -187,10 +47,9 @@
         }
     </style>
 </head>
-<body>
+<body data-candidato="8">
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
-    <!-- HEADER -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
@@ -216,22 +75,15 @@
                 </div>
                 <div class="header-search" role="search">
                     <form action="#" method="get" onsubmit="return false;">
-                        <label for="search-input" class="visually-hidden">Buscar</label>
                         <input type="search" id="search-input" placeholder="" autocomplete="off" />
                         <button type="submit" aria-label="Pesquisar">🔍</button>
                     </form>
                     <div id="search-results" class="search-results" style="display:none;"></div>
                 </div>
                 <div class="header-social">
-                    <a href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj" target="_blank" aria-label="Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                    </a>
-                    <a href="https://x.com/conspoliticax" target="_blank" aria-label="X (Twitter)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/></svg>
-                    </a>
-                    <a href="https://www.tiktok.com/@conspolitica?_r=1&_t=ZS-99eh7sp2kJZ" target="_blank" aria-label="TikTok">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"/></svg>
-                    </a>
+                    <a href="https://www.instagram.com/conspolitica" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                    <a href="https://x.com/conspoliticax" target="_blank" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/></svg></a>
+                    <a href="https://www.tiktok.com/@conspolitica" target="_blank" aria-label="TikTok"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"/></svg></a>
                 </div>
             </div>
         </div>
@@ -266,10 +118,7 @@
         </nav>
     </header>
 
-    <!-- MAIN -->
     <main id="main-content" class="main">
-
-        <!-- HERO DO CANDIDATO -->
         <section class="candidato-hero">
             <div class="container candidato-hero__inner">
                 <div>
@@ -277,107 +126,32 @@
                 </div>
                 <div class="info-principal">
                     <span class="numero-partido">🔢 27 • DC</span>
-                    <h1>Nome do Candidato H</h1>
+                    <h1>Clariana Barão</h1>
                     <p class="partido">DC - Democracia Cristã</p>
-                    <p class="coligacao">Coligação: "Brasil Cristão"</p>
+                    <p class="coligacao">Vice: Fabiana Torquato</p>
                     <p class="cargo">Candidato(a) a Presidente da República — Eleições 2026</p>
                 </div>
             </div>
         </section>
 
-        <!-- BIOGRAFIA -->
         <section class="section">
             <div class="container">
                 <h2 class="secao-titulo">📖 Biografia</h2>
                 <div class="biografia-box">
-                    <p><strong>Nome completo:</strong> Nome do Candidato H</p>
-                    <p><strong>Data de nascimento:</strong> DD/MM/AAAA</p>
-                    <p><strong>Naturalidade:</strong> Cidade — Estado</p>
-                    <p><strong>Profissão:</strong> Profissão do candidato</p>
-                    <p><strong>Formação:</strong> Formação acadêmica</p>
-                    <p><strong>Trajetória política:</strong> Descrição da carreira política, cargos ocupados, mandatos, etc.</p>
-                    <p>Texto biográfico detalhado sobre a vida pessoal e profissional do candidato, destacando sua trajetória, experiências e contribuições para a sociedade.</p>
+                    <p>Carregando...</p>
                 </div>
             </div>
         </section>
 
-        <!-- PROPOSTAS -->
         <section class="section" style="background: #faf5e8;">
             <div class="container">
                 <h2 class="secao-titulo">📋 Propostas de Governo</h2>
                 <div class="propostas-grid">
-
-                    <div class="proposta-card">
-                        <span class="icone">🏥</span>
-                        <h3>Saúde</h3>
-                        <ul>
-                            <li>Ampliação do atendimento no SUS</li>
-                            <li>Contratação de mais médicos</li>
-                            <li>Investimento em hospitais públicos</li>
-                            <li>Programa de saúde preventiva</li>
-                        </ul>
-                    </div>
-
-                    <div class="proposta-card">
-                        <span class="icone">📚</span>
-                        <h3>Educação</h3>
-                        <ul>
-                            <li>Valorização dos professores</li>
-                            <li>Ampliação de vagas em universidades</li>
-                            <li>Investimento em escolas técnicas</li>
-                            <li>Programa de alfabetização</li>
-                        </ul>
-                    </div>
-
-                    <div class="proposta-card">
-                        <span class="icone">💼</span>
-                        <h3>Economia</h3>
-                        <ul>
-                            <li>Geração de emprego e renda</li>
-                            <li>Estímulo ao empreendedorismo</li>
-                            <li>Reforma tributária justa</li>
-                            <li>Controle da inflação</li>
-                        </ul>
-                    </div>
-
-                    <div class="proposta-card">
-                        <span class="icone">🛡️</span>
-                        <h3>Segurança</h3>
-                        <ul>
-                            <li>Combate ao crime organizado</li>
-                            <li>Investimento em inteligência policial</li>
-                            <li>Programas sociais preventivos</li>
-                            <li>Valorização das forças de segurança</li>
-                        </ul>
-                    </div>
-
-                    <div class="proposta-card">
-                        <span class="icone">🌿</span>
-                        <h3>Meio Ambiente</h3>
-                        <ul>
-                            <li>Preservação das florestas</li>
-                            <li>Incentivo a energias renováveis</li>
-                            <li>Combate ao desmatamento</li>
-                            <li>Políticas de sustentabilidade</li>
-                        </ul>
-                    </div>
-
-                    <div class="proposta-card">
-                        <span class="icone">🚌</span>
-                        <h3>Infraestrutura</h3>
-                        <ul>
-                            <li>Melhoria do transporte público</li>
-                            <li>Investimento em estradas e portos</li>
-                            <li>Saneamento básico para todos</li>
-                            <li>Energia elétrica acessível</li>
-                        </ul>
-                    </div>
-
+                    <p>Carregando...</p>
                 </div>
             </div>
         </section>
 
-        <!-- BOTÕES -->
         <section class="section">
             <div class="container">
                 <div class="botoes-container">
@@ -386,10 +160,8 @@
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- FOOTER -->
     <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
@@ -423,6 +195,8 @@
         <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
     </footer>
 
+    <script src="js/candidatos-data.js"></script>
+    <script src="js/candidatos-render.js"></script>
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
 </body>
