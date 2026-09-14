@@ -9,7 +9,7 @@ function renderizarListaCandidatos() {
     grid.innerHTML = CANDIDATOS_PRESIDENTE.map(c => `
         <a href="candidato-presidente-${c.id}.html" class="candidato-card">
             <img src="${c.foto}" alt="${c.nome}" class="foto-candidato"
-                 onerror="this.src='imagens/logo.png'">
+                 onerror="this.onerror=null;this.src='imagens/candidatos/candidato-${c.id}.svg';">
             <div class="info-candidato">
                 <span class="numero-partido">🔢 ${c.numero} • ${c.partido}</span>
                 <h3>${c.nome}</h3>
@@ -32,6 +32,10 @@ function renderizarPaginaCandidato() {
     if (heroImg) {
         heroImg.src = c.foto;
         heroImg.alt = c.nome;
+        heroImg.onerror = function() {
+            this.onerror = null;
+            this.src = 'imagens/candidatos/candidato-' + c.id + '.svg';
+        };
     }
 
     const numPartido = document.querySelector('.candidato-hero .numero-partido');
@@ -65,31 +69,15 @@ function renderizarPaginaCandidato() {
     const grid = document.querySelector('.propostas-grid');
     if (grid) {
         const icones = {
-            "Saúde": "🏥",
-            "Educação": "📚",
-            "Economia": "💼",
-            "Segurança Pública": "🛡️",
-            "Segurança": "🛡️",
-            "Meio Ambiente": "🌿",
-            "Meio Ambiente e Energia": "🌿",
-            "Infraestrutura": "🚌",
-            "Trabalho": "👷",
-            "Trabalho e Economia": "💼",
-            "Democracia": "🏛️",
-            "Administração": "🏛️",
-            "Administração Pública": "🏛️",
-            "Política Externa": "🌍",
-            "Social": "🤝",
-            "Desenvolvimento Social": "🤝",
-            "Direitos": "⚖️",
-            "Tributação": "💰",
-            "Transporte": "🚌",
-            "Terras": "🌱",
-            "Habitação e Saneamento": "🏠",
-            "Serviços Públicos": "🏛️",
-            "Agricultura": "🌾",
-            "Institucional": "🏛️",
-            "Outros": "📌"
+            "Saúde": "🏥", "Educação": "📚", "Economia": "💼",
+            "Segurança Pública": "🛡️", "Segurança": "🛡️",
+            "Meio Ambiente": "🌿", "Meio Ambiente e Energia": "🌿",
+            "Infraestrutura": "🚌", "Trabalho": "👷", "Trabalho e Economia": "💼",
+            "Democracia": "🏛️", "Administração": "🏛️", "Administração Pública": "🏛️",
+            "Política Externa": "🌍", "Social": "🤝", "Desenvolvimento Social": "🤝",
+            "Direitos": "⚖️", "Tributação": "💰", "Transporte": "🚌", "Terras": "🌱",
+            "Habitação e Saneamento": "🏠", "Serviços Públicos": "🏛️",
+            "Agricultura": "🌾", "Institucional": "🏛️", "Outros": "📌"
         };
 
         grid.innerHTML = Object.entries(c.propostas).map(([tema, itens]) => `
