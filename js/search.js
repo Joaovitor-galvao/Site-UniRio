@@ -10,6 +10,20 @@ document.addEventListener('DOMContentLoaded', function () {
         { title: 'Presidente', url: 'presidente.html', category: 'Cargo', keywords: 'presidente presidencia brasil' },
         { title: 'Candidatos a Presidente', url: 'candidatos-presidente.html', category: 'Candidatos', keywords: 'candidatos presidente' },
 
+        { title: 'Luiz Inácio Lula da Silva', url: 'candidato-presidente-1.html', category: 'Presidente', keywords: 'lula luiz inacio lula da silva pt 13' },
+        { title: 'Flávio Bolsonaro', url: 'candidato-presidente-2.html', category: 'Presidente', keywords: 'flavio bolsonaro' },
+        { title: 'Romeu Zema', url: 'candidato-presidente-3.html', category: 'Presidente', keywords: 'romeu zema novo' },
+        { title: 'Ronaldo Caiado', url: 'candidato-presidente-4.html', category: 'Presidente', keywords: 'ronaldo caiado' },
+        { title: 'Samara Martins', url: 'candidato-presidente-5.html', category: 'Presidente', keywords: 'samara martins' },
+        { title: 'Renan Santos', url: 'candidato-presidente-6.html', category: 'Presidente', keywords: 'renan santos' },
+        { title: 'Hertz Dias', url: 'candidato-presidente-7.html', category: 'Presidente', keywords: 'hertz dias' },
+        { title: 'Clariana Barão', url: 'candidato-presidente-8.html', category: 'Presidente', keywords: 'clariana barao' },
+        { title: 'Edmilson Costa', url: 'candidato-presidente-9.html', category: 'Presidente', keywords: 'edmilson costa' },
+        { title: 'Augusto Cury', url: 'candidato-presidente-10.html', category: 'Presidente', keywords: 'augusto cury' },
+        { title: 'Rui Costa Pimenta', url: 'candidato-presidente-11.html', category: 'Presidente', keywords: 'rui costa pimenta' },
+        { title: 'Wilson Grassi', url: 'candidato-presidente-12.html', category: 'Presidente', keywords: 'wilson grassi' },
+
+
         { title: 'Governador', url: 'governador.html', category: 'Cargo', keywords: 'governador governo estado rio janeiro rj' },
         { title: 'Candidatos a Governador', url: 'candidatos-governador.html', category: 'Candidatos', keywords: 'governador candidatos rio janeiro rj' },
 
