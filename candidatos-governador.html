@@ -1,100 +1,95 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Candidatos a Governador 2026 — CON(S)CIÊNCIA POLÍTICA</title>
-    <meta name="description" content="Lista de candidatos a Governador nas Eleições 2026. Informações educativas e apartidárias." />
+    <title>Candidatos a Governador do RJ 2026 — CON(S)CIÊNCIA POLÍTICA</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="imagens/logo.png" />
     <style>
+        .candidatos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            row-gap: 2.5rem;
+        }
+
         .candidato-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            row-gap: 2.5rem;
             background: #ffffff;
-            padding: 1.5rem;
+            padding: 1rem;
             border-radius: 1rem;
             border-left: 4px solid #cf6357;
-            margin-bottom: 1rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            min-height: 100px;
         }
         .candidato-card:hover {
-            transform: translateX(4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            border-left-color: #74402d;
+            text-decoration: none;
+            color: inherit;
         }
-        .candidato-card .numero {
+        .candidato-card .foto-candidato {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #cf6357;
+            flex-shrink: 0;
+            background: #faf5e8;
+        }
+        .candidato-card .info-candidato {
+            flex: 1;
+            min-width: 0;
+        }
+        .candidato-card .numero-partido {
             display: inline-block;
             background: #612a2a;
             color: #faf5e8;
-            padding: 0.2rem 0.8rem;
+            padding: 0.15rem 0.7rem;
             border-radius: 2rem;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             margin-bottom: 0.3rem;
         }
         .candidato-card h3 {
             color: #612a2a;
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.2rem;
+            font-size: 1rem;
+            margin-bottom: 0.15rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .candidato-card .partido {
             color: #cf6357;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.8rem;
         }
         .candidato-card .coligacao {
             color: #888;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
+            margin-top: 0.15rem;
         }
-        .candidato-card .propostas {
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid #eee;
+        .candidato-card .seta {
+            font-size: 1.2rem;
+            color: #cf6357;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
         }
-        .candidato-card .propostas ul {
-            list-style: disc;
-            padding-left: 1.5rem;
-            font-size: 0.95rem;
-            color: #444;
-        }
-        .candidato-card .propostas ul li {
-            margin-bottom: 0.2rem;
+        .candidato-card:hover .seta {
+            transform: translateX(5px);
         }
 
-        .botoes-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-        .btn-vermelho {
-            background: #c0392b;
-            color: #faf5e8;
-            padding: 0.7rem 1.5rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: background 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-vermelho:hover { background: #e74c3c; }
-        .btn-verde {
-            background: #27ae60;
-            color: #faf5e8;
-            padding: 0.7rem 1.5rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: background 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-verde:hover { background: #2ecc71; }
         .aviso {
             background: #faf5e8;
             border: 2px dashed #cf6357;
@@ -104,17 +99,26 @@
             margin-bottom: 2rem;
         }
         .aviso p { margin: 0; font-weight: 500; color: #612a2a; }
+
         @media (max-width: 768px) {
-            .botoes-container { flex-direction: column; align-items: stretch; }
-            .botoes-container .btn-left,
-            .botoes-container .btn-right { margin: 0; text-align: center; }
+            .candidatos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .candidato-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+            .candidato-card .seta {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-
-    <!-- ===== HEADER ===== -->
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
@@ -140,7 +144,7 @@
                 </div>
                 <div class="header-search" role="search">
                     <form action="#" method="get" onsubmit="return false;">
-                        <label for="search-input" class="visually-hidden">Buscar</label>
+                        <label for="search-input" class="visually-hidden"></label>
                         <input type="search" id="search-input" placeholder="" autocomplete="off" />
                         <button type="submit" aria-label="Pesquisar">🔍</button>
                     </form>
@@ -148,21 +152,13 @@
                 </div>
                 <div class="header-social">
                     <a href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj" target="_blank" aria-label="Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                     </a>
                     <a href="https://x.com/conspoliticax" target="_blank" aria-label="X (Twitter)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/></svg>
                     </a>
                     <a href="https://www.tiktok.com/@conspolitica?_r=1&_t=ZS-99eh7sp2kJZ" target="_blank" aria-label="TikTok">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"/>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"/></svg>
                     </a>
                 </div>
             </div>
@@ -177,9 +173,9 @@
                     <li class="has-dropdown">
                         <a href="eleicoes-2026.html">Eleições 2026</a>
                         <ul class="dropdown">
-            <li><a href="presidente.html">Presidente</a></li>
-            <li><a href="governador.html">Governador</a></li>
-        </ul>
+                            <li><a href="presidente.html">Presidente</a></li>
+                            <li><a href="governador.html">Governador</a></li>
+                        </ul>
                     </li>
                     <li><a href="informacoes.html">Informações</a></li>
                     <li class="has-dropdown">
@@ -198,110 +194,128 @@
         </nav>
     </header>
 
-    <!-- ===== MAIN ===== -->
     <main id="main-content" class="main">
-
-        <!-- ===== HERO ===== -->
         <section class="hero" style="padding: 2.5rem 0;">
             <div class="container">
-                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">🗳️ Candidatos a Governador 2026</h1>
-                <p style="font-size:1.2rem; color:#faf5e8;">Conheça os candidatos registrados no TSE para as Eleições 2026</p>
+                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">🗳️ Candidatos a Governador do Rio de Janeiro 2026</h1>
+                <p style="font-size:1.2rem; color:#faf5e8;">Clique em um candidato para conhecer seu perfil</p>
             </div>
         </section>
 
-        <!-- ===== AVISO ===== -->
-        <section class="section" style="padding-top: 0;">
+        <section class="section" style="padding-top: 1.5rem;">
             <div class="container">
                 <div class="aviso">
-                    <p>📢 <strong>Informação educativa:</strong> Esta lista é baseada em dados oficiais do TSE. O projeto CON(S)CIÊNCIA POLÍTICA não apoia, endossa ou favorece qualquer candidato ou partido político.</p>
+                    <p>📢 <strong>Informação educativa:</strong> Esta lista reúne os nomes registrados para o Governo do Rio de Janeiro e usa dados divulgados pela Justiça Eleitoral. O projeto CON(S)CIÊNCIA POLÍTICA não apoia, endossa ou favorece qualquer candidato ou partido político.</p>
                 </div>
+                <p style="font-size:.82rem; color:#666; text-align:center; margin-top:.7rem;">
+                
+                </p>
             </div>
         </section>
 
-        <!-- ===== LISTA DE CANDIDATOS ===== -->
         <section class="section" style="padding-top: 0;">
             <div class="container">
+                <div class="candidatos-grid">
 
-                <!-- CANDIDATO 1 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 11</span>
-                    <h3>Nome do Candidato A</h3>
-                    <p class="partido">PT - Partido dos Trabalhadores</p>
-                    <p class="coligacao">Coligação: "Brasil da Esperança"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Investimento em segurança pública</li>
-                            <li>Ampliação de políticas sociais</li>
-                            <li>Melhoria da infraestrutura estadual</li>
-                            <li>Fortalecimento da saúde pública</li>
-                        </ul>
-                    </div>
+                    <a href="candidato-governador-1.html" class="candidato-card">
+                        <img src="imagens/candidatos-governador/candidato-governador-1.svg?v=4" alt="André Marinho" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">  30 • NOVO</span>
+                            <h3>André Marinho</h3>
+                            <p class="partido">NOVO - Partido Novo</p>
+                            <p class="coligacao">Vice: Tenente-Coronel Erigreyce (NOVO)</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
+
+
+                    <a href="candidato-governador-3.html" class="candidato-card">
+                        <img src="imagens/candidatos-governador/candidato-governador-3.svg?v=4" alt="Coronel Busnello" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">  14 • MISSÃO</span>
+                            <h3>Coronel Busnello</h3>
+                            <p class="partido">MISSÃO - Partido Missão</p>
+                            <p class="coligacao">Vice: Rafa Luz (MISSÃO)</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
+
+                    <a href="candidato-governador-4.html" class="candidato-card">
+                        <img src="imagens/candidatos-governador/candidato-governador-4.svg?v=4" alt="Cyro Garcia" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">  16 • PSTU</span>
+                            <h3>Cyro Garcia</h3>
+                            <p class="partido">PSTU - Partido Socialista dos Trabalhadores Unificado</p>
+                            <p class="coligacao">Vice: Perciliana (PSTU)</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
+
+                    <a href="candidato-governador-5.html" class="candidato-card">
+                        <img src="imagens/candidatos-governador/candidato-governador-5.svg?v=4" alt="Douglas Ruas" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">  22 • PL</span>
+                            <h3>Douglas Ruas</h3>
+                            <p class="partido">PL - Partido Liberal</p>
+                            <p class="coligacao">Vice: Fernanda Louback (PL)</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
+
+                    <a href="candidato-governador-6.html" class="candidato-card">
+                        <img src="imagens/candidatos-governador/candidato-governador-6.svg?v=4" alt="Eduardo Paes" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">  55 • PSD</span>
+                            <h3>Eduardo Paes</h3>
+                            <p class="partido">PSD - Partido Social Democrático</p>
+                            <p class="coligacao">Vice: Jane Reis (MDB)</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
+
+                    <a href="candidato-governador-7.html" class="candidato-card">
+                        <img src="imagens/candidatos-governador/candidato-governador-7.svg?v=4" alt="Juliete Pantoja" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">  80 • UP</span>
+                            <h3>Juliete Pantoja</h3>
+                            <p class="partido">UP - Unidade Popular</p>
+                            <p class="coligacao">Vice: Bia Martins (UP)</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
+
+                    <a href="candidato-governador-8.html" class="candidato-card">
+                        <img src="imagens/candidatos-governador/candidato-governador-8.svg?v=4" alt="Luan Monteiro" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">  29 • PCO</span>
+                            <h3>Luan Monteiro</h3>
+                            <p class="partido">PCO - Partido da Causa Operária</p>
+                            <p class="coligacao">Vice: Caetano Albuquerque (PCO)</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
+
+                    <a href="candidato-governador-9.html" class="candidato-card">
+                        <img src="imagens/candidatos-governador/candidato-governador-9.svg?v=4" alt="William Siri" class="foto-candidato" onerror="this.src='imagens/logo.png'">
+                        <div class="info-candidato">
+                            <span class="numero-partido">  50 • PSOL</span>
+                            <h3>William Siri</h3>
+                            <p class="partido">PSOL - Partido Socialismo e Liberdade</p>
+                            <p class="coligacao">Vice: Juliana Carvalho (PSOL)</p>
+                        </div>
+                        <span class="seta">→</span>
+                    </a>
                 </div>
 
-                <!-- CANDIDATO 2 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 22</span>
-                    <h3>Nome do Candidato B</h3>
-                    <p class="partido">PL - Partido Liberal</p>
-                    <p class="coligacao">Coligação: "Brasil em Frente"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Reforma administrativa do estado</li>
-                            <li>Desburocratização de serviços</li>
-                            <li>Incentivo ao empreendedorismo</li>
-                            <li>Redução de impostos estaduais</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- CANDIDATO 3 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 33</span>
-                    <h3>Nome da Candidata C</h3>
-                    <p class="partido">PSDB - Partido da Social Democracia Brasileira</p>
-                    <p class="coligacao">Coligação: "União pelo Brasil"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Políticas de sustentabilidade</li>
-                            <li>Investimento em educação estadual</li>
-                            <li>Programa de inclusão social</li>
-                            <li>Parcerias público-privadas</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- CANDIDATO 4 -->
-                <div class="candidato-card">
-                    <span class="numero">🔢 44</span>
-                    <h3>Nome do Candidato D</h3>
-                    <p class="partido">MDB - Movimento Democrático Brasileiro</p>
-                    <p class="coligacao">Coligação: "Brasil para Todos"</p>
-                    <div class="propostas">
-                        <strong>📋 Principais propostas:</strong>
-                        <ul>
-                            <li>Desenvolvimento regional</li>
-                            <li>Políticas de geração de emprego</li>
-                            <li>Reforma política estadual</li>
-                            <li>Investimento em infraestrutura</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- ===== BOTÕES ===== -->
-                <div class="botoes-container">
-                    <a href="governador.html" class="btn-vermelho btn-left">← Voltar para Governador</a>
-                    <a href="eleicoes-2026.html" class="btn-verde btn-right">🗳️ Voltar para Eleições 2026</a>
+                <div style="display:flex; justify-content:space-between; gap:1rem; margin-top:2rem; flex-wrap:wrap;">
+                    <a href="governador.html" style="background:#c0392b; color:#faf5e8; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; font-weight:600;">← Voltar para Governador</a>
+                    <a href="eleicoes-2026.html" style="background:#27ae60; color:#faf5e8; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; font-weight:600;">🗳️ Voltar para Eleições 2026</a>
                 </div>
 
             </div>
         </section>
-
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__col">
@@ -337,5 +351,6 @@
 
     <script src="js/script.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/search.js?v=1"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@ function renderizarListaCandidatos() {
             <img src="${c.foto}" alt="${c.nome}" class="foto-candidato"
                  onerror="this.onerror=null;this.src='imagens/candidatos/candidato-${c.id}.svg';">
             <div class="info-candidato">
-                <span class="numero-partido">🔢 ${c.numero} • ${c.partido}</span>
+                <span class="numero-partido">  ${c.numero} • ${c.partido}</span>
                 <h3>${c.nome}</h3>
                 <p class="partido">${c.partido} - ${c.partidoNome}</p>
                 <p class="coligacao">Vice: ${c.vice}${c.vicePartido ? ' (' + c.vicePartido + ')' : ''}</p>
@@ -39,7 +39,7 @@ function renderizarPaginaCandidato() {
     }
 
     const numPartido = document.querySelector('.candidato-hero .numero-partido');
-    if (numPartido) numPartido.textContent = `🔢 ${c.numero} • ${c.partido}`;
+    if (numPartido) numPartido.textContent = `  ${c.numero} • ${c.partido}`;
 
     const h1 = document.querySelector('.candidato-hero h1');
     if (h1) h1.textContent = c.nome;

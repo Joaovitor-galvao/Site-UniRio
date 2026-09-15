@@ -2,7 +2,6 @@
 // SCRIPT PRINCIPAL - CON(S)CIÊNCIA POLÍTICA
 // ============================================
 
-import { getContent, onContentChange } from './storage.js';
 
 console.log('🚀 Script carregado!');
 
@@ -131,94 +130,149 @@ function aplicarConteudo(saved) {
 
 // ===== BARRA DE PESQUISA =====
 const searchData = [
-    { title: 'Início', url: 'index.html', category: 'Página' },
-    { title: 'Sobre', url: 'sobre.html', category: 'Página' },
-    { title: 'Eventos', url: 'eventos.html', category: 'Página' },
-    { title: 'Eleições 2026', url: 'eleicoes-2026.html', category: 'Eleições' },
-    { title: 'Presidente', url: 'presidente.html', category: 'Cargos' },
-    { title: 'Senador', url: 'senador.html', category: 'Cargos' },
-    { title: 'Deputado Federal', url: 'deputado-federal.html', category: 'Cargos' },
-    { title: 'Informações', url: 'informacoes.html', category: 'Dados' },
-    { title: 'Quiz', url: 'quiz.html', category: 'Interativo' },
-    { title: 'Simulador', url: 'simulador.html', category: 'Interativo' },
-    { title: 'Você é o Senador', url: 'voce-e-o-senador.html', category: 'Jogo' },
-    { title: 'Flashcards', url: 'flashcards.html', category: 'Interativo' },
-    { title: 'Referências', url: 'referencias.html', category: 'Biblioteca' },
-    { title: 'Contato', url: 'contato.html', category: 'Página' },
+    { title: 'Início', url: 'index.html', category: 'Página', keywords: 'home principal inicio' },
+    { title: 'Sobre', url: 'sobre.html', category: 'Página', keywords: 'projeto unirio consciencia politica' },
+    { title: 'Eventos', url: 'eventos.html', category: 'Página', keywords: 'eventos atividades agenda' },
+
+    { title: 'Eleições 2026', url: 'eleicoes-2026.html', category: 'Eleições', keywords: 'eleicao eleicoes voto cargos 2026' },
+
+    { title: 'Presidente da República', url: 'presidente.html', category: 'Cargo', keywords: 'presidente presidencia brasil eleicoes' },
+    { title: 'Candidatos a Presidente', url: 'candidatos-presidente.html', category: 'Candidatos', keywords: 'presidente candidatos presidencia' },
+
+    { title: 'Governador do Rio de Janeiro', url: 'governador.html', category: 'Cargo', keywords: 'governador governo estado rio de janeiro rj' },
+    { title: 'Candidatos a Governador do RJ', url: 'candidatos-governador.html', category: 'Candidatos', keywords: 'governador candidatos governo rio janeiro rj' },
+
+    { title: 'André Marinho', url: 'candidato-governador-1.html', category: 'Governador', keywords: 'andre marinho novo 30' },
+    { title: 'Coronel Busnello', url: 'candidato-governador-3.html', category: 'Governador', keywords: 'coronel busnello missao 14' },
+    { title: 'Cyro Garcia', url: 'candidato-governador-4.html', category: 'Governador', keywords: 'cyro garcia pstu 16' },
+    { title: 'Douglas Ruas', url: 'candidato-governador-5.html', category: 'Governador', keywords: 'douglas ruas pl 22' },
+    { title: 'Eduardo Paes', url: 'candidato-governador-6.html', category: 'Governador', keywords: 'eduardo paes psd 55' },
+    { title: 'Juliete Pantoja', url: 'candidato-governador-7.html', category: 'Governador', keywords: 'juliete pantoja up 80' },
+    { title: 'Luan Monteiro', url: 'candidato-governador-8.html', category: 'Governador', keywords: 'luan monteiro pco 29' },
+    { title: 'William Siri', url: 'candidato-governador-9.html', category: 'Governador', keywords: 'william siri psol 50' },
+
+    { title: 'Informações', url: 'informacoes.html', category: 'Página', keywords: 'informacoes dados politica' },
+    { title: 'Conteúdo Interativo', url: 'conteudo-interativo.html', category: 'Interativo', keywords: 'conteudo atividades jogos' },
+    { title: 'Quiz', url: 'quiz.html', category: 'Interativo', keywords: 'quiz perguntas teste politica' },
+    { title: 'Simulador', url: 'simulador.html', category: 'Interativo', keywords: 'simulador prioridades politica' },
+    { title: 'Você é o Senador', url: 'voce-e-o-senador.html', category: 'Interativo', keywords: 'senador jogo' },
+    { title: 'Flashcards', url: 'flashcards.html', category: 'Interativo', keywords: 'flashcards estudo perguntas' },
+    { title: 'Referências', url: 'referencias.html', category: 'Página', keywords: 'referencias fontes bibliografia' },
+    { title: 'Contato', url: 'contato.html', category: 'Página', keywords: 'contato fale conosco email' }
 ];
 
+function normalizarBusca(texto) {
+    return (texto || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim();
+}
+
 function buscar(query) {
-    query = query.toLowerCase().trim();
-    if (query.length === 0) return [];
-    return searchData.filter(item => 
-        item.title.toLowerCase().includes(query) ||
-        item.category.toLowerCase().includes(query)
-    );
+    const termo = normalizarBusca(query);
+
+    if (!termo) return [];
+
+    return searchData.filter(item => {
+        const alvo = normalizarBusca(
+            item.title + ' ' +
+            item.category + ' ' +
+            (item.keywords || '')
+        );
+
+        return alvo.includes(termo);
+    });
 }
 
 function mostrarResultados(query) {
     const container = document.getElementById('search-results');
+
     if (!container) return;
-    
-    const results = buscar(query);
+
+    const resultados = buscar(query);
+
     container.innerHTML = '';
-    
-    if (results.length === 0) {
-        container.innerHTML = `<div class="search-result-empty"><span>🔍</span><p>Nenhum resultado encontrado</p></div>`;
+
+    if (resultados.length === 0) {
+        container.innerHTML = `
+            <div class="search-result-empty">
+                <span>🔍</span>
+                <p>Nenhum resultado encontrado</p>
+            </div>
+        `;
+
         container.style.display = 'block';
         return;
     }
-    
-    results.forEach(item => {
-        const resultItem = document.createElement('a');
-        resultItem.href = item.url;
-        resultItem.className = 'search-result-item';
-        resultItem.innerHTML = `<strong>${item.title}</strong><span class="category">${item.category}</span>`;
-        container.appendChild(resultItem);
+
+    resultados.forEach(item => {
+        const link = document.createElement('a');
+
+        link.href = item.url;
+        link.className = 'search-result-item';
+
+        link.innerHTML = `
+            <strong>${item.title}</strong>
+            <span class="category">${item.category}</span>
+        `;
+
+        container.appendChild(link);
     });
+
     container.style.display = 'block';
 }
 
 function initSearch() {
-    const searchInput = document.getElementById('search-input');
-    if (!searchInput) {
-        console.log('❌ Input de busca não encontrado');
+    const input = document.getElementById('search-input');
+    const resultados = document.getElementById('search-results');
+
+    if (!input || !resultados) {
+        console.log('Pesquisa não encontrada nesta página.');
         return;
     }
-    
-    const container = document.getElementById('search-results');
-    if (!container) {
-        console.log('❌ Container de resultados não encontrado');
-        return;
-    }
-    
-    console.log('✅ Input e container encontrados');
-    
-    searchInput.addEventListener('input', function(e) {
-        const query = this.value;
-        console.log('Digitando:', query);
-        if (query.length >= 2) {
-            mostrarResultados(query);
+
+    input.placeholder = 'Pesquisar...';
+
+    input.addEventListener('input', function() {
+        const termo = this.value.trim();
+
+        if (termo.length >= 2) {
+            mostrarResultados(termo);
         } else {
-            container.style.display = 'none';
+            resultados.style.display = 'none';
         }
     });
-    
-    document.addEventListener('click', function(e) {
-        if (!searchInput.contains(e.target) && !container.contains(e.target)) {
-            container.style.display = 'none';
+
+    input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+
+            const encontrados = buscar(this.value);
+
+            if (encontrados.length > 0) {
+                window.location.href = encontrados[0].url;
+            }
         }
-    });
-    
-    searchInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            container.style.display = 'none';
+
+        if (event.key === 'Escape') {
+            resultados.style.display = 'none';
             this.blur();
         }
     });
-    
-    console.log('🔍 Barra de pesquisa inicializada!');
+
+    document.addEventListener('click', function(event) {
+        if (
+            !input.contains(event.target) &&
+            !resultados.contains(event.target)
+        ) {
+            resultados.style.display = 'none';
+        }
+    });
+
+    console.log('🔍 Pesquisa funcionando!');
 }
+
 
 // ===== INICIALIZAR =====
 document.addEventListener('DOMContentLoaded', async function() {
@@ -229,11 +283,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     await carregarConteudoSalvo();
     initSearch();
     
-    // Real-time updates from Firebase
-    onContentChange((content) => {
-        console.log('🔄 Atualização real-time recebida');
-        aplicarConteudo(content);
-    });
+    // Firebase real-time carregado de forma opcional
+    import('./storage.js')
+        .then(({ onContentChange }) => {
+            onContentChange((content) => {
+                console.log('🔄 Atualização real-time recebida');
+                aplicarConteudo(content);
+            });
+        })
+        .catch((err) => {
+            console.warn('Firebase não carregado:', err);
+        });
     
     console.log('✅ Site inicializado!');
 });
