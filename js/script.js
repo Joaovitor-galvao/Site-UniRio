@@ -126,6 +126,64 @@ function aplicarConteudo(saved) {
             ulEl.innerHTML = items.map(item => `<li>${item.trim()}</li>`).join('');
         }
     }
+    if (saved.equipe) {
+        const container = document.querySelector('#equipe .equipe-slider');
+        if (container) {
+            const slides = saved.equipe.split('\n').filter(l => l.trim());
+            container.innerHTML = slides.map((slide, i) => {
+                const [titulo, ...rest] = slide.split('|').map(s => s.trim());
+                return `
+                    <div class="equipe-slide ${i === 0 ? 'ativo' : ''}">
+                        <div class="equipe-slide__texto">
+                            <h3>${titulo}</h3>
+                            ${rest.map(r => `<p>${r}</p>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('') + `
+                <button class="equipe-seta equipe-seta--esquerda" onclick="mudarSlideEquipe(-1)" aria-label="Imagem anterior">❮</button>
+                <button class="equipe-seta equipe-seta--direita" onclick="mudarSlideEquipe(1)" aria-label="Próxima imagem">❯</button>
+                <div class="equipe-bolhas">${slides.map((_, i) => `<button class="equipe-bolha ${i === 0 ? 'ativo' : ''}" onclick="mostrarSlideEquipe(${i})" aria-label="Mostrar slide ${i+1}"></button>`).join('')}</div>
+            `;
+        }
+    }
+    if (saved.eventos) {
+        const container = document.querySelector('.section .grid-2');
+        if (container && container.previousElementSibling?.textContent?.includes('Eventos')) {
+            const items = saved.eventos.split('\n').filter(l => l.trim());
+            container.innerHTML = items.map(item => {
+                const [titulo, data, local] = item.split('|').map(s => s.trim());
+                return `<div class="card"><h3>${titulo}</h3><p><strong>Data:</strong> ${data || ''}</p><p><strong>Local:</strong> ${local || ''}</p></div>`;
+            }).join('');
+        }
+    }
+    if (saved.noticias) {
+        const container = document.querySelector('.section .grid-2');
+        if (container && container.previousElementSibling?.textContent?.includes('Notícias')) {
+            const items = saved.noticias.split('\n').filter(l => l.trim());
+            container.innerHTML = items.map(item => {
+                const [titulo, data, desc] = item.split('|').map(s => s.trim());
+                return `<article class="card news-card"><h3>${titulo}</h3><p>${desc || ''}</p><time datetime="${data || ''}">${data || ''}</time></article>`;
+            }).join('');
+        }
+    }
+    if (saved.cards) {
+        const track = document.querySelector('.destaques-track');
+        if (track) {
+            const items = saved.cards.split('\n').filter(l => l.trim());
+            track.innerHTML = items.map(item => {
+                const [titulo, desc, link] = item.split('|').map(s => s.trim());
+                return `<a href="${link || '#'}" class="card card--link destaque-item"><h3>${titulo}</h3><p>${desc || ''}</p></a>`;
+            }).join('');
+        }
+    }
+    if (saved.footer) {
+        const footerP = document.querySelector('.footer__col p');
+        if (footerP) footerP.textContent = saved.footer;
+    }
+    if (saved.candidatos) {
+        console.log('Candidatos atualizados:', saved.candidatos);
+    }
 }
 
 // ===== BARRA DE PESQUISA =====
@@ -296,58 +354,4 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     
     console.log('✅ Site inicializado!');
-});
-
-// ============================================
-// CARREGAR CONTEÚDO SALVO DO ADMIN
-// ============================================
-function carregarConteudoSalvo() {
-    const saved = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-    
-    if (Object.keys(saved).length === 0) {
-        console.log('ℹ️ Nenhum conteúdo personalizado encontrado');
-        return;
-    }
-    
-    console.log('📂 Carregando conteúdo salvo:', Object.keys(saved));
-    
-    // Hero
-    if (saved.hero) {
-        const lines = saved.hero.split('\n').filter(l => l.trim());
-        const titleEl = document.querySelector('.hero__title');
-        const subEl = document.querySelector('.hero__subtitle');
-        if (titleEl && lines[0]) titleEl.textContent = lines[0].trim();
-        if (subEl) {
-            const rest = lines.slice(1).join('\n').trim();
-            subEl.innerHTML = rest.replace(/\n/g, '<br>');
-        }
-    }
-    
-    // Apresentação
-    if (saved.apresentacao) {
-        const pEl = document.querySelector('.section#apresentacao .grid-2 p');
-        if (pEl) pEl.textContent = saved.apresentacao;
-    }
-    
-    // Objetivos
-    if (saved.objetivos) {
-        const ulEl = document.querySelector('.section#apresentacao .grid-2 ul');
-        if (ulEl) {
-            const items = saved.objetivos.split('\n').filter(l => l.trim());
-            ulEl.innerHTML = items.map(item => `<li>${item.trim()}</li>`).join('');
-        }
-    }
-    
-    // Footer
-    if (saved.footer) {
-        const footerP = document.querySelector('.footer__col p');
-        if (footerP) footerP.textContent = saved.footer;
-    }
-    
-    console.log('✅ Conteúdo personalizado carregado!');
-}
-
-// Chamar ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
-    carregarConteudoSalvo();
 });

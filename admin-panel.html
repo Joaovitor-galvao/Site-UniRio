@@ -137,6 +137,22 @@
             .admin-stats { grid-template-columns: 1fr; }
             .admin-user .logout-btn { margin-left: 0; width: 100%; }
         }
+        .admin-notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.8rem;
+            color: white;
+            font-weight: 600;
+            z-index: 10000;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .admin-notification.show {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body>
