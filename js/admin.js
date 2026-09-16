@@ -1,26 +1,82 @@
-// Admin Inline Editing - Permite editar conteúdo diretamente no site quando logado como admin
+// Admin Inline Editing - Versão endurecida: apenas admins logados podem editar
 
 const STORAGE_KEY = 'votoConscienteContent';
 const ADMIN_SESSION_KEY = 'votoConscienteSession';
 
+/**
+ * Verifica se há um admin logado com validações rigorosas
+ * Retorna true APENAS se: sessão existir, username for 'admin' e não expirada
+ */
 function isAdminLoggedIn() {
   const session = localStorage.getItem(ADMIN_SESSION_KEY);
   if (!session) return false;
+  
   try {
     const data = JSON.parse(session);
+    
+    // Verificações rigorosas
+    if (typeof data !== 'object' || data === null) return false;
     if (data.username !== 'admin') return false;
-    if (data.expires && data.expires < Date.now()) {
+    if (typeof data.expires !== 'number') return false; // Sem data de expiração = inválido
+    if (data.expires < Date.now()) {
+      // Sessão expirada - limpar e retornar falso
       localStorage.removeItem(ADMIN_SESSION_KEY);
       return false;
     }
+    
     return true;
   } catch (e) {
+    // Erro ao fazer parse - sessão corrompida
+    localStorage.removeItem(ADMIN_SESSION_KEY);
     return false;
   }
 }
 
-// Garantir que estilos admin só sejam injetados para admins
-function injectAdminStyles() {
+/**
+ * Remove TODAS as funcionalidades de admin do DOM
+ * Isto deve ser chamado quando NÃO é admin para garantir limpeza total
+ */
+function removeAllAdminFeatures() {
+  // 1. Remover estilos injectados
+  const adminStyles = document.getElementById('admin-inline-styles');
+  if (adminStyles) adminStyles.remove();
+  
+  // 2. Remover badge topo admin
+  const topBadge = document.querySelector('.admin-badge-top');
+  if (topBadge) topBadge.remove();
+  
+  // 3. Remover toolbar inferior
+  const toolbar = document.getElementById('admin-toolbar');
+  if (toolbar) toolbar.remove();
+  
+  // 4. Remover contenteditable de TODOS os elementos
+  document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+    el.removeAttribute('contenteditable');
+    el.classList.remove('admin-editable');
+    // Remover badges de edição
+    el.querySelectorAll('.admin-edit-badge').forEach(b => b.remove());
+  });
+  
+  // 5. Remover outlines de elementos editáveis
+  document.querySelectorAll('.admin-editable').forEach(el => {
+    el.style.outline = 'none';
+    el.classList.remove('admin-editable');
+  });
+  
+  // 6. Remover overlays de imagem
+  document.querySelectorAll('.admin-img-container').forEach(el => el.remove());
+  
+  // 6. Limpar global state
+  window.isEditing = false;
+  window.toolbar = null;
+}
+
+/**
+ * Injeta estilos CSS APENAS se admin estiver logado
+ */
+function injectAdminStylesIfAllowed() {
+  if (!isAdminLoggedIn()) return false;
+  
   const style = document.createElement('style');
   style.id = 'admin-inline-styles';
   style.textContent = `
@@ -67,191 +123,157 @@ function injectAdminStyles() {
     }
   `;
   document.head.appendChild(style);
+  return true;
 }
 
-function getSavedContent() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  } catch (e) {
-    return {};
-  }
-}
-
-function saveContent(key, value) {
-  const content = getSavedContent();
-  content[key] = value;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
-}
-
-function showNotification(message, type = 'info') {
-  document.querySelectorAll('.admin-inline-notification').forEach(el => el.remove());
-  const colors = { success: '#27ae60', warning: '#f39c12', error: '#e74c3c', info: '#cf6357' };
-  const notification = document.createElement('div');
-  notification.className = 'admin-inline-notification';
-  notification.textContent = message;
-  notification.style.cssText = `
-    position: fixed; bottom: 2rem; right: 2rem; padding: 1rem 1.5rem;
-    border-radius: 0.8rem; color: white; font-weight: 600; z-index: 10000;
-    background: ${colors[type] || colors.info}; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    animation: slideIn 0.3s ease;
-  `;
-  document.body.appendChild(notification);
-  setTimeout(() => { notification.style.animation = 'slideOut 0.3s ease'; setTimeout(() => notification.remove(), 300); }, 3000);
-}
-
-
-
-function makeEditable(selector, storageKey, options = {}) {
-  const elements = document.querySelectorAll(selector);
-  const savedContent = getSavedContent();
-  
-  elements.forEach((el, index) => {
-    const key = options.multiple ? `${storageKey}_${index}` : storageKey;
-    
-    // Aplicar conteúdo salvo se existir
-    if (savedContent[key]) {
-      if (options.isImage) {
-        el.src = savedContent[key];
-      } else if (options.isHtml) {
-        el.innerHTML = savedContent[key];
-      } else {
-        el.textContent = savedContent[key];
-      }
-    }
-    
-    if (options.isImage) {
-      // Para imagens - criar wrapper com overlay
-      const wrapper = document.createElement('div');
-      wrapper.className = 'admin-img-container';
-      wrapper.style.cssText = 'position: relative; display: inline-block;';
-      el.parentNode.insertBefore(wrapper, el);
-      wrapper.appendChild(el);
-      
-      const overlay = document.createElement('div');
-      overlay.className = 'admin-img-overlay';
-      overlay.innerHTML = `
-        <span style="font-size: 1.2rem;">🖼️</span>
-        <input type="url" placeholder="Nova URL da imagem" value="${el.src}" 
-               onkeydown="if(event.key==='Enter'){event.preventDefault();window.adminSaveImage('${key}', this.value)}"
-               onblur="window.adminSaveImage('${key}', this.value)">
-      `;
-      wrapper.appendChild(overlay);
-      
-      window[`adminSaveImage_${key}`] = (url) => {
-        if (url && url.trim()) {
-          el.src = url.trim();
-          saveContent(key, url.trim());
-          showNotification('✅ Imagem atualizada!', 'success');
-        }
-      };
-    } else {
-      // Para texto
-      el.classList.add('admin-editable');
-      el.setAttribute('contenteditable', 'true');
-      el.setAttribute('data-storage-key', key);
-      
-      const badge = document.createElement('span');
-      badge.className = 'admin-edit-badge';
-      badge.textContent = options.badge || '✏️ Editar';
-      el.appendChild(badge);
-      
-      // Salvar ao perder foco
-      el.addEventListener('blur', () => {
-        const value = options.isHtml ? el.innerHTML : el.textContent;
-        saveContent(key, value);
-        showNotification('✅ Texto salvo!', 'success');
-      });
-      
-      // Enter para salvar (exceto em elementos que precisam de quebra de linha)
-      if (!options.allowEnter) {
-        el.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            el.blur();
-          }
-        });
-      }
-    }
-  });
-}
-
-// Toolbar global
-function createToolbar() {
-  const toolbar = document.createElement('div');
-  toolbar.className = 'admin-toolbar';
-  toolbar.id = 'admin-toolbar';
-  toolbar.innerHTML = `
-    <button onclick="window.adminSaveAll()">💾 Salvar Tudo</button>
-    <button class="secondary" onclick="window.adminReset()">🔄 Resetar</button>
-    <button class="secondary" onclick="window.adminToggleEdit()">👁️ Ativar Edição</button>
-  `;
-  document.body.appendChild(toolbar);
-  return toolbar;
-}
-
-let isEditing = false;
-let toolbar = null;
-
-function toggleEditMode() {
-  isEditing = !isEditing;
-  document.querySelectorAll('.admin-editable, .admin-img-container').forEach(el => {
-    el.style.pointerEvents = isEditing ? 'auto' : 'none';
-    if (el.classList.contains('admin-editable')) {
-      el.setAttribute('contenteditable', isEditing);
-    }
-  });
-  if (toolbar) {
-    toolbar.classList.toggle('show', isEditing);
-    toolbar.querySelector('button:last-child').textContent = `👁️ ${isEditing ? 'Desativar' : 'Ativar'} Edição`;
-  }
-  showNotification(isEditing ? '✏️ Modo edição ATIVADO' : '👁️ Modo edição DESATIVADO', isEditing ? 'success' : 'info');
-}
-
-function saveAll() {
-  showNotification('✅ Todas as alterações salvas!', 'success');
-}
-
-function resetAll() {
-  if (confirm('⚠️ Resetar todo o conteúdo personalizado?')) {
-    localStorage.removeItem(STORAGE_KEY);
-    location.reload();
-  }
-}
-
-// Expor funções globalmente
-window.adminSaveImage = (key, url) => {
-  if (url && url.trim()) {
-    const img = document.querySelector(`[data-storage-key="${key}"]`) || document.querySelector(`img[src*="${key}"]`);
-    if (img) img.src = url.trim();
-    saveContent(key, url.trim());
-    showNotification('✅ Imagem atualizada!', 'success');
-  }
-};
-window.adminSaveAll = saveAll;
-window.adminReset = resetAll;
-window.adminToggleEdit = toggleEditMode;
-
-// Inicializar quando DOM estiver pronto
+/*============================================================================
+  INICIALIZAÇÃO - Versão Segura
+  ==========================================================================*/
 document.addEventListener('DOMContentLoaded', () => {
-  if (!isAdminLoggedIn()) {
-    // Remover quaisquer estilos admin se existirem (segurança extra)
-    const existingStyles = document.getElementById('admin-inline-styles');
-    if (existingStyles) existingStyles.remove();
+  // PRIMEIRO: Remover qualquer feature admin remanescente (segurança por defeito)
+  removeAllAdminFeatures();
+  
+  // SEGUNDO: Verificar se é admin
+  const isAdmin = isAdminLoggedIn();
+  
+  if (!isAdmin) {
+    // Não é admin - garantir que nada admin reste
+    // (removeAllAdminFeatures() já foi chamado acima)
+    console.log('🔒 Acesso não-admin detectado - funcionalidades de edição desativadas');
     return;
   }
   
-  // Injetar estilos apenas para admins
-  injectAdminStyles();
+  // É admin - now safe to inject styles and setup editing
+  const stylesInjected = injectAdminStylesIfAllowed();
   
-  // Mostrar indicador de admin
+  if (!stylesInjected) {
+    // Should not happen, but safety net
+    removeAllAdminFeatures();
+    return;
+  }
+  
+  // Mostrar indicador de admin no topo
   const badge = document.createElement('div');
   badge.className = 'admin-badge-top';
   badge.innerHTML = '👑 Admin | <button onclick="window.adminToggleEdit()" style="background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;">Ativar Edição</button>';
   document.body.appendChild(badge);
   
-  toolbar = createToolbar();
+  // Inicializar toolbar
+  window.toolbar = createToolbar();
   
-  // ===== CONFIGURAR ELEMENTOS EDITÁVEIS =====
+  // ===== CONFIGURAR ELEMENTOS EDITÁVEIS (APENAS PARA ADMIN) =====
+  
+  function makeEditable(selector, storageKey, options = {}) {
+    const elements = document.querySelectorAll(selector);
+    const savedContent = getSavedContent();
+    
+    elements.forEach((el, index) => {
+      const key = options.multiple ? `${storageKey}_${index}` : storageKey;
+      
+      // Aplicar conteúdo salvo se existir
+      if (savedContent[key]) {
+        if (options.isImage) {
+          el.src = savedContent[key];
+        } else if (options.isHtml) {
+          el.innerHTML = savedContent[key];
+        } else {
+          el.textContent = savedContent[key];
+        }
+      }
+      
+      if (options.isImage) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'admin-img-container';
+        wrapper.style.cssText = 'position: relative; display: inline-block;';
+        el.parentNode.insertBefore(wrapper, el);
+        wrapper.appendChild(el);
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'admin-img-overlay';
+        overlay.innerHTML = `
+          <span style="font-size: 1.2rem;">🖼️</span>
+          <input type="url" placeholder="Nova URL da imagem" value="${el.src}" 
+                 onkeydown="if(event.key==='Enter'){event.preventDefault();window.adminSaveImage('${key}', this.value)}"
+                 onblur="window.adminSaveImage('${key}', this.value)">
+        `;
+        wrapper.appendChild(overlay);
+        
+        window[`adminSaveImage_${key}`] = (url) => {
+          if (url && url.trim()) {
+            el.src = url.trim();
+            saveContent(key, url.trim());
+            showNotification('✅ Imagem atualizada!', 'success');
+          }
+        };
+      } else {
+        // Para texto
+        el.classList.add('admin-editable');
+        el.setAttribute('contenteditable', 'true');
+        el.setAttribute('data-storage-key', key);
+        
+        const badge = document.createElement('span');
+        badge.className = 'admin-edit-badge';
+        badge.textContent = options.badge || '✏️ Editar';
+        el.appendChild(badge);
+        
+        // Salvar ao perder foco
+        el.addEventListener('blur', () => {
+          const value = options.isHtml ? el.innerHTML : el.textContent;
+          saveContent(key, value);
+          showNotification('✅ Texto salvo!', 'success');
+        });
+        
+        // Enter para salvar
+        if (!options.allowEnter) {
+          el.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              el.blur();
+            }
+          });
+        }
+      }
+    });
+  }
+  
+  // ===== FUNÇÕES GLOBAIS =====
+  
+  window.adminSaveImage = (key, url) => {
+    if (url && url.trim()) {
+      const img = document.querySelector(`[data-storage-key="${key}"]`) || document.querySelector(`img[src*="${key}"]`);
+      if (img) img.src = url.trim();
+      saveContent(key, url.trim());
+      showNotification('✅ Imagem atualizada!', 'success');
+    }
+  };
+  window.adminSaveAll = () => {
+    showNotification('✅ Todas as alterações salvas!', 'success');
+    // Salvamento real seria disparado pelos blurs dos elementos
+  };
+  window.adminReset = () => {
+    if (confirm('⚠️ Resetar todo o conteúdo personalizado?')) {
+      localStorage.removeItem(STORAGE_KEY);
+      removeAllAdminFeatures();
+      location.reload();
+    }
+  };
+  window.adminToggleEdit = () => {
+    window.isEditing = !window.isEditing;
+    document.querySelectorAll('.admin-editable, .admin-img-container').forEach(el => {
+      el.style.pointerEvents = window.isEditing ? 'auto' : 'none';
+      if (el.classList.contains('admin-editable')) {
+        el.setAttribute('contenteditable', window.isEditing);
+      }
+    });
+    if (window.toolbar) {
+      window.toolbar.classList.toggle('show', window.isEditing);
+      window.toolbar.querySelector('button:last-child').textContent = 
+        window.isEditing ? '👁️ Desativar Edição' : '👁️ Ativar Edição';
+    }
+    showNotification(window.isEditing ? '✏️ Modo edição ATIVADO' : '👁️ Modo edição DESATIVADO', window.isEditing ? 'success' : 'info');
+  };
+  
+  // ===== CONFIGURAR ELEMENTOS =====
   
   // Hero
   makeEditable('.hero__title', 'hero_title', { badge: 'Título Hero' });
@@ -269,14 +291,14 @@ document.addEventListener('DOMContentLoaded', () => {
   makeEditable('.section--alt .grid-2 .card:last-child h3', 'impacto_academico_title', { badge: 'Título Impacto Acadêmico' });
   makeEditable('.section--alt .grid-2 .card:last-child p', 'impacto_academico_text', { badge: 'Texto Impacto Acadêmico' });
   
-  // Destaques (cards do carrossel)
+  // Destaques
   document.querySelectorAll('.destaque-item').forEach((item, i) => {
     makeEditable(` .destaque-item:nth-child(${i+1}) h3`, `destaque_${i}_title`, { badge: `Destaque ${i+1} Título` });
     makeEditable(` .destaque-item:nth-child(${i+1}) p`, `destaque_${i}_text`, { badge: `Destaque ${i+1} Texto` });
     makeEditable(` .destaque-item:nth-child(${i+1}) img`, `destaque_${i}_img`, { isImage: true, badge: `Destaque ${i+1} Imagem` });
   });
   
-  // Equipe (slides do carrossel)
+  // Equipe
   document.querySelectorAll('.equipe-slide').forEach((slide, i) => {
     makeEditable(` .equipe-slide:nth-child(${i+1}) .equipe-slide__texto h3`, `equipe_${i}_title`, { badge: `Equipe ${i+1} Título` });
     makeEditable(` .equipe-slide:nth-child(${i+1}) .equipe-slide__texto p`, `equipe_${i}_text`, { badge: `Equipe ${i+1} Texto`, allowEnter: true });
@@ -305,5 +327,5 @@ document.addEventListener('DOMContentLoaded', () => {
   makeEditable('.footer__col:first-child h3', 'footer_title', { badge: 'Título Footer' });
   makeEditable('.footer__col:first-child p', 'footer_text', { badge: 'Texto Footer', allowEnter: true });
   
-  console.log('🔧 Admin inline editing ativado');
+  console.log('🔧 Admin inline editing ativado - apenas para administradores logados');
 });
