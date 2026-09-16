@@ -8,10 +8,65 @@ function isAdminLoggedIn() {
   if (!session) return false;
   try {
     const data = JSON.parse(session);
-    return data.username === 'admin';
+    if (data.username !== 'admin') return false;
+    if (data.expires && data.expires < Date.now()) {
+      localStorage.removeItem(ADMIN_SESSION_KEY);
+      return false;
+    }
+    return true;
   } catch (e) {
     return false;
   }
+}
+
+// Garantir que estilos admin só sejam injetados para admins
+function injectAdminStyles() {
+  const style = document.createElement('style');
+  style.id = 'admin-inline-styles';
+  style.textContent = `
+    @keyframes slideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(120%); opacity: 0; } }
+    .admin-editable { outline: 2px dashed transparent; transition: outline 0.2s; position: relative; }
+    .admin-editable:hover { outline-color: #cf6357; }
+    .admin-editable:focus { outline-color: #cf6357; background: #fffef8; }
+    .admin-edit-badge {
+      position: absolute; top: -8px; right: -8px; background: #cf6357; color: #faf5e8;
+      font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 700;
+      opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap;
+    }
+    .admin-editable:hover .admin-edit-badge { opacity: 1; }
+    .admin-toolbar {
+      position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
+      background: #2c1e1f; color: #faf5e8; padding: 0.8rem 1.5rem;
+      border-radius: 2rem; display: flex; gap: 0.5rem; z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2); display: none;
+    }
+    .admin-toolbar.show { display: flex; }
+    .admin-toolbar button {
+      background: #cf6357; color: #faf5e8; border: none; padding: 0.4rem 1rem;
+      border-radius: 2rem; font-weight: 600; cursor: pointer; font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .admin-toolbar button:hover { background: #74402d; }
+    .admin-toolbar button.secondary { background: #95a5a6; }
+    .admin-toolbar button.secondary:hover { background: #7f8c8d; }
+    .admin-img-overlay {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(44, 30, 31, 0.7); color: #faf5e8;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; opacity: 0; transition: opacity 0.2s; pointer-events: none;
+      border-radius: inherit;
+    }
+    .admin-img-container:hover .admin-img-overlay { opacity: 1; pointer-events: auto; }
+    .admin-img-overlay input { max-width: 90%; padding: 0.3rem; border-radius: 4px; border: none; font-size: 0.85rem; }
+    .admin-badge-top {
+      position: fixed; top: 1rem; right: 1rem; z-index: 10000;
+      background: #cf6357; color: #faf5e8; padding: 0.5rem 1rem;
+      border-radius: 2rem; font-weight: 600; font-size: 0.85rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+  `;
+  document.head.appendChild(style);
 }
 
 function getSavedContent() {
@@ -44,46 +99,7 @@ function showNotification(message, type = 'info') {
   setTimeout(() => { notification.style.animation = 'slideOut 0.3s ease'; setTimeout(() => notification.remove(), 300); }, 3000);
 }
 
-// Adicionar estilos de animação
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes slideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-  @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(120%); opacity: 0; } }
-  .admin-editable { outline: 2px dashed transparent; transition: outline 0.2s; position: relative; }
-  .admin-editable:hover { outline-color: #cf6357; }
-  .admin-editable:focus { outline-color: #cf6357; background: #fffef8; }
-  .admin-edit-badge {
-    position: absolute; top: -8px; right: -8px; background: #cf6357; color: #faf5e8;
-    font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 700;
-    opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap;
-  }
-  .admin-editable:hover .admin-edit-badge { opacity: 1; }
-  .admin-toolbar {
-    position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
-    background: #2c1e1f; color: #faf5e8; padding: 0.8rem 1.5rem;
-    border-radius: 2rem; display: flex; gap: 0.5rem; z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2); display: none;
-  }
-  .admin-toolbar.show { display: flex; }
-  .admin-toolbar button {
-    background: #cf6357; color: #faf5e8; border: none; padding: 0.4rem 1rem;
-    border-radius: 2rem; font-weight: 600; cursor: pointer; font-size: 0.85rem;
-    transition: background 0.2s;
-  }
-  .admin-toolbar button:hover { background: #74402d; }
-  .admin-toolbar button.secondary { background: #95a5a6; }
-  .admin-toolbar button.secondary:hover { background: #7f8c8d; }
-  .admin-img-overlay {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(44, 30, 31, 0.7); color: #faf5e8;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 0.5rem; opacity: 0; transition: opacity 0.2s; pointer-events: none;
-    border-radius: inherit;
-  }
-  .admin-img-container:hover .admin-img-overlay { opacity: 1; pointer-events: auto; }
-  .admin-img-overlay input { max-width: 90%; padding: 0.3rem; border-radius: 4px; border: none; font-size: 0.85rem; }
-`;
-document.head.appendChild(style);
+
 
 function makeEditable(selector, storageKey, options = {}) {
   const elements = document.querySelectorAll(selector);
@@ -167,7 +183,7 @@ function createToolbar() {
   toolbar.innerHTML = `
     <button onclick="window.adminSaveAll()">💾 Salvar Tudo</button>
     <button class="secondary" onclick="window.adminReset()">🔄 Resetar</button>
-    <button class="secondary" onclick="window.adminToggleEdit()">👁️ ${isEditing ? 'Desativar' : 'Ativar'} Edição</button>
+    <button class="secondary" onclick="window.adminToggleEdit()">👁️ Ativar Edição</button>
   `;
   document.body.appendChild(toolbar);
   return toolbar;
@@ -217,16 +233,19 @@ window.adminToggleEdit = toggleEditMode;
 
 // Inicializar quando DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
-  if (!isAdminLoggedIn()) return;
+  if (!isAdminLoggedIn()) {
+    // Remover quaisquer estilos admin se existirem (segurança extra)
+    const existingStyles = document.getElementById('admin-inline-styles');
+    if (existingStyles) existingStyles.remove();
+    return;
+  }
+  
+  // Injetar estilos apenas para admins
+  injectAdminStyles();
   
   // Mostrar indicador de admin
   const badge = document.createElement('div');
-  badge.style.cssText = `
-    position: fixed; top: 1rem; right: 1rem; z-index: 10000;
-    background: #cf6357; color: #faf5e8; padding: 0.5rem 1rem;
-    border-radius: 2rem; font-weight: 600; font-size: 0.85rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  `;
+  badge.className = 'admin-badge-top';
   badge.innerHTML = '👑 Admin | <button onclick="window.adminToggleEdit()" style="background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;">Ativar Edição</button>';
   document.body.appendChild(badge);
   
