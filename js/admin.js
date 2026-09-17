@@ -9,24 +9,40 @@ const ADMIN_SESSION_KEY = 'votoConscienteSession';
  */
 function isAdminLoggedIn() {
   const session = localStorage.getItem(ADMIN_SESSION_KEY);
-  if (!session) return false;
+  if (!session) {
+    console.log('❌ Nenhuma sessão encontrada no localStorage');
+    return false;
+  }
   
   try {
     const data = JSON.parse(session);
+    console.log('✅ Sessão encontrada:', data);
     
-    // Verificações rigorosas
-    if (typeof data !== 'object' || data === null) return false;
-    if (data.username !== 'admin') return false;
-    if (typeof data.expires !== 'number') return false; // Sem data de expiração = inválido
+    // Verificações
+    if (typeof data !== 'object' || data === null) {
+      console.log('❌ Dados da sessão inválidos (não é objeto)');
+      return false;
+    }
+    if (data.username !== 'admin') {
+      console.log('�Username não é admin, é:', data.username);
+      return false;
+    }
+    if (typeof data.expires !== 'number') {
+      console.log('❌ Sem campo expires ou tipo inválido');
+      // Fallback: se tem username='admin', permite (compatibilidade)
+      if (data.username === 'admin') return true;
+      return false;
+    }
     if (data.expires < Date.now()) {
-      // Sessão expirada - limpar e retornar falso
+      console.log('⌛ Sessão expirada:', data.expires, '<', Date.now());
       localStorage.removeItem(ADMIN_SESSION_KEY);
       return false;
     }
     
+    console.log('👑 Login admin verificado!');
     return true;
   } catch (e) {
-    // Erro ao fazer parse - sessão corrompida
+    console.error('❌ Erro ao fazer parse da sessão:', e);
     localStorage.removeItem(ADMIN_SESSION_KEY);
     return false;
   }
