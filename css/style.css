@@ -86,6 +86,15 @@ h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
 .hero__title { font-size: 2.8rem; line-height: 1.2; font-weight: 700; margin-bottom: 1rem; }
 .hero__subtitle { font-size: 1.4rem; line-height: 1.5; margin-bottom: 1.8rem; }
 .hero__image { text-align: center; font-size: 4rem; opacity: 0.9; }
+.hero-logo-grande {
+    width: 320px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 8px 18px rgba(0,0,0,0.18));
+    transform: translateX(-35px);
+}
 .section { padding: 4rem 0; }
 .section--alt { background: #ffffff; }
 .section-title {

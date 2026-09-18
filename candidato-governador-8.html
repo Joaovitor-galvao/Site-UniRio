@@ -10,7 +10,19 @@
     <style>
         .candidato-hero { background: linear-gradient(135deg, #2c1e1f 0%, #612a2a 100%); padding: 3rem 0; color: #faf5e8; }
         .candidato-hero__inner { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: center; }
-        .candidato-hero .foto-grande { width: 100%; max-width: 320px; height: 320px; border-radius: 50%; object-fit: cover; border: 6px solid #cf6357; margin: 0 auto; display: block; background: #faf5e8; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .candidato-hero .foto-grande {
+    width: 240px;
+    height: 320px;
+    max-width: 240px;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center top;
+    border: none;
+    margin: 0 auto;
+    display: block;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
         .candidato-hero .info-principal { display: flex; flex-direction: column; gap: 0.8rem; }
         .candidato-hero .numero-partido { display: inline-block; background: #cf6357; color: #faf5e8; padding: 0.3rem 1.2rem; border-radius: 2rem; font-size: 0.9rem; font-weight: 700; width: fit-content; }
         .candidato-hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.5rem; line-height: 1.2; }
@@ -40,7 +52,11 @@
         }
         @media (max-width: 768px) {
             .candidato-hero h1 { font-size: 1.8rem; }
-            .candidato-hero .foto-grande { max-width: 220px; height: 220px; }
+            .candidato-hero .foto-grande {
+                width: 180px;
+                height: 240px;
+                max-width: 180px;
+            }
             .secao-titulo { font-size: 1.4rem; }
             .botoes-container { flex-direction: column; align-items: stretch; }
             .botoes-container a { text-align: center; }
@@ -122,7 +138,7 @@
         <section class="candidato-hero">
             <div class="container candidato-hero__inner">
                 <div>
-                    <img src="imagens/candidatos-governador/candidato-governador-8.svg?v=3" alt="Luan Monteiro" class="foto-grande" onerror="this.src='imagens/logo.png'">
+                    <img src="imagens/governadores/luan-monteiro.jpg" alt="Luan Monteiro" class="foto-grande" onerror="this.src='imagens/logo.png'">
                 </div>
                 <div class="info-principal">
                     <span class="numero-partido"> 29 • PCO</span>

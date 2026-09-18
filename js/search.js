@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { title: 'Candidatos a Governador', url: 'candidatos-governador.html', category: 'Candidatos', keywords: 'governador candidatos rio janeiro rj' },
 
         { title: 'André Marinho', url: 'candidato-governador-1.html', category: 'Governador', keywords: 'andre marinho novo 30' },
+        { title: 'Anthony Garotinho', url: 'candidato-governador-2.html', category: 'Governador', keywords: 'anthony garotinho republicanos 10' },
         { title: 'Coronel Busnello', url: 'candidato-governador-3.html', category: 'Governador', keywords: 'coronel busnello missao 14' },
         { title: 'Cyro Garcia', url: 'candidato-governador-4.html', category: 'Governador', keywords: 'cyro garcia pstu 16' },
         { title: 'Douglas Ruas', url: 'candidato-governador-5.html', category: 'Governador', keywords: 'douglas ruas pl 22' },
