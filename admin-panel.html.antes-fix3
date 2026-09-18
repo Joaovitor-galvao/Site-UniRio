@@ -534,19 +534,6 @@
             checkAdminLogin();
             updateStats();
         });
-
-        // ============================================
-        // EXPOR FUNÇÕES PARA O ESCOPO GLOBAL (onclick)
-        // ============================================
-        window.openEditor = openEditor;
-        window.saveEdit = saveEdit;
-        window.closeEdit = closeEdit;
-        window.applyPreview = applyPreview;
-        window.confirmReset = confirmReset;
-        window.logout = logout;
-        window.editSection = editSection;
-        window.showNotification = showNotification;
-        console.log('✅ Funções do painel expostas ao window');
     </script>
         <script src="js/search.js?v=1"></script>
     <script>

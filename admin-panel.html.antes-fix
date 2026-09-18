@@ -534,39 +534,7 @@
             checkAdminLogin();
             updateStats();
         });
-
-        // ============================================
-        // EXPOR FUNÇÕES PARA O ESCOPO GLOBAL (onclick)
-        // ============================================
-        window.openEditor = openEditor;
-        window.saveEdit = saveEdit;
-        window.closeEdit = closeEdit;
-        window.applyPreview = applyPreview;
-        window.confirmReset = confirmReset;
-        window.logout = logout;
-        window.editSection = editSection;
-        window.showNotification = showNotification;
-        console.log('✅ Funções do painel expostas ao window');
     </script>
         <script src="js/search.js?v=1"></script>
-    <script>
-        // ============================================
-        // EXPOR FUNÇÕES DO MÓDULO PARA O ESCOPO GLOBAL
-        // ============================================
-        // Aguarda o módulo carregar e depois expõe as funções
-        window.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                // Tenta importar o módulo e copiar as funções para window
-                import('./js/storage.js').then(function() {
-                    // Como as funções do painel estão no módulo inline,
-                    // precisamos expô-las via event listener
-                    const painelScript = document.querySelector('script[type="module"]');
-                    if (painelScript && painelScript.textContent.includes('function openEditor')) {
-                        console.log('Módulo do painel detectado');
-                    }
-                }).catch(function() {});
-            }, 100);
-        });
-    </script>
 </body>
 </html>
