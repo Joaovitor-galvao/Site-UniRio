@@ -93,16 +93,6 @@ function initSkipLink() {
     }
 }
 
-// ===== CARREGAR CONTEÚDO SALVO DO ADMIN =====
-async function carregarConteudoSalvo() {
-    try {
-        const saved = await getContent();
-        aplicarConteudo(saved);
-        console.log('✅ Conteúdo salvo carregado!');
-    } catch (err) {
-        console.error('Erro ao carregar conteúdo:', err);
-    }
-}
 
 function aplicarConteudo(saved) {
     if (saved.hero) {
@@ -338,20 +328,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     carregarPreferencias();
     initMenuMobile();
     initSkipLink();
-    await carregarConteudoSalvo();
     initSearch();
-    
-    // Firebase real-time carregado de forma opcional
-    import('./storage.js')
-        .then(({ onContentChange }) => {
-            onContentChange((content) => {
-                console.log('🔄 Atualização real-time recebida');
-                aplicarConteudo(content);
-            });
-        })
-        .catch((err) => {
-            console.warn('Firebase não carregado:', err);
+
+    try {
+        const storage = await import('./storage.js');
+        const saved = await storage.getContent();
+        aplicarConteudo(saved);
+        console.log('✅ Conteúdo carregado:', Object.keys(saved));
+
+        storage.onContentChange((content) => {
+            console.log('🔄 Conteúdo atualizado em tempo real');
+            aplicarConteudo(content);
         });
-    
+    } catch (err) {
+        console.warn('⚠️ Storage não disponível:', err);
+    }
+
     console.log('✅ Site inicializado!');
 });

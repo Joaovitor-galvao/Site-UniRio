@@ -1,157 +1,107 @@
-// Firebase Realtime Database - Sincronização cross-computer
-// Dados salvos no Firebase são visíveis para todos os usuários logados em tempo real
+// ============================================
+// STORAGE - Sincronização de conteúdo
+// localStorage + Firebase (opcional)
+// ============================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
-import { 
-  getDatabase, 
-  ref as dbRef, 
-  onValue, 
-  set, 
-  get, 
-  child 
+import {
+  getDatabase, ref, onValue, set, get, child
 } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
 
-// ✅ Configuração Firebase - gerada pelo GitHub Actions
-// As variáveis são injetadas via js/firebase-config.js pelo deploy
-const firebaseConfig = window.firebaseConfig;
+const STORAGE_KEY = 'votoConscienteContent';
 
-// Inicializar Firebase apenas se config estiver disponível
-let app = null;
 let database = null;
 
 try {
-  if (window.firebaseConfig) {
-    app = initializeApp(firebaseConfig);
+  if (typeof window !== 'undefined' && window.firebaseConfig) {
+    const app = initializeApp(window.firebaseConfig);
     database = getDatabase(app);
+    console.log('🔥 Firebase conectado');
+  } else {
+    console.log('📦 Firebase não configurado — usando localStorage');
   }
 } catch (e) {
-  console.warn("Firebase initialization failed, falling back to localStorage", e);
+  console.warn('⚠️ Firebase falhou, usando localStorage:', e);
+  database = null;
 }
 
-/**
- * Obter conteúdo do Firebase Realtime Database
- * @returns {Promise<Object>} Conteúdo salvo no Firebase
- */
-export async function getContentFromFirebase() {
-  if (!database) {
-    // Fallback para localStorage se Firebase não disponível
-    const STORAGE_KEY = 'votoConscienteContent';
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : {};
-  }
-  
-  try {
-    const dbRef = child(dbRef(database), 'votoConscienteContent');
-    return new Promise((resolve) => {
-      onValue(dbRef, (snapshot) => {
-        const data = snapshot.val();
-        resolve(data || {});
-      });
-    });
-  } catch (err) {
-    console.error('Erro ao obter conteúdo do Firebase:', err);
-    // Fallback para localStorage
-    const STORAGE_KEY = 'votoConscienteContent';
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : {};
-  }
-}
+// ============================================
+// API PÚBLICA
+// ============================================
 
-/**
- * Salvar conteúdo no Firebase Realtime Database
- * Isso sincroniza automaticamente para todos os usuários
- * @param {Object} content - Conteúdo a salvar {hero: "...", apresentacao: "...", ...}
- */
-export async function saveContentToFirebase(content) {
-  if (!database) {
-    // Fallback para localStorage
-    const STORAGE_KEY = 'votoConscienteContent';
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
-    return;
-  }
-  
-  try {
-    const dbRef = dbRef(database, 'votoConscienteContent');
-    await set(dbRef, content);
-  } catch (err) {
-    console.error('Erro ao salvar no Firebase:', err);
-    // Fallback para localStorage
-    const STORAGE_KEY = 'votoConscienteContent';
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
-  }
-}
-
-/**
- * Observar mudanças no Firebase Realtime Database
- * Esta função registra um listener que é acionado sempre que o conteúdo
- * é alterado por QUALQUER admin em QUALQUER computador
- * @param {Function} callback - Função chamada com o novo conteúdo
- * @returns {Function} Função para remover o listener
- */
-export function onContentChange(callback) {
-  if (!database) {
-    // Se Firebase não disponível, usar localStorage event (apenas mesma aba)
-    const STORAGE_KEY = 'votoConscienteContent';
-    const handler = (e) => {
-      if (e.key === STORAGE_KEY) {
-        callback(e.newValue ? JSON.parse(e.newValue) : {});
-      }
-    };
-    window.addEventListener('storage', handler);
-    return () => window.removeEventListener('storage', handler);
-  }
-  
-  try {
-    const dbRef = dbRef(database, 'votoConscienteContent');
-    onValue(dbRef, (snapshot) => {
+export async function getContent() {
+  if (database) {
+    try {
+      const dbPath = child(ref(database), 'votoConscienteContent');
+      const snapshot = await get(dbPath);
       const data = snapshot.val();
-      if (data) {
-        callback(data);
-      }
-    });
-    // Retornar função para remover o listener
-    return () => {
-      // O listener é removido automaticamente quando o componente desmonta
-      // ou pode ser explicitamente removido desassinando o onValue
-    };
-  } catch (err) {
-    console.error('Erro ao registrar listener Firebase:', err);
-    // Fallback para localStorage
-    const STORAGE_KEY = 'votoConscienteContent';
-    const handler = (e) => {
-      if (e.key === STORAGE_KEY) {
-        callback(e.newValue ? JSON.parse(e.newValue) : {});
-      }
-    };
-    window.addEventListener('storage', handler);
-    return () => window.removeEventListener('storage', handler);
+      if (data) return data;
+    } catch (err) {
+      console.error('Erro Firebase (leitura):', err);
+    }
   }
-}
-
-/**
- * Resetar conteúdo no Firebase e localStorage
- */
-export async function resetContentFirebase() {
-  if (!database) {
-    localStorage.removeItem('votoConscienteContent');
-    return;
-  }
-  
   try {
-    const dbRef = dbRef(database, 'votoConscienteContent');
-    await set(dbRef, {});
-    // Also clear localStorage
-    localStorage.removeItem('votoConscienteContent');
-  } catch (err) {
-    console.error('Erro ao resetar Firebase:', err);
-    localStorage.removeItem('votoConscienteContent');
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
+export async function saveContent(key, value) {
+  const current = await getContent();
+  current[key] = value;
+  await saveAllContent(current);
+  return current;
+}
+
+export async function saveAllContent(content) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+  } catch (e) { console.error('Erro localStorage:', e); }
+
+  if (database) {
+    try {
+      const dbPath = child(ref(database), 'votoConscienteContent');
+      await set(dbPath, content);
+      console.log('🔥 Sincronizado com Firebase');
+    } catch (err) { console.error('Erro Firebase (escrita):', err); }
   }
 }
 
-// Exportar para compatibilidade com imports existentes
+export async function getSavedContent() {
+  return await getContent();
+}
+
+export async function resetContent() {
+  localStorage.removeItem(STORAGE_KEY);
+  if (database) {
+    try {
+      const dbPath = child(ref(database), 'votoConscienteContent');
+      await set(dbPath, {});
+    } catch (err) { console.error('Erro Firebase (reset):', err); }
+  }
+}
+
+export function onContentChange(callback) {
+  getContent().then(callback).catch(() => callback({}));
+
+  if (database) {
+    const dbPath = child(ref(database), 'votoConscienteContent');
+    return onValue(dbPath, (snapshot) => {
+      const data = snapshot.val();
+      if (data) callback(data);
+    });
+  }
+
+  const handler = (e) => {
+    if (e.key === STORAGE_KEY) {
+      callback(e.newValue ? JSON.parse(e.newValue) : {});
+    }
+  };
+  window.addEventListener('storage', handler);
+  return () => window.removeEventListener('storage', handler);
+}
+
 export default {
-  getContentFromFirebase,
-  saveContentToFirebase,
-  onContentChange,
-  resetContentFirebase
+  getContent, saveContent, saveAllContent,
+  getSavedContent, resetContent, onContentChange
 };
