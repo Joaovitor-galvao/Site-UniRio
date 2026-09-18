@@ -320,33 +320,6 @@
             </div>
         </div>
 
-        
-        <!-- ===== EXPORTAR / IMPORTAR ===== -->
-        <h2 style="color:var(--cor-secundaria); font-family:var(--font-titulo); margin:2rem 0 1rem;">💾 Exportar / Importar Conteúdo</h2>
-
-        <div style="background: var(--fundo); padding: 1.5rem; border-radius: 1rem; border-left: 4px solid var(--cor-destaque); margin-bottom: 2rem;">
-            <p style="margin-bottom: 1rem; color: #666;">
-                <strong>📤 Como publicar suas edições no site público:</strong><br>
-                1. Clique em <strong>📥 Exportar</strong> para baixar <code>content.json</code><br>
-                2. Salve o arquivo na raiz do projeto (substituindo o antigo)<br>
-                3. Faça <code>git add content.json && git commit && git push</code><br>
-                4. O público verá as mudanças em 1-2 minutos.
-            </p>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                <button onclick="exportarConteudo()" style="background: #27ae60; color: #faf5e8; border: none; padding: 0.8rem 1.5rem; border-radius: 0.8rem; font-weight: 600; cursor: pointer; font-family: inherit;">
-                    📥 Exportar conteúdo.json
-                </button>
-                <label style="background: #3498db; color: #faf5e8; border: none; padding: 0.8rem 1.5rem; border-radius: 0.8rem; font-weight: 600; cursor: pointer; font-family: inherit;">
-                    📤 Importar content.json
-                    <input type="file" accept=".json" onchange="importarConteudo(event)" style="display: none;">
-                </label>
-                <button onclick="verEstatisticas()" style="background: #95a5a6; color: #faf5e8; border: none; padding: 0.8rem 1.5rem; border-radius: 0.8rem; font-weight: 600; cursor: pointer; font-family: inherit;">
-                    📊 Ver estatísticas
-                </button>
-            </div>
-            <div id="export-status" style="margin-top: 1rem; font-size: 0.85rem;"></div>
-        </div>
-
         <!-- ===== ATALHOS ===== -->
         <h2 style="color:var(--cor-secundaria); font-family:var(--font-titulo); margin:2rem 0 1rem;">⚡ Atalhos Rápidos</h2>
 
@@ -597,74 +570,5 @@
     </script>
     <!-- Admin scripts -->
     <script src="js/admin.js"></script>
-
-    <script>
-        // ============================================
-        // EXPORTAR / IMPORTAR CONTEÚDO
-        // ============================================
-        function exportarConteudo() {
-            const content = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-            const total = Object.keys(content).length;
-
-            if (total === 0) {
-                mostrarStatus('⚠️ Nada para exportar. Edite algo primeiro.', 'warning');
-                return;
-            }
-
-            const json = JSON.stringify(content, null, 2);
-            const blob = new Blob([json], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'content.json';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-
-            mostrarStatus('✅ content.json exportado (' + total + ' itens). Salve na raiz e faça git push!', 'success');
-        }
-
-        function importarConteudo(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const content = JSON.parse(e.target.result);
-                    const total = Object.keys(content).length;
-
-                    if (confirm('Isso vai substituir TODO o conteúdo local por ' + total + ' itens. Continuar?')) {
-                        localStorage.setItem('votoConscienteContent', JSON.stringify(content));
-                        mostrarStatus('✅ ' + total + ' itens importados! Recarregue o site.', 'success');
-                        setTimeout(function() { location.reload(); }, 2000);
-                    }
-                } catch (err) {
-                    mostrarStatus('❌ Erro ao ler arquivo: ' + err.message, 'error');
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        function verEstatisticas() {
-            const content = JSON.parse(localStorage.getItem('votoConscienteContent') || '{}');
-            const total = Object.keys(content).length;
-            const tamanho = JSON.stringify(content).length;
-
-            mostrarStatus('📊 Total: ' + total + ' itens editados | Tamanho: ' + (tamanho / 1024).toFixed(2) + ' KB', 'info');
-        }
-
-        function mostrarStatus(msg, tipo) {
-            const colors = { success: '#27ae60', error: '#e74c3c', warning: '#f39c12', info: '#3498db' };
-            const el = document.getElementById('export-status');
-            if (!el) return;
-            el.textContent = msg;
-            el.style.color = colors[tipo] || '#333';
-            el.style.fontWeight = '600';
-            setTimeout(function() { el.textContent = ''; }, 6000);
-        }
-    </script>
-
 </body>
 </html>
