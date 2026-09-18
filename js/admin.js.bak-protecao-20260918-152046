@@ -1,125 +1,86 @@
 // ============================================
-// ADMIN INLINE EDITING - Versão Protegida
-// Bloqueia: botões, links, menus, formulários, ícones
-// Permite:  textos de conteúdo, imagens de conteúdo
+// ADMIN INLINE EDITING - Versão Universal com Exclusões
+// Torna textos editáveis, mas preserva elementos funcionais
 // ============================================
 
 const STORAGE_KEY = 'votoConscienteContent';
 const ADMIN_SESSION_KEY = 'votoConscienteSession';
 
-// ============================================
-// TAGS E SELETORES PROTEGIDOS (NUNCA editáveis)
-// ============================================
+// ============ LISTA DE EXCLUSÕES ============
+// Seletores de elementos que NUNCA devem ser editáveis
+const SELETORES_EXCLUIDOS = [
+  // Navegação e menus
+  'nav', '.main-nav', '.nav-list', '.dropdown', '.menu-toggle',
+  '.main-header', '.top-bar', '.header',
+  '.logo', '.logo__text', '.logo__imagem',
 
-const TAGS_PROTEGIDAS = [
-  'SCRIPT', 'STYLE', 'HTML', 'BODY', 'HEAD', 'META', 'LINK',
-  'SVG', 'PATH', 'CIRCLE', 'RECT', 'LINE', 'POLYGON', 'POLYLINE', 'G', 'USE',
-  'INPUT', 'SELECT', 'TEXTAREA', 'BUTTON', 'FORM',
-  'IFRAME', 'VIDEO', 'AUDIO', 'CANVAS', 'EMBED', 'OBJECT',
-  'BR', 'HR', 'WBR'
-];
+  // Barra de pesquisa
+  '.header-search', 'form', 'input', 'select', 'textarea',
 
-const SELETORES_PROTEGIDOS = [
-  // ===== NAVEGAÇÃO (menus e links) =====
-  'nav', '[role="navigation"]', '.main-nav', '.nav-list', '.nav-item',
-  '.dropdown', '.has-dropdown', '.menu-toggle',
-  '.header', '.main-header', '.top-bar', '.header-search', '.header-social',
-  '.logo', '.logo__imagem', '.logo__text',
-  '.skip-link',
+  // Redes sociais
+  '.header-social', '.social-links', '.social-icon',
+  '[aria-label*="Instagram"]', '[aria-label*="X"]', '[aria-label*="TikTok"]',
+  '[aria-label*="Pesquisar"]', '[aria-label*="Buscar"]',
 
-  // ===== LINKS DE NAVEGAÇÃO =====
-  'a[href]:not(.content-link)',   // qualquer link é protegido (exceto os marcados como conteúdo)
-  '.breadcrumb', '.pagination',
-
-  // ===== BOTÕES DE AÇÃO =====
-  'button', '.btn', '.access-btn',
-  '[role="button"]', '[type="button"]', '[type="submit"]',
-  '.btn-vermelho', '.btn-verde', '.btn-primary', '.btn-secondary',
-  '.btn-back', '.btn-save', '.btn-reset', '.btn-download',
+  // Botões funcionais
+  'button', '.btn', '.access-btn', '.skip-link',
   '.btn-enviar', '.btn-login', '.btn-prev', '.btn-next',
+  '.btn-primary', '.btn-secondary', '.btn-vermelho', '.btn-verde',
+  '.btn-back', '.btn-save', '.btn-reset', '.btn-download',
   '.btn-voltar-sim', '.btn-voltar-flash', '.btn-voltar-jogo',
-  '.logout-btn', '.admin-card',
-  '[onclick]', '[onmousedown]', '[onmouseup]', '[onchange]',
+  '.quiz-nav .btn', '.jogo-nav .btn',
+  '[onclick*="location"]', '[onclick*="window"]', '[onclick*="href"]',
 
-  // ===== CARROSSÉIS E SLIDERS =====
-  '.equipe-seta', '.destaques-seta', '.equipe-bolha', '.destaques-bolha',
-  '.quiz-progress', '.progresso', '.dot',
-
-  // ===== FORMULÁRIOS =====
-  '.form-group', '.form-card', '.contact-form', '.contato-grid',
-  '.sugestao-box', '.info-card',
-  'input', 'textarea', 'select', 'label[for]',
-
-  // ===== INTERATIVOS =====
-  '.quiz-container', '.question-card', '.result-container',
-  '.flash-card', '.flash-grid', '.flash-container',
-  '.jogo-container', '.cenario-card',
-  '.sim-container', '.prioridade-item', '.prioridade-grid',
-  '.start-screen', '.resultado-container',
-
-  // ===== ADMIN =====
+  // Área administrativa
   '.admin-badge-top', '.admin-notification', '.admin-edit-badge',
-  '.admin-img-wrapper', '.admin-img-overlay', '.admin-toolbar',
-  '.admin-stats', '.admin-stat', '.admin-user',
-  '.edit-area', '#edit-area', '#preview-box',
-  '#export-status', '.status',
+  '.admin-img-overlay', '.admin-img-wrapper',
+  '#edit-area', '#preview-box', '.edit-area',
+  '[onclick*="openEditor"]', '[onclick*="saveEdit"]',
+  '[onclick*="closeEdit"]', '[onclick*="confirmReset"]',
+  '[onclick*="logout"]', '[onclick*="exportar"]', '[onclick*="importar"]',
+  '[onclick*="verEstatisticas"]', '[onclick*="toggleAltoContraste"]',
 
-  // ===== ÍCONES E EMOJIS DECORATIVOS =====
-  '.card__icon', '.card-icon', '.icone', '.emoji', '.cargo-icon',
-  '.perfil-foto', '.foto-candidato', '.foto-grande',
+  // Estatísticas e contadores
+  '.admin-stats', '.admin-stat', '.number', '#stat-pages',
+  '#stat-edits', '#stat-events', '#stat-team',
 
-  // ===== ESTRUTURAIS =====
-  'header', 'footer', '.footer__bottom', '.footer__col h4',
-  '[aria-hidden="true"]', '[aria-label]', '[title]',
-  '.sr-only', '.visually-hidden',
+  // Footer (rodapé com copyright)
+  '.footer__bottom', '.footer__col h4',
 
-  // ===== BADGES E TAGS =====
-  '.badge', '.numero-partido', '.cargo-tag', '.card--team__badge',
-  '.search-result-item', '.search-results',
+  // Carrosséis e suas setas
+  '.equipe-seta', '.destaques-seta', '.equipe-bolha', '.destaques-bolha',
+  '.quiz-progress .dot', '.progresso .dot',
 
-  // ===== COMPONENTES ESPECÍFICOS =====
-  '.equipe-slider', '.destaques-slider', '.destaques-track',
-  '.destaques-viewport', '.destaques-seta', '.equipe-seta',
-  '.prioridades-escolhidas .tag',
+  // Elementos interativos
+  '[contenteditable="false"]', '[aria-hidden="true"]',
+  'svg', 'path', 'circle', 'rect', 'line',
 
-  // ===== PÁGINAS DE CANDIDATOS =====
-  '.candidato-card', '.candidato-hero .numero-partido',
-  '.botoes-container',
+  // Formulários e resultados
+  '.quiz-container', '.result-container', '.start-screen',
+  '.flash-card', '.flash-back', '.flash-front',
+  '.resultado-container', '.cenario-card',
+  '.form-group label', '.contact-item',
 
-  // ===== CARD DE CANDIDATO (link) =====
-  '.card[onclick]',
-  '.card--link'
+  // Card de admin no painel
+  '.admin-user', '.avatar', '.logout-btn',
+  '.card[onclick]', '.card-danger'
 ];
 
-// ============================================
-// FUNÇÃO: Esta protegido?
-// ============================================
-function estaProtegido(el) {
-  if (!el || el.nodeType !== 1) return true;
-
-  // 1. Tag proibida
-  if (TAGS_PROTEGIDAS.includes(el.tagName)) return true;
-
-  // 2. Seletor protegido (próprio ou ancestral)
-  for (let i = 0; i < SELETORES_PROTEGIDOS.length; i++) {
+// ============ FUNÇÃO: É EXCLUÍDO? ============
+function estaExcluido(el) {
+  // Se o próprio elemento ou algum ancestral bate com um seletor excluído
+  for (let i = 0; i < SELETORES_EXCLUIDOS.length; i++) {
     try {
-      if (el.matches && el.matches(SELETORES_PROTEGIDOS[i])) return true;
-      if (el.closest && el.closest(SELETORES_PROTEGIDOS[i])) return true;
-    } catch (e) { /* seletor inválido */ }
+      if (el.matches && el.matches(SELETORES_EXCLUIDOS[i])) return true;
+      if (el.closest && el.closest(SELETORES_EXCLUIDOS[i])) return true;
+    } catch (e) {
+      // Seletor inválido, ignora
+    }
   }
-
-  // 3. Elemento com onclick inline
-  if (el.hasAttribute('onclick')) return true;
-
-  // 4. Elemento com contenteditable=false
-  if (el.getAttribute('contenteditable') === 'false') return true;
-
   return false;
 }
 
-// ============================================
-// STORAGE
-// ============================================
+// ============ STORAGE ============
 function getSavedContent() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -132,13 +93,11 @@ function saveContent(key, value) {
   current[key] = value;
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
-    console.log('💾 Salvo:', key);
-  } catch (e) { console.error('Erro:', e); }
+    console.log('💾 Salvo local:', key);
+  } catch (e) { console.error('Erro localStorage:', e); }
 }
 
-// ============================================
-// AUTH
-// ============================================
+// ============ AUTH ============
 function isAdminLoggedIn() {
   const session = localStorage.getItem(ADMIN_SESSION_KEY);
   if (!session) return false;
@@ -158,9 +117,7 @@ function isAdminLoggedIn() {
   }
 }
 
-// ============================================
-// NOTIFICAÇÃO
-// ============================================
+// ============ NOTIFICAÇÃO ============
 function showNotification(msg, type) {
   const existing = document.querySelector('.admin-notification');
   if (existing) existing.remove();
@@ -173,13 +130,16 @@ function showNotification(msg, type) {
   setTimeout(function() { notif.remove(); }, 2000);
 }
 
-// ============================================
-// GERAR CHAVE ÚNICA
-// ============================================
+// ============ GERAR CHAVE ============
 function gerarChave(el) {
   if (el.dataset.key) return el.dataset.key;
-  if (el.id) return 'id_' + el.id;
 
+  // Usa ID se disponível
+  if (el.id) {
+    return 'id_' + el.id;
+  }
+
+  // Caminho no DOM
   const path = [];
   let node = el;
   while (node && node !== document.body) {
@@ -211,19 +171,31 @@ function gerarChave(el) {
   return 'auto_' + path.join('_').replace(/[^a-zA-Z0-9_:.-]/g, '_');
 }
 
-// ============================================
-// TORNAR ELEMENTO EDITÁVEL
-// ============================================
+// ============ TORNAR EDITÁVEL ============
 function tornarEditavel(el, options) {
   options = options || {};
 
-  // Já editável? Pula
+  // Pular se já é editável
   if (el.classList.contains('admin-editable')) return 0;
+  if (el.classList.contains('admin-edit-badge')) return 0;
 
-  // PROTEGIDO? Pula
-  if (estaProtegido(el)) return 0;
+  // Pular tags estruturais
+  const tagsPular = ['SCRIPT', 'STYLE', 'HTML', 'BODY', 'HEAD', 'META', 'LINK', 'SVG', 'PATH', 'CIRCLE', 'RECT', 'LINE', 'BR', 'HR', 'IFRAME', 'VIDEO', 'AUDIO', 'CANVAS', 'INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'];
+  if (tagsPular.includes(el.tagName)) return 0;
 
-  // Vazio? Pula
+  // Pular se está na lista de exclusões
+  if (estaExcluido(el)) return 0;
+
+  // Pular containers estruturais
+  if (['DIV', 'SECTION', 'ARTICLE', 'ASIDE', 'MAIN', 'HEADER', 'FOOTER', 'NAV'].includes(el.tagName)) {
+    // Só edita se tiver texto direto (não só filhos)
+    const temTextoDireto = Array.from(el.childNodes).some(function(n) {
+      return n.nodeType === 3 && n.textContent.trim().length > 3;
+    });
+    if (!temTextoDireto) return 0;
+  }
+
+  // Pular vazios
   if (el.textContent.trim().length === 0 && el.tagName !== 'IMG') return 0;
   if (el.textContent.trim().length < 3 && el.tagName !== 'IMG') return 0;
 
@@ -232,7 +204,11 @@ function tornarEditavel(el, options) {
 
   // ===== IMAGEM =====
   if (el.tagName === 'IMG') {
-    // Imagens de logo/ícones já estão na lista de proteção
+    // Não faz overlay em imagens de logo ou ícones
+    if (el.classList.contains('logo__imagem')) return 0;
+    if (el.classList.contains('foto-candidato')) return 0;
+    if (el.closest('.header') || el.closest('nav')) return 0;
+
     const savedContent = getSavedContent();
     if (savedContent[chave]) el.src = savedContent[chave];
 
@@ -284,7 +260,7 @@ function tornarEditavel(el, options) {
     const badge = document.createElement('span');
     badge.className = 'admin-edit-badge';
     badge.setAttribute('contenteditable', 'false');
-    badge.textContent = '✏️';
+    badge.textContent = options.badge || '✏️';
     el.appendChild(badge);
   }
 
@@ -307,46 +283,32 @@ function tornarEditavel(el, options) {
   return 1;
 }
 
-// ============================================
-// MARCAR ELEMENTOS EDITÁVEIS
-// ============================================
+// ============ MARCAR TUDO ============
 function marcarTudoEditavel() {
   let total = 0;
 
-  // Seletores PERMITIDOS (textos de conteúdo)
+  // Selecionar APENAS elementos de texto/conteúdo
   const SELETORES_PERMITIDOS = [
     'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'p', 'li', 'blockquote', 'cite',
-    'td', 'th', 'caption',
-    'time'
+    'p', 'li', 'span', 'strong', 'em', 'blockquote',
+    'time', 'td', 'th', 'caption'
   ];
 
   SELETORES_PERMITIDOS.forEach(function(sel) {
     document.querySelectorAll(sel).forEach(function(el) {
-      total += tornarEditavel(el, { badge: '✏️ ' + el.tagName });
+      total += tornarEditavel(el, { badge: '✏️' });
     });
   });
 
-  // Imagens de CONTEÚDO (as de logo/ícone já estão protegidas)
+  // Imagens (com exceções)
   document.querySelectorAll('img').forEach(function(el) {
     total += tornarEditavel(el, {});
-  });
-
-  // Spans e strongs APENAS se forem "conteúdo puro" (sem onclick, sem link)
-  document.querySelectorAll('span:not([onclick]), strong:not([onclick]), em:not([onclick])').forEach(function(el) {
-    // Só edita se o pai não for um link ou botão
-    if (el.closest('a, button, [onclick]')) return;
-    // Só edita se tiver texto significativo
-    if (el.textContent.trim().length < 3) return;
-    total += tornarEditavel(el, { badge: '✏️' });
   });
 
   return total;
 }
 
-// ============================================
-// INICIALIZAÇÃO
-// ============================================
+// ============ INICIALIZAÇÃO ============
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🔧 admin.js carregado');
 
@@ -355,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return;
   }
 
-  console.log('👑 Admin detectado — ativando edição inline protegida');
+  console.log('👑 Admin detectado — ativando edição inline');
 
   const style = document.createElement('style');
   style.id = 'admin-inline-styles';
@@ -429,19 +391,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
   setTimeout(function() {
     const total = marcarTudoEditavel();
-    console.log('✅ Edição inline PRONTA — ' + total + ' elementos editáveis');
-    console.log('🔒 Botões, links, menus e formulários PROTEGIDOS');
+    console.log('✅ Edição inline pronta — ' + total + ' elementos editáveis');
+    console.log('💡 Passe o mouse sobre textos/imagens para editar');
   }, 500);
 
-  // Observar elementos adicionados depois
+  // Observar mudanças dinâmicas
   const observer = new MutationObserver(function(mutations) {
     let novos = 0;
     mutations.forEach(function(m) {
       m.addedNodes.forEach(function(node) {
         if (node.nodeType !== 1) return;
-        if (estaProtegido(node)) return;
+        if (estaExcluido(node)) return;
 
-        ['h1','h2','h3','h4','p','li','blockquote','time'].forEach(function(sel) {
+        ['h1','h2','h3','h4','h5','h6','p','li','span','strong','em','blockquote','time'].forEach(function(sel) {
           if (node.matches && node.matches(sel)) {
             novos += tornarEditavel(node, { badge: '✏️' });
           }
