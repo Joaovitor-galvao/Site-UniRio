@@ -1,17 +1,47 @@
-# Firebase config (contains credentials, generated at build time)
-js/firebase-config.js
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# OS files
-.DS_Store
-Thumbs.db
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
 
-# Editor files
-.vscode/*
-!.vscode/settings.json
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Database
+db.sqlite3
+*.sqlite3
+
+# Static files (coletados)
+staticfiles/
+
+# Media uploads
+media/
+
+# IDE
+.vscode/
 .idea/
 *.swp
 *.swo
 
-# Backup files
-*.bak
-*.save
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Django
+*.pot
+*.pyc
+local_settings.py
+
+# Gunicorn
+gunicorn.log

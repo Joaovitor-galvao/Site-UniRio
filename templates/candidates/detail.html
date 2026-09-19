@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ candidate.name }} - {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="candidate-detail section">
+    <div class="container">
+        <article class="candidate-detail__card">
+            <header class="candidate-detail__header">
+                {% if candidate.photo %}
+                <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}" class="candidate-detail__photo">
+                {% else %}
+                <div class="candidate-detail__photo placeholder">{{ candidate.number }}</div>
+                {% endif %}
+                <div class="candidate-detail__info">
+                    <h1>{{ candidate.name }}</h1>
+                    <span class="party-badge">{{ candidate.party }} - {{ candidate.number }}</span>
+                    {% if candidate.vice %}
+                    <p class="candidate-detail__vice">Vice: {{ candidate.vice }} ({{ candidate.vice_party }})</p>
+                    {% endif %}
+                    <div class="candidate-detail__meta">
+                        <span>📍 {{ candidate.get_category_display }}</span>
+                        {% if candidate.state %}<span>🗺️ {{ candidate.state }}</span>{% endif %}
+                        <span>✅ {{ candidate.status_tse }}</span>
+                    </div>
+                </div>
+            </header>
+            
+            <nav class="candidate-tabs" role="tablist" aria-label="Abas do candidato">
+                <button class="tab-btn active" role="tab" aria-selected="true" data-tab="bio">📖 Biografia</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-tab="proposals">📋 Propostas</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-tab="trajectory">🛤️ Trajetória</button>
+            </nav>
+            
+            <div class="tab-panel active" id="bio" role="tabpanel">
+                <h2>Dados Pessoais</h2>
+                <dl class="bio-list">
+                    <dt>Nome completo</dt><dd>{{ candidate.full_name }}</dd>
+                    <dt>Nascimento</dt><dd>{{ candidate.birth_date }}</dd>
+                    <dt>Naturalidade</dt><dd>{{ candidate.birthplace }}</dd>
+                    <dt>Profissão</dt><dd>{{ candidate.profession }}</dd>
+                    <dt>Formação</dt><dd>{{ candidate.education }}</dd>
+                </dl>
+                <h2>Trajetória Resumida</h2>
+                <div class="trajectory-text">{{ candidate.trajectory|linebreaks }}</div>
+            </div>
+            
+            <div class="tab-panel" id="proposals" role="tabpanel" hidden>
+                {% for category, items in candidate.proposals.items %}
+                <section class="proposal-category">
+                    <h3>{{ category }}</h3>
+                    <ul>
+                        {% for item in items %}<li>{{ item }}</li>{% endfor %}
+                    </ul>
+                </section>
+                {% empty %}
+                <p>Nenhuma proposta cadastrada.</p>
+                {% endfor %}
+            </div>
+            
+            <div class="tab-panel" id="trajectory" role="tabpanel" hidden>
+                <div class="trajectory-text">{{ candidate.trajectory|linebreaks }}</div>
+            </div>
+        </article>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.tab-panel').forEach(p => {
+            p.classList.remove('active');
+            p.hidden = true;
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const panel = document.getElementById(btn.dataset.tab);
+        if (panel) {
+            panel.classList.add('active');
+            panel.hidden = false;
+        }
+    });
+});
+</script>
+{% endblock %}

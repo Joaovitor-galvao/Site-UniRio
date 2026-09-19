@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ page_slug|title }} - {{ site_name }}{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="page-title">
+    <div class="container">
+        <h1 id="page-title" class="section__title">{{ page_slug|title }}</h1>
+        
+        {% if page_blocks %}
+            {% for block in page_blocks %}
+            <div class="content-block" data-key="{{ block.key }}" data-type="{{ block.content_type }}">
+                {% if block.content_type == 'html' %}
+                    {% autoescape off %}{{ block.content }}{% endautoescape %}
+                {% elif block.content_type == 'list' %}
+                    <ul>
+                        {% for line in block.content.split('\n' %}
+                            {% if line.strip %}<li>{{ line }}</li>{% endif %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ block.content|linebreaks }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert--info">
+                <p>Esta página ainda não tem conteúdo configurado.</p>
+                <p><a href="/admin/content/contentblock/" target="_blank">Adicionar blocos no admin »</a></p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

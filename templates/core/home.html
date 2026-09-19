@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ site_name }} - Início{% endblock %}
+
+{% block content %}
+<!-- Hero dinâmico via ContentBlock -->
+{% if content_blocks.hero %}
+<section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+        <div class="hero__content">
+            {% autoescape off %}{{ content_blocks.hero.get_rendered_content }}{% endautoescape %}
+            <a href="{% url 'candidate_list' category='president' %}" class="btn btn--primary">Saiba Mais</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Apresentação -->
+{% if content_blocks.apresentacao or featured_presidents %}
+<section id="apresentacao" class="section" aria-labelledby="apresentacao-title">
+    <div class="container">
+        <div class="grid-2">
+            <div>
+                <h2 id="apresentacao-title" class="section__title">Apresentação</h2>
+                {% if content_blocks.apresentacao %}
+                    <div class="section__text">
+                        {% autoescape off %}{{ content_blocks.apresentacao.get_rendered_content }}{% endautoescape %}
+                    </div>
+                {% endif %}
+                {% if content_blocks.objetivos %}
+                    <h3>Objetivos</h3>
+                    <div class="section__list">
+                        {% autoescape off %}{{ content_blocks.objetivos.get_rendered_content }}{% endautoescape %}
+                    </div>
+                {% endif %}
+            </div>
+            <div>
+                {% if featured_presidents %}
+                <h3>Candidatos à Presidência em Destaque</h3>
+                <div class="grid-3">
+                    {% for candidate in featured_presidents %}
+                    <article class="card candidate-card">
+                        {% if candidate.photo %}
+                        <img src="{{ candidate.photo.url }}" alt="" class="card__image">
+                        {% else %}
+                        <div class="card__image placeholder">{{ candidate.number }}</div>
+                        {% endif %}
+                        <div class="card__content">
+                            <span class="card__party">{{ candidate.party }}</span>
+                            <h3 class="card__title">{{ candidate.name }}</h3>
+                            <p class="card__number">Número: {{ candidate.number }}</p>
+                            <a href="{{ candidate.get_absolute_url }}" class="btn btn--secondary">Ver Perfil</a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                <p style="text-align:center; margin-top:1rem;">
+                    <a href="{% url 'candidate_list' category='president' %}" class="btn btn--outline">Ver todos os presidenciáveis</a>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Seção de governo -->
+{% if content_blocks.eventos or featured_governors %}
+<section id="governo" class="section" aria-labelledby="governo-title">
+    <div class="container">
+        <header class="section__header">
+            <h1 id="governo-title" class="section__title">Governadores</h1>
+            <nav class="category-filters" aria-label="Filtrar por estado">
+                <a href="{% url 'candidate_list' category='governor' %}" class="filter-btn {% if current_category == 'governor' %}active{% endif %}">Todos</a>
+                {% for code, name in state_choices %}
+                <a href="{% url 'candidate_list' category='governor' %}?state={{ code }}" class="filter-btn {% if current_category == 'governor' and current_state == code %}active{% endif %}{% if not current_state %} disabled{% endif %}">{{ name }}</a>
+                {% endfor %}
+            </nav>
+        </header>
+        <div class="grid-3 governors-grid">
+            {% for candidate in featured_governors %}
+            <article class="card candidate-card">
+                {% if candidate.photo %}
+                <img src="{{ candidate.photo.url }}" alt="" class="card__image">
+                {% else %}
+                <div class="card__image placeholder">{{ candidate.number }}</div>
+                {% endif %}
+                <div class="card__content">
+                    <span class="card__party">{{ candidate.party }}</span>
+                    <h3 class="card__title">{{ candidate.name }}</h3>
+                    <p class="card__number">Número: {{ candidate.number }}</p>
+                    <a href="{{ candidate.get_absolute_url }}" class="btn btn--primary">Ver Perfil</a>
+                </div>
+            </article>
+            {% empty %}
+            <p class="no-results">Nenhum governador encontrado.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Outras seções podem ser adicionadas aqui -->
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Inicializar quando o DOM carregar
+document.addEventListener('DOMContentLoaded', function() {
+    // Lógica de tab switching para candidatos
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPannels = document.querySelectorAll('.tab-panel');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remover classes ativas
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabPannels.forEach(p => p.classList.remove('active'));
+            
+            // Adicionar classe ativa no botão clicado
+            btn.classList.add('active');
+            
+            // Mostrar painel correspondente
+            const tabId = btn.getAttribute('data-tab');
+            const panel = document.getElementById(tabId);
+            if (panel) {
+                panel.classList.add('active');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
