@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block title %}Simulador de Voto - {{ site_name }}{% endblock %}
+
+{% block extra_head %}
+<style>
+.simulator-container { max-width: 800px; margin: 0 auto; }
+.simulator-step { background: var(--fundo-secundario); padding: 2rem; border-radius: 1rem; margin-bottom: 1.5rem; display: none; }
+.simulator-step.active { display: block; }
+.simulator-options { display: grid; gap: 0.8rem; margin-top: 1.5rem; }
+.simulator-option { padding: 1rem; border: 2px solid var(--borda); border-radius: 0.8rem; cursor: pointer; transition: all 0.2s; }
+.simulator-option:hover { border-color: var(--cor-destaque); }
+.simulator-option.selected { border-color: var(--cor-destaque); background: #fff8f0; }
+.simulator-result { margin-top: 2rem; padding: 2rem; background: #e8f8f0; border-radius: 1rem; }
+.simulator-progress { text-align: right; margin-bottom: 1rem; color: #666; }
+.simulator-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section__title">Simulador de Voto</h1>
+        <p class="section__lead">Entenda como seu voto impacta a composição política</p>
+        
+        <div class="simulator-container" id="simulator-app">
+            <div class="simulator-progress">
+                Etapa <span id="current-step">1</span> de <span id="total-steps">3</span>
+            </div>
+            
+            <div class="simulator-step active" id="step-1" data-step="1">
+                <h3>Escolha o cargo</h3>
+                <p>Selecione para qual cargo você deseja simular o voto:</p>
+                <div class="simulator-options">
+                    <button class="simulator-option" data-step="1" data-value="president">🏛️ Presidente</button>
+                    <button class="simulator-option" data-step="1" data-value="governor">🏙️ Governador</button>
+                    <button class="simulator-option" data-step="1" data-value="deputy_federal">🏛️ Deputado Federal</button>
+                    <button class="simulator-option" data-step="1" data-value="senator">🏛️ Senador</button>
+                </div>
+            </div>
+            
+            <div class="simulator-step" id="step-2" data-step="2" style="display:none;">
+                <h3>Escolha o candidato</h3>
+                <p>Selecione seu candidato:</p>
+                <div class="simulator-options" id="candidate-options"></div>
+            </div>
+            
+            <div class="simulator-step" id="step-3" data-step="3" style="display:none;">
+                <h3>Confirme seu voto</h3>
+                <div class="simulator-result" id="vote-summary"></div>
+                <div class="simulator-nav">
+                    <button class="btn btn--outline" id="btn-back">Voltar</button>
+                    <button class="btn btn--primary" id="btn-confirm">Confirmar Voto</button>
+                </div>
+            </div>
+            
+            <div class="simulator-step" id="step-result" style="display:none;">
+                <h2>✅ Voto Registrado!</h2>
+                <div class="simulator-result" id="result-summary"></div>
+                <button class="btn btn--outline" id="btn-restart">Fazer Nova Simulação</button>
+            </div>
+            
+            <div class="simulator-nav">
+                <button class="btn btn--outline" id="btn-back" style="display:none;">Voltar</button>
+                <button class="btn btn--primary" id="btn-next">Próximo</button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Simulador de Voto
+const scenarios = {
+    president: [
+        {name: 'Luiz Inácio Lula da Silva', party: 'PT', number: 13},
+        {name: 'Flávio Bolsonaro', party: 'PL', number: 22},
+        {name: 'Romeu Zema', party: 'NOVO', number: 30},
+    ],
+    governor: [
+        {name: 'Candidato A', party: 'PT', number: 13},
+        {name: 'Candidato B', party: 'PL', number: 22},
+    ],
+    deputy_federal: [
+        {name: 'Deputado A', party: 'PT', number: 1300},
+        {name: 'Deputado B', party: 'PL', number: 2200},
+    ],
+    senator: [
+        {name: 'Senador A', party: 'PT', number: 130},
+        {name: 'Senador B', party: 'PL', number: 220},
+    ],
+};
+
+let currentStep = 1;
+let selectedOffice = '';
+let selectedCandidate = '';
+
+function showStep(step) {
+    document.querySelectorAll('.simulator-step').forEach(el => el.classList.remove('active'));
+    document.getElementById('step-' + step).classList.add('active');
+    document.getElementById('btn-back').style.display = step > 1 ? 'inline-block' : 'none';
+    document.getElementById('btn-next').textContent = step === 3 ? 'Confirmar Voto' : 'Próximo';
+}
+
+function initSimulator() {
+    // Step 1: Office selection
+    document.querySelectorAll('#step-1 .simulator-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#step-1 .simulator-option').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedOffice = btn.dataset.value;
+            // Load candidates for step 2
+            loadCandidates(selectedOffice);
+            currentStep = 2;
+            showStep(2);
+        });
+    });
+    
+    // Back button
+    document.getElementById('btn-back').addEventListener('click', () => {
+        currentStep--;
+        showStep(currentStep);
+    });
+    
+    // Next/Confirm button
+    document.getElementById('btn-next').addEventListener('click', () => {
+        if (currentStep === 2) {
+            if (!selectedCandidate) {
+                alert('Selecione um candidato');
+                return;
+            }
+            showSummary();
+            currentStep = 3;
+            showStep(3);
+        } else if (currentStep === 3) {
+            showResult();
+            currentStep = 4;
+            showStep(4);
+        }
+    });
+    
+    // Restart
+    document.getElementById('btn-restart').addEventListener('click', () => {
+        currentStep = 1;
+        selectedOffice = '';
+        selectedCandidate = '';
+        document.querySelectorAll('.simulator-option').forEach(b => b.classList.remove('selected'));
+        showStep(1);
+    });
+    
+    function loadCandidates(office) {
+        const container = document.getElementById('candidate-options');
+        const candidates = scenarios[office] || [];
+        container.innerHTML = candidates.map(c => `
+            <button class="simulator-option" data-name="${c.name}" data-party="${c.party}" data-number="${c.number}">
+                <strong>${c.name}</strong><br>
+                <small>${c.party} - ${c.number}</small>
+            </button>
+        `).join('');
+        
+        container.querySelectorAll('.simulator-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#step-2 .simulator-option').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedCandidate = btn.dataset.name;
+            });
+        });
+    }
+    
+    function showSummary() {
+        const candidate = scenarios[selectedOffice].find(c => c.name === selectedCandidate);
+        document.getElementById('vote-summary').innerHTML = `
+            <h4>Resumo do Voto</h4>
+            <p><strong>Cargo:</strong> ${getOfficeName(selectedOffice)}</p>
+            <p><strong>Candidato:</strong> ${candidate.name}</p>
+            <p><strong>Partido:</strong> ${candidate.party}</p>
+            <p><strong>Número:</strong> ${candidate.number}</p>
+        `;
+    }
+    
+    function showResult() {
+        document.getElementById('vote-summary').innerHTML += '<p style="margin-top:1rem; color:green;">✅ Voto confirmado com sucesso!</p>';
+        showStep(4);
+    }
+    
+    function getOfficeName(office) {
+        const names = {president: 'Presidente', governor: 'Governador', deputy_federal: 'Deputado Federal', senator: 'Senador'};
+        return names[office] || office;
+    }
+    
+    // Restart button
+    document.getElementById('btn-restart').addEventListener('click', () => {
+        currentStep = 1;
+        document.querySelectorAll('.simulator-option').forEach(b => b.classList.remove('selected'));
+        showStep(1);
+    });
+    
+    // Initialize
+    showStep(1);
+    document.getElementById('btn-back').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', initSimulator);
+</script>
+{% endblock %}

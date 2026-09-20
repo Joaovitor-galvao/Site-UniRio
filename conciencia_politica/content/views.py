@@ -6,7 +6,7 @@ class ContentPageView(TemplateView):
     """Páginas institucionais dinâmicas baseadas em slug."""
 
     def get_template_names(self):
-        slug = self.kwargs.get('slug', '')
+        page_slug = self.kwargs.get('page_slug', '')
         template_map = {
             'sobre': 'content/page_sobre.html',
             'eventos': 'content/page_eventos.html',
@@ -16,12 +16,12 @@ class ContentPageView(TemplateView):
             'eleicoes-2026': 'content/page_eleicoes.html',
             'conteudo-interativo': 'content/page_interativo.html',
         }
-        specific = template_map.get(slug)
+        specific = template_map.get(page_slug)
         return [specific, 'content/page_generic.html'] if specific else ['content/page_generic.html']
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        slug = self.kwargs.get('slug', '')
-        ctx['page_slug'] = slug
-        ctx['page_blocks'] = ContentBlock.objects.filter(key__startswith=f'{slug}_')
+        page_slug = self.kwargs.get('page_slug', '')
+        ctx['page_slug'] = page_slug
+        ctx['page_blocks'] = ContentBlock.objects.filter(key__startswith=f'{page_slug}_')
         return ctx

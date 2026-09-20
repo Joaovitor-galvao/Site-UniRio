@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static content_filters %}
+{% block title %}{{ site_name }} - Conteúdo Interativo{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="interativo-title">
+    <div class="container">
+        <h1 id="interativo-title" class="section__title">Conteúdo Interativo</h1>
+        
+        {% if page_blocks %}
+            {% for block in page_blocks %}
+            <div class="content-block" data-key="{{ block.key }}" data-type="{{ block.content_type }}">
+                {% if block.content_type == 'html' %}
+                    {% autoescape off %}{{ block.content }}{% endautoescape %}
+                {% elif block.content_type == 'list' %}
+                    <ul>
+                        {% for line in block.content|split_lines %}
+                            {% if line.strip %}<li>{{ line }}</li>{% endif %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ block.content|linebreaks }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="grid-3">
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Quiz Eleitoral</h3>
+                        <p class="card__text">Teste seus conhecimentos sobre o processo eleitoral brasileiro</p>
+                        <a href="{% url 'quiz' %}" class="btn btn--primary">Jogar Quiz</a>
+                    </div>
+                </article>
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Simulador de Voto</h3>
+                        <p class="card__text">Entenda como seu voto impacta a composição política</p>
+                        <a href="{% url 'simulator' %}" class="btn btn--primary">Simular</a>
+                    </div>
+                </article>
+                <article class="card">
+                    <div class="card__content">
+                        <h3 class="card__title">Flashcards</h3>
+                        <p class="card__text">Estude conceitos políticos de forma divertida</p>
+                        <a href="{% url 'flashcards' %}" class="btn btn--primary">Estudar</a>
+                    </div>
+                </article>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

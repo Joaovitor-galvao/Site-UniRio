@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static content_filters %}
+{% block title %}{{ site_name }} - Referências{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="referencias-title">
+    <div class="container">
+        <h1 id="referencias-title" class="section__title">Referências</h1>
+        
+        {% if page_blocks %}
+            {% for block in page_blocks %}
+            <div class="content-block" data-key="{{ block.key }}" data-type="{{ block.content_type }}">
+                {% if block.content_type == 'html' %}
+                    {% autoescape off %}{{ block.content }}{% endautoescape %}
+                {% elif block.content_type == 'list' %}
+                    <ul>
+                        {% for line in block.content|split_lines %}
+                            {% if line.strip %}<li>{{ line }}</li>{% endif %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ block.content|linebreaks }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert--info">
+                <p>Referências serão disponibilizadas em breve.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

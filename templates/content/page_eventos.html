@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static content_filters %}
+{% block title %}{{ site_name }} - Eventos{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="eventos-title">
+    <div class="container">
+        <h1 id="eventos-title" class="section__title">Eventos</h1>
+        
+        {% if page_blocks %}
+            {% for block in page_blocks %}
+            <div class="content-block" data-key="{{ block.key }}" data-type="{{ block.content_type }}">
+                {% if block.content_type == 'html' %}
+                    {% autoescape off %}{{ block.content }}{% endautoescape %}
+                {% elif block.content_type == 'list' %}
+                    <ul>
+                        {% for line in block.content|split_lines %}
+                            {% if line.strip %}<li>{{ line }}</li>{% endif %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ block.content|linebreaks }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert--info">
+                <p>Nenhum evento cadastrado no momento.</p>
+                <p><a href="/admin/content/contentblock/" target="_blank">Adicionar eventos no admin »</a></p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

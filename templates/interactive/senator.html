@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% block title %}Você é o Senador - {{ site_name }}{% endblock %}
+
+{% block extra_head %}
+<style>
+.senator-container { max-width: 800px; margin: 0 auto; }
+.senator-scenario { background: var(--fundo-secundario); padding: 2rem; border-radius: 1rem; margin-bottom: 1.5rem; }
+.scenario-title { color: var(--cor-principal); margin-bottom: 1rem; }
+.scenario-text { font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem; }
+.senator-options { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.senator-option { padding: 1.5rem; border: 2px solid var(--borda); border-radius: 1rem; cursor: pointer; transition: all 0.2s; }
+.senator-option:hover { border-color: var(--cor-destaque); }
+.senator-option.selected { border-color: var(--cor-destaque); background: #fff8f0; }
+.senator-option-title { font-weight: 600; margin-bottom: 0.5rem; color: var(--cor-principal); }
+.senator-option-desc { color: var(--texto); opacity: 0.8; }
+.senator-consequence { margin-top: 2rem; padding: 1.5rem; border-radius: 1rem; display: none; }
+.senator-consequence.positive { background: #e8f8f0; border-left: 4px solid #27ae60; }
+.senator-consequence.negative { background: #fdf2f2; border-left: 4px solid #e74c3c; }
+.senator-consequence.mixed { background: #fff8f0; border-left: 4px solid #f39c12; }
+.consequence-title { font-weight: 600; margin-bottom: 0.5rem; }
+.consequence-text { opacity: 0.8; }
+.senator-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
+.senator-progress { text-align: center; margin-bottom: 1rem; color: #666; }
+.senator-result { text-align: center; padding: 2rem; }
+.senator-score { font-size: 2rem; font-weight: 700; color: var(--cor-principal); margin: 1rem 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section__title">Você é o Senador</h1>
+        <p class="section__lead">Tome decisões como um senador e veja as consequências</p>
+        
+        <div class="senator-container" id="senator-app">
+            <div class="senator-progress">
+                Cenário <span id="current-scenario">1</span> de <span id="total-scenarios">0</span>
+            </div>
+            
+            <div class="senator-scenario" id="scenario-card">
+                <h2 class="scenario-title" id="scenario-title"></h2>
+                <p class="scenario-text" id="scenario-text"></p>
+                
+                <div class="senator-options" id="senator-options"></div>
+                
+                <div class="senator-consequence" id="consequence-box" style="display:none;">
+                    <div class="consequence-title" id="consequence-title"></div>
+                    <p class="consequence-text" id="consequence-text"></p>
+                </div>
+            </div>
+            
+            <div class="senator-nav">
+                <button class="btn btn--outline" id="btn-prev-senator" style="display:none;">Cenário Anterior</button>
+                <button class="btn btn--primary" id="btn-next-scenario">Próximo Cenário</button>
+            </div>
+            
+            <div id="senator-result" style="display:none;">
+                <h2>🏛️ Fim da Simulação</h2>
+                <p class="senator-score">Seu impacto: <span id="final-score">0</span>/100</p>
+                <p id="result-message"></p>
+                <button class="btn btn--outline" id="btn-restart-senator">Jogar Novamente</button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const senatorScenarios = [
+    {
+        title: 'Projeto de Lei Ambiental',
+        text: 'Chega ao Senado um projeto que flexibiliza o licenciamento ambiental para grandes obras de infraestrutura. O governo alega que vai gerar empregos, mas ambientalistas alertam para riscos irreversíveis.',
+        options: [
+            {text: 'Votar a favor (desenvolvimento econômico)', effects: {economy: 10, environment: -20, social: 0}, consequence: 'A lei passa. O PIB cresce 2%, mas 500km² de mata nativa são desmatados. ONGs processam o governo.'},
+            {text: 'Votar contra (proteção ambiental)', effects: {economy: -5, environment: 15, social: 5}, consequence: 'O projeto é arquivado. ONGs elogiam, mas setor da construção critica perda de 50 mil empregos potenciais.'},
+            {text: 'Propor emenda de compromisso', effects: {economy: 2, environment: 5, social: 3}, consequence: 'Emenda aprovada! Licenciamento simplificado apenas para obras de baixo impacto. Ambientalistas e empresários divididos.'},
+        ]
+    },
+    {
+        title: 'Reforma da Previdência',
+        text: 'O governo propõe aumentar a idade mínima de aposentadoria para 65 anos (homens) e 62 (mulheres), com tempo mínimo de contribuição de 25 anos. Sindicatos fazem greve geral.',
+        options: [
+            {text: 'Votar a favor (equilíbrio fiscal)', effects: {economy: 15, social: -10, popularity: -5}, consequence: 'Reforma passa. Déficit previdenciário cai 30% em 5 anos. Protestos nas ruas por 3 meses.'},
+            {text: 'Votar contra (proteção social)', effects: {economy: -10, social: 10, popularity: 5}, consequence: 'Reforma rejeitada. Déficit previdenciário dobra em 3 anos. Agências de risco rebaixam nota do país.'},
+            {text: 'Propor transição gradual', effects: {economy: 5, social: 0, popularity: 0}, consequence: 'Transição de 10 anos aprovada. Menos choque social, mas economia menor.'},
+        ]
+    },
+    {
+        title: 'Marco Legal da IA',
+        text: 'Projeto regulamenta uso de Inteligência Artificial: exige transparência em algoritmos, proíbe deepfakes eleitorais, cria autoridade reguladora. Big techs fazem lobby pesado contra.',
+        options: [
+            {text: 'Votar a favor (regulação forte)', effects: {innovation: -5, rights: 15, economy: 0}, consequence: 'Lei aprovada. Brasil vira referência global. Big techs ameaçam sair, mas ficam.'},
+            {text: 'Votar contra (livre mercado)', effects: {innovation: 10, rights: -10, economy: 5}, consequence: 'Projeto rejeitado. Brasil vira "paraíso da IA". Aumentam casos de deepfake e viés algorítmico.'},
+            {text: 'Propor regulação setorial', effects: {innovation: 2, rights: 5, economy: 2}, consequence: 'Regulação apenas para setores críticos (saúde, justiça, crédito). Equilíbrio frágil.'},
+        ]
+    },
+];
+
+let currentScenario = 0;
+let scores = {economy: 0, environment: 0, social: 0, innovation: 0, rights: 0, popularity: 0};
+
+function initSenator() {
+    loadScenario();
+    document.getElementById('btn-next-scenario').addEventListener('click', nextScenario);
+    document.getElementById('btn-prev-senator').addEventListener('click', prevScenario);
+    document.getElementById('btn-restart-senator').addEventListener('click', restartGame);
+}
+
+function loadScenario() {
+    const s = senatorScenarios[currentScenario];
+    document.getElementById('scenario-title').textContent = s.title;
+    document.getElementById('scenario-text').textContent = s.text;
+    document.getElementById('current-scenario').textContent = currentScenario + 1;
+    document.getElementById('total-scenarios').textContent = senatorScenarios.length;
+    
+    const container = document.getElementById('senator-options');
+    container.innerHTML = s.options.map((opt, i) => `
+        <button class="senator-option" data-index="${i}">
+            <div class="senator-option-title">${opt.text}</div>
+        </button>
+    `).join('');
+    
+    container.querySelectorAll('.senator-option').forEach((btn, i) => {
+        btn.addEventListener('click', () => selectOption(i));
+    });
+    
+    document.getElementById('consequence-box').style.display = 'none';
+    document.getElementById('btn-next-scenario').style.display = currentScenario === senatorScenarios.length - 1 ? 'none' : 'inline-block';
+    document.getElementById('btn-prev-senator').style.display = currentScenario > 0 ? 'inline-block' : 'none';
+}
+
+function selectOption(index) {
+    const s = senatorScenarios[currentScenario];
+    const opt = s.options[index];
+    
+    // Update scores
+    for (const [key, value] of Object.entries(opt.effects)) {
+        scores[key] = (scores[key] || 0) + value;
+    }
+    
+    // Show consequence
+    const box = document.getElementById('consequence-box');
+    box.style.display = 'block';
+    const pos = Object.values(opt.effects).reduce((a,b) => a+b, 0);
+    box.className = 'senator-consequence ' + (pos > 0 ? 'positive' : pos < 0 ? 'negative' : 'mixed');
+    document.getElementById('consequence-title').textContent = 'Consequência:';
+    document.getElementById('consequence-text').textContent = opt.consequence;
+    
+    // Disable buttons
+    document.querySelectorAll('#senator-options .senator-option').forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+    });
+    document.querySelectorAll('#senator-options .senator-option')[senatorScenarios[currentScenario].options.indexOf(senatorScenarios[currentScenario].options[index])].style.opacity = '1';
+    document.querySelectorAll('#senator-options .senator-option')[senatorScenarios[currentScenario].options.indexOf(senatorScenarios[currentScenario].options[index])].classList.add('selected');
+}
+
+function nextScenario() {
+    if (currentScenario < senatorScenarios.length - 1) {
+        currentScenario++;
+        loadScenario();
+    } else {
+        showResults();
+    }
+}
+
+function prevScenario() {
+    if (currentScenario > 0) {
+        currentScenario--;
+        loadScenario();
+    }
+}
+
+function showResults() {
+    document.getElementById('scenario-card').style.display = 'none';
+    document.getElementById('senator-nav').style.display = 'none';
+    document.getElementById('senator-result').style.display = 'block';
+    
+    const total = Object.values(scores).reduce((a,b) => a + Math.abs(b), 0);
+    const avg = total / Object.keys(scores).length;
+    const score = Math.max(0, Math.min(100, 50 + avg * 2));
+    
+    document.getElementById('final-score').textContent = Math.round(score);
+    
+    let msg = '';
+    if (score >= 80) msg = 'Senador Estadista! Suas decisões equilibraram desenvolvimento e responsabilidade.';
+    else if (score >= 60) msg = 'Senador Competente. Boas decisões com alguns deslizes.';
+    else if (score >= 40) msg = 'Senador Iniciante. Algumas decisões precisam de mais reflexão.';
+    else msg = 'Precisa estudar mais! Suas decisões tiveram impactos negativos significativos.';
+    
+    document.getElementById('result-message').textContent = msg;
+    document.getElementById('senator-result').style.display = 'block';
+    document.getElementById('btn-restart-senator').style.display = 'inline-block';
+}
+
+function restartGame() {
+    currentScenario = 0;
+    scores = {economy: 0, environment: 0, social: 0, innovation: 0, rights: 0, popularity: 0};
+    document.getElementById('senator-result').style.display = 'none';
+    document.getElementById('scenario-card').style.display = 'block';
+    document.getElementById('senator-nav').style.display = 'flex';
+    loadScenario();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadScenario();
+    document.getElementById('btn-next-scenario').addEventListener('click', () => {
+        if (currentScenario < senatorScenarios.length - 1) {
+            nextScenario();
+        } else {
+            showResults();
+        }
+    });
+    document.getElementById('btn-prev-senator').addEventListener('click', prevScenario);
+    document.getElementById('btn-restart-senator').addEventListener('click', restartGame);
+});
+</script>
+{% endblock %}

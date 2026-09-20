@@ -1,3 +1,4 @@
+{% load static %}
 <header class="header" role="banner">
     <div class="top-bar">
         <div class="container top-bar__inner">
@@ -6,7 +7,7 @@
             </div>
             <div class="top-bar__links">
                 <a href="#">Ouvidoria</a>
-                <a href="{% url 'content_page' slug='contato' %}">Fale conosco</a>
+                <a href="{% url 'content_page' page_slug='contato' %}">Fale conosco</a>
             </div>
         </div>
     </div>
@@ -42,10 +43,10 @@
             <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="primary-menu">☰ Menu</button>
             <ul id="primary-menu" class="nav-list">
                 <li><a href="{% url 'home' %}">Início</a></li>
-                <li><a href="{% url 'content_page' slug='sobre' %}">Sobre</a></li>
-                <li><a href="{% url 'content_page' slug='eventos' %}">Eventos</a></li>
+                <li><a href="{% url 'content_page' page_slug='sobre' %}">Sobre</a></li>
+                <li><a href="{% url 'content_page' page_slug='eventos' %}">Eventos</a></li>
                 <li class="has-dropdown">
-                    <a href="{% url 'content_page' slug='eleicoes-2026' %}">Eleições 2026 ▾</a>
+                    <a href="{% url 'content_page' page_slug='eleicoes-2026' %}">Eleições 2026 ▾</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'candidate_list' category='president' %}">Presidente</a></li>
                         <li><a href="{% url 'candidate_list' category='governor' %}">Governador</a></li>
@@ -53,9 +54,9 @@
                         <li><a href="{% url 'candidate_list' category='deputy_federal' %}">Deputado Federal</a></li>
                     </ul>
                 </li>
-                <li><a href="{% url 'content_page' slug='informacoes' %}">Informações</a></li>
+                <li><a href="{% url 'content_page' page_slug='informacoes' %}">Informações</a></li>
                 <li class="has-dropdown">
-                    <a href="{% url 'content_page' slug='conteudo-interativo' %}">Conteúdo Interativo ▾</a>
+                    <a href="{% url 'content_page' page_slug='conteudo-interativo' %}">Conteúdo Interativo ▾</a>
                     <ul class="dropdown">
                         <li><a href="{% url 'quiz' %}">Quiz</a></li>
                         <li><a href="{% url 'simulator' %}">Simulador</a></li>
@@ -63,8 +64,8 @@
                         <li><a href="{% url 'senator' %}">Você é o Senador</a></li>
                     </ul>
                 </li>
-                <li><a href="{% url 'content_page' slug='referencias' %}">Referências</a></li>
-                <li><a href="{% url 'content_page' slug='contato' %}">Contato</a></li>
+                <li><a href="{% url 'content_page' page_slug='referencias' %}">Referências</a></li>
+                <li><a href="{% url 'content_page' page_slug='contato' %}">Contato</a></li>
             </ul>
         </div>
     </nav>

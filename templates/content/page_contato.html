@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static content_filters %}
+{% block title %}{{ site_name }} - Contato{% endblock %}
+
+{% block content %}
+<section class="section" aria-labelledby="contato-title">
+    <div class="container">
+        <h1 id="contato-title" class="section__title">Contato</h1>
+        
+        {% if page_blocks %}
+            {% for block in page_blocks %}
+            <div class="content-block" data-key="{{ block.key }}" data-type="{{ block.content_type }}">
+                {% if block.content_type == 'html' %}
+                    {% autoescape off %}{{ block.content }}{% endautoescape %}
+                {% elif block.content_type == 'list' %}
+                    <ul>
+                        {% for line in block.content|split_lines %}
+                            {% if line.strip %}<li>{{ line }}</li>{% endif %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ block.content|linebreaks }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="section__text">
+                <p>Entre em contato conosco:</p>
+                <ul>
+                    <li>Email: votoconsciente@unirio.br</li>
+                    <li>Telefone: (21) 99999-9999</li>
+                    <li>Endereço: Escola de Ciência Política - UNIRIO</li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

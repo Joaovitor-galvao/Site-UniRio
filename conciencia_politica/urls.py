@@ -1,18 +1,4 @@
-"""Conciencia Politica URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a urlpattern: path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    1. Add a urlpattern: path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Add an import:  from django.urls import include, path
-    2. Add a urlpattern: path('blog/', include('blog.urls'))
-"""
+"""Conciencia Politica URL Configuration"""
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -24,8 +10,6 @@ urlpatterns = [
     path('candidatos/', include('candidates.urls')),
     path('conteudo/', include('content.urls')),
     path('interativo/', include('interactive.urls')),
-    # Páginas institucionais dinâmicas (sobre, eventos, contato, etc.)
-    path('<slug:slug>/', include('content.urls')),
 ]
 
 if settings.DEBUG:

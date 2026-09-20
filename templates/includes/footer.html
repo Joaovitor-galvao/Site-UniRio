@@ -1,3 +1,4 @@
+{% load static %}
 <footer class="footer" role="contentinfo">
     <div class="container footer__inner">
         <div class="footer__col">
@@ -9,9 +10,9 @@
         <div class="footer__col">
             <h4>Links úteis</h4>
             <ul>
-                <li><a href="{% url 'content_page' slug='sobre' %}">Sobre</a></li>
-                <li><a href="{% url 'content_page' slug='eventos' %}">Eventos</a></li>
-                <li><a href="{% url 'content_page' slug='eleicoes-2026' %}">Eleições 2026</a></li>
+                <li><a href="{% url 'content_page' page_slug='sobre' %}">Sobre</a></li>
+                <li><a href="{% url 'content_page' page_slug='eventos' %}">Eventos</a></li>
+                <li><a href="{% url 'content_page' page_slug='eleicoes-2026' %}">Eleições 2026</a></li>
             </ul>
         </div>
         <div class="footer__col">
@@ -23,8 +24,8 @@
             <h4>Mapa do site</h4>
             <ul>
                 <li><a href="{% url 'home' %}">Início</a></li>
-                <li><a href="{% url 'content_page' slug='conteudo-interativo' %}">Interativo</a></li>
-                <li><a href="{% url 'content_page' slug='contato' %}">Contato</a></li>
+                <li><a href="{% url 'content_page' page_slug='conteudo-interativo' %}">Interativo</a></li>
+                <li><a href="{% url 'content_page' page_slug='contato' %}">Contato</a></li>
             </ul>
         </div>
     </div>

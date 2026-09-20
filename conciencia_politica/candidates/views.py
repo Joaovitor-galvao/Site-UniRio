@@ -29,7 +29,7 @@ class CandidateDetailView(DetailView):
     template_name = 'candidates/detail.html'
     context_object_name = 'candidate'
     slug_field = 'slug'
-    slug_url_kwarg = 'slug'
+    slug_url_kwarg = 'candidate_slug'
 
     def get_queryset(self):
         return Candidate.objects.filter(is_active=True)

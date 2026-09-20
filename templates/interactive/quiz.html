@@ -117,7 +117,7 @@ async function loadQuiz() {
         results.innerHTML = `
             <h2>Resultado</h2>
             <p class="score">${correct} de ${questionsDivs.length} corretas</p>
-            <p>${correct === questionsDivs.length ? '🎉 Parabéns! Você sabe tudo!' : 'Continue estudando!'}</p>
+            <p>${correct === questionsDivs.length ? 'Parabéns! Você sabe tudo!' : 'Continue estudando!'}</p>
         `;
         document.getElementById('restart-btn').style.display = 'inline-block';
     }

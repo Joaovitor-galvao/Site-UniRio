@@ -69,4 +69,4 @@ class Candidate(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('candidate_detail', kwargs={'slug': self.slug})
+        return reverse('candidate_detail', kwargs={'candidate_slug': self.slug})
