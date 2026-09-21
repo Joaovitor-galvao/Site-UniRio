@@ -23,7 +23,8 @@
             background: #ffffff;
             padding: 1rem;
             border-radius: 1rem;
-            border-left: 4px solid #cf6357;
+            border: 2px solid #000000;
+            border-left: 5px solid #b83f68;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             text-decoration: none;
@@ -34,7 +35,7 @@
         .candidato-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-            border-left-color: #74402d;
+            border-left-color: #b83f68;
             text-decoration: none;
             color: inherit;
         }
@@ -43,9 +44,9 @@
             height: 70px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #cf6357;
+            border: 3px solid #b83f68;
             flex-shrink: 0;
-            background: #faf5e8;
+            background: #ffffff;
         }
         .candidato-card .info-candidato {
             flex: 1;
@@ -53,8 +54,8 @@
         }
         .candidato-card .numero-partido {
             display: inline-block;
-            background: #612a2a;
-            color: #faf5e8;
+            background: #000000;
+            color: #ffffff;
             padding: 0.15rem 0.7rem;
             border-radius: 2rem;
             font-size: 0.65rem;
@@ -62,7 +63,7 @@
             margin-bottom: 0.3rem;
         }
         .candidato-card h3 {
-            color: #612a2a;
+            color: #000000;
             font-family: 'Playfair Display', Georgia, serif;
             font-size: 1rem;
             margin-bottom: 0.15rem;
@@ -71,7 +72,7 @@
             text-overflow: ellipsis;
         }
         .candidato-card .partido {
-            color: #cf6357;
+            color: #b83f68;
             font-weight: 600;
             font-size: 0.8rem;
         }
@@ -82,7 +83,7 @@
         }
         .candidato-card .seta {
             font-size: 1.2rem;
-            color: #cf6357;
+            color: #b83f68;
             flex-shrink: 0;
             transition: transform 0.3s ease;
         }
@@ -91,14 +92,14 @@
         }
 
         .aviso {
-            background: #faf5e8;
-            border: 2px dashed #cf6357;
+            background: #fff5f8;
+            border: 2px dashed #b83f68;
             padding: 1rem 1.5rem;
             border-radius: 1rem;
             text-align: center;
             margin-bottom: 2rem;
         }
-        .aviso p { margin: 0; font-weight: 500; color: #612a2a; }
+        .aviso p { margin: 0; font-weight: 500; color: #000000; }
 
         @media (max-width: 768px) {
             .candidatos-grid {
@@ -116,15 +117,89 @@
             }
         }
     </style>
+
+<style>
+/* ===== TEMA DEFINITIVO PRETO + ROSA ===== */
+.header, .top-bar, .main-nav, .footer {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+.hero {
+    background: #111111 !important;
+    color: #ffffff !important;
+}
+.hero h1, .hero p {
+    color: #ffffff !important;
+}
+.top-bar__links a,
+.nav-list > li > a,
+.footer a {
+    color: #b83f68 !important;
+}
+.nav-list > li > a:hover,
+.nav-list > li > a.active {
+    background: #b83f68 !important;
+    color: #ffffff !important;
+}
+.dropdown {
+    background: #111111 !important;
+}
+.dropdown li a {
+    color: #b83f68 !important;
+}
+.dropdown li a:hover {
+    background: #b83f68 !important;
+    color: #ffffff !important;
+}
+.header-search button {
+    background: #b83f68 !important;
+    color: #ffffff !important;
+}
+.header-search button:hover {
+    background: #963353 !important;
+}
+.candidato-card {
+    border: 2px solid #000000 !important;
+    border-left: 5px solid #b83f68 !important;
+    background: #ffffff !important;
+}
+.candidato-card:hover {
+    border-left-color: #b83f68 !important;
+}
+.candidato-card .foto-candidato {
+    border-color: #b83f68 !important;
+    background: #ffffff !important;
+}
+.candidato-card .numero-partido {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #b83f68 !important;
+}
+.candidato-card h3 {
+    color: #000000 !important;
+}
+.candidato-card .partido,
+.candidato-card .seta {
+    color: #b83f68 !important;
+}
+.aviso {
+    background: #fff5f8 !important;
+    border-color: #b83f68 !important;
+}
+.aviso p {
+    color: #000000 !important;
+}
+.access-btn, #high-contrast {
+    display: none !important;
+}
+</style>
+
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
-                <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
-                </div>
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
                     <a href="contato.html">Fale conosco</a>
@@ -152,13 +227,13 @@
                 </div>
                 <div class="header-social">
                     <a href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj" target="_blank" aria-label="Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
                     </a>
                     <a href="https://x.com/conspoliticax" target="_blank" aria-label="X (Twitter)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/></svg>
                     </a>
                     <a href="https://www.tiktok.com/@conspolitica?_r=1&_t=ZS-99eh7sp2kJZ" target="_blank" aria-label="TikTok">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"/></svg>
                     </a>
                 </div>
             </div>
@@ -197,8 +272,8 @@
     <main id="main-content" class="main">
         <section class="hero" style="padding: 2.5rem 0;">
             <div class="container">
-                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;"> Candidatos a Governador do Rio de Janeiro 2026</h1>
-                <p style="font-size:1.2rem; color:#faf5e8;">Clique em um candidato para conhecer seu perfil</p>
+                <h1 style="font-size:2.5rem; color:#ffffff; font-family:'Playfair Display',Georgia,serif;"> Candidatos a Governador do Rio de Janeiro 2026</h1>
+                <p style="font-size:1.2rem; color:#ffffff;">Clique em um candidato para conhecer seu perfil</p>
             </div>
         </section>
 
@@ -224,7 +299,7 @@
                                         <h3>{{ candidate.name }}</h3>
                                         <p class="partido">{{ candidate.party }}{% if candidate.party_name %} - {{ candidate.party_name }}{% endif %}</p>
                                         {% if candidate.status_tse %}
-                                        <p class="coligacao" style="color:#a33; font-weight:700;">Situação: {{ candidate.status_tse }}</p>
+                                        <p class="coligacao" style="color:#963353; font-weight:700;">Situação: {{ candidate.status_tse }}</p>
                                         {% elif candidate.vice %}
                                         <p class="coligacao">Vice: {{ candidate.vice }}{% if candidate.vice_party %} ({{ candidate.vice_party }}){% endif %}</p>
                                         {% elif candidate.coalition %}
@@ -242,8 +317,8 @@
                             </div>
 
                 <div style="display:flex; justify-content:space-between; gap:1rem; margin-top:2rem; flex-wrap:wrap;">
-                    <a href="governador.html" style="background:#c0392b; color:#faf5e8; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; font-weight:600;">← Voltar para Governador</a>
-                    <a href="eleicoes-2026.html" style="background:#27ae60; color:#faf5e8; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; font-weight:600;"> Voltar para Eleições 2026</a>
+                    <a href="governador.html" style="background:#000000; color:#ffffff; border:3px solid #b83f68; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; font-weight:600;">← Voltar para Governador</a>
+                    <a href="eleicoes-2026.html" style="background:#000000; color:#ffffff; border:3px solid #b83f68; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; font-weight:600;"> Voltar para Eleições 2026</a>
                 </div>
 
             </div>

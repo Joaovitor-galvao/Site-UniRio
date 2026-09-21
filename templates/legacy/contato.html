@@ -10,9 +10,9 @@
     <link rel="icon" href="/static/imagens/logo.png" />
     <style>
         .contato-hero {
-            background: #612a2a;
+            background: #111111;
             padding: 3rem 0;
-            color: #faf5e8;
+            color: #ffffff;
             text-align: center;
         }
         .contato-hero h1 {
@@ -36,11 +36,12 @@
             background: #ffffff;
             padding: 2rem;
             border-radius: 1.5rem;
-            box-shadow: 0 4px 20px rgba(44, 30, 31, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid #000000;
         }
         .form-card h2 {
             font-family: 'Playfair Display', Georgia, serif;
-            color: #612a2a;
+            color: #000000;
             font-size: 1.6rem;
             margin-bottom: 0.5rem;
             display: flex;
@@ -62,12 +63,12 @@
         .form-group label {
             display: block;
             font-weight: 600;
-            color: #2c1e1f;
+            color: #000000;
             font-size: 0.9rem;
             margin-bottom: 0.3rem;
         }
         .form-group label .required {
-            color: #cf6357;
+            color: #b83f68;
             margin-left: 0.2rem;
         }
         .form-group input,
@@ -75,19 +76,19 @@
         .form-group select {
             width: 100%;
             padding: 0.8rem 1rem;
-            border: 2px solid #e8e0d5;
+            border: 2px solid #d9d9d9;
             border-radius: 0.8rem;
             font-size: 1rem;
             font-family: inherit;
             transition: border-color 0.3s, box-shadow 0.3s;
-            background: #faf8f5;
+            background: #ffffff;
         }
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
-            border-color: #cf6357;
+            border-color: #b83f68;
             outline: none;
-            box-shadow: 0 0 0 4px rgba(207, 99, 87, 0.1);
+            box-shadow: 0 0 0 4px rgba(184, 63, 104, 0.14);
         }
         .form-group textarea {
             resize: vertical;
@@ -95,9 +96,9 @@
         }
 
         .btn-enviar {
-            background: #cf6357;
-            color: #faf5e8;
-            border: none;
+            background: #000000;
+            color: #ffffff;
+            border: 3px solid #b83f68;
             padding: 0.9rem 2.5rem;
             border-radius: 2rem;
             font-size: 1rem;
@@ -108,23 +109,24 @@
             font-family: inherit;
         }
         .btn-enviar:hover {
-            background: #74402d;
+            background: #b83f68;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(207, 99, 87, 0.3);
+            box-shadow: 0 8px 25px rgba(184, 63, 104, 0.30);
         }
 
         .info-card {
             background: #ffffff;
             padding: 1.8rem;
             border-radius: 1.5rem;
-            box-shadow: 0 4px 20px rgba(44, 30, 31, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             margin-bottom: 1.5rem;
-            border-left: 5px solid #cf6357;
+            border: 2px solid #000000;
+            border-left: 5px solid #b83f68;
         }
         .info-card:last-child { margin-bottom: 0; }
         .info-card h3 {
             font-family: 'Playfair Display', Georgia, serif;
-            color: #612a2a;
+            color: #000000;
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
             display: flex;
@@ -141,22 +143,22 @@
         }
         .info-card .contact-item .icon { font-size: 1.2rem; width: 28px; text-align: center; }
         .info-card .contact-item a {
-            color: #cf6357;
+            color: #b83f68;
             text-decoration: none;
             font-weight: 500;
         }
         .info-card .contact-item a:hover { color: #74402d; text-decoration: underline; }
 
         .sugestao-box {
-            background: #faf8f5;
+            background: #ffffff;
             padding: 1.5rem;
             border-radius: 1rem;
-            border: 2px dashed #e8a090;
+            border: 2px dashed #b83f68;
             margin-top: 1.5rem;
         }
         .sugestao-box h3 {
             font-family: 'Playfair Display', Georgia, serif;
-            color: #612a2a;
+            color: #000000;
             font-size: 1.1rem;
             display: flex;
             align-items: center;
@@ -165,7 +167,7 @@
         .sugestao-box textarea {
             width: 100%;
             padding: 0.8rem 1rem;
-            border: 2px solid #e8e0d5;
+            border: 2px solid #d9d9d9;
             border-radius: 0.8rem;
             font-family: inherit;
             font-size: 0.95rem;
@@ -175,7 +177,7 @@
             transition: border-color 0.3s;
         }
         .sugestao-box textarea:focus {
-            border-color: #cf6357;
+            border-color: #b83f68;
             outline: none;
         }
 
@@ -186,12 +188,12 @@
             font-size: 1.8rem;
         }
         .social-links a {
-            color: #612a2a;
+            color: #000000;
             transition: all 0.3s;
             text-decoration: none;
         }
         .social-links a:hover {
-            color: #cf6357;
+            color: #b83f68;
             transform: scale(1.1);
         }
 
@@ -209,9 +211,6 @@
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
-                <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
-                </div>
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
                     <a href="contato.html">Fale conosco</a>
@@ -313,26 +312,30 @@
                         <h2><span>✉️</span> Envie sua mensagem</h2>
                         <p class="subtitle">Preencha o formulário abaixo e entraremos em contato.</p>
 
-                        <form id="contact-form">
+                        <form id="contact-form" action="https://formsubmit.co/conspolitica.unirio@gmail.com" method="POST">
+                                <input type="hidden" name="_subject" value="Nova mensagem pelo site CON(S)CIÊNCIA POLÍTICA">
+                                <input type="hidden" name="_template" value="table">
+                                <input type="hidden" name="_captcha" value="true">
+                                <input type="text" name="_honey" style="display:none">
                             <div class="form-group">
                                 <label for="nome">Nome completo <span class="required">*</span></label>
-                                <input type="text" id="nome" placeholder="Digite seu nome completo" required />
+                                <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required />
                             </div>
                             <div class="form-group">
                                 <label for="email">E-mail <span class="required">*</span></label>
-                                <input type="email" id="email" placeholder="seu@email.com" required />
+                                <input type="email" id="email" name="email" placeholder="seu@email.com" required />
                             </div>
                             <div class="form-group">
                                 <label for="telefone">Telefone</label>
-                                <input type="tel" id="telefone" placeholder="(00) 00000-0000" />
+                                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" />
                             </div>
                             <div class="form-group">
                                 <label for="instituicao">Instituição</label>
-                                <input type="text" id="instituicao" placeholder="Sua instituição de ensino ou trabalho" />
+                                <input type="text" id="instituicao" name="instituicao" placeholder="Sua instituição de ensino ou trabalho" />
                             </div>
                             <div class="form-group">
                                 <label for="assunto">Assunto <span class="required">*</span></label>
-                                <select id="assunto" required>
+                                <select id="assunto" name="assunto" required>
                                     <option value="">Selecione um assunto...</option>
                                     <option value="duvida">❓ Dúvida sobre o projeto</option>
                                     <option value="evento">📅 Participação em evento</option>
@@ -345,9 +348,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="mensagem">Mensagem <span class="required">*</span></label>
-                                <textarea id="mensagem" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                                <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui..." required></textarea>
                             </div>
                             <button type="submit" class="btn-enviar">📨 Enviar mensagem</button>
+                            <p style="margin-top:0.8rem; font-size:0.82rem; color:#666; text-align:center;">
+                                A mensagem será enviada para o e-mail oficial do projeto.
+                            </p>
                         </form>
                     </div>
 
@@ -383,13 +389,13 @@
                         </div>
 
                         <!-- Redes Sociais -->
-                        <div class="info-card" style="border-left-color: #e8a090; text-align:center;">
+                        <div class="info-card" style="border-left-color: #b83f68; text-align:center;">
                             <h3 style="justify-content:center;"><span>🌐</span> Redes Sociais</h3>
                             <p style="margin-bottom:0.5rem;">Siga-nos para ficar por dentro das novidades!</p>
                             <div class="social-links" style="justify-content:center;">
-                                <a href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#612a2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-                                <a href="https://x.com/conspoliticax" target="_blank" aria-label="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#612a2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/></svg></a>
-                                <a href="https://www.tiktok.com/@conspolitica?_r=1&_t=ZS-99eh7sp2kJZ" target="_blank" aria-label="TikTok"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#faf5e8"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+                                <a href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b83f68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                                <a href="https://x.com/conspoliticax" target="_blank" aria-label="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b83f68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/></svg></a>
+                                <a href="https://www.tiktok.com/@conspolitica?_r=1&_t=ZS-99eh7sp2kJZ" target="_blank" aria-label="TikTok"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#b83f68"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
                             </div>
                         </div>
 
@@ -397,8 +403,14 @@
                         <div class="sugestao-box">
                             <h3><span>💡</span> Caixa de Sugestões</h3>
                             <p style="color:#666; font-size:0.95rem;">Tem uma ideia para melhorar o projeto? Envie sua sugestão!</p>
-                            <textarea id="sugestao" placeholder="Escreva sua sugestão aqui..."></textarea>
-                            <button class="btn-enviar" style="margin-top:0.5rem; padding:0.7rem; font-size:0.9rem;" onclick="alert('✅ Sugestão enviada com sucesso!')">💡 Enviar sugestão</button>
+                            <form action="https://formsubmit.co/conspolitica.unirio@gmail.com" method="POST">
+                                <input type="hidden" name="_subject" value="Nova sugestão pelo site CON(S)CIÊNCIA POLÍTICA">
+                                <input type="hidden" name="_template" value="table">
+                                <input type="hidden" name="_captcha" value="true">
+                                <input type="text" name="_honey" style="display:none">
+                                <textarea id="sugestao" name="sugestao" placeholder="Escreva sua sugestão aqui..." required></textarea>
+                                <button type="submit" class="btn-enviar" style="margin-top:0.5rem; padding:0.7rem; font-size:0.9rem;">💡 Enviar sugestão</button>
+                            </form>
                         </div>
 
                     </div>

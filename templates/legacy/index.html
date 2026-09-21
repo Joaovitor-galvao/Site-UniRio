@@ -21,7 +21,7 @@
                     border-radius: 18px;
                     overflow: hidden;
         
-                    background: #2c1e1f;
+                    background: #963353;
         
                     box-shadow:
                         0 8px 25px
@@ -140,7 +140,7 @@
                     border-radius: 8px;
         
                     background:
-                        rgba(44, 30, 31, 0.70);
+                        rgba(184, 63, 104, 0.85);
         
                     color: #faf5e8;
         
@@ -156,7 +156,7 @@
         
                 .equipe-seta:hover {
                     background:
-                        rgba(44, 30, 31, 0.95);
+                        rgba(150, 51, 83, 0.95);
                 }
         
         
@@ -346,7 +346,7 @@
                     height: 55px;
                     border: none;
                     border-radius: 8px;
-                    background: #74402d;
+                    background: #b83f68;
                     color: #faf5e8;
                     font-size: 1.6rem;
                     cursor: pointer;
@@ -354,7 +354,7 @@
                 }
         
                 .destaques-seta:hover {
-                    background: #2c1e1f;
+                    background: #963353;
                 }
         
                 .destaques-seta--esquerda {
@@ -379,13 +379,13 @@
                     height: 12px;
                     padding: 0;
                     border-radius: 50%;
-                    border: 2px solid #74402d;
+                    border: 2px solid #b83f68;
                     background: transparent;
                     cursor: pointer;
                 }
         
                 .destaques-bolha.ativo {
-                    background: #74402d;
+                    background: #b83f68;
                 }
         
                 @media (max-width: 950px) {
@@ -472,15 +472,21 @@
         }
 
     </style>
+
+<style>
+.destaques-seta{background:#b83f68!important;color:#ffffff!important}
+.destaques-seta:hover{background:#963353!important}
+.destaques-bolha{border-color:#b83f68!important}
+.destaques-bolha.ativo{background:#b83f68!important}
+.access-btn,#high-contrast{display:none!important}
+</style>
+
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
-                <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
-                </div>
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
                     <a href="contato.html">Fale conosco</a>
@@ -847,7 +853,7 @@
                         {% for slide in team_slides %}
                         <button
                             class="equipe-bolha{% if forloop.first %} ativo{% endif %}"
-                            onclick="mostrarSlideEquipe({{ forloop.counter0 }})"
+                            data-slide-index="{{ forloop.counter0 }}"
                             aria-label="Mostrar slide {{ forloop.counter }}"
                         ></button>
                         {% empty %}
@@ -1064,11 +1070,21 @@
                 document.addEventListener(
                     "DOMContentLoaded",
                     function() {
-        
+
+                        document.querySelectorAll(".equipe-bolha[data-slide-index]").forEach(
+                            function(bolha) {
+                                bolha.addEventListener("click", function() {
+                                    const indice = Number(bolha.dataset.slideIndex);
+                                    mostrarSlideEquipe(indice);
+                                    reiniciarCarrosselEquipe();
+                                });
+                            }
+                        );
+
                         mostrarSlideEquipe(0);
-        
+
                         reiniciarCarrosselEquipe();
-        
+
                     }
                 );
         

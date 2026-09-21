@@ -22,8 +22,8 @@
             margin-left: auto;
         }
         .btn-vermelho {
-            background: #c0392b;
-            color: #faf5e8;
+            background: #000000;
+            color: #ffffff;
             padding: 0.7rem 1.5rem;
             border-radius: 2rem;
             text-decoration: none;
@@ -34,11 +34,11 @@
             cursor: pointer;
         }
         .btn-vermelho:hover {
-            background: #e74c3c;
+            background: #b83f68;
         }
         .btn-verde {
-            background: #27ae60;
-            color: #faf5e8;
+            background: #000000;
+            color: #ffffff;
             padding: 0.7rem 1.5rem;
             border-radius: 2rem;
             text-decoration: none;
@@ -49,7 +49,7 @@
             cursor: pointer;
         }
         .btn-verde:hover {
-            background: #2ecc71;
+            background: #b83f68;
         }
         @media (max-width: 768px) {
             .botoes-container {
@@ -63,6 +63,23 @@
             }
         }
     </style>
+
+<style>
+.header,.top-bar,.main-nav,.footer{background:#000000!important;color:#ffffff!important}
+.hero{background:#111111!important;color:#ffffff!important}
+.hero h1,.hero p{color:#ffffff!important}
+.top-bar__links a,.nav-list>li>a,.footer a{color:#b83f68!important}
+.nav-list>li>a:hover,.nav-list>li>a.active{background:#b83f68!important;color:#ffffff!important}
+.dropdown{background:#111111!important}
+.dropdown li a{color:#b83f68!important}
+.dropdown li a:hover{background:#b83f68!important;color:#ffffff!important}
+.header-search button{background:#b83f68!important;color:#ffffff!important}
+.card{border:2px solid #000000!important}
+.btn-vermelho,.btn-verde{background:#000000!important;color:#ffffff!important;border:3px solid #b83f68!important}
+.btn-vermelho:hover,.btn-verde:hover{background:#b83f68!important;color:#ffffff!important}
+.access-btn,#high-contrast{display:none!important}
+</style>
+
 </head>
 <body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
@@ -71,9 +88,6 @@
     <header class="header" role="banner">
         <div class="top-bar">
             <div class="container top-bar__inner">
-                <div class="top-bar__access">
-                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
-                </div>
                 <div class="top-bar__links">
                     <a href="#">Ouvidoria</a>
                     <a href="contato.html">Fale conosco</a>
@@ -100,19 +114,19 @@
                 </div>
                 <div class="header-social">
                     <a href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj" target="_blank" aria-label="Instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
                         </svg>
                     </a>
                     <a href="https://x.com/conspoliticax" target="_blank" aria-label="X (Twitter)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/>
                         </svg>
                     </a>
                     <a href="https://www.tiktok.com/@conspolitica?_r=1&_t=ZS-99eh7sp2kJZ" target="_blank" aria-label="TikTok">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"/>
                         </svg>
                     </a>
@@ -153,8 +167,8 @@
     <main id="main-content" class="main">
         <section class="hero" style="padding: 3rem 0;">
             <div class="container">
-                <h1 style="font-size:2.5rem; color:#faf5e8; font-family:'Playfair Display',Georgia,serif;">️ Governador do Estado</h1>
-                <p style="font-size:1.2rem; color:#faf5e8;">Chefe do Poder Executivo Estadual</p>
+                <h1 style="font-size:2.5rem; color:#ffffff; font-family:'Playfair Display',Georgia,serif;">️ Governador do Estado</h1>
+                <p style="font-size:1.2rem; color:#ffffff;">Chefe do Poder Executivo Estadual</p>
             </div>
         </section>
 
@@ -162,7 +176,7 @@
             <div class="container">
                 <div class="grid-2">
                     <div>
-                        <div class="card" style="border-left:4px solid #cf6357;">
+                        <div class="card" style="border-left:4px solid #b83f68;">
                             <h3> O que faz o Governador?</h3>
                             <ul>
                                 <li>Administra o estado e suas políticas públicas</li>
@@ -171,7 +185,7 @@
                                 <li>É o Comandante da Polícia Militar e Civil</li>
                             </ul>
                         </div>
-                        <div class="card" style="border-left:4px solid #cf6357; margin-top:1rem;">
+                        <div class="card" style="border-left:4px solid #b83f68; margin-top:1rem;">
                             <h3> Limites Constitucionais</h3>
                             <ul>
                                 <li>Não pode governar por decreto</li>
@@ -181,7 +195,7 @@
                         </div>
                     </div>
                     <div>
-                        <div class="card" style="border-left:4px solid #cf6357;">
+                        <div class="card" style="border-left:4px solid #b83f68;">
                             <h3> Como é eleito?</h3>
                             <ul>
                                 <li><strong>Sistema:</strong> Majoritário (mais votos)</li>
@@ -190,7 +204,7 @@
                                 <li><strong>Reeleição:</strong> Permitida para um mandato consecutivo</li>
                             </ul>
                         </div>
-                        <div class="card" style="border-left:4px solid #cf6357; margin-top:1rem;">
+                        <div class="card" style="border-left:4px solid #b83f68; margin-top:1rem;">
                             <h3> Datas Importantes</h3>
                             <ul>
                                 <li><strong>Posse:</strong> 1º de janeiro</li>
