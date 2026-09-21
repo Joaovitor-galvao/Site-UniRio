@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="icon" href="/static/imagens/logo.png" />
+
+    <style>
+        
+                .equipe-slider {
+                    position: relative;
+        
+                    width: 100%;
+                    max-width: 1100px;
+                    height: 520px;
+        
+                    margin: 2rem auto 0;
+        
+                    border-radius: 18px;
+                    overflow: hidden;
+        
+                    background: #2c1e1f;
+        
+                    box-shadow:
+                        0 8px 25px
+                        rgba(0, 0, 0, 0.15);
+                }
+        
+        
+                /* Cada slide */
+        
+                .equipe-slide {
+                    display: none;
+        
+                    position: relative;
+        
+                    width: 100%;
+                    height: 100%;
+                }
+        
+        
+                .equipe-slide.ativo {
+                    display: block;
+                }
+        
+        
+                /* Imagem */
+        
+                .equipe-slide img {
+                    width: 100%;
+                    height: 100%;
+        
+                    object-fit: cover;
+        
+                    display: block;
+                }
+        
+        
+                /* Sombra em cima da imagem */
+        
+                .equipe-slide::after {
+                    content: "";
+        
+                    position: absolute;
+        
+                    inset: 0;
+        
+                    background:
+                        linear-gradient(
+                            to top,
+                            rgba(44, 30, 31, 0.90),
+                            rgba(44, 30, 31, 0.05) 65%
+                        );
+                }
+        
+        
+                /* Texto */
+        
+                .equipe-slide__texto {
+                    position: absolute;
+        
+                    z-index: 2;
+        
+                    left: 50%;
+                    bottom: 70px;
+        
+                    transform: translateX(-50%);
+        
+                    width: 90%;
+        
+                    text-align: center;
+        
+                    color: #faf5e8;
+                }
+        
+        
+                .equipe-slide__texto h3 {
+                    font-family:
+                        'Playfair Display',
+                        Georgia,
+                        serif;
+        
+                    font-size: 2.5rem;
+        
+                    margin-bottom: 0.5rem;
+        
+                    color: #faf5e8;
+                }
+        
+        
+                .equipe-slide__texto p {
+                    margin: 0.2rem 0;
+        
+                    font-size: 1.1rem;
+        
+                    color: #faf5e8;
+                }
+        
+        
+                /* =====================================================
+                   SETAS
+                ====================================================== */
+        
+                .equipe-seta {
+                    position: absolute;
+        
+                    z-index: 5;
+        
+                    top: 50%;
+        
+                    transform: translateY(-50%);
+        
+                    width: 45px;
+                    height: 55px;
+        
+                    border: none;
+        
+                    border-radius: 8px;
+        
+                    background:
+                        rgba(44, 30, 31, 0.70);
+        
+                    color: #faf5e8;
+        
+                    font-size: 1.7rem;
+        
+                    cursor: pointer;
+        
+                    transition:
+                        background 0.2s,
+                        transform 0.2s;
+                }
+        
+        
+                .equipe-seta:hover {
+                    background:
+                        rgba(44, 30, 31, 0.95);
+                }
+        
+        
+                .equipe-seta--esquerda {
+                    left: 20px;
+                }
+        
+        
+                .equipe-seta--direita {
+                    right: 20px;
+                }
+        
+        
+                /* =====================================================
+                   BOLINHAS
+                ====================================================== */
+        
+                .equipe-bolhas {
+                    position: absolute;
+        
+                    z-index: 5;
+        
+                    bottom: 25px;
+        
+                    left: 50%;
+        
+                    transform: translateX(-50%);
+        
+                    display: flex;
+        
+                    gap: 10px;
+                }
+        
+        
+                .equipe-bolha {
+                    width: 12px;
+                    height: 12px;
+        
+                    padding: 0;
+        
+                    border-radius: 50%;
+        
+                    border:
+                        2px solid #faf5e8;
+        
+                    background: transparent;
+        
+                    cursor: pointer;
+        
+                    transition:
+                        background 0.3s,
+                        transform 0.3s;
+                }
+        
+        
+                .equipe-bolha:hover {
+                    transform: scale(1.2);
+                }
+        
+        
+                .equipe-bolha.ativo {
+                    background: #faf5e8;
+                }
+        
+        
+                /* =====================================================
+                   CELULAR
+                ====================================================== */
+        
+                @media (max-width: 768px) {
+        
+                    .equipe-slider {
+                        height: 420px;
+        
+                        border-radius: 12px;
+                    }
+        
+        
+                    .equipe-slide__texto {
+                        bottom: 65px;
+                    }
+        
+        
+                    .equipe-slide__texto h3 {
+                        font-size: 1.8rem;
+                    }
+        
+        
+                    .equipe-slide__texto p {
+                        font-size: 0.95rem;
+                    }
+        
+        
+                    .equipe-seta {
+                        width: 38px;
+                        height: 48px;
+        
+                        font-size: 1.4rem;
+                    }
+        
+        
+                    .equipe-seta--esquerda {
+                        left: 10px;
+                    }
+        
+        
+                    .equipe-seta--direita {
+                        right: 10px;
+                    }
+        
+                }
+        
+        
+                /* =====================================================
+                   IMAGEM DO HERO
+                ====================================================== */
+        
+                .hero__politico {
+                    width: 100%;
+                    max-width: 360px;
+                    height: auto;
+                    display: block;
+                    margin: 0 auto;
+                    object-fit: contain;
+                }
+        
+                @media (max-width: 768px) {
+                    .hero__politico {
+                        max-width: 280px;
+                        margin-top: 1.5rem;
+                    }
+                }
+        
+        
+                /* =====================================================
+                   CARROSSEL DE DESTAQUES
+                ====================================================== */
+        
+                .destaques-slider {
+                    position: relative;
+                    margin-top: 2rem;
+                    padding: 0 55px 45px;
+                }
+        
+                .destaques-viewport {
+                    overflow: hidden;
+                    width: 100%;
+                }
+        
+                .destaques-track {
+                    display: flex;
+                    gap: 1.5rem;
+                    transition: transform 0.5s ease;
+                }
+        
+                .destaque-item {
+                    flex: 0 0 calc((100% - 3rem) / 3);
+                    min-width: 0;
+                    text-decoration: none;
+                }
+        
+                .destaque-imagem {
+                    width: 100%;
+                    height: 150px;
+                    margin-bottom: 1rem;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    background: #faf5e8;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+        
+                .destaque-imagem img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    display: block;
+                }
+        
+                .destaques-seta {
+                    position: absolute;
+                    top: 50%;
+                    z-index: 5;
+                    transform: translateY(-70%);
+                    width: 42px;
+                    height: 55px;
+                    border: none;
+                    border-radius: 8px;
+                    background: #74402d;
+                    color: #faf5e8;
+                    font-size: 1.6rem;
+                    cursor: pointer;
+                    transition: background 0.2s ease;
+                }
+        
+                .destaques-seta:hover {
+                    background: #2c1e1f;
+                }
+        
+                .destaques-seta--esquerda {
+                    left: 0;
+                }
+        
+                .destaques-seta--direita {
+                    right: 0;
+                }
+        
+                .destaques-bolhas {
+                    position: absolute;
+                    left: 50%;
+                    bottom: 5px;
+                    transform: translateX(-50%);
+                    display: flex;
+                    gap: 10px;
+                }
+        
+                .destaques-bolha {
+                    width: 12px;
+                    height: 12px;
+                    padding: 0;
+                    border-radius: 50%;
+                    border: 2px solid #74402d;
+                    background: transparent;
+                    cursor: pointer;
+                }
+        
+                .destaques-bolha.ativo {
+                    background: #74402d;
+                }
+        
+                @media (max-width: 950px) {
+                    .destaque-item {
+                        flex: 0 0 calc((100% - 1.5rem) / 2);
+                    }
+                }
+        
+                @media (max-width: 650px) {
+                    .destaques-slider {
+                        padding-left: 45px;
+                        padding-right: 45px;
+                    }
+        
+                    .destaque-item {
+                        flex: 0 0 100%;
+                    }
+        
+                    .destaque-imagem {
+                        height: 180px;
+                    }
+                }
+        
+            
+        /* ===== AJUSTE DA LOGO DO HERO NO MOBILE ===== */
+        @media (max-width: 768px) {
+            .hero__visual {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero-logo-grande {
+                display: block;
+                width: 82%;
+                max-width: 285px;
+                height: auto;
+                margin: 1.5rem auto 0;
+                transform: translateX(10px);
+            }
+        }
+
+        @media (max-width: 430px) {
+            .hero-logo-grande {
+                width: 84%;
+                max-width: 255px;
+                transform: translateX(8px);
+            }
+        }
+
+    
+        /* ===== DESTAQUES: BOLINHAS E SWIPE NO MOBILE ===== */
+
+        .destaques-bolha:nth-child(n+3) {
+            display: none;
+        }
+
+        @media (max-width: 650px) {
+            .destaques-bolhas {
+                gap: 8px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .destaques-bolha {
+                width: 10px;
+                height: 10px;
+            }
+
+            .destaques-bolha:nth-child(n+3) {
+                display: block;
+            }
+
+            .destaques-viewport {
+                touch-action: pan-y;
+                cursor: grab;
+            }
+
+            .destaques-viewport:active {
+                cursor: grabbing;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+    <header class="header" role="banner">
+        <div class="top-bar">
+            <div class="container top-bar__inner">
+                <div class="top-bar__access">
+                    <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
+                </div>
+                <div class="top-bar__links">
+                    <a href="#">Ouvidoria</a>
+                    <a href="contato.html">Fale conosco</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container main-header__inner">
+                <div class="logo">
+                    <a href="index.html" style="display:flex; align-items:center; gap:0.8rem; text-decoration:none;">
+                       
+                        <div class="logo__text">
+                            <strong>CON(S)CIÊNCIA POLÍTICA</strong>
+                            <small>VOTO CONSCIENTE — UNIRIO</small>
+                        </div>
+                    </a>
+                </div>
+                <div class="header-search" role="search">
+                    <form action="#" method="get" onsubmit="return false;">
+                        <label for="search-input" class="visually-hidden"></label>
+                        <input type="search" id="search-input" placeholder="" autocomplete="off" />
+                        <button type="submit" aria-label="Pesquisar">🔍</button>
+                    </form>
+                    <div id="search-results" class="search-results" style="display:none;"></div>
+                </div>
+                <div class="header-social">
+                    <a href="https://www.instagram.com/conspolitica?igsh=ank0Nm55YzRpYmRj" target="_blank" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/conspoliticax" target="_blank" aria-label="X (Twitter)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M19.5 4l-6.768 6.768"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@conspolitica?_r=1&_t=ZS-99eh7sp2kJZ" target="_blank" aria-label="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#faf5e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 2h-4v12a3 3 0 1 1-3-3v-4a7 7 0 1 0 7 7V2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav" aria-label="Menu principal" role="navigation">
+            <div class="container">
+                <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
+                <ul id="primary-menu" class="nav-list">
+                    <li><a href="index.html" class="active">Início</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li class="has-dropdown">
+                        <a href="eleicoes-2026.html">Eleições 2026</a>
+                        <ul class="dropdown">
+            <li><a href="presidente.html">Presidente</a></li>
+            <li><a href="governador.html">Governador</a></li>
+        </ul>
+                    </li>
+                    <li><a href="informacoes.html">Informações</a></li>
+                    <li class="has-dropdown">
+                        <a href="conteudo-interativo.html">Conteúdo Interativo</a>
+                        <ul class="dropdown"><li><a href="quiz.html">Quiz</a></li>
+                            <li><a href="simulador.html">Simulador</a></li>
+                            <li><a href="voce-e-o-senador.html">Você é o Senador</a></li>
+                            <li><a href="flashcards.html">Flashcards</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="referencias.html">Referências</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main id="main-content" class="main">
+        <section class="hero">
+            <div class="container hero__inner">
+                <div class="hero__content">
+                    <h1 class="hero__title">VOTO CONSCIENTE: SAIBA COMO ESCOLHER</h1>
+                    <p class="hero__subtitle">Três votos.<br />Cada um com um papel diferente.<br /><strong>Aprenda a escolher bem.</strong></p>
+                    <a href="sobre.html" class="btn btn--primary">Saiba Mais</a>
+                </div>
+                <div class="hero__visual">
+                <img src="/static/imagens/logo.png" alt="Logo CON(S)CIÊNCIA POLÍTICA" class="hero-logo-grande">
+                </div>
+            </div>
+        </section>
+        <section class="section" id="apresentacao">
+            <div class="container">
+                <h2 class="section-title">Apresentação</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <p>O <strong>CON(S)CIÊNCIA POLÍTICA</strong> é um projeto de pesquisa e extensão da <strong>UNIRIO</strong>, vinculado à Escola de Ciência Política. Nossa missão é promover a educação política apartidária, fortalecendo a democracia por meio da informação clara, acessível e qualificada.</p>
+                        <p>Entendemos que o voto é uma ferramenta de transformação social, e que eleitoras e eleitores bem informados constroem uma sociedade mais justa e participativa.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Objetivos</h3>
+                        <ul>
+                            <li>Explicar o funcionamento do sistema eleitoral brasileiro.</li>
+                            <li>Auxiliar na compreensão dos cargos políticos.</li>
+                            <li>Incentivar o voto consciente e crítico.</li>
+                            <li>Divulgar ações de pesquisa e extensão da UNIRIO.</li>
+                            <li>Oferecer conteúdos educativos interativos.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section--alt">
+            <div class="container">
+                <h2 class="section-title">Importância Social e Acadêmica</h2>
+                <div class="grid-2">
+                    <div class="card"><h3>Impacto Social</h3><p>O projeto contribui para a formação de uma cidadania ativa, reduzindo a desinformação e fortalecendo a confiança nas instituições democráticas.</p></div>
+                    <div class="card"><h3>Impacto Acadêmico</h3><p>Gera conhecimento científico sobre comportamento eleitoral, produção de materiais didáticos e formação de pesquisadores na área de ciência política.</p></div>
+                </div>
+            </div>
+        </section>
+        <!-- =====================================================
+             DESTAQUES - CARROSSEL
+        ====================================================== -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Destaques
+                </h2>
+
+                <div class="destaques-slider">
+
+                    <button
+                        class="destaques-seta destaques-seta--esquerda"
+                        onclick="mudarDestaques(-1)"
+                        aria-label="Destaque anterior"
+                    >
+                        ❮
+                    </button>
+
+                    <div class="destaques-viewport">
+
+                        <div class="destaques-track">
+
+                            <a href="eleicoes-2026.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="/static/imagens/cards/eleicoes.png"
+                                        alt="Ilustração sobre Eleições 2026"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Eleições 2026
+                                </h3>
+
+                                <p>
+                                    Entenda o processo eleitoral e o papel de cada cargo.
+                                </p>
+
+                            </a>
+
+                            <a href="eventos.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="/static/imagens/cards/eventos.png"
+                                        alt="Ilustração sobre eventos"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Eventos
+                                </h3>
+
+                                <p>
+                                    Oficinas, palestras, seminários e congressos.
+                                </p>
+
+                            </a>
+
+                            <a href="quiz.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="/static/imagens/cards/quiz.png"
+                                        alt="Ilustração sobre quiz"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Quiz
+                                </h3>
+
+                                <p>
+                                    Teste seus conhecimentos sobre política e cidadania.
+                                </p>
+
+                            </a>
+
+                            <a href="simulador.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="/static/imagens/cards/simulador.png"
+                                        alt="Ilustração sobre simulador"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Simulador
+                                </h3>
+
+                                <p>
+                                    Escolha suas prioridades e veja seu perfil eleitoral.
+                                </p>
+
+                            </a>
+
+                            <a href="conteudo-interativo.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="/static/imagens/cards/materiais.png"
+                                        alt="Ilustração sobre materiais educativos"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Materiais Educativos
+                                </h3>
+
+                                <p>
+                                    Flashcards, jogos e conteúdos interativos.
+                                </p>
+
+                            </a>
+
+                            <a href="informacoes.html" class="card card--link destaque-item">
+
+                                <div class="destaque-imagem">
+                                    <img
+                                        src="/static/imagens/cards/estatisticas.png"
+                                        alt="Ilustração sobre estatísticas"
+                                    >
+                                </div>
+
+                                <h3>
+                                    Estatísticas
+                                </h3>
+
+                                <p>
+                                    Dados sobre participação, abstenção e mais.
+                                </p>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="destaques-seta destaques-seta--direita"
+                        onclick="mudarDestaques(1)"
+                        aria-label="Próximo destaque"
+                    >
+                        ❯
+                    </button>
+
+                    <div class="destaques-bolhas">
+
+                        <button class="destaques-bolha ativo" onclick="mostrarGrupoDestaques(0)" aria-label="Mostrar destaque 1"></button>
+                        <button class="destaques-bolha" onclick="mostrarGrupoDestaques(1)" aria-label="Mostrar destaque 2"></button>
+                        <button class="destaques-bolha" onclick="mostrarGrupoDestaques(2)" aria-label="Mostrar destaque 3"></button>
+                        <button class="destaques-bolha" onclick="mostrarGrupoDestaques(3)" aria-label="Mostrar destaque 4"></button>
+                        <button class="destaques-bolha" onclick="mostrarGrupoDestaques(4)" aria-label="Mostrar destaque 5"></button>
+                        <button class="destaques-bolha" onclick="mostrarGrupoDestaques(5)" aria-label="Mostrar destaque 6"></button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        
+<!-- =====================================================
+             EQUIPE - CARROSSEL
+        ====================================================== -->
+
+        <section
+            class="section section--alt"
+            id="equipe"
+        >
+
+            <div class="container">
+
+
+                <h2 class="section-title">
+                    Equipe
+                </h2>
+
+
+
+                <div class="equipe-slider">
+
+
+                    {% for slide in team_slides %}
+                    <div class="equipe-slide{% if forloop.first %} ativo{% endif %}">
+                        <img src="{{ slide.image_url }}" alt="{{ slide.alt_text|default:slide.title }}" onerror="this.src='/static/imagens/logo.png'">
+                        <div class="equipe-slide__texto">
+                            <h3>{{ slide.title }}</h3>
+                            {% for line in slide.lines %}
+                            <p>{{ line }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="equipe-slide ativo">
+                        <img src="/static/imagens/logo.png" alt="CON(S)CIÊNCIA POLÍTICA">
+                        <div class="equipe-slide__texto">
+                            <h3>Equipe</h3>
+                            <p>Cadastre os slides da equipe pelo painel administrativo.</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <!-- =================================================
+                         SETA ESQUERDA
+                    ================================================== -->
+
+                    <button
+                        class="equipe-seta equipe-seta--esquerda"
+                        onclick="mudarSlideEquipe(-1)"
+                        aria-label="Imagem anterior"
+                    >
+                        ❮
+                    </button>
+
+
+
+                    <!-- =================================================
+                         SETA DIREITA
+                    ================================================== -->
+
+                    <button
+                        class="equipe-seta equipe-seta--direita"
+                        onclick="mudarSlideEquipe(1)"
+                        aria-label="Próxima imagem"
+                    >
+                        ❯
+                    </button>
+
+
+
+                    <!-- =================================================
+                         BOLINHAS
+                    ================================================== -->
+
+                    <div class="equipe-bolhas">
+                        {% for slide in team_slides %}
+                        <button
+                            class="equipe-bolha{% if forloop.first %} ativo{% endif %}"
+                            onclick="mostrarSlideEquipe({{ forloop.counter0 }})"
+                            aria-label="Mostrar slide {{ forloop.counter }}"
+                        ></button>
+                        {% empty %}
+                        <button class="equipe-bolha ativo" aria-label="Mostrar slide 1"></button>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Notícias</h2>
+                <div class="grid-2">
+                    {% for news in home_news %}
+                    <article class="card news-card">
+                        <h3>{{ news.title }}</h3>
+                        <p>{{ news.summary }}</p>
+                        <time datetime="{{ news.published_at|date:'Y-m-d' }}">{{ news.published_at|date:"d/m/Y" }}</time>
+                        {% if news.link %}<p><a href="{{ news.link }}" target="_blank" rel="noopener noreferrer">Leia mais</a></p>{% endif %}
+                    </article>
+                    {% empty %}
+                    <article class="card news-card" style="grid-column:1/-1; text-align:center;">
+                        <h3>Nenhuma notícia publicada</h3>
+                        <p>As notícias cadastradas no Admin aparecerão aqui.</p>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <section class="section section--alt">
+            <div class="container">
+                <h2 class="section-title">Próximos Eventos</h2>
+                <div class="grid-2">
+                    {% for event in home_events %}
+                    <div class="card">
+                        <h3>{{ event.title }}</h3>
+                        <p><strong>Data:</strong> {{ event.date|date:"d/m/Y" }}</p>
+                        <p><strong>Local:</strong> {{ event.location }}</p>
+                        <p>{{ event.description }}</p>
+                        {% if event.link %}<p><a href="{{ event.link }}" target="_blank" rel="noopener noreferrer">Mais informações</a></p>{% endif %}
+                    </div>
+                    {% empty %}
+                    <div class="card" style="grid-column:1/-1; text-align:center;">
+                        <h3>Nenhum evento publicado</h3>
+                        <p>Os eventos marcados para aparecer na página inicial serão exibidos aqui.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer" role="contentinfo">
+        <div class="container footer__inner">
+            <div class="footer__col">
+                <h3>CON(S)CIÊNCIA POLÍTICA</h3>
+                <p>Projeto de Pesquisa e Extensão</p>
+                <p>Escola de Ciência Política</p>
+                <p>UNIRIO — Universidade Federal do Estado do Rio de Janeiro</p>
+            </div>
+            <div class="footer__col">
+                <h4>Links úteis</h4>
+                <ul>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="eventos.html">Eventos</a></li>
+                    <li><a href="eleicoes-2026.html">Eleições 2026</a></li>
+                    <li><a href="referencias.html">Referências</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>Contato</h4>
+                <p><a href="mailto:conspolitica.unirio@gmail.com">conspolitica.unirio@gmail.com</a></p>
+            </div>
+            <div class="footer__col">
+                <h4>Mapa do site</h4>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="conteudo-interativo.html">Conteúdo Interativo</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div>
+    </footer>
+    <script>
+        
+                let slideEquipeAtual = 0;
+        
+                let intervaloEquipe;
+        
+        
+                function mostrarSlideEquipe(indice) {
+        
+                    const slides =
+                        document.querySelectorAll(
+                            ".equipe-slide"
+                        );
+        
+                    const bolhas =
+                        document.querySelectorAll(
+                            ".equipe-bolha"
+                        );
+        
+        
+                    if (slides.length === 0) {
+                        return;
+                    }
+        
+        
+                    /* Passou do último */
+        
+                    if (indice >= slides.length) {
+                        indice = 0;
+                    }
+        
+        
+                    /* Voltou antes do primeiro */
+        
+                    if (indice < 0) {
+                        indice = slides.length - 1;
+                    }
+        
+        
+                    /* Esconde todos */
+        
+                    slides.forEach(
+                        function(slide) {
+        
+                            slide.classList.remove(
+                                "ativo"
+                            );
+        
+                        }
+                    );
+        
+        
+                    /* Desmarca bolinhas */
+        
+                    bolhas.forEach(
+                        function(bolha) {
+        
+                            bolha.classList.remove(
+                                "ativo"
+                            );
+        
+                        }
+                    );
+        
+        
+                    /* Mostra o selecionado */
+        
+                    slides[indice]
+                        .classList
+                        .add("ativo");
+        
+        
+                    /* Marca a bolinha */
+        
+                    if (bolhas[indice]) {
+        
+                        bolhas[indice]
+                            .classList
+                            .add("ativo");
+        
+                    }
+        
+        
+                    slideEquipeAtual = indice;
+        
+                }
+        
+        
+        
+                function mudarSlideEquipe(direcao) {
+        
+                    mostrarSlideEquipe(
+                        slideEquipeAtual + direcao
+                    );
+        
+                    reiniciarCarrosselEquipe();
+        
+                }
+        
+        
+        
+                function reiniciarCarrosselEquipe() {
+        
+                    clearInterval(
+                        intervaloEquipe
+                    );
+        
+        
+                    intervaloEquipe =
+                        setInterval(
+                            function() {
+        
+                                mostrarSlideEquipe(
+                                    slideEquipeAtual + 1
+                                );
+        
+                            },
+        
+                            5000
+                        );
+        
+                }
+        
+        
+        
+                document.addEventListener(
+                    "DOMContentLoaded",
+                    function() {
+        
+                        mostrarSlideEquipe(0);
+        
+                        reiniciarCarrosselEquipe();
+        
+                    }
+                );
+        
+            </script>
+    
+    <script>
+        
+                let grupoDestaquesAtual = 0;
+
+        let destaqueTouchInicioX = 0;
+        let destaqueTouchFimX = 0;
+
+        function configurarSwipeDestaques() {
+            const viewport = document.querySelector(".destaques-viewport");
+
+            if (!viewport) {
+                return;
+            }
+
+            viewport.addEventListener("touchstart", function(event) {
+                destaqueTouchInicioX = event.changedTouches[0].screenX;
+            }, { passive: true });
+
+            viewport.addEventListener("touchend", function(event) {
+                destaqueTouchFimX = event.changedTouches[0].screenX;
+
+                const distancia = destaqueTouchFimX - destaqueTouchInicioX;
+                const limite = 45;
+
+                if (Math.abs(distancia) < limite) {
+                    return;
+                }
+
+                if (distancia < 0) {
+                    mudarDestaques(1);
+                } else {
+                    mudarDestaques(-1);
+                }
+            }, { passive: true });
+        }
+
+        
+                function quantidadeDestaquesVisiveis() {
+        
+                    if (window.innerWidth <= 650) {
+                        return 1;
+                    }
+        
+                    if (window.innerWidth <= 950) {
+                        return 2;
+                    }
+        
+                    return 3;
+                }
+        
+        
+                function mostrarGrupoDestaques(indice) {
+        
+                    const track =
+                        document.querySelector(".destaques-track");
+        
+                    const itens =
+                        document.querySelectorAll(".destaque-item");
+        
+                    const bolhas =
+                        document.querySelectorAll(".destaques-bolha");
+        
+                    if (!track || itens.length === 0) {
+                        return;
+                    }
+        
+                    const visiveis =
+                        quantidadeDestaquesVisiveis();
+        
+                    const totalGrupos =
+                        Math.ceil(itens.length / visiveis);
+        
+                    if (indice >= totalGrupos) {
+                        indice = 0;
+                    }
+        
+                    if (indice < 0) {
+                        indice = totalGrupos - 1;
+                    }
+        
+                    const larguraViewport =
+                        document.querySelector(".destaques-viewport").clientWidth;
+        
+                    const gap =
+                        parseFloat(
+                            getComputedStyle(track).gap
+                        ) || 0;
+        
+                    const larguraItem =
+                        itens[0].getBoundingClientRect().width;
+        
+                    const deslocamento =
+                        indice * visiveis * (larguraItem + gap);
+        
+                    const larguraTotal =
+                        (itens.length * larguraItem) +
+                        ((itens.length - 1) * gap);
+        
+                    const maximo =
+                        Math.max(
+                            0,
+                            larguraTotal - larguraViewport
+                        );
+        
+                    track.style.transform =
+                        "translateX(-" +
+                        Math.min(deslocamento, maximo) +
+                        "px)";
+        
+                    bolhas.forEach(
+                        function(bolha) {
+                            bolha.classList.remove("ativo");
+                        }
+                    );
+        
+                    if (bolhas[indice]) {
+                        bolhas[indice].classList.add("ativo");
+                    }
+        
+                    grupoDestaquesAtual = indice;
+                }
+        
+        
+                function mudarDestaques(direcao) {
+        
+                    mostrarGrupoDestaques(
+                        grupoDestaquesAtual + direcao
+                    );
+                }
+        
+        
+                window.addEventListener(
+                    "resize",
+                    function() {
+                        mostrarGrupoDestaques(0);
+                    }
+                );
+        
+        
+                document.addEventListener(
+                    "DOMContentLoaded",
+                    function() {
+                        mostrarGrupoDestaques(0);
+                        configurarSwipeDestaques();
+                    }
+                );
+        
+            </script>
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/search.js?v=1"></script>
+</body>
+</html>

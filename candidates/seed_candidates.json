@@ -1,0 +1,1044 @@
+[
+  {
+    "legacy_id": 1,
+    "name": "Luiz Inácio Lula da Silva",
+    "full_name": "LUIZ INÁCIO LULA DA SILVA",
+    "category": "president",
+    "state": "",
+    "party": "PT",
+    "party_name": "Partido dos Trabalhadores",
+    "number": 13,
+    "vice": "Geraldo Alckmin",
+    "vice_party": "PSB",
+    "coalition": "Brasil da Esperança",
+    "birth_date": "06/10/1945",
+    "birthplace": "Brasileira Nata / PE - Garanhuns",
+    "profession": "Torneiro Mecânico",
+    "education": "Ensino Fundamental Completo",
+    "trajectory": "Político e ex-sindicalista. Sua trajetória começou no movimento sindical do ABC paulista, ligada à organização dos trabalhadores metalúrgicos. Foi um dos fundadores do Partido dos Trabalhadores. Foi presidente da República entre 2003 e 2010 e voltou à Presidência em 2023. Em 2026, disputa a reeleição pelo PT.",
+    "status_tse": "Validado",
+    "photo_static": "imagens/presidentes/lula.png",
+    "proposals": {
+      "Democracia": [
+        "Ampliação da participação social na elaboração e acompanhamento das políticas públicas",
+        "Fortalecimento dos serviços públicos digitais",
+        "Ampliação das políticas de redução das desigualdades"
+      ],
+      "Saúde": [
+        "Fortalecimento do SUS"
+      ],
+      "Educação": [
+        "Políticas de expansão e melhoria da educação"
+      ],
+      "Trabalho e Economia": [
+        "Valorização do trabalho e geração de empregos",
+        "Desenvolvimento industrial"
+      ],
+      "Meio Ambiente e Energia": [
+        "Transição energética",
+        "Proteção ambiental",
+        "Políticas para povos indígenas e comunidades tradicionais"
+      ],
+      "Política Externa": [
+        "Fortalecimento da participação do Brasil em organismos e relações internacionais"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 2,
+    "name": "Flávio Bolsonaro",
+    "full_name": "Flávio Nantes Bolsonaro",
+    "category": "president",
+    "state": "",
+    "party": "PL",
+    "party_name": "Partido Liberal",
+    "number": 22,
+    "vice": "Alfredo Gaspar",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "30/04/1981",
+    "birthplace": "Brasileira Nata / RJ - Resende",
+    "profession": "Senador",
+    "education": "Superior Completo",
+    "trajectory": "Advogado e político. É filho do ex-presidente Jair Bolsonaro. Foi deputado estadual no Rio de Janeiro e posteriormente eleito senador pelo estado. Em 2026, concorre à Presidência pelo Partido Liberal.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/flavio-bolsonaro.png",
+    "proposals": {
+      "Segurança Pública": [
+        "Combate ao crime organizado",
+        "Bloqueio de recursos financeiros de organizações criminosas",
+        "Investimentos em inteligência policial",
+        "Utilização de tecnologia na segurança",
+        "Fortalecimento do controle das fronteiras",
+        "Construção de estruturas de segurança de alta proteção"
+      ],
+      "Economia": [
+        "Medidas de desburocratização",
+        "Estímulo ao empreendedorismo"
+      ],
+      "Educação": [
+        "Políticas para educação"
+      ],
+      "Desenvolvimento Social": [
+        "Políticas direcionadas às mulheres e ao desenvolvimento social"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 3,
+    "name": "Romeu Zema",
+    "full_name": "Romeu Zema Neto",
+    "category": "president",
+    "state": "",
+    "party": "NOVO",
+    "party_name": "Partido Novo",
+    "number": 30,
+    "vice": "Eduardo Girão",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "28/10/1964",
+    "birthplace": "Brasileira Nata / MG - Araxá",
+    "profession": "Empresário",
+    "education": "Superior Completo",
+    "trajectory": "Empresário e político. Foi eleito governador de Minas Gerais em 2018 e reeleito em 2022. Em 2026, disputa a Presidência pelo Partido Novo.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/romeu-zema.png",
+    "proposals": {
+      "Segurança Pública": [
+        "Combate ao crime organizado",
+        "Construção de presídios de segurança máxima",
+        "Fortalecimento das forças de segurança",
+        "Mudanças na legislação penal",
+        "Redução da maioridade penal para 16 anos"
+      ],
+      "Administração Pública": [
+        "Combate à corrupção",
+        "Combate a supersalários e privilégios",
+        "Desburocratização"
+      ],
+      "Economia": [
+        "Responsabilidade fiscal",
+        "Estímulo à iniciativa privada"
+      ],
+      "Educação e Infraestrutura": [
+        "Investimentos"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 4,
+    "name": "Ronaldo Caiado",
+    "full_name": "Ronaldo Ramos Caiado",
+    "category": "president",
+    "state": "",
+    "party": "PSD",
+    "party_name": "Partido Social Democrático",
+    "number": 55,
+    "vice": "Gilberto Kassab",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "25/09/1949",
+    "birthplace": "Brasileira Nata / GO - Anápolis",
+    "profession": "Médico",
+    "education": "Superior Completo",
+    "trajectory": "Médico ortopedista e político. Foi governador de Goiás, eleito duas vezes. Sua trajetória inclui cinco mandatos como deputado federal e participação na política ligada ao setor agropecuário. Também disputou a Presidência em 1989. Em 2026, concorre pelo PSD.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/ronaldo-caiado.png",
+    "proposals": {
+      "Economia": [
+        "Responsabilidade fiscal",
+        "Estímulo ao investimento e à atividade econômica"
+      ],
+      "Administração": [
+        "Combate à corrupção",
+        "Combate a privilégios e supersalários"
+      ],
+      "Segurança Pública": [
+        "Combate às organizações criminosas",
+        "Construção de presídios de segurança máxima",
+        "Mudanças na legislação penal"
+      ],
+      "Saúde": [
+        "Propostas para saúde e redução de filas"
+      ],
+      "Educação": [
+        "Políticas educacionais"
+      ],
+      "Infraestrutura": [
+        "Investimentos em infraestrutura"
+      ],
+      "Meio Ambiente": [
+        "Políticas ambientais"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 5,
+    "name": "Samara Martins",
+    "full_name": "Samara Martins",
+    "category": "president",
+    "state": "",
+    "party": "UP",
+    "party_name": "Unidade Popular",
+    "number": 80,
+    "vice": "Raquel Brício",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "31/08/1987",
+    "birthplace": "Brasileira Nata / MG - Belo Horizonte",
+    "profession": "Odontóloga",
+    "education": "Superior Completo",
+    "trajectory": "Candidata da Unidade Popular à Presidência da República. O partido apresenta uma plataforma baseada principalmente em políticas sociais, direitos trabalhistas e ampliação dos serviços públicos.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/samara-martins.png",
+    "proposals": {
+      "Trabalho": [
+        "Fim da escala 6x1",
+        "Redução da jornada de trabalho",
+        "Aumento do salário mínimo",
+        "Revogação das reformas trabalhista e previdenciária",
+        "Regulamentação do trabalho por aplicativos"
+      ],
+      "Saúde": [
+        "Fortalecimento do SUS",
+        "Produção nacional de medicamentos e vacinas"
+      ],
+      "Habitação e Saneamento": [
+        "Ampliação de políticas habitacionais",
+        "Ampliação do saneamento"
+      ],
+      "Tributação": [
+        "Tributação progressiva"
+      ],
+      "Direitos": [
+        "Políticas para mulheres, juventude, população negra e povos indígenas"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 6,
+    "name": "Renan Santos",
+    "full_name": "Renan Antônio Ferreira dos Santos",
+    "category": "president",
+    "state": "",
+    "party": "MISSAO",
+    "party_name": "Partido Missão",
+    "number": 14,
+    "vice": "Coronel Medina",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "14/02/1984",
+    "birthplace": "Brasileira Nata / SP - São Paulo",
+    "profession": "Empresário",
+    "education": "Superior Incompleto",
+    "trajectory": "Empresário e fundador e presidente do partido Missão. Sua trajetória política está ligada ao Movimento Brasil Livre (MBL), grupo que teve atuação destacada durante o processo de impeachment de Dilma Rousseff. Também trabalhou com o pai na recuperação de empresas em dificuldades financeiras. Em 2026, disputa pela primeira vez uma eleição como candidato.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/renan-santos.png",
+    "proposals": {
+      "Administração": [
+        "Reforma administrativa",
+        "Revisão de gastos públicos",
+        "Combate a supersalários",
+        "Reorganização da administração pública"
+      ],
+      "Social": [
+        "Mudanças nos programas sociais"
+      ],
+      "Economia": [
+        "Geração de empregos",
+        "Desenvolvimento industrial",
+        "Soberania econômica e tecnológica"
+      ],
+      "Segurança Pública": [
+        "Combate ao crime organizado",
+        "Políticas de segurança"
+      ],
+      "Institucional": [
+        "Mudanças institucionais"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 7,
+    "name": "Hertz Dias",
+    "full_name": "Hertz Dias",
+    "category": "president",
+    "state": "",
+    "party": "PSTU",
+    "party_name": "Partido Socialista dos Trabalhadores Unificado",
+    "number": 16,
+    "vice": "Vanessa Portugal",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "20/10/1970",
+    "birthplace": "Brasileira Nata / MA - São José de Ribamar",
+    "profession": "Professor de Ensino Fundamental",
+    "education": "Superior Completo",
+    "trajectory": "Professor e militante político. Sua atuação está ligada ao movimento sindical e aos movimentos sociais. Em 2018, foi candidato ao Governo do Maranhão pelo PSTU. Em 2026, disputa a Presidência pelo PSTU.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/hertz-dias.png",
+    "proposals": {
+      "Trabalho": [
+        "Fim da escala 6x1",
+        "Redução da jornada de trabalho",
+        "Aumento do salário mínimo",
+        "Revogação das reformas trabalhista e previdenciária",
+        "Regulamentação do trabalho por aplicativos"
+      ],
+      "Transporte": [
+        "Tarifa zero no transporte público"
+      ],
+      "Terras": [
+        "Demarcação de terras indígenas e quilombolas"
+      ],
+      "Meio Ambiente": [
+        "Redução do uso de agrotóxicos"
+      ],
+      "Segurança Pública": [
+        "Câmeras corporais para agentes de segurança",
+        "Funcionamento 24 horas das Delegacias da Mulher"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 8,
+    "name": "Clariana Barão",
+    "full_name": "Clariana Barão",
+    "category": "president",
+    "state": "",
+    "party": "DC",
+    "party_name": "Democracia Cristã",
+    "number": 27,
+    "vice": "Fabiana Torquato",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "03/04/1987",
+    "birthplace": "Brasileira Nata / MT - Cuiabá",
+    "profession": "Advogada",
+    "education": "Superior Completo",
+    "trajectory": "Candidata do partido Democracia Cristã (DC) à Presidência da República. Sua chapa tem Fabiana Torquato como candidata a vice-presidente.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/clariana-barao.png",
+    "proposals": {
+      "Economia": [
+        "Desenvolvimento econômico",
+        "Geração de emprego e renda",
+        "Empreendedorismo"
+      ],
+      "Social": [
+        "Educação",
+        "Saúde",
+        "Segurança",
+        "Proteção ambiental",
+        "Infraestrutura",
+        "Políticas sociais"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 9,
+    "name": "Edmilson Costa",
+    "full_name": "Edmilson Costa",
+    "category": "president",
+    "state": "",
+    "party": "PCB",
+    "party_name": "Partido Comunista Brasileiro",
+    "number": 21,
+    "vice": "Cleusa Santos",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "08/04/1950",
+    "birthplace": "Brasileira Nata / MA - Pedreiras",
+    "profession": "Aposentado (Exceto Servidor Público)",
+    "education": "Superior Completo",
+    "trajectory": "Economista, professor e dirigente político ligado ao Partido Comunista Brasileiro (PCB). Em 2026, concorre à Presidência pelo PCB.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/edmilson-costa.png",
+    "proposals": {
+      "Democracia": [
+        "Orçamento popular",
+        "Participação direta da população nas decisões públicas",
+        "Conselhos populares",
+        "Mudanças na estrutura do Legislativo",
+        "Democratização dos meios de comunicação"
+      ],
+      "Economia": [
+        "Estatização de setores estratégicos",
+        "Reforma agrária"
+      ],
+      "Serviços Públicos": [
+        "Transporte público gratuito",
+        "Fortalecimento dos serviços públicos",
+        "Políticas de moradia",
+        "Saneamento"
+      ],
+      "Meio Ambiente": [
+        "Proteção ambiental"
+      ],
+      "Trabalho": [
+        "Ampliação dos direitos trabalhistas"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 10,
+    "name": "Augusto Cury",
+    "full_name": "Augusto Cury",
+    "category": "president",
+    "state": "",
+    "party": "AVANTE",
+    "party_name": "Partido Avante",
+    "number": 70,
+    "vice": "Júlio Delgado",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "02/10/1958",
+    "birthplace": "Brasileira Nata / SP - Colina",
+    "profession": "Escritor e Crítico",
+    "education": "Superior Completo",
+    "trajectory": "Médico psiquiatra, pesquisador e escritor. Sua atuação profissional é principalmente relacionada à psiquiatria, psicologia e educação. Em 2026, concorre à Presidência pelo Avante.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/augusto-cury.png",
+    "proposals": {
+      "Educação": [
+        "Mudanças no sistema educacional",
+        "Desenvolvimento de habilidades socioemocionais",
+        "Formação de professores"
+      ],
+      "Saúde": [
+        "Atenção à saúde mental",
+        "Políticas de inclusão de pessoas neurodivergentes"
+      ],
+      "Economia": [
+        "Incentivo ao empreendedorismo",
+        "Criação de mecanismos de financiamento para empreendedores",
+        "Estímulo à inovação",
+        "Desenvolvimento tecnológico",
+        "Fortalecimento da indústria",
+        "Incentivo às exportações"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 11,
+    "name": "Rui Costa Pimenta",
+    "full_name": "Rui Costa Pimenta",
+    "category": "president",
+    "state": "",
+    "party": "PCO",
+    "party_name": "Partido da Causa Operária",
+    "number": 29,
+    "vice": "Antônio Carlos",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "25/06/1957",
+    "birthplace": "Brasileira Nata / SP - São Paulo",
+    "profession": "Jornalista e Redator",
+    "education": "Superior Completo",
+    "trajectory": "Jornalista, escritor e dirigente político. É um dos principais dirigentes do Partido da Causa Operária (PCO). Em 2026, concorre novamente à Presidência pelo PCO.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/rui-costa-pimenta.png",
+    "proposals": {
+      "Trabalho": [
+        "Aumento de salários",
+        "Reposição das perdas salariais",
+        "Redução da jornada de trabalho",
+        "Políticas de proteção aos trabalhadores",
+        "Proteção aos desempregados",
+        "Passe livre para desempregados",
+        "Ampliação dos direitos trabalhistas"
+      ],
+      "Social": [
+        "Ampliação de programas de transferência de renda"
+      ],
+      "Economia": [
+        "Mudanças na organização econômica"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 12,
+    "name": "Wilson Grassi",
+    "full_name": "WILSON GRASSI JUNIOR",
+    "category": "president",
+    "state": "",
+    "party": "Democrata",
+    "party_name": "Partido Democrata",
+    "number": 35,
+    "vice": "Suêd Haidar",
+    "vice_party": "",
+    "coalition": "",
+    "birth_date": "13/03/1970",
+    "birthplace": "Brasileira Nata / SP - São Paulo",
+    "profession": "Veterinário",
+    "education": "Superior Completo",
+    "trajectory": "Candidato do partido Democrata à Presidência. Sua chapa tem Suêd Haidar como candidata a vice-presidente. O programa 'Brasil em Primeiro Lugar' aborda gestão pública, digitalização dos serviços, saúde, educação, segurança, infraestrutura, agricultura, meio ambiente, proteção animal, desenvolvimento econômico e defesa nacional.",
+    "status_tse": "Deferido",
+    "photo_static": "imagens/presidentes/wilson-grassi.png",
+    "proposals": {
+      "Saúde": [
+        "Criação de uma fila única nacional para cirurgias eletivas",
+        "Integração de bases de dados públicas"
+      ],
+      "Infraestrutura": [
+        "Investimentos em infraestrutura ferroviária",
+        "Saneamento"
+      ],
+      "Agricultura": [
+        "Políticas de rastreabilidade da produção agropecuária"
+      ],
+      "Outros": [
+        "Gestão pública e digitalização dos serviços",
+        "Educação",
+        "Segurança",
+        "Meio ambiente",
+        "Proteção animal",
+        "Desenvolvimento econômico",
+        "Defesa nacional"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 1,
+    "name": "André Marinho",
+    "full_name": "André Bourguignon Marinho",
+    "category": "governor",
+    "state": "RJ",
+    "party": "NOVO",
+    "party_name": "Partido Novo",
+    "number": 30,
+    "vice": "Tenente-Coronel Erigreyce",
+    "vice_party": "NOVO",
+    "coalition": "",
+    "birth_date": "",
+    "birthplace": "Rio de Janeiro — RJ",
+    "profession": "Comunicador, apresentador, humorista e empresário.",
+    "education": "",
+    "trajectory": "André Marinho ganhou projeção nacional por sua atuação em rádio, televisão\n                        e internet. Em 2026, disputa o Governo do Estado do Rio de Janeiro pelo NOVO.",
+    "status_tse": "",
+    "photo_static": "imagens/governadores/andre-marinho.jpg",
+    "proposals": {
+      "Saúde": [
+        "Reduzir filas de exames e cirurgias",
+        "Ampliar o atendimento de alta complexidade",
+        "Melhorar a regulação de leitos",
+        "Expandir ferramentas digitais na saúde"
+      ],
+      "Educação": [
+        "Ampliar a formação técnica",
+        "Reduzir a evasão escolar",
+        "Fortalecer a educação profissional",
+        "Aproximar ensino e mercado de trabalho"
+      ],
+      "Economia": [
+        "Estimular a geração de empregos",
+        "Reduzir burocracias para empresas",
+        "Incentivar novos investimentos",
+        "Fortalecer o desenvolvimento regional"
+      ],
+      "Segurança": [
+        "Combater o crime organizado",
+        "Ampliar o uso de inteligência policial",
+        "Integrar os órgãos de segurança",
+        "Reforçar o combate ao tráfico de armas"
+      ],
+      "Meio Ambiente": [
+        "Avançar na despoluição da Baía de Guanabara",
+        "Recuperar áreas de Mata Atlântica",
+        "Ampliar ações de prevenção a desastres",
+        "Investir em adaptação climática"
+      ],
+      "Infraestrutura": [
+        "Melhorar a mobilidade metropolitana",
+        "Integrar projetos regionais de infraestrutura",
+        "Fortalecer corredores logísticos",
+        "Estimular investimentos no interior do estado"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 2,
+    "name": "Anthony Garotinho",
+    "full_name": "Anthony William Garotinho Matheus de Oliveira",
+    "category": "governor",
+    "state": "RJ",
+    "party": "REPUBLICANOS",
+    "party_name": "Republicanos",
+    "number": 10,
+    "vice": "André Monteiro",
+    "vice_party": "Democrata",
+    "coalition": "",
+    "birth_date": "",
+    "birthplace": "Campos dos Goytacazes — RJ",
+    "profession": "Jornalista, radialista e político",
+    "education": "",
+    "trajectory": "Anthony Garotinho foi prefeito de Campos dos Goytacazes, governador do Estado do Rio de Janeiro entre 1999 e 2002 e deputado federal.\n\nEm 2026, apresentou candidatura ao Governo do Rio pelo Republicanos. As propostas abaixo resumem diretrizes divulgadas pela campanha. Em 11 de setembro de 2026, o TRE-RJ indeferiu o registro da candidatura, com possibilidade de recurso ao TSE.",
+    "status_tse": "Registro indeferido pelo TRE-RJ em 11/09/2026; cabe recurso ao TSE",
+    "photo_static": "imagens/governadores/anthony-garotinho.jpg",
+    "proposals": {
+      "Saúde": [
+        "Criar uma Central Única de Regulação de Leitos",
+        "Ampliar a realização de cirurgias e exames",
+        "Integrar tecnologicamente a rede hospitalar",
+        "Fortalecer o atendimento pelo SUS"
+      ],
+      "Educação": [
+        "Reformular os CIEPs com ensino em tempo integral",
+        "Valorizar professores e defender o pagamento do piso",
+        "Ampliar ensino tecnológico, robótica e inovação",
+        "Adotar ações para erradicação do analfabetismo"
+      ],
+      "Economia": [
+        "Criar Casas do Trabalhador",
+        "Ampliar qualificação profissional pela FAETEC",
+        "Oferecer microcrédito orientado para pequenos negócios",
+        "Criar frentes de trabalho comunitárias"
+      ],
+      "Segurança": [
+        "Implantar o modelo chamado BOPE 2.0",
+        "Ampliar o uso de inteligência policial",
+        "Manter presença permanente do Estado em áreas retomadas",
+        "Combinar segurança com programas preventivos para jovens"
+      ],
+      "Meio Ambiente": [
+        "Avançar na despoluição da Lagoa de Araruama e praias",
+        "Estimular pesca e aquicultura sustentáveis",
+        "Associar turismo à preservação ambiental",
+        "Proteger áreas de Mata Atlântica"
+      ],
+      "Infraestrutura": [
+        "Integrar diferentes modais de transporte",
+        "Fortalecer a logística regional e industrial",
+        "Apoiar infraestrutura turística no interior",
+        "Investir em conexões entre regiões e municípios"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 3,
+    "name": "Coronel Busnello",
+    "full_name": "João Jacques Soares Busnello",
+    "category": "governor",
+    "state": "RJ",
+    "party": "MISSÃO",
+    "party_name": "Partido Missão",
+    "number": 14,
+    "vice": "Rafa Luz",
+    "vice_party": "MISSÃO",
+    "coalition": "",
+    "birth_date": "",
+    "birthplace": "",
+    "profession": "Coronel da Polícia Militar",
+    "education": "",
+    "trajectory": "João Jacques Soares Busnello, conhecido como Coronel Busnello, é coronel da Polícia Militar do Rio de Janeiro.\n\nFoi subcomandante do Batalhão de Operações Policiais Especiais (Bope) e, em 2026, foi oficializado pelo Partido Missão como candidato ao Governo do Estado.",
+    "status_tse": "",
+    "photo_static": "imagens/governadores/coronel-busnello.jpg",
+    "proposals": {
+      "Saúde": [
+        "Criar Central de Vagas unificada",
+        "Implantar aplicativo de triagem e prontuário integrado",
+        "Criar 1.200 novas equipes de Saúde da Família",
+        "Realizar auditorias trimestrais obrigatórias em OSs"
+      ],
+      "Educação": [
+        "Adequar salários docentes ao piso nacional",
+        "Levar internet de alta velocidade a todas as escolas até o segundo ano",
+        "Chegar a 25 escolas cívico-militares ao fim do mandato",
+        "Criar o programa Professor Formador"
+      ],
+      "Economia": [
+        "Implantar um Plano Estadual de Reindustrialização",
+        "Criar a Zona Industrial do Leste Fluminense",
+        "Desenvolver o Vale dos Fertilizantes",
+        "Usar o Fundo Soberano para apoiar PPPs e concessões"
+      ],
+      "Segurança": [
+        "Integrar dados no Centro Integrado de Comando e Controle",
+        "Formar pelo menos 3.500 novos profissionais por ano",
+        "Implantar bases comunitárias em territórios retomados",
+        "Ampliar inteligência e tecnologia no combate ao crime"
+      ],
+      "Meio Ambiente": [
+        "Implantar o programa Baía Viva RJ",
+        "Criar passagens de fauna em rodovias",
+        "Buscar redução de atropelamentos de animais",
+        "Usar tecnologia na prevenção de desastres e fiscalização"
+      ],
+      "Infraestrutura": [
+        "Reorganizar a infraestrutura logística do estado",
+        "Apoiar novos distritos e complexos industriais",
+        "Articular PPPs para obras e concessões",
+        "Conectar formação técnica da FAETEC às vocações regionais"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 4,
+    "name": "Cyro Garcia",
+    "full_name": "Cyro Garcia",
+    "category": "governor",
+    "state": "RJ",
+    "party": "PSTU",
+    "party_name": "Partido Socialista dos Trabalhadores Unificado",
+    "number": 16,
+    "vice": "Perciliana",
+    "vice_party": "PSTU",
+    "coalition": "",
+    "birth_date": "",
+    "birthplace": "",
+    "profession": "Bancário, advogado, historiador e professor",
+    "education": "Direito pela UFRJ e estudos de pós-graduação em História pela UFF",
+    "trajectory": "Cyro Garcia é bancário, advogado, historiador, professor e militante socialista.\n\nFoi dirigente sindical e exerceu mandato como deputado federal suplente pelo Rio de Janeiro. Integra o PSTU desde a fundação do partido.",
+    "status_tse": "",
+    "photo_static": "imagens/governadores/cyro-garcia.jpg",
+    "proposals": {
+      "Saúde": [
+        "Encerrar a gestão por Organizações Sociais",
+        "Defender uma rede de saúde integralmente pública",
+        "Investir acima do piso constitucional de 12%",
+        "Ampliar saneamento e políticas de saúde mental"
+      ],
+      "Educação": [
+        "Garantir pelo menos 25% do orçamento estadual para educação",
+        "Suspender a implementação do Novo Ensino Médio",
+        "Encerrar o modelo de escolas cívico-militares",
+        "Ampliar recursos para UERJ, UENF e FAETEC"
+      ],
+      "Economia": [
+        "Criar um plano emergencial de obras públicas",
+        "Defender jornada semanal de 30 horas sem redução salarial",
+        "Estatizar setores e serviços considerados estratégicos",
+        "Financiar políticas por taxação de grandes fortunas e revisão de isenções"
+      ],
+      "Segurança": [
+        "Defender a desmilitarização da Polícia Militar",
+        "Propor uma polícia civil unificada",
+        "Priorizar políticas contra a violência policial e o racismo institucional",
+        "Mudar a política de enfrentamento às drogas"
+      ],
+      "Meio Ambiente": [
+        "Priorizar obras públicas de saneamento",
+        "Defender controle público de recursos estratégicos",
+        "Associar política ambiental à geração de empregos públicos",
+        "Ampliar investimentos em infraestrutura urbana nas periferias"
+      ],
+      "Infraestrutura": [
+        "Executar obras públicas de saneamento e moradia",
+        "Defender a estatização de SuperVia, MetrôRio e barcas",
+        "Usar frentes de obras para geração de emprego",
+        "Atuar para eliminar o déficit habitacional fluminense"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 5,
+    "name": "Douglas Ruas",
+    "full_name": "Douglas Ruas dos Santos",
+    "category": "governor",
+    "state": "RJ",
+    "party": "PL",
+    "party_name": "Partido Liberal",
+    "number": 22,
+    "vice": "Fernanda Louback",
+    "vice_party": "PL",
+    "coalition": "",
+    "birth_date": "",
+    "birthplace": "",
+    "profession": "Policial civil e político",
+    "education": "",
+    "trajectory": "Douglas Ruas é policial civil e político. Foi eleito deputado estadual em 2022 e também comandou a Secretaria de Estado das Cidades.\n\nEm 2026, presidiu a Assembleia Legislativa do Estado do Rio de Janeiro (Alerj) e foi escolhido pelo PL para disputar o Governo do Estado.",
+    "status_tse": "",
+    "photo_static": "imagens/governadores/douglas-ruas.jpg",
+    "proposals": {
+      "Saúde": [
+        "Criar Centros Integrados de Atendimento Médico Especializado",
+        "Realizar mutirões cirúrgicos também à noite e nos fins de semana",
+        "Ampliar polos de atendimento para autismo e saúde da mulher",
+        "Criar hospitais de alta resolução"
+      ],
+      "Educação": [
+        "Apoiar alfabetização na idade certa",
+        "Criar reforço intensivo para estudantes com defasagem",
+        "Adotar gestão por resultados e bonificação por metas",
+        "Expandir ensino técnico ligado às demandas regionais"
+      ],
+      "Economia": [
+        "Criar o balcão digital Investe Aqui",
+        "Implantar Escritórios Regionais de Desenvolvimento",
+        "Estimular economia criativa e cadeias produtivas locais",
+        "Vincular incentivos fiscais a geração de empregos"
+      ],
+      "Segurança": [
+        "Implantar o Escudo Fluminense nas fronteiras terrestres, marítimas e aéreas",
+        "Isolar lideranças do crime organizado no sistema prisional",
+        "Manter calendário permanente de remoção de barricadas",
+        "Expandir Delegacias da Mulher com atendimento 24 horas"
+      ],
+      "Meio Ambiente": [
+        "Instalar energia solar em prédios públicos",
+        "Encerrar lixões e ampliar destinação adequada de resíduos",
+        "Fortalecer políticas de proteção animal",
+        "Investir em prevenção de tragédias e desastres"
+      ],
+      "Infraestrutura": [
+        "Executar o programa RJ Integrado em rodovias e rede de gás",
+        "Monitorar metas de concessionárias de saneamento e transporte",
+        "Estruturar carteira estadual de PPPs e concessões",
+        "Qualificar mão de obra para logística, indústria e infraestrutura"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 6,
+    "name": "Eduardo Paes",
+    "full_name": "Eduardo da Costa Paes",
+    "category": "governor",
+    "state": "RJ",
+    "party": "PSD",
+    "party_name": "Partido Social Democrático",
+    "number": 55,
+    "vice": "Jane Reis",
+    "vice_party": "MDB",
+    "coalition": "",
+    "birth_date": "",
+    "birthplace": "",
+    "profession": "Advogado e político",
+    "education": "",
+    "trajectory": "Eduardo Paes é advogado e político. Exerceu cargos de vereador, deputado federal, secretário municipal e secretário estadual.\n\nFoi eleito prefeito do Rio de Janeiro em quatro ocasiões e deixou a Prefeitura em março de 2026 para disputar o Governo do Estado pelo PSD.",
+    "status_tse": "",
+    "photo_static": "imagens/governadores/eduardo-paes.jpg",
+    "proposals": {
+      "Saúde": [
+        "Criar hospitais regionais para ampliar o acesso",
+        "Distribuir recursos de saúde de forma mais equilibrada pelo estado",
+        "Priorizar ações imediatas para ampliar atendimento",
+        "Fortalecer a coordenação estadual da rede de saúde"
+      ],
+      "Educação": [
+        "Levar o modelo dos Ginásios Educacionais Tecnológicos para a rede estadual",
+        "Ampliar ensino com ciência, tecnologia, engenharia, artes e matemática",
+        "Melhorar indicadores de aprendizagem e o Ideb",
+        "Expandir o novo modelo escolar de forma gradual"
+      ],
+      "Economia": [
+        "Aumentar a segurança jurídica para atrair investimentos",
+        "Buscar estabilidade institucional e administrativa",
+        "Recuperar o equilíbrio fiscal do estado",
+        "Melhorar o ambiente de negócios e geração de empregos"
+      ],
+      "Segurança": [
+        "Recriar uma Secretaria de Segurança com comando integrado",
+        "Preservar autonomia orçamentária das polícias Civil e Militar",
+        "Reforçar combate ao roubo de cargas e ao financiamento do crime",
+        "Promover reformas no sistema prisional e combate ao crime organizado"
+      ],
+      "Meio Ambiente": [
+        "Criar hospitais veterinários nas regiões fluminenses",
+        "Criar núcleos contra maus-tratos nas Delegacias de Meio Ambiente",
+        "Valorizar a Laguna de Araruama como patrimônio ambiental regional",
+        "Integrar preservação ambiental, turismo e desenvolvimento regional"
+      ],
+      "Infraestrutura": [
+        "Recuperar a operação e a infraestrutura da SuperVia",
+        "Levar soluções semelhantes ao BRT para corredores intermunicipais",
+        "Ampliar integração por bilhetagem eletrônica",
+        "Criar terminais conectando diferentes modais de transporte"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 7,
+    "name": "Juliete Pantoja",
+    "full_name": "Juliete Pantoja Alves",
+    "category": "governor",
+    "state": "RJ",
+    "party": "UP",
+    "party_name": "Unidade Popular",
+    "number": 80,
+    "vice": "Bia Martins",
+    "vice_party": "UP",
+    "coalition": "",
+    "birth_date": "",
+    "birthplace": "",
+    "profession": "Educadora popular",
+    "education": "",
+    "trajectory": "Juliete Pantoja é educadora popular e dirigente da Unidade Popular no Rio de Janeiro.\n\nSua atuação política está ligada a movimentos sociais. Em 2026, voltou a ser escolhida pela UP para concorrer ao Governo do Estado.",
+    "status_tse": "",
+    "photo_static": "imagens/governadores/juliete-pantoja.png",
+    "proposals": {
+      "Saúde": [
+        "Encerrar a gestão da saúde por Organizações Sociais",
+        "Realizar concursos públicos e fortalecer administração direta",
+        "Criar laboratório estadual para medicamentos e vacinas",
+        "Buscar cobertura de atenção primária em todos os municípios"
+      ],
+      "Educação": [
+        "Defender educação pública, gratuita, laica e de qualidade",
+        "Erradicar o analfabetismo completo e funcional em um ano",
+        "Ampliar ensino integral para toda a rede até 2030",
+        "Expandir acesso ao ensino técnico e universidades estaduais"
+      ],
+      "Economia": [
+        "Reestatizar serviços de água, saneamento e energia",
+        "Criar frentes de obras públicas para geração de empregos",
+        "Criar um Banco de Desenvolvimento do Estado",
+        "Reduzir tarifas de serviços e transportes públicos"
+      ],
+      "Segurança": [
+        "Defender a desmilitarização da segurança pública",
+        "Priorizar inteligência no enfrentamento às milícias",
+        "Transformar presídios em unidades de reeducação",
+        "Combinar prevenção da violência com políticas sociais"
+      ],
+      "Meio Ambiente": [
+        "Reestatizar a CEDAE e defender gestão pública da água",
+        "Buscar universalização do saneamento",
+        "Associar política ambiental à reforma urbana",
+        "Ampliar obras públicas de saneamento e recuperação territorial"
+      ],
+      "Infraestrutura": [
+        "Executar obras públicas de saneamento e transportes pela EMOP",
+        "Implantar passe livre estudantil intermunicipal",
+        "Ampliar habitação popular e urbanização",
+        "Priorizar infraestrutura pública em áreas populares"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 8,
+    "name": "Luan Monteiro",
+    "full_name": "Luan Monteiro Paschoal Pires",
+    "category": "governor",
+    "state": "RJ",
+    "party": "PCO",
+    "party_name": "Partido da Causa Operária",
+    "number": 29,
+    "vice": "Caetano Albuquerque",
+    "vice_party": "PCO",
+    "coalition": "",
+    "birth_date": "",
+    "birthplace": "",
+    "profession": "",
+    "education": "",
+    "trajectory": "Luan Monteiro Paschoal Pires é militante do PCO e dirigente da Aliança da Juventude Revolucionária (AJR), organização ligada ao partido.\n\nEm 2026, foi escolhido pelo PCO para disputar o Governo do Estado do Rio de Janeiro.",
+    "status_tse": "",
+    "photo_static": "imagens/governadores/luan-monteiro.jpg",
+    "proposals": {
+      "Saúde": [
+        "Defender o fim do teto de gastos",
+        "Retomar e ampliar programas de provimento de médicos",
+        "Defender validação mais ampla de diplomas estrangeiros",
+        "Propor piso salarial específico para profissionais médicos"
+      ],
+      "Educação": [
+        "Ampliar verbas exclusivamente para a educação pública",
+        "Revogar reformas educacionais aprovadas após 2016",
+        "Defender livre ingresso no ensino superior público",
+        "Propor piso docente de R$ 8,5 mil e jornada máxima de 30 horas"
+      ],
+      "Economia": [
+        "Criar plano estadual de reindustrialização",
+        "Implantar Renda Básica Fluminense para famílias em pobreza extrema",
+        "Criar o BADERJ para financiamento de longo prazo",
+        "Priorizar cooperativas nas compras governamentais"
+      ],
+      "Segurança": [
+        "Defender a extinção da Polícia Militar",
+        "Criar comitês populares de autodefesa",
+        "Defender mudanças profundas no aparato de segurança",
+        "Priorizar políticas contra a violência estatal nas periferias"
+      ],
+      "Meio Ambiente": [
+        "Defender controle público de petróleo e recursos minerais",
+        "Combinar política ambiental com reforma agrária",
+        "Fortalecer economia solidária e cooperativas",
+        "Estimular cadeias regionais de reciclagem"
+      ],
+      "Infraestrutura": [
+        "Expandir ferrovias para transporte de cargas",
+        "Requalificar distritos industriais",
+        "Executar frentes de saneamento em favelas",
+        "Desenvolver complexos industriais regionais"
+      ]
+    },
+    "is_active": true
+  },
+  {
+    "legacy_id": 9,
+    "name": "William Siri",
+    "full_name": "William Carlos Brum Bispo",
+    "category": "governor",
+    "state": "RJ",
+    "party": "PSOL",
+    "party_name": "Partido Socialismo e Liberdade",
+    "number": 50,
+    "vice": "Juliana Carvalho",
+    "vice_party": "PSOL",
+    "coalition": "",
+    "birth_date": "",
+    "birthplace": "",
+    "profession": "Economista e vereador",
+    "education": "",
+    "trajectory": "William Carlos Brum Bispo, conhecido como William Siri, é economista e vereador do Rio de Janeiro pelo PSOL.\n\nFoi eleito vereador pela primeira vez em 2020 e reeleito em 2024. Em 2026, foi oficializado como candidato ao Governo do Estado.",
+    "status_tse": "",
+    "photo_static": "imagens/governadores/william-siri.jpg",
+    "proposals": {
+      "Saúde": [
+        "Reestatizar a Fundação Saúde",
+        "Criar hospitais regionais na Baixada e no Noroeste",
+        "Cumprir o mínimo constitucional de 12% para a saúde",
+        "Fortalecer saúde mental e políticas para grupos vulneráveis"
+      ],
+      "Educação": [
+        "Reabrir 147 escolas do campo",
+        "Criar escolas sustentáveis com hortas, reuso de água e energia solar",
+        "Ampliar alimentação escolar agroecológica",
+        "Integrar FAETEC, FAPERJ e universidades a setores estratégicos"
+      ],
+      "Economia": [
+        "Criar plano de reindustrialização por macrorregiões",
+        "Implantar a Renda Básica Fluminense",
+        "Criar o BADERJ para financiamento produtivo",
+        "Estimular complexos de saúde, transporte e transição verde"
+      ],
+      "Segurança": [
+        "Adotar diretrizes da ADPF 635 nas operações policiais",
+        "Ampliar Delegacias Especializadas de Atendimento à Mulher",
+        "Criar centros de mediação de conflitos nas regiões do estado",
+        "Atacar lavagem de dinheiro e financiamento do crime organizado"
+      ],
+      "Meio Ambiente": [
+        "Defender justiça socioambiental e adaptação climática",
+        "Reestatizar a CEDAE",
+        "Criar políticas de permacultura e educação ambiental",
+        "Instalar energia solar e sistemas de reuso de água em escolas"
+      ],
+      "Infraestrutura": [
+        "Ampliar a rede ferroviária de cargas",
+        "Executar obras de saneamento com geração de empregos locais",
+        "Articular infraestrutura às vocações de oito macrorregiões",
+        "Apoiar complexos industriais ligados à transição ecológica"
+      ]
+    },
+    "is_active": true
+  }
+]
