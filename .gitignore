@@ -7,3 +7,5 @@ media/*
 .env
 staticfiles/
 *.bak*
+db.sqlite3
+*.bak
