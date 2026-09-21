@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://seu-usuario.github.io/Site-UniRio/sitemap.xml
