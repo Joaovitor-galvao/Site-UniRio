@@ -10,7 +10,7 @@
     <link rel="icon" href="/static/imagens/logo.png" />
     <style>
         .flash-hero {
-            background: #612a2a;
+            background: #000000;
             padding: 2.5rem 0;
             color: #faf5e8;
         }
@@ -36,9 +36,9 @@
         }
         .filtros .btn-filtro {
             padding: 0.5rem 1.5rem;
-            border: 2px solid #cf6357;
+            border: 2px solid #b83f68;
             background: transparent;
-            color: #cf6357;
+            color: #b83f68;
             border-radius: 2rem;
             font-weight: 600;
             cursor: pointer;
@@ -47,11 +47,11 @@
             font-family: 'Segoe UI', sans-serif;
         }
         .filtros .btn-filtro:hover {
-            background: #cf6357;
+            background: #b83f68;
             color: #faf5e8;
         }
         .filtros .btn-filtro.active {
-            background: #cf6357;
+            background: #b83f68;
             color: #faf5e8;
         }
 
@@ -93,7 +93,7 @@
         }
         .flash-front {
             background: #ffffff;
-            border: 2px solid #e8a090;
+            border: 2px solid #d96b91;
         }
         .flash-front .cargo-imagem {
             width: 180px;
@@ -106,13 +106,13 @@
         .flash-front .cargo-nome {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #612a2a;
+            color: #000000;
             font-family: 'Playfair Display', Georgia, serif;
             margin: 0.3rem 0;
         }
         .flash-front .cargo-tag {
             display: inline-block;
-            background: #cf6357;
+            background: #b83f68;
             color: #faf5e8;
             padding: 0.2rem 0.8rem;
             border-radius: 2rem;
@@ -127,7 +127,7 @@
 
         .flash-back {
             transform: rotateY(180deg);
-            background: #612a2a;
+            background: #000000;
             color: #faf5e8;
             overflow-y: auto;
             padding: 1.2rem;
@@ -136,7 +136,7 @@
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: #e8a090;
+            color: #d96b91;
             font-family: 'Playfair Display', Georgia, serif;
         }
         .flash-back .back-content {
@@ -176,11 +176,11 @@
             color: #666;
             font-size: 0.95rem;
         }
-        .flash-counter strong { color: #cf6357; }
+        .flash-counter strong { color: #b83f68; }
 
         .btn-voltar-flash {
             display: inline-block;
-            background: #cf6357;
+            background: #b83f68;
             color: #faf5e8;
             padding: 0.7rem 1.5rem;
             border-radius: 2rem;
@@ -189,7 +189,7 @@
             transition: background 0.3s;
             font-family: 'Segoe UI', sans-serif;
         }
-        .btn-voltar-flash:hover { background: #74402d; color: #faf5e8; text-decoration: none; }
+        .btn-voltar-flash:hover { background: #963353; color: #faf5e8; text-decoration: none; }
 
         /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 992px) {
@@ -213,8 +213,6 @@
                     <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
                 </div>
                 <div class="top-bar__links">
-                    <a href="#">Ouvidoria</a>
-                    <a href="contato.html">Fale conosco</a>
                 </div>
             </div>
         </div>
@@ -525,5 +523,6 @@
         });
     </script>
     <script src="/static/js/search.js?v=1"></script>
+<script src="/static/js/editable-content.js?v=3"></script>
 </body>
 </html>

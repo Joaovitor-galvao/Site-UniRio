@@ -201,8 +201,6 @@
         <div class="top-bar">
             <div class="container top-bar__inner">
                 <div class="top-bar__links">
-                    <a href="#">Ouvidoria</a>
-                    <a href="contato.html">Fale conosco</a>
                 </div>
             </div>
         </div>
@@ -290,7 +288,7 @@
 
         <section class="section" style="padding-top: 0;">
             <div class="container">
-                <div class="candidatos-grid" id="candidatos-grid">
+                <div class="candidatos-grid" id="candidatos-grid" data-django-managed="true">
                                 {% for candidate in candidates %}
                                 <a href="{% url 'candidate_slug' candidate.slug %}" class="candidato-card">
                                     <img src="{{ candidate.photo_url }}" alt="{{ candidate.name }}" class="foto-candidato" onerror="this.src='/static/imagens/logo.png'">
@@ -360,5 +358,6 @@
 
     <script src="/static/js/script.js"></script>
     <script src="/static/js/search.js?v=1"></script>
+<script src="/static/js/editable-content.js?v=3"></script>
 </body>
 </html>

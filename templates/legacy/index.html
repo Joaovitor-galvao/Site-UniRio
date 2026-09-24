@@ -488,8 +488,6 @@
         <div class="top-bar">
             <div class="container top-bar__inner">
                 <div class="top-bar__links">
-                    <a href="#">Ouvidoria</a>
-                    <a href="contato.html">Fale conosco</a>
                 </div>
             </div>
         </div>
@@ -794,7 +792,7 @@
 
 
 
-                <div class="equipe-slider">
+                <div class="equipe-slider" data-django-managed="true">
 
 
                     {% for slide in team_slides %}
@@ -871,7 +869,7 @@
         <section class="section">
             <div class="container">
                 <h2 class="section-title">Notícias</h2>
-                <div class="grid-2">
+                <div class="grid-2" data-django-managed="true">
                     {% for news in home_news %}
                     <article class="card news-card">
                         <h3>{{ news.title }}</h3>
@@ -891,7 +889,7 @@
         <section class="section section--alt">
             <div class="container">
                 <h2 class="section-title">Próximos Eventos</h2>
-                <div class="grid-2">
+                <div class="grid-2" data-django-managed="true">
                     {% for event in home_events %}
                     <div class="card">
                         <h3>{{ event.title }}</h3>
@@ -1240,5 +1238,6 @@
             </script>
     <script src="/static/js/script.js"></script>
     <script src="/static/js/search.js?v=1"></script>
+<script src="/static/js/editable-content.js?v=3"></script>
 </body>
 </html>

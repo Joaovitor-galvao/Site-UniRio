@@ -81,3 +81,25 @@ class TeamSlide(models.Model):
     @property
     def lines(self):
         return [line.strip() for line in self.text.splitlines() if line.strip()]
+
+
+class EditableContent(models.Model):
+    KINDS = [("html", "Texto/HTML"), ("image", "Imagem")]
+
+    page = models.CharField("Página", max_length=255, db_index=True)
+    key = models.CharField("Chave do elemento", max_length=500)
+    label = models.CharField("Descrição", max_length=255, blank=True)
+    kind = models.CharField("Tipo", max_length=20, choices=KINDS, default="html")
+    value = models.TextField("Conteúdo")
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Conteúdo editável"
+        verbose_name_plural = "Conteúdos editáveis"
+        ordering = ["page", "key"]
+        constraints = [
+            models.UniqueConstraint(fields=["page", "key"], name="editable_content_page_key_unique")
+        ]
+
+    def __str__(self):
+        return self.label or f"{self.page} — {self.key}"

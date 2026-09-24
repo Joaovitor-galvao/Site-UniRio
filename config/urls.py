@@ -8,6 +8,9 @@ from core import views as core_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/editable-content/", core_views.editable_content_api, name="editable_content_api"),
+    path("api/editable-content/save/", core_views.editable_content_save, name="editable_content_save"),
+    path("api/editable-content/reset/", core_views.editable_content_reset, name="editable_content_reset"),
     path("", core_views.home, name="home"),
     path("index.html", core_views.home),
     path("admin-panel.html", core_views.legacy_page, {"filename": "admin-panel.html"}),

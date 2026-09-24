@@ -10,7 +10,7 @@
     <link rel="icon" href="/static/imagens/logo.png" />
     <style>
         .simulador-hero {
-            background: #612a2a;
+            background: #000000;
             padding: 2.5rem 0;
             color: #faf5e8;
         }
@@ -44,7 +44,7 @@
             margin: 0 auto 1.2rem;
         }
         .start-screen h2 {
-            color: #612a2a;
+            color: #000000;
             font-family: 'Playfair Display', Georgia, serif;
             margin: 1rem 0;
         }
@@ -69,20 +69,20 @@
         .prioridade-item:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-color: #e8a090;
+            border-color: #d96b91;
         }
         .prioridade-item .emoji { font-size: 2.5rem; display: block; }
-        .prioridade-item .label { font-weight: 600; color: #2c1e1f; font-size: 0.95rem; }
+        .prioridade-item .label { font-weight: 600; color: #111111; font-size: 0.95rem; }
         .prioridade-item .desc { font-size: 0.8rem; color: #999; }
         .prioridade-item.selected {
-            border-color: #cf6357;
-            background: #fef0ec;
+            border-color: #b83f68;
+            background: #fff5f8;
             transform: scale(1.02);
         }
-        .prioridade-item.selected .label { color: #cf6357; }
+        .prioridade-item.selected .label { color: #b83f68; }
 
         .btn-primary {
-            background: #cf6357;
+            background: #b83f68;
             color: #faf5e8;
             border: none;
             padding: 0.8rem 2.5rem;
@@ -93,15 +93,15 @@
             transition: all 0.3s;
             font-family: 'Segoe UI', sans-serif;
         }
-        .btn-primary:hover { background: #74402d; transform: scale(1.02); }
+        .btn-primary:hover { background: #963353; transform: scale(1.02); }
         .btn-primary:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
         }
         .btn-secondary {
-            background: #e0d6c8;
-            color: #2c1e1f;
+            background: #e5e5e5;
+            color: #111111;
             border: none;
             padding: 0.8rem 2rem;
             border-radius: 2rem;
@@ -122,7 +122,7 @@
         }
         .resultado-container .perfil-icon { font-size: 4rem; text-align: center; }
         .resultado-container h2 {
-            color: #612a2a;
+            color: #000000;
             font-family: 'Playfair Display', Georgia, serif;
             text-align: center;
         }
@@ -131,15 +131,15 @@
             padding: 1.5rem;
             border-radius: 0.8rem;
             margin: 1rem 0;
-            border-left: 4px solid #cf6357;
+            border-left: 4px solid #b83f68;
         }
-        .resultado-container .perfil-desc h4 { color: #612a2a; font-family: 'Playfair Display', Georgia, serif; margin-bottom: 0.3rem; }
-        .resultado-container .perfil-desc ul { list-style: disc; padding-left: 1.5rem; color: #2c1e1f; }
+        .resultado-container .perfil-desc h4 { color: #000000; font-family: 'Playfair Display', Georgia, serif; margin-bottom: 0.3rem; }
+        .resultado-container .perfil-desc ul { list-style: disc; padding-left: 1.5rem; color: #111111; }
         .resultado-container .perfil-desc ul li { margin-bottom: 0.2rem; }
 
         .prioridades-escolhidas { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 1rem 0; }
         .prioridades-escolhidas .tag {
-            background: #cf6357;
+            background: #b83f68;
             color: #faf5e8;
             padding: 0.3rem 1rem;
             border-radius: 2rem;
@@ -149,7 +149,7 @@
 
         .btn-voltar-sim {
             display: inline-block;
-            background: #cf6357;
+            background: #b83f68;
             color: #faf5e8;
             padding: 0.7rem 1.5rem;
             border-radius: 2rem;
@@ -158,7 +158,7 @@
             transition: background 0.3s;
             font-family: 'Segoe UI', sans-serif;
         }
-        .btn-voltar-sim:hover { background: #74402d; color: #faf5e8; text-decoration: none; }
+        .btn-voltar-sim:hover { background: #963353; color: #faf5e8; text-decoration: none; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -214,8 +214,6 @@
                     <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
                 </div>
                 <div class="top-bar__links">
-                    <a href="#">Ouvidoria</a>
-                    <a href="contato.html">Fale conosco</a>
                 </div>
             </div>
         </div>
@@ -321,8 +319,8 @@
                 <!-- SELEÇÃO DE PRIORIDADES -->
                 <div id="sim-content" style="display:none;">
                     <div style="text-align:center; margin-bottom:1rem;">
-                        <p style="font-size:1.1rem; color:#612a2a; font-weight:600;">
-                            Escolha até <span id="contador-selecao" style="color:#cf6357;">3</span> prioridades
+                        <p style="font-size:1.1rem; color:#000000; font-weight:600;">
+                            Escolha até <span id="contador-selecao" style="color:#b83f68;">3</span> prioridades
                         </p>
                         <p style="font-size:0.9rem; color:#666;">Clique em cada área para selecionar ou deselecionar</p>
                     </div>
@@ -378,7 +376,7 @@
                         <p>Carregando...</p>
                     </div>
 
-                    <div class="perfil-desc" id="resultado-dica" style="border-left-color: #612a2a;">
+                    <div class="perfil-desc" id="resultado-dica" style="border-left-color: #000000;">
                         <h4>💡 Dica do Voto Consciente</h4>
                         <p>Carregando...</p>
                     </div>
@@ -609,5 +607,6 @@
         });
     </script>
     <script src="/static/js/search.js?v=1"></script>
+<script src="/static/js/editable-content.js?v=3"></script>
 </body>
 </html>
