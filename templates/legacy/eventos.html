@@ -15,8 +15,6 @@
                     <button class="access-btn" id="high-contrast" onclick="toggleAltoContraste()">☀️ Alto Contraste</button>
                 </div>
                 <div class="top-bar__links">
-                    <a href="#">Ouvidoria</a>
-                    <a href="contato.html">Fale conosco</a>
                 </div>
             </div>
         </div>
@@ -104,7 +102,7 @@
 
     <section class="section">
         <div class="container">
-                <div class="grid-2">
+                <div class="grid-2" data-django-managed="true">
                     {% for event in events %}
                     <div class="card">
                         <h3>{{ event.title }}</h3>
@@ -159,5 +157,6 @@
     </footer>
     <script src="/static/js/script.js"></script>
     <script src="/static/js/search.js?v=1"></script>
+<script src="/static/js/editable-content.js?v=3"></script>
 </body>
 </html>

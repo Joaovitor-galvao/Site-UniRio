@@ -1,0 +1,18 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls %}
+
+{% block object-tools-items %}
+  {{ block.super }}
+  {% if original %}
+    <li>
+      <form method="post" action="{% url 'admin:sitepages_sitepage_restore' original.pk %}" style="display:inline; margin:0; padding:0;">
+        {% csrf_token %}
+        <button
+          type="submit"
+          onclick="return confirm('Restaurar esta página para o conteúdo, imagens e cores originais do projeto? Todas as edições desta página serão perdidas.');"
+          style="background:#b83f68;color:#fff;border:0;border-radius:4px;padding:10px 14px;cursor:pointer;font-weight:700;"
+        >↶ RESTAURAR PÁGINA ORIGINAL</button>
+      </form>
+    </li>
+  {% endif %}
+{% endblock %}

@@ -37,6 +37,9 @@ class TeamSlideAdmin(admin.ModelAdmin):
         ("Controle", {"fields": ("created_at", "updated_at"), "classes": ("collapse",)}),
     )
 
+
+
+
 admin.site.site_header = "CON(S)CIÊNCIA POLÍTICA — Administração"
 admin.site.site_title = "Admin CON(S)CIÊNCIA POLÍTICA"
 admin.site.index_title = "Conteúdo do site"
