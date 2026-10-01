@@ -2,24 +2,6 @@ from django.shortcuts import get_object_or_404, render
 from .models import Candidate
 
 
-def graficos_comparativos(request):
-    titulos = [
-        "Seguranca Publica",
-        "Economia",
-        "Saude",
-        "Educacao",
-        "Emprego",
-        "Infraestrutura",
-        "Meio Ambiente",
-        "Tecnologia",
-        "Seguridade Social",
-        "Transporte",
-        "Habitacao",
-        "Cultura"
-    ]
-    return render(request, "candidates/graficos-comparativos.html", {"titulos": titulos})
-
-
 def legacy_detail(request, category, legacy_id):
     candidate = get_object_or_404(
         Candidate,

@@ -350,6 +350,18 @@ a:hover {
     background: var(--page-primary);
     color: #ffffff;
 }
+/* ===== Página de Gráficos Comparativos ===== */
+.graficos-comparativo{padding:3rem 0;background:var(--page-background)}
+.graficos-comparativo .container{max-width:1400px}
+.graficos-comparativo h1{font-size:2.5rem;color:#000;margin-bottom:3rem;padding-left:1rem;border-left:5px solid var(--page-primary)}
+.graficos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem;margin-top:3rem}
+.grafico-card{background:#fff;border-radius:1rem;padding:2rem;border:2px solid #e0e0e0;transition:all .3s ease;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.grafico-card:hover{border-color:var(--page-primary);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.1)}
+.grafico-card h3{color:#000;font-family:'Playfair Display',Georgia,serif;font-size:1.5rem;margin-bottom:1.5rem;padding-left:1rem;border-left:5px solid var(--page-primary)}
+.grafico-card img{width:100%;height:auto;border-radius:.5rem;margin-bottom:1.5rem;display:block}
+.grafico-card .legenda{font-size:.9rem;color:#666;margin-bottom:1rem;text-align:center}
+.grafico-card .topico{font-weight:600;color:#333;display:block;margin-bottom:.5rem}
+
 /* ===== Paleta editável por página (Django Admin) ===== */
 body { background: var(--page-background); color: var(--page-text); }
 .section--alt, .card, .card--team { background: var(--page-surface); }

@@ -1,0 +1,356 @@
+{% load i18n static %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI }}" class="admin-theme">
+<head>
+    <title>{% block title %}{{ title }} | {% trans "CON(S)CIÊNCIA POLÍTICA - Admin" %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% trans 'Painel de administração do site CON(S)CIÊNCIA POLÍTICA' %}">
+    
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/custom-admin.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {% endblock %}
+    
+    {% block extrahead %}{% endblock %}
+    {% block responsive %}{% endblock %}
+    {% block favicon %}<link rel="icon" href="{% static 'img/logo.png' %}">{% endblock %}
+</head>
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+    <!-- Skip to content link for accessibility -->
+    <a href="#content" class="sr-only sr-only-focusable">{% trans "Skip to main content" %}</a>
+    
+    <!-- Top Navigation Bar -->
+    <header class="admin-header" role="banner">
+        <div class="header-container">
+            <!-- Logo and Site Title -->
+            <div class="header-brand">
+                <a href="{% url 'admin:index' %}" class="brand-link" aria-label="{% trans 'Página inicial do admin' %}">
+                    <svg class="brand-icon" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+                        <circle cx="16" cy="16" r="15" fill="#2c5530"/>
+                        <text x="16" y="21" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#faf5e8" text-anchor="middle">CP</text>
+                    </svg>
+                    <span class="brand-text">{% trans "CON(S)CIÊNCIA POLÍTICA" %}</span>
+                </a>
+            </div>
+            
+            <!-- Search -->
+            <div class="header-search" role="search">
+                <form action="{% url 'admin:search' %}" method="get" class="search-form">
+                    <label for="searchbar" class="visually-hidden">{% trans "Buscar" %}</label>
+                    <input type="search" name="q" id="searchbar" placeholder="{% trans 'Buscar...' %}" class="search-input" autocomplete="off">
+                    <button type="submit" class="search-btn" aria-label="{% trans 'Buscar' %}">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- User Menu -->
+            <div class="header-user">
+                <div class="user-menu">
+                    <button class="user-trigger" aria-expanded="false" aria-haspopup="true" aria-label="{% trans 'Menu do usuário' %}">
+                        <div class="user-avatar">
+                            {% if user.get_initials %}
+                                {{ user.get_initials }}
+                            {% else %}
+                                {{ user.username|first|upper }}
+                            {% endif %}
+                        </div>
+                        <span class="user-name">{{ user.get_short_name|default:user.username }}</span>
+                        <svg class="chevron-down" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="user-dropdown" role="menu">
+                        <div class="user-info">
+                            <strong>{{ user.get_full_name|default:user.username }}</strong>
+                            <small>{{ user.email }}</small>
+                        </div>
+                        <hr class="dropdown-divider">
+                        <a href="{% url 'admin:password_change' %}" role="menuitem">{% trans 'Alterar senha' %}</a>
+                        {% if user.is_superuser %}
+                            <a href="{% url 'admin:auth_user_changelist' %}" role="menuitem">{% trans 'Gerenciar usuários' %}</a>
+                        {% endif %}
+                        <hr class="dropdown-divider">
+                        <form action="{% url 'admin:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item logout-btn" role="menuitem">{% trans 'Sair' %}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="sidebar" aria-label="{% trans 'Alternar menu lateral' %}">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="sidebar" role="navigation" aria-label="{% trans 'Menu de navegação principal' %}">
+        <nav class="sidebar-nav" aria-label="{% trans 'Navegação principal' %}">
+            {% block sidebar %}
+            <div class="nav-section">
+                <h3 class="nav-section-title">{% trans "Dashboard" %}</h3>
+                <ul class="nav-list">
+                    <li>
+                        <a href="{% url 'admin:index' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                            </svg>
+                            <span>{% trans "Dashboard" %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            {% if user.has_module_perms.core %}
+            <div class="nav-section">
+                <h3 class="nav-section-title">{% trans "Conteúdo Institucional" %}</h3>
+                <ul class="nav-list">
+                    <li>
+                        <a href="{% url 'admin:core_event_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>{% trans "Eventos" %}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:core_news_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6 8a6 6 0 0 1 12 0"></path>
+                                <line x1="12" y1="14" x2="12" y2="16"></line>
+                            </svg>
+                            <span>{% trans "Notícias" %}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:core_teamslide_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <span>{% trans "Slides da Equipe" %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+            
+            {% if user.has_module_perms.candidates %}
+            <div class="nav-section">
+                <h3 class="nav-section-title">{% trans "Candidatos" %}</h3>
+                <ul class="nav-list">
+                    <li>
+                        <a href="{% url 'admin:candidates_candidate_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span>{% trans "Todos os Candidatos" %}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:candidates_candidate_changelist' %}?category=president" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                                <path d="M8 14h8"></path>
+                            </svg>
+                            <span>{% trans "Presidente" %}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:candidates_candidate_changelist' %}?category=governor" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                                <path d="M12 2v20"></path>
+                            </svg>
+                            <span>{% trans "Governador" %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+            
+            <div class="nav-section">
+                <h3 class="nav-section-title">{% trans "Conteúdo Institucional" %}</h3>
+                <ul class="nav-list">
+                    <li>
+                        <a href="{% url 'admin:core_contentblock_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            <span>{% trans "Blocos de Conteúdo" %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            {% if user.is_superuser %}
+            <div class="nav-section">
+                <h3 class="nav-section-title">{% trans "Administração" %}</h3>
+                <ul class="nav-list">
+                    <li>
+                        <a href="{% url 'admin:auth_user_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span>{% trans "Usuários" %}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:auth_group_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <span>{% trans "Grupos" %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+            
+            <div class="nav-section">
+                <h3 class="nav-section-title">{% trans "Interativos" %}</h3>
+                <ul class="nav-list">
+                    <li>
+                        <a href="{% url 'admin:interactive_quizquestion_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></path>
+                            </svg>
+                            <span>{% trans "Quiz" %}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:interactive_simulatorscenario_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <rect x="3" y="3" width="7" height="9"></rect>
+                                <rect x="14" y="3" width="7" height="5"></rect>
+                                <rect x="14" y="12" width="7" height="9"></rect>
+                                <rect x="3" y="16" width="7" height="5"></rect>
+                            </svg>
+                            <span>{% trans "Simulador" %}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:interactive_flashcard_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                <line x1="12" y1="4" x2="12" y2="20"></line>
+                            </svg>
+                            <span>{% trans "Flashcards" %}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin:interactive_senatorgamedata_changelist' %}" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 16.01 9 11.01"></polyline>
+                            </svg>
+                            <span>{% trans "Você é o Senador" %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% endblock %}
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="admin-main" id="content" role="main">
+        {% block messages %}
+            {% if messages %}
+            <div class="messages-container" role="region" aria-label="{% trans 'Mensagens do sistema' %}">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    <svg class="alert-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        {% if message.tags == 'success' %}
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="16 8 12 14 8 10"></polyline>
+                        {% elif message.tags == 'error' %}
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        {% elif message.tags == 'warning' %}
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.73 3.9a2 2 0 0 0-3.75 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        {% else %}
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                        {% endif %}
+                        </svg>
+                        <span>{{ message }}</span>
+                        <button type="button" class="alert-dismiss" aria-label="{% trans 'Fechar' %}">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endblock %}
+        
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="admin-footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>{% trans "CON(S)CIÊNCIA POLÍTICA" %} — {% trans "Painel de Administração" %}</p>
+            </div>
+            <div class="footer-right">
+                <p>{% trans "Desenvolvido com" %} <span class="heart" aria-hidden="true">♥</span> {% trans "para a democracia" %}</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+    
+    {% block scripts %}
+    <script src="{% static 'admin/js/core.js' %}"></script>
+    <script src="{% static 'admin/js/custom-admin.js' %}"></script>
+    {% endblock %}
+    {% block extrajs %}{% endblock %}
+</body>
+</html>

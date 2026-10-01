@@ -1,0 +1,203 @@
+{% extends "admin/change_list.html" %}
+{% load i18n static %}
+
+{% block content_title %}
+    <div class="page-header">
+        <h1 class="page-title">{{ cl.opts.verbose_name_plural|capfirst }}</h1>
+        <div class="page-actions">
+            {% if has_add_permission %}
+            <a href="{% url cl.opts|admin_urlname:'add' %}" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                {% trans "Adicionar" %} {{ cl.opts.verbose_name }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="changelist-container">
+    <div class="changelist-header">
+        <div class="changelist-search">
+            <form action="" method="get" class="search-form-wrapper">
+                <label for="searchbar" class="visually-hidden">{% trans "Buscar" %}</label>
+                <div class="search-input-wrapper">
+                    <input type="search" name="q" id="searchbar" value="{{ cl.query }}" placeholder="{% trans 'Buscar...' %}" class="form-input" autocomplete="off">
+                    <div class="search-clear" style="display:none;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="changelist-actions">
+                {% if cl.formset %}
+                <div class="bulk-actions">
+                    <select name="action" class="form-select action-select">
+                        <option value="">{% trans "Ação" %}</option>
+                        {% for action in actions %}
+                        <option value="{{ action.name }}">{{ action.description }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" name="index" class="btn btn-secondary btn-sm" disabled>{% trans "Executar" %}</button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="results-info">
+            <span class="results-count">
+                {% blocktrans count cl.result_count as count %}
+                    {{ count }} resultado
+                {% plural %}
+                    {{ count }} resultados
+                {% endblocktrans %}
+            </span>
+        </div>
+
+        <div class="table-container">
+            <form id="changelist-form" method="post">{% csrf_token %}
+                {% if cl.formset %}{{ cl.formset.management_form }}{% endif %}
+
+                <div class="table-container">
+                    <table class="table" id="changelist-table">
+                        <thead>
+                            <tr>
+                                {% if cl.formset %}
+                                <th class="checkbox-column">
+                                    <input type="checkbox" id="action-toggle" aria-label="Selecionar todos">
+                                </th>
+                                {% endif %}
+                                {% for header in cl.result_headers %}
+                                <th class="{% if header.sortable %}sortable{% endif %} {% if header.sort_priority > 0 %}sorted {{ header.sort_order }}{% endif %}">
+                                    <div class="th-content">
+                                        {% if header.sortable %}
+                                        <a href="{{ header.url }}" class="sort-link">
+                                            {{ header.text }}
+                                            {% if header.sort_priority > 0 %}
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sort-icon">
+                                                {% if header.sort_order == 'asc' %}
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                {% else %}
+                                    <polyline points="18 9 12 15 6 15"></polyline>
+                                {% endif %}
+                            </svg>
+                        {% else %}
+                            <svg class="sort-hint" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sort-hint-icon">
+                                <polyline points="18 15 12 9 6 15"></polyline>
+                                <polyline points="18 9 12 15 6 15"></polyline>
+                            </svg>
+                        {% endif %}
+                                    </a>
+                                    {% else %}
+                                        {{ header.text }}
+                                    {% endif %}
+                        </div>
+                    </th>
+                                {% endfor %}
+                                {% if cl.formset %}
+                                <th class="actions-column">{% trans "Ações" %}</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for obj in cl.result_list %}
+                            <tr class="{% cycle 'row1' 'row2' %}" data-href="{% url cl.opts|admin_urlname:'change' obj.pk|admin_urlquote %}">
+                                {% if cl.formset %}
+                                <td class="checkbox-column">
+                                    <input type="checkbox" name="{{ action_checkbox_name }}" value="{{ obj.pk }}" class="action-checkbox">
+                                </td>
+                                {% endif %}
+                                {% for field in cl.list_display %}
+                                <td class="field-{{ field }}">
+                                    {% if field == 'action_checkbox' %}
+                                    <input type="checkbox" name="{{ action_checkbox_name }}" value="{{ obj.pk }}" class="action-checkbox">
+                                    {% else %}
+                                        {% with field_name=field %}
+                                            {% include "admin/includes/field_value.html" with field_name=field_name obj=obj %}
+                                        {% endwith %}
+                                    {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="100%" class="text-center text-muted py-4">
+                                    {% trans "Nenhum registro encontrado" %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% if cl.formset %}
+                <div class="bulk-actions-footer">
+                    <div class="bulk-actions-left">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="action-toggle" aria-label="Selecionar todos">
+                            <span>{% trans "Selecionar todos" %}</span>
+                        </label>
+                        <span id="selected-count" class="selection-count"></span>
+                    </div>
+                    <div class="bulk-actions-right">
+                        <select name="action" class="form-select action-select" disabled>
+                            <option value="">{% trans "Ação" %}</option>
+                            {% for action in actions %}
+                            <option value="{{ action.name }}">{{ action.description }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" name="index" class="btn btn-secondary btn-sm" disabled>{% trans "Executar" %}</button>
+                    </div>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+
+        {% if cl.paginator.num_pages > 1 %}
+        <nav class="pagination" aria-label="Paginação">
+            <ul class="pagination-list">
+                {% if cl.page_num > 1 %}
+                <li>
+                    <a href="?p={{ cl.page_num|add:'-1' }}{% if cl.query %}&q={{ cl.query }}{% endif %}" class="pagination-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="15" y1="18" x2="9" y2="12"></line>
+                            <line x1="9" y1="12" x2="15" y2="6"></line>
+                        </svg>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for page_num in cl.paginator.page_range %}
+                    {% if page_num == cl.page_num %}
+                    <li><span class="page-current">{{ page_num }}</span></li>
+                    {% elif page_num > cl.page_num|add:'-3' and page_num < cl.page_num|add:'3' %}
+                    <li><a href="?p={{ page_num }}{% if cl.query %}&q={{ cl.query }}{% endif %}" class="page-link">{{ page_num }}</a></li>
+                    {% elif page_num == 1 or page_num == cl.paginator.num_pages %}
+                    <li><a href="?p={{ page_num }}{% if cl.query %}&q={{ cl.query }}{% endif %}" class="page-link">{{ page_num }}</a></li>
+                    {% elif page_num == cl.page_num|add:'-3' or page_num == cl.page_num|add:'3' %}
+                    <li><span class="page-ellipsis">…</span></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if cl.page_num < cl.paginator.num_pages %}
+                <li>
+                    <a href="?p={{ cl.page_num|add:'1' }}{% if cl.query %}&q={{ cl.query }}{% endif %}" class="pagination-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="9" y1="18" x2="15" y2="12"></line>
+                            <line x1="15" y1="12" x2="9" y2="6"></line>
+                        </svg>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

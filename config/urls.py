@@ -20,6 +20,7 @@ urlpatterns = [
     path("candidatos/<slug:slug>/", candidate_views.slug_detail, name="candidate_slug"),
     path("candidato-presidente-<int:legacy_id>.html", candidate_views.legacy_detail, {"category": "president"}),
     path("candidato-governador-<int:legacy_id>.html", candidate_views.legacy_detail, {"category": "governor"}),
+    path("candidatos/graficos-comparativos/", candidate_views.graficos_comparativos, name="graficos_comparativos"),
     path("ana-carla-silva.html", core_views.legacy_page, {"filename": "ana-carla-silva.html"}),
     path("candidatos-deputado-federal.html", core_views.legacy_page, {"filename": "candidatos-deputado-federal.html"}),
     path("candidatos-senador.html", core_views.legacy_page, {"filename": "candidatos-senador.html"}),
