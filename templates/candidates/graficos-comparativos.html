@@ -43,7 +43,7 @@
             <div class="graficos-grid">
                 {% for topico in titulos_governador %}
                 <div class="grafico-card">
-                    <img src="{% static 'img/graficos/{{ forloop.counter|add:6 }}.jpg' %}" alt="{{ topico }}">
+                    <img src="/static/img/graficos/{{ forloop.counter|add:6 }}.jpg" alt="{{ topico }}">
                     <div class="legenda">
                         <span class="topico">{{ topico }}</span>
                         <div class="legenda">Governador - {{ topico }}</div>
