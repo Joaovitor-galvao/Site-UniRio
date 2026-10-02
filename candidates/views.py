@@ -3,13 +3,15 @@ from .models import Candidate
 
 
 def graficos_comparativos(request):
-    titulos = [
+    titulos_presidente = [
         "Seguranca Publica",
         "Economia",
         "Saude",
         "Educacao",
         "Emprego",
         "Infraestrutura",
+    ]
+    titulos_governador = [
         "Meio Ambiente",
         "Tecnologia",
         "Seguridade Social",
@@ -17,7 +19,10 @@ def graficos_comparativos(request):
         "Habitacao",
         "Cultura"
     ]
-    return render(request, "candidates/graficos-comparativos.html", {"titulos": titulos})
+    return render(request, "candidates/graficos-comparativos.html", {
+        "titulos_presidente": titulos_presidente,
+        "titulos_governador": titulos_governador,
+    })
 
 
 def legacy_detail(request, category, legacy_id):
