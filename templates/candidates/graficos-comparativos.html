@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráficos Comparativos — CON(S)CIÊNCIA POLÍTICA</title>
-    <link rel="stylesheet" href="/static/css/style.css"><link rel="icon" href="/static/imagens/logo.png">
-    {% load static %}
+<title>Gráficos Comparativos — CON(S)CIÊNCIA POLÍTICA</title>
+<link rel="stylesheet" href="/static/css/style.css"><link rel="icon" href="/static/imagens/logo.png">
     <style>
         .graficos-comparativo{padding:3rem 0;background:var(--page-background)}
         .container{max-width:1400px}
@@ -29,7 +28,7 @@
             <div class="graficos-grid">
                 {% for topico in titulos_presidente %}
                 <div class="grafico-card">
-                    <img src="{% static 'img/graficos/{{ forloop.counter }}.jpg' %}" alt="{{ topico }}">
+                    <img src="/static/img/graficos/{{ forloop.counter }}.jpg" alt="{{ topico }}">
                     <div class="legenda">
                         <span class="topico">{{ topico }}</span>
                         <div class="legenda">Presidente - {{ topico }}</div>
