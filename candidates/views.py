@@ -13,8 +13,8 @@ def graficos_comparativos(request):
     ]
     titulos_governador = [
         "Habitacao",
-        "Seguridade Social",
         "Meio Ambiente",
+        "Seguridade Social",
         "Transporte",
         "Cultura",
         "Tecnologia"
