@@ -32,9 +32,11 @@ PAGES = [
     (200, "Ana Carla Silva", "/ana-carla-silva.html", "legacy/ana-carla-silva.html"),
     (210, "Carlos Santos", "/carlos-santos.html", "legacy/carlos-santos.html"),
     (220, "Fernanda Lima", "/fernanda-lima.html", "legacy/fernanda-lima.html"),
+    (220, "Maria Oliveira", "/maria-oliveira.html", "legacy/maria-oliveira.html"),
     (230, "João Mendes", "/joao-mendes.html", "legacy/joao-mendes.html"),
     (240, "Maria Oliveira", "/maria-oliveira.html", "legacy/maria-oliveira.html"),
     (250, "Rafael Costa", "/rafael-costa.html", "legacy/rafael-costa.html"),
+    (260, "Gráficos Comparativos", "/candidatos/graficos-comparativos.html", "legacy/graficos-comparativos.html"),
 ]
 
 EDITABLE_TAGS = {
