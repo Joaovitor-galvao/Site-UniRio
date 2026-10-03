@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gráficos Comparativos — CON(S)CIÊNCIA POLÍTICA</title>
-<link rel="stylesheet" href="/static/css/style.css"><link rel="icon" href="/static/imagens/logo.png">
+    <title>Gráficos Comparativos — CON(S)CIÊNCIA POLÍTICA</title>
+    <link rel="stylesheet" href="/static/css/style.css"><link rel="icon" href="/static/imagens/logo.png">
     <style>
         .graficos-comparativo{padding:3rem 0;background:var(--page-background)}
         .container{max-width:1400px}
@@ -14,10 +14,21 @@
         .grafico-card{background:#fff;border-radius:0.8rem;padding:1.5rem;border:2px solid #e0e0e0;transition:all .3s ease;box-shadow:0 4px 12px rgba(0,0,0,.05)}
         .grafico-card:hover{border-color:var(--page-primary);transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,.08)}
         .grafico-card h3{color:#000;font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;margin-bottom:1rem;padding-left:1rem;border-left:5px solid var(--page-primary)}
-        .grafico-card img{width:100%;height:auto;border-radius:.5rem;margin-bottom:1rem;display:block}
+        .grafico-card img{width:100%;height:auto;border-radius:.5rem;margin-bottom:1rem;display:block;cursor:zoom-in;transition:transform .3s ease}
+        .grafico-card img.zoomed{transform:scale(1.5);cursor:grab}
         .grafico-card .legenda{font-size:.8rem;color:#666;margin-bottom:0.5rem;text-align:center}
         .grafico-card .topico{font-weight:600;color:#333;display:block;margin-bottom:.3rem}
         @media(max-width:768px){.section-title{font-size:1.5rem}.grafico-card{padding:1rem}}
+        /* Lightbox overlay */
+        #grafico-lightbox{
+            display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);justify-content:center;align-items:center;z-index:9999;
+        }
+        #grafico-lightbox img{
+            max-width:90%;max-height:90%;object-fit:contain;box-shadow:0 0 30px rgba(0,0,0,0.5);cursor:pointer;
+        }
+        #grafico-lightbox .close{
+            position:absolute;top:20px;right:30px;font-size:2rem;color:#fff;cursor:pointer;z-index:10001;
+        }
     </style>
 </head>
 <body>
@@ -28,7 +39,7 @@
             <div class="graficos-grid">
                 {% for topico in titulos_presidente %}
                 <div class="grafico-card">
-                    <img src="/static/img/graficos/{{ forloop.counter }}.jpg" alt="{{ topico }}">
+                    <img src="/static/img/graficos/{{ forloop.counter }}.jpg" alt="{{ topico }}" class="grafico-img" data-index="{{ forloop.counter }}">
                     <div class="legenda">
                         <span class="topico">{{ topico }}</span>
                         <div class="legenda">Presidente - {{ topico }}</div>
@@ -43,7 +54,7 @@
             <div class="graficos-grid">
                 {% for topico in titulos_governador %}
                 <div class="grafico-card">
-                    <img src="/static/img/graficos/{{ forloop.counter|add:6 }}.jpg" alt="{{ topico }}">
+                    <img src="/static/img/graficos/{{ forloop.counter|add:6 }}.jpg" alt="{{ topico }}" class="grafico-img" data-index="{{ forloop.counter|add:6 }}">
                     <div class="legenda">
                         <span class="topico">{{ topico }}</span>
                         <div class="legenda">Governador - {{ topico }}</div>
@@ -53,7 +64,45 @@
             </div>
         </div>
     </div></section></main>
-<footer class="footer" role="contentinfo"><div class="container footer__inner"><div class="footer__col"><h3>CON(S)CIÊNCIA POLÍTICA</h3><p>Projeto de Pesquisa e Extensão</p><p>Escola de Ciência Política</p><p>UNIRIO — Universidade Federal do Estado do Rio de Janeiro</p></div><div class="footer__col"><h4>Links úteis</h4><ul><li><a href="/sobre.html">Sobre</a></li><li><a href="/eventos.html">Eventos</a></li><li><a href="/eleicoes-2026.html">Eleições 2026</a></li><li><a href="/referencias.html">Referências</a></li></ul></div><div class="footer__col"><h4>Contato</h4><p><a href="mailto:conspolitica.unirio@gmail.com">conspolitica.unirio@gmail.com</a></p></div></div><div class="footer__bottom"><div class="container"><p>&copy; 2026 CON(S)CIÊNCIA POLÍTICA — Voto Consciente UNIRIO. Todos os direitos reservados.</p></div></div></footer>
-<script src="/static/js/script.js"></script><script src="/static/js/search.js?v=1"></script><script src="/static/js/editable-content.js?v=3"></script>
+<!-- Lightbox HTML -->
+<div id="grafico-lightbox">
+    <span class="close">&times;</span>
+    <img id="lightbox-image" src="" alt="Gráfico ampliado">
+</div>
+<script>
+    // Selecionar todas as imagens de gráfico
+    const graficoImgs = document.querySelectorAll('.grafico-img');
+    const lightbox = document.getElementById('grafico-lightbox');
+    const lightboxImg = document.getElementById('lightbox-image');
+    const closeBtn = document.querySelector('.close');
+    
+    // Função para abrir lightbox
+    graficoImgs.forEach(img => {
+        img.addEventListener('click', function() {
+            // Definir a fonte da imagem ampliada baseado no data-index
+            const index = this.getAttribute('data-index');
+            if (index <= 6) {
+                // Presidentes - imagens 1 a 6
+                lightboxImg.src = '/static/img/graficos/' + index + '.jpg';
+            } else {
+                // Governadores - imagens 7 a 12
+                lightboxImg.src = '/static/img/graficos/' + (index - 6) + '.jpg';
+            }
+            lightbox.style.display = 'flex';
+        });
+    });
+    
+    // Fechar lightbox
+    closeBtn.addEventListener('click', function() {
+        lightbox.style.display = 'none';
+    });
+    
+    // Fechar ao clicar fora da imagem
+    lightbox.addEventListener('click', function(e) {
+        if (e.target !== lightboxImg) {
+            lightbox.style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>
