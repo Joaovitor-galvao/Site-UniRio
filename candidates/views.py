@@ -4,20 +4,20 @@ from .models import Candidate
 
 def graficos_comparativos(request):
     titulos_presidente = [
-        "Seguranca Publica",
-        "Economia",
-        "Saude",
         "Educacao",
-        "Emprego",
-        "Infraestrutura",
+        "Saude",
+        "Assistencia Social",
+        "Meio ambiente",
+        "Economia e Emprego",
+        "Seguranca Publica"
     ]
     titulos_governador = [
-        "Meio Ambiente",
-        "Tecnologia",
-        "Seguridade Social",
-        "Transporte",
         "Habitacao",
-        "Cultura"
+        "Seguridade Social",
+        "Meio Ambiente",
+        "Transporte",
+        "Cultura",
+        "Tecnologia"
     ]
     return render(request, "candidates/graficos-comparativos.html", {
         "titulos_presidente": titulos_presidente,
