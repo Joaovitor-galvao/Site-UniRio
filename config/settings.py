@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "core",
     "candidates",
+    "interactive",
     "sitepages.apps.SitePagesConfig",
 ]
 

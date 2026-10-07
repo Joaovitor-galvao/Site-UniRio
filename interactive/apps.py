@@ -3,6 +3,6 @@ from django.apps import AppConfig
 
 class InteractiveConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'conciencia_politica.interactive'
+    name = 'interactive'
     label = 'interactive'
     verbose_name = 'Conteúdo Interativo'
