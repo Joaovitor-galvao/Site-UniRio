@@ -40,7 +40,7 @@
             
             <!-- Search -->
             <div class="header-search" role="search">
-                <form action="{% url 'admin:search' %}" method="get" class="search-form">
+                <form action="/admin/search/" method="get" class="search-form">
                     <label for="searchbar" class="visually-hidden">{% trans "Buscar" %}</label>
                     <input type="search" name="q" id="searchbar" placeholder="{% trans 'Buscar...' %}" class="search-input" autocomplete="off">
                     <button type="submit" class="search-btn" aria-label="{% trans 'Buscar' %}">
