@@ -58,24 +58,40 @@ class SitePageAdmin(admin.ModelAdmin):
     search_fields = ("name", "path", "template_name")
     readonly_fields = ("name", "path", "template_name", "order", "updated_at")
     save_on_top = True
+
     fieldsets = (
-        ("Página", {
-            "fields": ("name", "template_name", "path"),
-            "description": "Edite abaixo as cores e, mais embaixo, os textos e imagens desta página.",
-        }),
         ("Cores desta página", {
             "fields": (
                 ("primary_color", "secondary_color"),
                 ("background_color", "surface_color"),
                 ("text_color", "dark_color", "light_color"),
             ),
-            "description": "Clique nos quadrados de cor para escolher a paleta desta página.",
+            "description": (
+                "Clique nos quadrados de cor para escolher "
+                "a paleta desta página."
+            ),
         }),
+
+        ("Informações da página", {
+            "fields": ("name", "template_name", "path"),
+            "description": (
+                "Informações técnicas da página. "
+                "Esses campos são somente para consulta."
+            ),
+            "classes": ("collapse",),
+        }),
+
         ("Avançado", {
-            "fields": ("custom_css", "is_active", "order", "updated_at"),
+            "fields": (
+                "custom_css",
+                "is_active",
+                "order",
+                "updated_at",
+            ),
             "classes": ("collapse",),
         }),
     )
+
 
     def get_urls(self):
         custom_urls = [

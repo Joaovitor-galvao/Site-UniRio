@@ -5,16 +5,15 @@
 {% block object-tools %}
   {% if change and original and not is_popup %}
     <form
-      id="restore-page-form"
+      id="restore-slide-form"
       method="post"
-      action="{% url 'admin:sitepages_sitepage_restore' original.pk %}"
+      action="{% url 'admin:core_teamslide_restore' original.pk %}"
       hidden
     >
       {% csrf_token %}
     </form>
   {% endif %}
 {% endblock %}
-
 
 {% block submit_buttons_top %}
   <div class="admin-actions-bar">
@@ -35,37 +34,15 @@
 
         <button
           type="submit"
-          form="restore-page-form"
+          form="restore-slide-form"
           class="admin-restore-btn"
-          onclick="return confirm('Restaurar esta página para o conteúdo, imagens e cores originais do projeto? Todas as edições desta página serão perdidas.');"
+          onclick="return confirm('Remover a imagem enviada e voltar para a imagem estática configurada neste slide?');"
         >
-          ↶ Restaurar Página Original
+          ↶ Restaurar imagem original
         </button>
 
       </div>
     {% endif %}
 
   </div>
-{% endblock %}
-
-
-{% block field_sets %}
-
-  {# PRIMEIRO: TEXTOS E IMAGENS EDITÁVEIS #}
-
-  {% for inline_admin_formset in inline_admin_formsets %}
-    {% include inline_admin_formset.opts.template %}
-  {% endfor %}
-
-{% endblock %}
-
-
-{% block inline_field_sets %}
-
-  {# DEPOIS: CORES E CONFIGURAÇÕES DA PÁGINA #}
-
-  {% for fieldset in adminform %}
-    {% include "admin/includes/fieldset.html" %}
-  {% endfor %}
-
 {% endblock %}
